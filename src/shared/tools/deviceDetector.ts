@@ -28,7 +28,7 @@ export const returnSpecificLayout = async({
   
   const device = await isMobileDevice(UserHeaders || '');
 
-  console.log('device',  device);
+  console.log('device',  device, "UserHeaders",UserHeaders);
   if (process.env.MOBILE_SITE_ONLY ?? device.isMobileDevice) {
     return MobileLayout({ ...props});
   } else {

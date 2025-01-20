@@ -1,6 +1,78 @@
 {
-    "InDevelopPlug":{
-        "stranica-v-razrabotke":"Page in development",
-        "pozhaluista-vernites-pozdnee":"Sorry, we are working on it"
-    }
+  "locale": "en-US",
+  "InDevelopPlug": {
+    "stranica-v-razrabotke": "Page in development",
+    "pozhaluista-vernites-pozdnee": "Sorry, we are working on it"
+  },
+  "SelectCity": {
+    "vybor-goroda": "Select city",
+    "vyberite-gorod-v-kotorom-vy-khotite-sovershit-pokupku": "Select the city in which you want to make a purchase",
+    "pereiti-k-vyboru-goroda": "Go to city selection",
+    "vybrannyi-vami-gorod": "Your chosen city",
+    "selectCity": "Select city"
+  },
+  "Product": {
+    "otzyvov": "Reviews"
+  },
+  "placeholder-search": "Find products",
+  "ProfileLabel": {
+    "profil": "Profile"
+  },
+  "katalog": "Catalog",
+  "glavnaya": "Home",
+  "korzina": "Basket",
+  "Status": {
+    "zagruzka": "Loading",
+    "oshibka": "Error",
+    "net-dannykh": "No data"
+  },
+  "AddToBasketProduct": {
+    "v-korzinu": "Add to cart"
+  },
+  "SortingProducts": {
+    "po-vozrastaniyu-ceny": "Ascending",
+    "po-ubyvaniyu-ceny": "Descending price",
+    "sortirovka": "Sorting",
+    "po-populyarnosti": "By popularity"
+  },
+  "Catalog": {
+    "katalog": "Catalog"
+  },
+  "Filter": {
+    "zagruzka-filtrov": "Loading filters...",
+    "filtry": "Filters"
+  },
+  "FilterGroupCheckBox": {
+    "pokazat-eshe": "Show more",
+    "spryatat": "Hide"
+  },
+  "BasketMobile": {
+    "korzina-pusta": "Cart is empty",
+    "na-glavnuyu": "Home",
+    "oformit-tovar": "Check out the product",
+    "avtorizuites-dlya-prodolzhenie-oformlenie": "Log in to continue registration",
+    "pusto": "Empty"
+  },
+  "BasketInfo": {
+    "obratite-vnimanie": "Please note",
+    "tovar-iz-vashei-korziny-dostupen-drugim-polzovatelyam-dlya-vykupa-esli-kto-to-vykupit-tovar-ranshe-vas-on-stanet-nedostupen-dlya-pokupki": "Items in your cart are available for purchase by other users. \nIf someone buys the item before you, it will no longer be available for purchase."
+  },
+  "ProductsInBasket": {
+    "vybrat-vsyo": "Select all",
+    "udalit-vybrannye": "Remove selected"
+  },
+  "BasketDetail": {
+    "detali-zakaza": "Order details",
+    "tovarov-na-summu": "goods worth",
+    "total": "Bottom line",
+    "ekonomiya": "Saving"
+  },
+  "NotFound": {
+    "vernutsya-na-glavnuyu": "Return to home",
+    "kak-vy-zdes-ochutilis": "How did you end up here?"
+  },
+  "Error": {
+    "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",
+    "retry": "Repeat"
+  }
 }

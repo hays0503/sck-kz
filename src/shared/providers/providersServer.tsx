@@ -1,7 +1,7 @@
 "use server";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 import "@/shared/styles/Reset.scss";
 import { ConfigProvider } from "antd";
 import ruRU from 'antd/locale/ru_RU';
@@ -17,6 +17,9 @@ export async function ProvidersServer({
 
   const locale = messages.locale;
 
+  const lang = await getLocale();
+
+
   const antdLocale = () => {
     switch (locale) {
       case 'ru-RU': return ruRU
@@ -30,8 +33,12 @@ export async function ProvidersServer({
   return (
 
     <AntdRegistry>
-      <ConfigProvider theme={{ cssVar: true }} locale={antdLocale()}>
-        <NextIntlClientProvider messages={messages}>
+      <ConfigProvider theme={{ cssVar: true,token:{
+        fontFamily: 'Inter',
+      } }} locale={antdLocale()}>
+        <NextIntlClientProvider 
+        locale={lang}
+         messages={messages}>
           {children}
         </NextIntlClientProvider>
       </ConfigProvider>

@@ -1,5 +1,7 @@
+
 import basicMetadata from "@/shared/metadata/basicMetadata";
 import { ProvidersServer } from "@/shared/providers/providersServer";
+import { getDataCity, MappedCityType } from "api-mapping/city";
 import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
@@ -10,14 +12,41 @@ const inter = Inter({
   subsets: ["cyrillic", "latin"],
 });
 
+export async function generateStaticParams() {
+  try {
+    const response = await getDataCity();
 
-export default async function CityLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string; city: string };
-}) {
+    if (response) {
+      return response.results.map((city: MappedCityType) => ({
+        city: city['en'],
+      }));
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    return [];
+  }
+}
+
+
+
+export default async function CityLayout(
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ locale: string; city: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   setRequestLocale(locale);
 
   return (

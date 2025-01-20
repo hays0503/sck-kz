@@ -6,13 +6,26 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
   // staticPageGenerationTimeout: 1000,
-  env:{
-    HOST_URL:process.env.HOST_URL,
-    HOST_PORT:process.env.HOST_PORT,
-    API_URL:process.env.API_URL,
-    API_PORT:process.env.API_PORT,
-    API_AUTH_PORT:process.env.API_AUTH_PORT,
-    API_BASKET_PORT:process.env.API_BASKET_PORT
+  images: {
+    remotePatterns: [
+      {
+        hostname: "sck-kz",
+      },
+      {
+        hostname: "185.100.67.246",
+      },
+      {
+        hostname: "127.0.0.1",
+      },
+    ],
+  },
+  env: {
+    HOST_URL: process.env.HOST_URL,
+    HOST_PORT: process.env.HOST_PORT,
+    API_URL: process.env.API_URL,
+    API_PORT: process.env.API_PORT,
+    API_AUTH_PORT: process.env.API_AUTH_PORT,
+    API_BASKET_PORT: process.env.API_BASKET_PORT,
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
@@ -27,7 +40,7 @@ const nextConfig = {
     },
   },
   pageExtensions: [`mdx`, `md`, `jsx`, `js`, `tsx`, `ts`],
-  
+
   async redirects() {
     return [
       {
@@ -72,8 +85,7 @@ const nextConfig = {
       // Фильтрация продуктов по категории
       {
         source: `/api/v1/products/filter_by_cat/:slug_cat`,
-        destination:
-          `${process.env.API_URL}:${process.env.API_PORT}/api/v1/products/filter_by_cat/:slug_cat/`,
+        destination: `${process.env.API_URL}:${process.env.API_PORT}/api/v1/products/filter_by_cat/:slug_cat/`,
       },
       // Получение списка слагов всех продуктов
       {
@@ -93,8 +105,7 @@ const nextConfig = {
       // ревью (обзоры)
       {
         source: `/api/v1/reviews/filter_by_prod/:prod_pk`,
-        destination:
-          `${process.env.API_URL}:${process.env.API_PORT}/api/v1/reviews/filter_by_prod/:prod_pk/`,
+        destination: `${process.env.API_URL}:${process.env.API_PORT}/api/v1/reviews/filter_by_prod/:prod_pk/`,
       },
       //Спецификации на товар
       {
@@ -146,8 +157,7 @@ const nextConfig = {
       //Получение ссылки на авторизацию google
       {
         source: `/auth_api/v1/auth_user/login/google`,
-        destination:
-          `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/login/google/`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/login/google/`,
       },
       //api по работе с пользователем
       // Создаем пользователя через акаунт google

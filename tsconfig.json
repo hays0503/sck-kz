@@ -22,7 +22,8 @@
       "@/*": ["./src/*"],
       "@/i18n/*": ["./src/i18n/*"],
       "$/messages/*": ["./messages/*"],
-      "!/*":["./public/*"]
+      "!/*":["./public/*"],
+      "api-mapping/*":["./app/api-mapping/*"]
 
     }
   },

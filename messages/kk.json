@@ -1,6 +1,78 @@
 {
-    "InDevelopPlug":{
-        "stranica-v-razrabotke": "Жасалып жатқан бет",
-        "pozhaluista-vernites-pozdnee": "Кейінірек оралыңыз."
-    }
+  "locale": "kz-KZ",
+  "InDevelopPlug": {
+    "stranica-v-razrabotke": "Жасалып жатқан бет",
+    "pozhaluista-vernites-pozdnee": "Кейінірек оралыңыз."
+  },
+  "SelectCity": {
+    "vybor-goroda": "Қаланы таңдаңыз",
+    "vyberite-gorod-v-kotorom-vy-khotite-sovershit-pokupku": "Сатып алғыңыз келетін қаланы таңдаңыз",
+    "pereiti-k-vyboru-goroda": "Қала таңдауына өтіңіз",
+    "vybrannyi-vami-gorod": "Сіз таңдаған қала",
+    "selectCity": "Қаланы таңдаңыз"
+  },
+  "Product": {
+    "otzyvov": "Пікірлер"
+  },
+  "placeholder-search": "Өнімдерді табыңыз",
+  "ProfileLabel": {
+    "profil": "Профиль"
+  },
+  "katalog": "Каталог",
+  "glavnaya": "Үй",
+  "korzina": "Себет",
+  "Status": {
+    "zagruzka": "Жүктелуде",
+    "oshibka": "Қате",
+    "net-dannykh": "Деректер жоқ"
+  },
+  "AddToBasketProduct": {
+    "v-korzinu": "Себетке қосу"
+  },
+  "SortingProducts": {
+    "po-vozrastaniyu-ceny": "Көтерілу",
+    "po-ubyvaniyu-ceny": "Төмендеу бағасы",
+    "sortirovka": "Сұрыптау",
+    "po-populyarnosti": "Танымалдығы бойынша"
+  },
+  "Catalog": {
+    "katalog": "Каталог"
+  },
+  "Filter": {
+    "zagruzka-filtrov": "Сүзгілер жүктелуде...",
+    "filtry": "Сүзгілер"
+  },
+  "FilterGroupCheckBox": {
+    "pokazat-eshe": "Көбірек көрсету",
+    "spryatat": "Жасыру"
+  },
+  "BasketMobile": {
+    "korzina-pusta": "Себет бос",
+    "na-glavnuyu": "Үй",
+    "oformit-tovar": "Өнімді тексеріңіз",
+    "avtorizuites-dlya-prodolzhenie-oformlenie": "Тіркеуді жалғастыру үшін жүйеге кіріңіз",
+    "pusto": "Бос"
+  },
+  "BasketInfo": {
+    "obratite-vnimanie": "Ескерту",
+    "tovar-iz-vashei-korziny-dostupen-drugim-polzovatelyam-dlya-vykupa-esli-kto-to-vykupit-tovar-ranshe-vas-on-stanet-nedostupen-dlya-pokupki": "Сіздің себетіңіздегі элементтерді басқа пайдаланушылар сатып ала алады. \nЕгер біреу сізден бұрын затты сатып алса, ол енді сатып алынбайды."
+  },
+  "ProductsInBasket": {
+    "vybrat-vsyo": "Барлығын таңдаңыз",
+    "udalit-vybrannye": "Таңдалған жою"
+  },
+  "BasketDetail": {
+    "detali-zakaza": "Тапсырыс мәліметтері",
+    "tovarov-na-summu": "тауар құны",
+    "total": "Төменгі сызық",
+    "ekonomiya": "Сақтау"
+  },
+  "NotFound": {
+    "vernutsya-na-glavnuyu": "Үйге оралу",
+    "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?"
+  },
+  "Error": {
+    "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",
+    "retry": "Қайталау"
+  }
 }

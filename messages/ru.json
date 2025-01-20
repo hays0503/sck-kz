@@ -1,6 +1,86 @@
 {
-    "InDevelopPlug":{
-        "stranica-v-razrabotke": "Страница в разработке",
-        "pozhaluista-vernites-pozdnee": "Пожалуйста, вернитесь позднее."
-    }
+  "locale": "ru-RU",
+  "InDevelopPlug": {
+    "stranica-v-razrabotke": "Страница в разработке",
+    "pozhaluista-vernites-pozdnee": "Пожалуйста, вернитесь позднее."
+  },
+  "Product": {
+    "otzyvov": "Отзывов"
+  },
+  "SelectCity": {
+    "vybor-goroda": "Выбор города",
+    "vyberite-gorod-v-kotorom-vy-khotite-sovershit-pokupku": "Выберите город в котором вы хотите совершить покупку",
+    "pereiti-k-vyboru-goroda": "Перейти к выбору города",
+    "vybrannyi-vami-gorod": "Выбранный вами город",
+    "selectCity": "Выбор города"
+  },
+  "placeholder-search": "Найти продукты",
+  "ProfileLabel": {
+    "profil": "Профиль"
+  },
+  "katalog": "Каталог",
+  "glavnaya": "Главная",
+  "korzina": "Корзина",
+  "Status": {
+    "zagruzka": "Загрузка",
+    "oshibka": "Ошибка",
+    "net-dannykh": "Нет данных"
+  },
+  "oshibka": "Ошибка",
+  "net-dannykh": "Нет данных",
+  "AddToBasketProduct": {
+    "v-korzinu": "В корзину"
+  },
+  "SortingProducts": {
+    "po-vozrastaniyu-ceny": "По возрастанию",
+    "po-ubyvaniyu-ceny": "По убыванию цены",
+    "sortirovka": "Сортировка",
+    "po-populyarnosti": "По популярности"
+  },
+  "Catalog": {
+    "katalog": "Каталог"
+  },
+  "zagruzka-filtrov": "Загрузка фильтров...",
+  "Filter": {
+    "zagruzka-filtrov": "Загрузка фильтров ...",
+    "filtry": "Фильтры"
+  },
+  "filtry": "Фильтры",
+  "FilterGroupCheckBox": {
+    "pokazat-eshe": "Показать еще",
+    "spryatat": "Спрятать"
+  },
+  "BasketMobile": {
+    "korzina-pusta": "Корзина пуста",
+    "na-glavnuyu": "На главную",
+    "oformit-tovar": "Оформить товар",
+    "avtorizuites-dlya-prodolzhenie-oformlenie": "Авторизируйтесь для продолжение оформление",
+    "pusto": "Пусто"
+  },
+  "avtorizuites-dlya-prodolzhenie-oformlenie": "Авторизуйтесь для  продолжение оформление",
+  "pusto": "Пусто",
+  "BasketInfo": {
+    "obratite-vnimanie": "Обратите внимание",
+    "tovar-iz-vashei-korziny-dostupen-drugim-polzovatelyam-dlya-vykupa-esli-kto-to-vykupit-tovar-ranshe-vas-on-stanet-nedostupen-dlya-pokupki": "Товар из вашей корзины доступен другим пользователям для выкупа. Если кто-то выкупит товар раньше вас, он станет недоступен для покупки."
+  },
+  "ProductsInBasket": {
+    "vybrat-vsyo": "Выбрать всё",
+    "udalit-vybrannye": "Удалить выбранные"
+  },
+  "BasketDetail": {
+    "detali-zakaza": "Детали заказа",
+    "tovarov-na-summu": "товаров на сумму",
+    "total": "Итог",
+    "ekonomiya": "Экономия"
+  },
+  "vernutsya-na-glavnuyu": "Вернуться на главную",
+  "NotFound": {
+    "vernutsya-na-glavnuyu": "Вернуться на главную",
+    "kak-vy-zdes-ochutilis": "Как вы здесь очутились?"
+  },
+  "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
+  "Error": {
+    "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
+    "retry": "Повторить"
+  }
 }

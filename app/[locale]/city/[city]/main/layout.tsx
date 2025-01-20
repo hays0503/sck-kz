@@ -1,6 +1,5 @@
 import basicMetadata from "@/shared/metadata/basicMetadata";
 import viewportMetadata from "@/shared/metadata/viewportMetadata";
-import { ProvidersServer } from "@/shared/providers/providersServer";
 import { Metadata, Viewport } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
@@ -13,19 +12,28 @@ const inter = Inter({
 });
 
 
-export default async function CityLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string; city: string };
-}) {
+export default async function CityLayout(
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ locale: string; city: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   setRequestLocale(locale);
 
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <ProvidersServer>{children}</ProvidersServer>
+        {children}
       </body>
     </html>
   );
