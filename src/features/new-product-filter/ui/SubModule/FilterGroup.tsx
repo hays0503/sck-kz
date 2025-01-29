@@ -50,7 +50,7 @@ const FilterGroup: React.FC<{
                             const _find = specificationDefault.find((item: FilterType) => {
                                 return item.value.find((i: { key: string; }) => i.key === key)
                             });
-                            console.log(_find)
+
                             if (_find) {
                                 // console.log(_find)
                                 const find = _find.value.find((i: { key: string; }) => i.key === key)

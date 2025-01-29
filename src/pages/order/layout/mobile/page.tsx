@@ -1,0 +1,45 @@
+"use server"
+
+import { ProvidersClient } from "@/shared/providers/providersClient";
+import { ProvidersServer } from "@/shared/providers/providersServer";
+import { HeaderText } from "@/shared/ui";
+import { FooterMobile } from "@/widgets/FooterMobile";
+import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { OrderMobile } from "@/widgets/OrderMobile";
+import { getTranslations } from "next-intl/server";
+
+
+
+
+interface OrderPageProps {
+    readonly params: {
+      locale: string;
+      city: string;
+      basket_id: string;
+    };
+  }
+  
+
+async function OrderPage({params}: OrderPageProps) {
+
+    const {basket_id} = params;
+
+    const t = await getTranslations()
+
+    return (
+        <ProvidersServer>
+        <ProvidersClient fallback={{}}>
+            <LayoutCustom
+            h="px"
+            hightHeader={70}
+            hightFooter={70}
+            headerContent={<HeaderText text={t("placing-an-order")} />}
+            content={<OrderMobile basket_id={basket_id}/>}
+            footerContent={<FooterMobile defaultKey="3" />}
+            />
+        </ProvidersClient>
+        </ProvidersServer>
+    );
+}
+
+export default OrderPage;

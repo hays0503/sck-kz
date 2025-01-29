@@ -1,6 +1,6 @@
 import { MappedCategoryType } from "api-mapping/category/all/type";
 
-const getCategory = async (): Promise<MappedCategoryType[]> => {
+const getCategoryAll = async (): Promise<{results:MappedCategoryType[]}> => {
   const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : "";
   const url = `${process.env.HOST_URL}${host_port}/api-mapping/category/all`;
   const response = await fetch(url, {
@@ -12,7 +12,7 @@ const getCategory = async (): Promise<MappedCategoryType[]> => {
 
   if (!response.ok) {
     console.error("getCategory error", "response", response);
-    return [];
+    return {results:[]};
   }
 
   const data = await response.json();
@@ -20,4 +20,4 @@ const getCategory = async (): Promise<MappedCategoryType[]> => {
   return data;
 };
 
-export default getCategory;
+export default getCategoryAll;

@@ -71,10 +71,10 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
 
         <Level2
           NameProduct={ProductName}
-          average_rating={Product.rating}
-          reviews_count={Product.reviews}
-          price={Product.price}
-          discountPrice={Product.oldPrice}
+          average_rating={Product?.rating}
+          reviews_count={Product?.reviews}
+          price={Product?.price}
+          discountPrice={Product?.oldPrice}
         />
       </Link>
       <Level3 addToCartSlot={addToCartSlot} />

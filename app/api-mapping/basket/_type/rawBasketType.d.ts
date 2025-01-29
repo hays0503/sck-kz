@@ -1,10 +1,10 @@
-import type { rawProductsType } from "api-mapping/product/_type/rawProductType";
+import type { rawProductsTypeV1 } from "api-mapping/product/_type/rawProductTypeV1";
 
 export interface rawBasketItemType {
     count: number;
     price: number;
     prod_id: number;
-    prod: rawProductsType;
+    prod: rawProductsTypeV1;
     name: string;
     slug: string;
     url: string;
@@ -17,6 +17,6 @@ export interface rawBasketItemType {
     user_id: number | null;
     completed: boolean;
     basket_items: rawBasketItemType[]|null|[];
-    gift_items: rawProductsType[]|null|[];
+    gift_items: rawProductsTypeV1[]|null|[];
   }
   

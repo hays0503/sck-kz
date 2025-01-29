@@ -1,5 +1,4 @@
 
-
 export const ApiUrl = process.env.API_URL
 const ApiPort = `:${process.env.API_PORT}`
 const ApiAuthPort = `:${process.env.API_AUTH_PORT}`
@@ -13,6 +12,7 @@ const UrlApiV1 = {
   getProducts: `/api/v1/products/`,
   getProductSpecificationsById: `/api/v1/specif/`,
   getProductReviewsById: `/api/v1/reviews/filter_by_prod/`,
+  getDescription: `/api/v1/descrip/`,
 
   getBasketApi: `/basket_api/v1/bascket`,
   getOrderApi: `/basket_api/v1/order`,
@@ -31,7 +31,8 @@ const UrlApiV2 = {
     getProducts: `/api/v2/products_v2/`,
     getProductsPopulates: `/api/v2/products_v2/popular_set/`,
     getProductsByCategory: `/api/v2/products_v2/category/`,
-    getProductsByIds:`/api/v2/products_v2/filter_by_ids/`
+    getProductsByIds:`/api/v2/products_v2/filter_by_ids/`,
+    getProductsBySlug:`/api/v2/products_v2/details/`
 }
 
 const UrlApiWithDomainV1 = {
@@ -41,6 +42,7 @@ const UrlApiWithDomainV1 = {
   getProducts: `${ApiUrl}${ApiPort}${UrlApiV1.getProducts}`,
   getProductSpecificationsById: `${ApiUrl}${ApiPort}${UrlApiV1.getProductSpecificationsById}`,
   getProductReviewsById: `${ApiUrl}${ApiPort}${UrlApiV1.getProductReviewsById}`,
+  getDescription: `${ApiUrl}${ApiPort}${UrlApiV1.getDescription}`,
 
   getBasketApi: `${ApiUrl}${ApiBasketPort}${UrlApiV1.getBasketApi}`,
   getOrderApi: `${ApiUrl}${ApiBasketPort}${UrlApiV1.getOrderApi}`,
@@ -61,6 +63,7 @@ const UrlApiWithDomainV2 = {
   getProductsPopulates: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsPopulates}`,
   getProductsByCategory: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsByCategory}`,
   getProductsByIds: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsByIds}`,
+  getProductsBySlug: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsBySlug}`,
 }
 
 const revalidateDefault = 60;

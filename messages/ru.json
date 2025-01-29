@@ -82,5 +82,58 @@
   "Error": {
     "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
     "retry": "Повторить"
+  },
+  "ProductDetailToOrder": {
+    "oformit": "Оформить",
+    "vnalichii": "В наличии"
+  },
+  "artikul": "Артикул",
+  "ProductDetail": {
+    "artikul": "Артикул",
+    "reviews": "Отзыв(ов)"
+  },
+  "InputNumberPhoneKz": {
+    "vash-telefon": "Ваш телефон",
+    "vstavit iz buffera": "Вставить из буфера обмена"
+  },
+  "LoginWithSms": {
+    "t-vvedite-nomer-telefona": "Введите номер телефона",
+    "poluchit-sms-kod": "Получить SMS-код"
+  },
+  "Credit": {
+    "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Пожалуйста используйте для регистрации ваш kaspi номер.",
+    "poluchit-sms-kod": "Получить SMS-код",
+    "oformit-tovar": "Перейти к оформлению"
+  },
+  "ProductDetailSpecification": {
+    "kharakteristiki": "Характеристики",
+    "svernut-kharakteristiki": "Свернуть характеристики",
+    "smotret-vse-kharakteristiki": "Смотреть все характеристики",
+    "kh-otsutstvuyut": "Характеристик нет"
+  },
+  "ProductDetailDescription": {
+    "opisanie": "Описание",
+    "svernut": "Свернуть",
+    "smotret-vse-opisanie": "Читать полностью"
+  },
+  "rekomenduemye-tovary": "Рекомендуемые товары",
+  "placing-an-order": "Оформление заказа",
+  "Total": {
+    "tovarov-na-summu": "товаров на сумму"
+  },
+  "CreateOrder": {
+    "oformit": "Оформить",
+    "error": "Произошла ошибка"
+  },
+  "InputOrderData": {
+    "vyberite-sposob-oplaty": "Выберите способ оплаты",
+    "vyberite-sposob-dostavki-i-sposob-oplaty": "Выберите способ доставки и способ оплаты",
+    "vyberite-adres-dostavki": "Выберите адрес доставки",
+    "dostavka": "Доставка",
+    "poluchatel": "Получатель"
+  },
+  "OrderMobile": {
+    "loading": "Загрузка",
+    "error": "Ошибка"
   }
 }

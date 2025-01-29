@@ -7,6 +7,7 @@ import addProduct from "./model/add-product";
 import deserializationToRawBasket from "./model/deserialization";
 import { UrlApiWithDomainV1 } from "@/shared/constant/url";
 import { revalidateTag } from "next/cache";
+import { rawBasketType } from "../_type/rawBasketType";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     const uuid = request.nextUrl.searchParams.get("uuid");
@@ -27,20 +28,20 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     try {
         const response = await getDataByUuid(uuid);
-        if (!response) {
-            return NextResponse.json({
-                message: "Корзина не найдена",
-            }, { status: 500 });
-        }
-        const mappedData = mapping(response);
+        // if (!response) {
+        //     return NextResponse.json({
+        //         message: "Корзина не найдена",
+        //     }, { status: 500 });
+        // }
+        const mappedData = mapping(response?? {} as rawBasketType);
         const newBasket = addProduct(mappedData,parseInt(prodId as string));
         const deserializationToRawBasketData = deserializationToRawBasket(newBasket,uuid);
         
         try {
             const requestBody = JSON.stringify(deserializationToRawBasketData);
-            const url = `${UrlApiWithDomainV1.getBasketApi}/${uuid}`;
+            const url = `${UrlApiWithDomainV1.getBasketApi}/create_or_update/`;
             const response = await fetch(url, {
-                method: "PATCH",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",                    
                 },

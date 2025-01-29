@@ -22,7 +22,7 @@ interface BasketPageProps {
 
 async function BasketPage({params}: BasketPageProps) {
 
-  const {basket_id} = params;
+  const {basket_id} = await params;
 
   const urlCity = `/api-mapping/city`
   const cities: MappedCityType[] = await getCity();

@@ -74,5 +74,57 @@
   "Error": {
     "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",
     "retry": "Repeat"
+  },
+  "ProductDetailToOrder": {
+    "oformit": "Design",
+    "vnalichii": "In stock"
+  },
+  "ProductDetail": {
+    "artikul": "Article",
+    "reviews": "Review(s)"
+  },
+  "InputNumberPhoneKz": {
+    "vash-telefon": "Your phone",
+    "vstavit iz buffera": "Insert"
+  },
+  "LoginWithSms": {
+    "t-vvedite-nomer-telefona": "Enter your phone number",
+    "poluchit-sms-kod": "Get an SMS code"
+  },
+  "Credit": {
+    "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Please use your Kaspi number to register.",
+    "poluchit-sms-kod": "Receive SMS code",
+    "oformit-tovar": "Go to checkout"
+  },
+  "ProductDetailSpecification": {
+    "kharakteristiki": "Characteristics",
+    "svernut-kharakteristiki": "Collapse characteristics",
+    "smotret-vse-kharakteristiki": "View all specifications",
+    "kh-otsutstvuyut": "No characteristics"
+  },
+  "ProductDetailDescription": {
+    "opisanie": "Description",
+    "svernut": "Collapse",
+    "smotret-vse-opisanie": "Read more"
+  },
+  "rekomenduemye-tovary": "Featured Products",
+  "placing-an-order": "Ordering of the order",
+  "Total": {
+    "tovarov-na-summu": "goods in the amount"
+  },
+  "CreateOrder": {
+    "oformit": "Design",
+    "error": "An error occurred"
+  },
+  "InputOrderData": {
+    "vyberite-sposob-oplaty": "Choose a payment method",
+    "vyberite-sposob-dostavki-i-sposob-oplaty": "Select the delivery method and payment method",
+    "vyberite-adres-dostavki": "Choose a delivery address",
+    "dostavka": "Delivery",
+    "poluchatel": "Recipient"
+  },
+  "OrderMobile": {
+    "loading": "Loading",
+    "error": "Error"
   }
 }

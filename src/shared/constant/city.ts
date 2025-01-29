@@ -30,7 +30,7 @@ const CityEnToRu: Record<string, string> = {
     "Oskemen": "Усть-Каменогорск",
     "Oral": "Уральск",
     "Pavlodar": "Павлодар",
-    "Petropavl": "Петропавловск",
+    "Petropavlovsk": "Петропавловск",
     "Priozersk": "Приозерск",
     "Ridder": "Риддер",
     "Rudny": "Рудный",

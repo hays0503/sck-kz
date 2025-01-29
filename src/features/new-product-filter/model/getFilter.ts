@@ -64,18 +64,18 @@ class GetFilterCategory {
         const productIds = data.map((product) => product.id);
         return productIds;
       } catch (error) {
-        console.log("Ошибка при получении id продуктов", error);
+        console.error("Ошибка при получении id продуктов", error);
         return [];
       }
     } catch (error) {
-      console.log("Ошибка при парсинге продуктов", error);
+      console.error("Ошибка при парсинге продуктов", error);
       return [];
     }
   }
 
   async getRawSpecsByProductIds(productIds: number[]): Promise<ProductSpecsType[]> {
     if (!productIds.length) {
-      console.log("Список идентификаторов продуктов пуст");
+      console.error("Список идентификаторов продуктов пуст");
       return [];
     }
   
@@ -148,7 +148,7 @@ class GetFilterCategory {
     return _intersection;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   union(setA: Set<number>, setB:number[]):Set<number> {
     const _union = new Set<number>(setA);
     for (const elem of setB) {

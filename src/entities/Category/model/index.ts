@@ -1,4 +1,4 @@
 import useGetCategoryRootSWR from "./getCategoryRootSWR";
-import useGetCategorySWR from "./getCategorySWR";
+import useGetCategorySWR from "./getCategoryAllSWR";
 
 export { useGetCategoryRootSWR, useGetCategorySWR };

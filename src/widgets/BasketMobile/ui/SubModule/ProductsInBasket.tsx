@@ -6,6 +6,7 @@ import type { CheckboxOptionType, CheckboxProps } from "antd";
 import RowInBasket from "./RowInBasket";
 import { MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
 import { DecButton, IncButton } from "@/features/operation-in-basket-product";
+import useBasketDelete from "@/features/operation-in-basket-product/model/useBasketDelete";
 
 const { Text } = Typography;
 const CheckboxGroup = Checkbox.Group;
@@ -17,6 +18,8 @@ interface IProductsInBasketProps {
 const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
   const [checkedList, setCheckedList] = useState<number[]>([]);
   const t = useTranslations("ProductsInBasket");
+
+  const actionDeleteProducts = useBasketDelete()
 
   const checkAll = Products.items.length === checkedList.length;
   const indeterminate = checkedList.length > 0 && checkedList.length < Products.items.length;
@@ -37,7 +40,7 @@ const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
       <RowInBasket
         BasketItem={item}
         IncBasketSlot={<IncButton prod_id={item.prod.id} />}
-        DecBasketSlot={<DecButton prod_id={item.prod.id} count={item.count}/>}
+        DecBasketSlot={<DecButton prod_id={item.prod.id} count={item.count} />}
       />
     ),
     value: item.prod.id,
@@ -57,7 +60,10 @@ const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
         >
           <Text className={style.selectAll}>{t("vybrat-vsyo")}</Text>
         </Checkbox>
-        <Button type="text">
+        <Button type="text" onClick={() => {
+          actionDeleteProducts({ prod_ids: checkedList })
+          setCheckedList([])
+        }}>
           <Text className={style.deletedSelected}>
             {`${t("udalit-vybrannye")} (${checkedList.length})`}
           </Text>

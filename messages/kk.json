@@ -74,5 +74,57 @@
   "Error": {
     "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",
     "retry": "Қайталау"
+  },
+  "ProductDetailToOrder": {
+    "oformit": "Дизайн",
+    "vnalichii": "Қоймада"
+  },
+  "ProductDetail": {
+    "artikul": "Мақала",
+    "reviews": "Пікір(лер)"
+  },
+  "InputNumberPhoneKz": {
+    "vash-telefon": "Сіздің телефоныңыз",
+    "vstavit iz buffera": "Қосу"
+  },
+  "LoginWithSms": {
+    "t-vvedite-nomer-telefona": "Телефон нөміріңізді енгізіңіз",
+    "poluchit-sms-kod": "SMS кодын алыңыз"
+  },
+  "Credit": {
+    "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Тіркелу үшін Kaspi нөміріңізді пайдаланыңыз.",
+    "poluchit-sms-kod": "SMS кодын алыңыз",
+    "oformit-tovar": "Кассаға өтіңіз"
+  },
+  "ProductDetailSpecification": {
+    "kharakteristiki": "Сипаттамалары",
+    "svernut-kharakteristiki": "Жыйрату сипаттамалары",
+    "smotret-vse-kharakteristiki": "Барлық сипаттамаларды қараңыз",
+    "kh-otsutstvuyut": "Сипаттамалары жоқ"
+  },
+  "ProductDetailDescription": {
+    "opisanie": "Сипаттама",
+    "svernut": "Жыйрату",
+    "smotret-vse-opisanie": "Толығырақ оқыңыз"
+  },
+  "rekomenduemye-tovary": "Таңдаулы өнімдер",
+  "placing-an-order": "Тапсырысқа тапсырыс беру",
+  "Total": {
+    "tovarov-na-summu": "тауарлар мөлшеріндегі тауарлар"
+  },
+  "CreateOrder": {
+    "oformit": "Жобалау",
+    "error": "Қате пайда болды"
+  },
+  "InputOrderData": {
+    "vyberite-sposob-oplaty": "Төлем әдісін таңдаңыз",
+    "vyberite-sposob-dostavki-i-sposob-oplaty": "Жеткізу әдісін және төлем әдісін таңдаңыз",
+    "vyberite-adres-dostavki": "Жеткізу мекенжайын таңдаңыз",
+    "dostavka": "Жеткізілім",
+    "poluchatel": "Алушы"
+  },
+  "OrderMobile": {
+    "loading": "Тиеу",
+    "error": "Қателік"
   }
 }

@@ -1,4 +1,4 @@
-export interface rawProductsType {
+export interface rawProductsTypeV1 {
     readonly id:                number;
     readonly tag_prod:          rawTagProd[];
     readonly price:             { [key: string]: number }|null;
@@ -19,6 +19,7 @@ export interface rawProductsType {
     readonly present:           number[];
     readonly services:          number[];
     readonly list_url_to_image: string[];
+    readonly description:       number|null;
 }
 
 export interface rawAdditionalDataType {

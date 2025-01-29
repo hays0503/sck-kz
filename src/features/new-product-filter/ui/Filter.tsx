@@ -21,7 +21,6 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
                 productIds
             ).then((data) => {
                 if (data) {
-                    console.log("data", data);
                     const a = classRunner.specificationsMapToObject(data) as unknown as FilterType[];
                     setDataSpecifications(a);
                 }
@@ -31,7 +30,6 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
 
     useEffect(() => {
         if (filterActive.length !== 0) {
-            console.log("filterActive", filterActive.length)
             api.destroy();
             api.info({
                 btn: <Link href='#catalog' scroll={true} onClick={() => {

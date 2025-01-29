@@ -19,9 +19,7 @@ interface FilterValueCheckBoxProps {
     keyString: string,
     disabled: boolean,
     productIds: number[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     filterActive: number[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setFilterActive: Dispatch<React.SetStateAction<number[]>>,
     setKeyValue: Dispatch<React.SetStateAction<string[]>>
 }

@@ -36,7 +36,6 @@ export default async function LocaleLayout(
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!routing.locales.includes(locale as any)) {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaa   ",locale);
     notFound();
   }
   

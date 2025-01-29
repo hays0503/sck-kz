@@ -5,11 +5,11 @@ import { useCallback } from "react";
 import { mutate } from "swr";
 import { useReadLocalStorage } from "usehooks-ts";
 
-interface useBasketAddProps {
+interface useBasketDecProps {
   readonly prod_id: number;
 }
 
-type useBasketAddHook = (props: useBasketAddProps) => () => void;
+type useBasketAddHook = (props: useBasketDecProps) => () => void;
 
 const useBasketDec: useBasketAddHook = ({ prod_id }) => {
   const uuid = useReadLocalStorage<string>("uuid_id");
