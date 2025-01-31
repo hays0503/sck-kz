@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import Script from "next/script";
 import { useState } from "react";
 import { Modal, Button, Input, Flex } from "antd";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 import { getSmsAuthToken, useSendSms } from "@/features/login-with-sms";
 import type { GetProps } from "antd";
 import { InputNumberPhoneKz } from "@/shared/ui";

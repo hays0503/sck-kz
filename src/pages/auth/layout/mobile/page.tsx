@@ -4,7 +4,7 @@ import getUsersBasket from "@/entities/Basket/api/getUsersBasket";
 import { iBasket } from "@/shared/types/basket";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 
 const AuthPage = () => {
   const searchParams = useSearchParams();

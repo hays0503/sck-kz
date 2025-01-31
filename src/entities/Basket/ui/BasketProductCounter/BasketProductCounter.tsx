@@ -1,7 +1,7 @@
 import { Badge } from "antd"
 import { JSX } from "react"
 import { useGetBasketCountSWR } from "../../model"
-import { useReadLocalStorage } from "usehooks-ts"
+import { useReadLocalStorage } from "@undefined/usehooks-ts"
 
 interface BasketProductCounterProps {
     readonly children: JSX.Element

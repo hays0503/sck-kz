@@ -6,7 +6,7 @@ import { BasketDetail, BasketInfo, ProductsInBasket } from "./SubModule";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { usePathname } from "next/navigation";
 import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";

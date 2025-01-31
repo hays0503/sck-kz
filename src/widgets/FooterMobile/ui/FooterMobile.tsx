@@ -3,7 +3,7 @@ import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Flex, Tabs, TabsProps } from "antd";
 import { CSSProperties, useState } from "react";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { BasketLabel, CatalogLabel, MainLabel, ProfileLabel, returnStyleActive, returnStyleActiveAccent, returnStyleActiveBg } from "./SubModule";
 
 

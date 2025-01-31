@@ -2,7 +2,7 @@
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import useLoginWithGoogle from "../model/useLoginWithGoogle";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 import { useEffect } from "react";
 import { useLocale } from "next-intl";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";

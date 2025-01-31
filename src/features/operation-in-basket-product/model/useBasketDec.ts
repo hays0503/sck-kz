@@ -3,7 +3,7 @@
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useCallback } from "react";
 import { mutate } from "swr";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
 interface useBasketDecProps {
   readonly prod_id: number;

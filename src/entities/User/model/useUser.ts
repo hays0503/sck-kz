@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getRefreshToken, getUserInfo } from "../api";
 import { ResponseUserInfo } from "../api/getUserInfo";
-import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import { useLocalStorage, useReadLocalStorage } from "@undefined/usehooks-ts";
 import { ResponseRefreshToken } from "../api/getRefreshToken";
 
 type Token = { token: string };

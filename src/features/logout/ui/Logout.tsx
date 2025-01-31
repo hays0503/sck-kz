@@ -2,7 +2,7 @@
 import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Button, Flex, Typography } from "antd";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 
 const { Title } = Typography;
 

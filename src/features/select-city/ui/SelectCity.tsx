@@ -8,7 +8,7 @@ import ComponentSelectCityList from "./ComponentSelectCityList";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { MappedCityType } from "api-mapping/city";
 import { useGetCitySWR } from "@/entities/City";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 import searchCity from "@/shared/tools/searchCity";
 
 

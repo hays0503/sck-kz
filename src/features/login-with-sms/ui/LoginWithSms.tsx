@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
 import type { GetProps } from "antd";
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";

@@ -2,7 +2,7 @@
 
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { mutate } from "swr";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
 interface useBasketDeleteProps {
   readonly prod_ids: number[];

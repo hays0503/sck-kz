@@ -8,7 +8,7 @@ import { AutoComplete, AutoCompleteProps,  Flex, Input, Typography } from "antd"
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
-import { useDebounceCallback } from "usehooks-ts";
+import { useDebounceCallback } from "@undefined/usehooks-ts";
 
 const { Text } = Typography;
 const { Search } = Input;

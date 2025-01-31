@@ -2,7 +2,7 @@
 import { Checkbox } from "antd"
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { Dispatch, useEffect, useState } from "react";
-import { useDebounceCallback } from "usehooks-ts";
+import { useDebounceCallback } from "@undefined/usehooks-ts";
 
 export type FilterType = {
     key: string;

@@ -4,7 +4,7 @@ import { UserInfo } from "@/shared/types/user";
 import { Flex, message, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import React from "react";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
 const { Title } = Typography;
 

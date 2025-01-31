@@ -4,7 +4,7 @@ import { InputOrderData,Animation } from "./SubModule"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { createOrder } from "../model"
-import { useLocalStorage } from "usehooks-ts"
+import { useLocalStorage } from "@undefined/usehooks-ts"
 
 
 const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
