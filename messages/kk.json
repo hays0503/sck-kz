@@ -186,5 +186,9 @@
   "Render": {
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "Таңдалған қалада осы санаттан тауарлар жоқ немесе олар сатып алынған шығар, кейінірек қайталаңыз ...",
     "nazad": "Көмектесу"
-  }
+  },
+  "ProductDetailBreadcrumb": {
+    "glavnaya": "Үй"
+  },
+  "nazad": "Көмектесу"
 }

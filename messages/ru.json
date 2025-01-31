@@ -18,6 +18,9 @@
   "ProfileLabel": {
     "profil": "Профиль"
   },
+  "ProductDetailBreadcrumb": {
+    "glavnaya": "Главная"
+  },
   "glavnaya": "Главная",
   "korzina": "Корзина",
   "Status": {
@@ -184,5 +187,8 @@
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "В выбранном городе нет товаров из данной категории или их уже раскупили, пожалуйста вернитесь позднее....",
     "nazad": "Назад"
   },
-  "nazad": "Назад"
+  "nazad": "Назад",
+  "katalog": "Каталог",
+  "net-dannykh": "Нет данных",
+  "oshibka": "Ошибка"
 }

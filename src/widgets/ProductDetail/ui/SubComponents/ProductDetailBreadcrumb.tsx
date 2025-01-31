@@ -17,7 +17,8 @@ const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategory
   const localeActive = useLocale();
   const city = useGetCityParams();
   const t = useTranslations("Status");
-  const tt = useTranslations();
+  const tt = useTranslations("Catalog");
+  const ttt = useTranslations("ProductDetailBreadcrumb");
   const { data, isLoading, error } = useGetCategoryAllSWR();
 
   const breadcrumbsItems: ItemType[] = useMemo(() => {
@@ -40,7 +41,7 @@ const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategory
 
     return [
       {
-        title: <Link prefetch={true} href={`/city/${city}/main`}>{tt('glavnaya')}</Link>,
+        title: <Link prefetch={true} href={`/city/${city}/main`}>{ttt('glavnaya')}</Link>,
       },
       {
         title: <Link prefetch={true} href={`/city/${city}/catalog`}>{tt('katalog')}</Link>,
@@ -49,7 +50,7 @@ const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategory
         title: <Link prefetch={true} href={`/city/${city}/catalog/${category?.slug}`}>{category?.name[localeActive]}</Link>,
       })),
     ];
-  }, [data, isLoading, error, idCategoryProduct, city, localeActive, tt]);
+  }, [data, isLoading, error, city, ttt, tt, idCategoryProduct, localeActive]);
 
   if (!data || isLoading) {
     return <div>{t("zagruzka")}</div>;

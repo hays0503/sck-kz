@@ -186,5 +186,9 @@
   "Render": {
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "There are no goods from this category in the selected city or they have already been bought out, please return later ....",
     "nazad": "Back"
-  }
+  },
+  "ProductDetailBreadcrumb": {
+    "glavnaya": "Home"
+  },
+  "nazad": "Back"
 }

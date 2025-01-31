@@ -5,7 +5,7 @@ import { CSSProperties } from "react";
 const { Text } = Typography;
 
 export const CatalogLabel: React.FC<{ styleActive: CSSProperties, styleActiveBg: string, styleActiveAccent: string }> = ({ styleActive, styleActiveBg, styleActiveAccent }) => {
-    const t = useTranslations();
+    const t = useTranslations("Catalog");
     return <Flex vertical={true} gap={"10px"} align="center">
         <svg
             width="25"
