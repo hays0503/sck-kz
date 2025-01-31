@@ -19,7 +19,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
   const currentCity = useGetCityParams();
 
   const locale = useLocale();
-  const CartWidth = 170;
+  const CartWidth = 160;
 
   const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
 
