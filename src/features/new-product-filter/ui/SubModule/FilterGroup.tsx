@@ -1,6 +1,8 @@
 "use client";
 
-import { Button, Collapse, Flex, Tag, Typography } from "antd";
+import { Button, Collapse, Flex,
+    //  Tag,
+      Typography } from "antd";
 import FilterGroupCheckBox from "./FilterGroupCheckBox";
 import { Dispatch, useState } from "react";
 import { FilterType } from "./FilterValueCheckBox";
@@ -13,7 +15,9 @@ const FilterGroup: React.FC<{
     filterActive: number[], setFilterActive: Dispatch<React.SetStateAction<number[]>>
 }> = ({ specificationDefault, filterActive, setFilterActive }) => {
 
-    const [keyValue, setKeyValue] = useState<string[]>([])
+    const [
+        // keyValue,
+         ,setKeyValue] = useState<string[]>([])
 
     const items: CollapseProps['items'] = specificationDefault.map((item) => {
         return {
@@ -31,48 +35,48 @@ const FilterGroup: React.FC<{
         }
     })
 
-    const RenderTag = () => {
-        return <Flex style={{
-            width: "calc(100%)",
-            height: "30px",
-            overflowX: "auto",
-            overflowY: "hidden",
-            whiteSpace: "nowrap"
-        }}>
-            {
-                keyValue.map((key) => {
-                    return <Tag
-                        key={`${key}`}
-                        style={{ fontSize: "12px", marginRight: "5px", marginLeft: "5px" }}
-                        closable
-                        onClose={() => {
-                            setKeyValue(keyValue.filter((i) => i !== key))
-                            const _find = specificationDefault.find((item: FilterType) => {
-                                return item.value.find((i: { key: string; }) => i.key === key)
-                            });
+    // const RenderTag = () => {
+    //     return <Flex style={{
+    //         width: "calc(100%)",
+    //         height: "30px",
+    //         overflowX: "auto",
+    //         overflowY: "hidden",
+    //         whiteSpace: "nowrap"
+    //     }}>
+    //         {
+    //             keyValue.map((key) => {
+    //                 return <Tag
+    //                     key={`${key}`}
+    //                     style={{ fontSize: "12px", marginRight: "5px", marginLeft: "5px" }}
+    //                     closable
+    //                     onClose={() => {
+    //                         setKeyValue(keyValue.filter((i) => i !== key))
+    //                         const _find = specificationDefault.find((item: FilterType) => {
+    //                             return item.value.find((i: { key: string; }) => i.key === key)
+    //                         });
 
-                            if (_find) {
-                                // console.log(_find)
-                                const find = _find.value.find((i: { key: string; }) => i.key === key)
-                                if  (find) {
-                                    const productIds = find.value.productIds;
-                                    if (productIds) {
-                                        const newFilterActive = filterActive.filter((item) => !productIds.includes(item));
-                                        setFilterActive(newFilterActive)
-                                    }
-                                }
+    //                         if (_find) {
+    //                             // console.log(_find)
+    //                             const find = _find.value.find((i: { key: string; }) => i.key === key)
+    //                             if  (find) {
+    //                                 const productIds = find.value.productIds;
+    //                                 if (productIds) {
+    //                                     const newFilterActive = filterActive.filter((item) => !productIds.includes(item));
+    //                                     setFilterActive(newFilterActive)
+    //                                 }
+    //                             }
 
-                            }
+    //                         }
 
-                        }}
-                    >
-                        {key}
-                    </Tag>
-                })
-            }
+    //                     }}
+    //                 >
+    //                     {key}
+    //                 </Tag>
+    //             })
+    //         }
 
-        </Flex>
-    }
+    //     </Flex>
+    // }
 
     return <Flex align="center" justify="center" style={{ width: "100%", backgroundColor: "#EEEFF1" }}>
         <Flex vertical justify="center" gap={5} style={{ width: "95%", paddingTop: 50 }}>
@@ -81,7 +85,7 @@ const FilterGroup: React.FC<{
                 <Title level={3}>Фильтры</Title>
                 <Button onClick={() => setFilterActive([])}>Убрать всё</Button>
             </Flex>
-            <RenderTag />
+            {/* <RenderTag /> */}
             <Collapse
                 defaultActiveKey={specificationDefault.map((item) => item.key)}
                 bordered={true}

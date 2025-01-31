@@ -102,7 +102,9 @@ const ProductCartSwiper: React.FC<IProductCartSwiperProps> = (props) => {
   } as SwiperProps;
 
   return (
-    <div style={{ width: width, height: height, overflow: "hidden" }}>
+    <div style={{ width: width, height: height, overflow: "hidden",
+
+     }}>
       {images?.length > 0 ? (
         images?.length > 1 ? (
           <RenderSwiper

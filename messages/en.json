@@ -40,7 +40,8 @@
   },
   "Filter": {
     "zagruzka-filtrov": "Loading filters...",
-    "filtry": "Filters"
+    "filtry": "Filters",
+    "pokazat-vybrannye-tovary": "Show the selected goods"
   },
   "FilterGroupCheckBox": {
     "pokazat-eshe": "Show more",
@@ -114,7 +115,8 @@
   },
   "CreateOrder": {
     "oformit": "Design",
-    "error": "An error occurred"
+    "error": "An error occurred",
+    "success": "Success"
   },
   "InputOrderData": {
     "vyberite-sposob-oplaty": "Choose a payment method",
@@ -126,5 +128,63 @@
   "OrderMobile": {
     "loading": "Loading",
     "error": "Error"
+  },
+  "login": "Entrance",
+  "Profile": {
+    "profil": "Profile",
+    "dannye-polzovatelya": "User data"
+  },
+  "ProfileMobile": {
+    "vy-ne-avtorizovany": "You are not authorized",
+    "gost": "Guest"
+  },
+  "istoriya-zakazov": "The history of orders",
+  "izbrannye-tovary": "Selected goods",
+  "otzyvy": "Reviews",
+  "sravnenie-tovarov": "Comparison of goods",
+  "nastroi-ki": "Settings",
+  "vykhod": "Exit",
+  "OrderPage": {
+    "placing-an-order": "Ordering of the order"
+  },
+  "PaymentOptions": {
+    "onlain-oplata": "Online payment",
+    "oplata-pri-poluchenii": "Payment upon receipt"
+  },
+  "Delivered": {
+    "zapolnite-pole": "Fill the fields completely",
+    "ulica": "Street",
+    "dom": "House",
+    "kvartira-ofis": "Apartment \\\\ office",
+    "podezd": "Entrance",
+    "etazh": "Floor",
+    "kommentarii-dlya-kurera": "Comment for the courier",
+    "kommentarii": "Comments",
+    "potverdet": "Confirm"
+  },
+  "Recipient": {
+    "zapolnite-pole": "Fill the fields completely",
+    "potverdet": "Confirm"
+  },
+  "Logout": {
+    "logout": "Exit"
+  },
+  "ProductPopularListPagination": {
+    "populyarnye": "Popular",
+    "uspey-kupit": "Use to buy at a bargain price"
+  },
+  "artikul": "Article",
+  "avtorizuites-dlya-prodolzhenie-oformlenie": "Autominate to continue design",
+  "dannye-polzovatelya": "User data",
+  "filtry": "Filters",
+  "kak-vy-zdes-ochutilis": "How did you find yourself here?",
+  "net-dannykh": "No data",
+  "oshibka": "Error",
+  "pusto": "Empty",
+  "vernutsya-na-glavnuyu": "Return to the main one",
+  "zagruzka-filtrov": "Download filters ...",
+  "Render": {
+    "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "There are no goods from this category in the selected city or they have already been bought out, please return later ....",
+    "nazad": "Back"
   }
 }

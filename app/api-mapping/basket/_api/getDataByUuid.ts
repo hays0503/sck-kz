@@ -4,6 +4,7 @@ import { rawBasketType } from "../_type/rawBasketType";
 
 const getDataByUuid = async (uuid_id:string): Promise<rawBasketType|undefined> => {
       const url = `${UrlApiWithDomainV1.getBasketApi}/by/${uuid_id}`;
+      console.log("====================url ", url);
       const response = await fetch(url,{
         next: {
           tags: [`basket/${uuid_id}`], 

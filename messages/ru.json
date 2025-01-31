@@ -18,7 +18,6 @@
   "ProfileLabel": {
     "profil": "Профиль"
   },
-  "katalog": "Каталог",
   "glavnaya": "Главная",
   "korzina": "Корзина",
   "Status": {
@@ -26,8 +25,6 @@
     "oshibka": "Ошибка",
     "net-dannykh": "Нет данных"
   },
-  "oshibka": "Ошибка",
-  "net-dannykh": "Нет данных",
   "AddToBasketProduct": {
     "v-korzinu": "В корзину"
   },
@@ -43,7 +40,8 @@
   "zagruzka-filtrov": "Загрузка фильтров...",
   "Filter": {
     "zagruzka-filtrov": "Загрузка фильтров ...",
-    "filtry": "Фильтры"
+    "filtry": "Фильтры",
+    "pokazat-vybrannye-tovary": "Показать выбранные товары"
   },
   "filtry": "Фильтры",
   "FilterGroupCheckBox": {
@@ -123,7 +121,8 @@
   },
   "CreateOrder": {
     "oformit": "Оформить",
-    "error": "Произошла ошибка"
+    "error": "Произошла ошибка",
+    "success": "Успех"
   },
   "InputOrderData": {
     "vyberite-sposob-oplaty": "Выберите способ оплаты",
@@ -135,5 +134,55 @@
   "OrderMobile": {
     "loading": "Загрузка",
     "error": "Ошибка"
-  }
+  },
+  "login": "Вход",
+  "Profile": {
+    "profil": "Профиль",
+    "dannye-polzovatelya": "Данные пользователя"
+  },
+  "ProfileMobile": {
+    "gost": "Гость",
+    "vy-ne-avtorizovany": "Вы не авторизованы"
+  },
+  "istoriya-zakazov": "История заказов",
+  "izbrannye-tovary": "Избранные товары",
+  "otzyvy": "Отзывы",
+  "sravnenie-tovarov": "Сравнение товаров",
+  "nastroi-ki": "Настройки",
+  "vykhod": "Выход",
+  "dannye-polzovatelya": "Данные пользователя",
+  "OrderPage": {
+    "placing-an-order": "Оформление заказа"
+  },
+  "PaymentOptions": {
+    "onlain-oplata": "Онлайн оплата",
+    "oplata-pri-poluchenii": "Оплата при получении"
+  },
+  "Delivered": {
+    "zapolnite-pole": "Заполните поля полностью",
+    "ulica": "Улица",
+    "dom": "Дом",
+    "kvartira-ofis": "Квартира\\\\Офис",
+    "podezd": "Подъезд",
+    "etazh": "Этаж",
+    "kommentarii-dlya-kurera": "Комментарий для курьера",
+    "kommentarii": "Комментарии",
+    "potverdet": "Подтвердить"
+  },
+  "Recipient": {
+    "zapolnite-pole": "Заполните поля полностью",
+    "potverdet": "Подтвердить"
+  },
+  "Logout": {
+    "logout": "Выход"
+  },
+  "ProductPopularListPagination": {
+    "populyarnye": "Популярное",
+    "uspey-kupit": "Успей купить по выгодной цене"
+  },
+  "Render": {
+    "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "В выбранном городе нет товаров из данной категории или их уже раскупили, пожалуйста вернитесь позднее....",
+    "nazad": "Назад"
+  },
+  "nazad": "Назад"
 }

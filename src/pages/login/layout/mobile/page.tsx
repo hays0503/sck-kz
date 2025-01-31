@@ -1,14 +1,14 @@
 "use server";
-
 import { LoginWithGoogle } from "@/features/login-with-google";
 import { LoginWithSms } from "@/features/login-with-sms";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import LogoSCK from "@/shared/ui/LogoSCK/LogoSCK";
+
 import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { Flex } from "antd";
-
+import { getTranslations } from "next-intl/server";
 
 
 const LoginPage = async ({
@@ -16,12 +16,11 @@ const LoginPage = async ({
 }: {
   params: { locale: string; city: string; link: string[]|undefined };
 }) => {
-
-  const { link } = await params
-
   const fallback = {};
   
-  const urlCallback = link && `/${link.join("/")}`; 
+  const urlCallback = params?.link && `/${params?.link.join("/")}`; 
+
+  const t = await getTranslations();
 
   return (
     <ProvidersServer>
@@ -32,7 +31,7 @@ const LoginPage = async ({
           hightFooter={70}
           headerContent={
             <Flex vertical={true} gap={10} justify="center" align="center">
-              <HeaderText text={"Вход"} />
+              <HeaderText text={t("login")} />
             </Flex>
           }
           content={

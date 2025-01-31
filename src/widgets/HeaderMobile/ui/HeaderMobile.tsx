@@ -32,6 +32,7 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
       >
         <SearchProduct/>
       </Flex>
+      
       <Flex
         gap={10}
         style={{
@@ -43,7 +44,8 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
         }}
       >
         <CategoryListMobile/>
-      </Flex>
+      </Flex> 
+     
     </Flex>
   );
 }

@@ -17,6 +17,9 @@ const nextConfig = {
       {
         hostname: "127.0.0.1",
       },
+      {
+        hostname: "resources.cdn-kaspi.kz",
+      },
     ],
   },
   env: {

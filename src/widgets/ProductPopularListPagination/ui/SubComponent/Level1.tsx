@@ -19,7 +19,7 @@ const Level1: React.FC<Level1Props> = (props) => {
   }
 
   return (
-    <Row gutter={[16, 16]} justify="center" align="stretch">
+    <Row gutter={[1, 1]} justify="center" align="stretch">
       {Products?.map((item, index) => (
         <Col {...ColResponsive} key={index}>
           <ProductCart

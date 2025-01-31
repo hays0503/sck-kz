@@ -1,5 +1,6 @@
-import { IOrderCreate } from "@/features/create-order/model/createOrder";
+
 import { UrlApiV1 } from "@/shared/constant/url";
+import { IOrderCreate } from "@/shared/types/order";
 
 
 

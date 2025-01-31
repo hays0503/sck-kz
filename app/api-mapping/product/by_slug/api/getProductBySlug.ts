@@ -7,7 +7,7 @@ async function getProductBySlug(slug:string): Promise<rawProductsTypeV2|undefine
     const url  = `${UrlApiWithDomainV2.getProductsBySlug}${slug}`;
     console.log("url", url);
     const response = await fetch(url, {
-        next: { revalidate: 60 }, // Данные кешируются на 60 секунд
+        // next: { revalidate: 60 }, // Данные кешируются на 60 секунд
     });    
 
     if (response.ok) {

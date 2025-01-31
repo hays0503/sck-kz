@@ -4,12 +4,13 @@ import GetFilterCategory from "../model/getFilter";
 import FilterGroup from "./SubModule/FilterGroup";
 import { FilterType } from "./SubModule/FilterValueCheckBox";
 import { Button, Flex, Modal, Spin, notification, Typography } from "antd";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const { Text } = Typography
 
 const Filter: React.FC<{ category: string, filterActive: number[], setFilterActive: Dispatch<React.SetStateAction<number[]>> }> = ({ category, filterActive, setFilterActive }) => {
-
+    const t = useTranslations("Filter")
+    const [tempFilterStorage,setTempFilterStorage]= useState<number[]>([]);
     const [dataSpecifications, setDataSpecifications] = useState<FilterType[]>();
     const [api, contextHolder] = notification.useNotification();
     const [isOpen, setIsOpen] = useState(false);
@@ -29,21 +30,26 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
     }, [category])
 
     useEffect(() => {
-        if (filterActive.length !== 0) {
+        if (tempFilterStorage.length !== 0) {
             api.destroy();
             api.info({
-                btn: <Link href='#catalog' scroll={true} onClick={() => {
-                    api.destroy();
-                    setIsOpen(false);
-                }}>Посмотреть</Link>,
-                message: `Найдено ${filterActive.length} товаров `,
+                btn: <Button style={{width:"calc(85vw - calc(var(--ant-margin-lg) * 2))",height:"30px",backgroundColor:'#4954F0',borderRadius:"10px"}}
+                    onClick={()=>{
+                        setFilterActive(tempFilterStorage)
+                    }}
+                >
+                    <Text style={{color:"#fff"}}>{t('pokazat-vybrannye-tovary')}</Text>
+                </Button>
+                ,
+                message: `Найдено ${tempFilterStorage.length} товаров `,
                 placement: 'top',
-                showProgress: true,
-                duration: 5
+                duration:6000
+                // showProgress: true,
+                // duration: 5
 
             });
         }
-    }, [api, filterActive])
+    }, [api, filterActive.length, setFilterActive, t, tempFilterStorage, tempFilterStorage.length])
 
 
     if (!dataSpecifications)
@@ -60,7 +66,7 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
                 </svg>
                 <Spin size="default" />
             </Flex>
-            <span>Загрузка фильтров...</span>
+            <span>{t('zagruzka-filtrov')}</span>
         </Flex>
     return <>
     {contextHolder}
@@ -82,7 +88,7 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
         <Modal width={"100%"} style={{ top: 0, "--ant-modal-content-padding": "0" } as CSSProperties}
             open={isOpen} footer={null} closeIcon={true} onCancel={() => setIsOpen(false)}
             mask={true} maskClosable={true}>
-            <FilterGroup specificationDefault={dataSpecifications} filterActive={filterActive} setFilterActive={setFilterActive} />
+            <FilterGroup specificationDefault={dataSpecifications} filterActive={tempFilterStorage} setFilterActive={setTempFilterStorage} />
         </Modal>
     </Flex>
     </>

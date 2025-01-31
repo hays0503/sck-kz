@@ -17,6 +17,8 @@ import { FooterMobile } from "@/widgets/FooterMobile";
 import { CategoryListMobile } from "@/widgets/CategoryListMobile";
 import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 import { getCategoryRoot } from "@/entities/Category";
+import { TabletCategory } from "@/widgets/TabletCategory/ui";
+import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
 
 
 
@@ -65,12 +67,16 @@ export default async function HomePage(props: PageProps) {
               ChangeLanguage={ChangeLanguage}
               SearchProduct={SearchProduct}
               CategoryListMobile={CategoryListMobile}
-
             />
           }
 
           content={
             <Flex vertical={true} gap={20}>
+              <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
+              <BannerMobileSlider category={categoryRoot?.results || []} />
+              <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
+              <TabletCategory />
+              <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
               <ProductPopularListPagination />
             </Flex>
           }

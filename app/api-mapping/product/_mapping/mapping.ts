@@ -12,7 +12,6 @@ const mapping = (
   rawData: rawResult[],
   city: string
 ): { results: MappedPopularProductType[]; len: number } => {
-
   const Populates: MappedProductType[] = rawData.map((product: rawResult) => ({
     id: product.id,
     slug: product.slug,
@@ -24,9 +23,12 @@ const mapping = (
     img: product.images?.map((image: rawImage) => image.image) ?? [],
     rating: typeof product.avg_rating === "number" ? product.avg_rating : 0, // Приведение к number
     price: product.stocks[city]?.price ?? 0,
-    oldPrice: product.discount ? product.stocks[city]?.price_before_discount : null,
+    oldPrice: 
+      product.stocks[city]?.price != product.stocks[city]?.price_before_discount
+        ? product.stocks[city]?.price_before_discount
+        : null,
     reviews: product.reviews_count,
-    discount: product.discount?.amount ?? null,
+    discount: product?.discount?.amount ?? null,
   }));
 
   return {

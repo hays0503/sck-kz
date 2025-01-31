@@ -21,7 +21,8 @@ const mapping = async (
   const priceInfo = rawData?.stocks?.[cityRu] ?? {};
 
   const price = priceInfo?.price ?? 0;
-  const oldPrice = rawData.discount ? priceInfo?.price_before_discount : null;
+  const oldPrice = priceInfo?.price_before_discount != priceInfo?.price ? priceInfo?.price_before_discount : null;
+  console.log("oldPrice", oldPrice);
   const quantity = priceInfo?.quantity ?? 0;
 
   //Сбор основных данных
@@ -80,19 +81,20 @@ const mapping = async (
   }
 
   let relatedProducts = [] as MappedProductType[];
-  const urlRelatedProducts = `${rawData.related_products_url}&city=${cityEn}`;
-  console.log("urlRelatedProducts=>",urlRelatedProducts);
-  const relatedProductsFetch = await fetch(urlRelatedProducts)
-    .then((res) => res.json() as Promise<{ count: number; results: rawResult[] }>)
-    .catch((e) => console.error(e));
+  if(rawData?.related_products_url !== "http://185.100.67.246:8888/api/v2/products_v2/filter_by_ids/?ids="){
+    const urlRelatedProducts = `${rawData.related_products_url}&city=${cityEn}`;
+    console.log("urlRelatedProducts=>",urlRelatedProducts);
+    const relatedProductsFetch = await fetch(urlRelatedProducts)
+      .then((res) => res.json() as Promise<{ count: number; results: rawResult[] }>)
+      .catch((e) => console.error(e));
 
-  if (relatedProductsFetch) {
-    relatedProducts = mappingForMappedList(
-      relatedProductsFetch.count,
-      relatedProductsFetch.results,
-      cityRu
-    ).results;
-    
+    if (relatedProductsFetch) {
+      relatedProducts = mappingForMappedList(
+        relatedProductsFetch.count,
+        relatedProductsFetch.results,
+        cityRu
+      ).results;      
+    }
   }
 
   const MappedData = {

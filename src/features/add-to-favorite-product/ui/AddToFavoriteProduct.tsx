@@ -51,8 +51,8 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   );
 
   return (
-    <Flex style={{ width: "25px", height: "25px" }} justify="center" align="center">
-      <Button type={"text"} shape="default" size="small" onClick={action}>
+    <Flex style={{ width: "25px", height: "25px",position:"relative",zIndex:999 }} justify="center" align="center">
+      <Button type={"text"} shape="default" size="small" onClick={action} style={{position:"absolute",bottom:"-40px"}}>
         <Heart isFavorite={isFavorite} />
       </Button>
     </Flex>

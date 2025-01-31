@@ -19,7 +19,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
   const currentCity = useGetCityParams();
 
   const locale = useLocale();
-  const CartWidth = 150;
+  const CartWidth = 180;
 
   const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
 
@@ -37,6 +37,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
         backgroundColor: "#FFFFFF",
         width: CartWidth,
         padding: "10px",
+
       }}
       itemScope
       itemType="http://schema.org/Product"
@@ -47,12 +48,16 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
         Swiper={
           <Link href={`/city/${currentCity}/product/${props.Product.slug}`} prefetch={true} style={{
             width: CartWidth,
-            height: CartWidth
+            height: CartWidth,
+            // border: "1px solid rgb(255, 223, 223)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
           }}>
             <Suspense fallback={
               <Flex justify="center" align="center" style={{
-                width: CartWidth,
-                height: CartWidth
+                width: CartWidth-30,
+                height: CartWidth-30
               }}>
                 <Spin />
               </Flex>
@@ -60,8 +65,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               <ProductCartSwiper
                 name={ProductName}
                 images={Product.img}
-                width={CartWidth}
-                height={CartWidth} //Квадрат высота равна ширине
+                width={CartWidth-30}
+                height={CartWidth-30} //Квадрат высота равна ширине
               />
             </Suspense>
           </Link>

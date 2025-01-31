@@ -40,7 +40,8 @@
   },
   "Filter": {
     "zagruzka-filtrov": "Сүзгілер жүктелуде...",
-    "filtry": "Сүзгілер"
+    "filtry": "Сүзгілер",
+    "pokazat-vybrannye-tovary": "Таңдалған тауарларды көрсету"
   },
   "FilterGroupCheckBox": {
     "pokazat-eshe": "Көбірек көрсету",
@@ -114,7 +115,8 @@
   },
   "CreateOrder": {
     "oformit": "Жобалау",
-    "error": "Қате пайда болды"
+    "error": "Қате пайда болды",
+    "success": "Табыс"
   },
   "InputOrderData": {
     "vyberite-sposob-oplaty": "Төлем әдісін таңдаңыз",
@@ -126,5 +128,63 @@
   "OrderMobile": {
     "loading": "Тиеу",
     "error": "Қателік"
+  },
+  "login": "Кіру",
+  "Profile": {
+    "profil": "Қырынан бейнелеу",
+    "dannye-polzovatelya": "Пайдаланушы деректері"
+  },
+  "ProfileMobile": {
+    "vy-ne-avtorizovany": "Сізден рұқсатсыз",
+    "gost": "Қонақ"
+  },
+  "istoriya-zakazov": "Тапсырыстардың тарихы",
+  "izbrannye-tovary": "Таңдалған тауарлар",
+  "otzyvy": "Пікірлер",
+  "sravnenie-tovarov": "Тауарларды салыстыру",
+  "nastroi-ki": "Параметрлер",
+  "vykhod": "Шығыс",
+  "OrderPage": {
+    "placing-an-order": "Тапсырысқа тапсырыс беру"
+  },
+  "PaymentOptions": {
+    "onlain-oplata": "Онлайн төлем",
+    "oplata-pri-poluchenii": "Қабылданған кезде төлем"
+  },
+  "Delivered": {
+    "zapolnite-pole": "Өрістерді толығымен толтырыңыз",
+    "ulica": "Көше",
+    "dom": "Үй",
+    "kvartira-ofis": "Пәтер \\\\ Office кеңсесі",
+    "podezd": "Кіру",
+    "etazh": "Еден",
+    "kommentarii-dlya-kurera": "Курьерге түсініктеме",
+    "kommentarii": "Пікірлер",
+    "potverdet": "Растау"
+  },
+  "Recipient": {
+    "zapolnite-pole": "Өрістерді толығымен толтырыңыз",
+    "potverdet": "Растау"
+  },
+  "Logout": {
+    "logout": "Шығыс"
+  },
+  "ProductPopularListPagination": {
+    "populyarnye": "Белгілі",
+    "uspey-kupit": "Сауда бағасынан сатып алу үшін пайдаланыңыз"
+  },
+  "artikul": "Мақала",
+  "avtorizuites-dlya-prodolzhenie-oformlenie": "Дизайнды жалғастыру үшін автоматтандыру",
+  "dannye-polzovatelya": "Пайдаланушы деректері",
+  "filtry": "Сүзгілер",
+  "kak-vy-zdes-ochutilis": "Сіз мұнда өзіңізді қалай таптыңыз?",
+  "net-dannykh": "Деректер жоқ",
+  "oshibka": "Қателік",
+  "pusto": "Ойрандау",
+  "vernutsya-na-glavnuyu": "Негізгіға оралу",
+  "zagruzka-filtrov": "Жүктеу сүзгілері ...",
+  "Render": {
+    "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "Таңдалған қалада осы санаттан тауарлар жоқ немесе олар сатып алынған шығар, кейінірек қайталаңыз ...",
+    "nazad": "Көмектесу"
   }
 }
