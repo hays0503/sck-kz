@@ -5,6 +5,7 @@ const basicMetadata = (): Metadata => {
     title: "sck.kz",
     description: "Зона уникальных цен sck.kz",
     manifest: "/manifest.json",
+    icons: "/icon/android-chrome-192x192.png"
   } as Metadata;
 };
 
