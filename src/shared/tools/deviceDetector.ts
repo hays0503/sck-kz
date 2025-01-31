@@ -1,9 +1,10 @@
+"use server"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { headers } from 'next/headers';
 import { UAParser } from 'ua-parser-js';
 
-export const isMobileDevice = (userAgent: string) => {
+export const isMobileDevice = async (userAgent: string) => {
   const parser = new UAParser(userAgent);
   const result = parser.getResult();
   return {
