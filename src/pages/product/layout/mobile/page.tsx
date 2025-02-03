@@ -10,6 +10,7 @@ import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { ProductDetail } from "@/widgets/ProductDetail";
 import { Flex } from "antd";
+import { MappedProductDetailType } from "api-mapping/product/_type/productDetail";
 import { getTranslations } from "next-intl/server";
 
 import React, { JSX } from "react";
@@ -38,7 +39,7 @@ const ProductPage: ProductPageComponent = async (props) => {
 
   const categoryAllData = await getCategoryAll();
 
-  const categoryName = findCategory(categoryAllData?.results, (category) => category.id === productData.data?.categoryId)?.name[locale] ?? "";
+  const categoryName = findCategory(categoryAllData?.results, (category) => category.id === ((productData.data) as MappedProductDetailType )?.categoryId)?.name[locale] ?? "";
 
   const fallback = {
     [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData
