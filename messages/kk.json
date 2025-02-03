@@ -70,7 +70,8 @@
   },
   "NotFound": {
     "vernutsya-na-glavnuyu": "Үйге оралу",
-    "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?"
+    "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!"
   },
   "Error": {
     "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",
@@ -181,7 +182,6 @@
   "net-dannykh": "Деректер жоқ",
   "oshibka": "Қателік",
   "pusto": "Ойрандау",
-  "vernutsya-na-glavnuyu": "Негізгіға оралу",
   "zagruzka-filtrov": "Жүктеу сүзгілері ...",
   "Render": {
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "Таңдалған қалада осы санаттан тауарлар жоқ немесе олар сатып алынған шығар, кейінірек қайталаңыз ...",

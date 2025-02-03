@@ -25,5 +25,6 @@
 } 
 
 .swiperSlide{
-  width: 90% !important;  
+  width: 90% !important;
+  max-width: 500px;  
 }

@@ -70,7 +70,8 @@
   },
   "NotFound": {
     "vernutsya-na-glavnuyu": "Return to home",
-    "kak-vy-zdes-ochutilis": "How did you end up here?"
+    "kak-vy-zdes-ochutilis": "How did you end up here?",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!"
   },
   "Error": {
     "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",
@@ -181,7 +182,6 @@
   "net-dannykh": "No data",
   "oshibka": "Error",
   "pusto": "Empty",
-  "vernutsya-na-glavnuyu": "Return to the main one",
   "zagruzka-filtrov": "Download filters ...",
   "Render": {
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "There are no goods from this category in the selected city or they have already been bought out, please return later ....",

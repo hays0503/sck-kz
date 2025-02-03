@@ -19,7 +19,7 @@ export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined
   const { smsIdentifier, setPhone } = useSendSms();
   const [, setAccessToken] = useLocalStorage("accessToken", { token: "" });
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
-  const t = useTranslations();
+  const t = useTranslations("LoginWithSms");
 
   const city = useGetCityParams();
   const router = useRouter();

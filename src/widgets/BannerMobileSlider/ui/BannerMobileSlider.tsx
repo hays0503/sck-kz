@@ -28,6 +28,12 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
         //     delay: 2000,
         //     disableOnInteraction: false,
         // },
+        // Разрешение
+        breakpoints: {
+            768: {
+                centeredSlides: false
+            }
+        },
         navigation: true,
         modules: [Autoplay, Navigation],
         lazy: "true"
@@ -47,7 +53,7 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
                         alt="banner"
                         fill
                         style={{
-                            objectFit: 'fill',
+                            objectFit: 'fill',                            
                         }}
                     />
                 </SwiperSlide>

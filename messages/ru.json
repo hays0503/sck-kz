@@ -74,10 +74,10 @@
     "total": "Итог",
     "ekonomiya": "Экономия"
   },
-  "vernutsya-na-glavnuyu": "Вернуться на главную",
   "NotFound": {
     "vernutsya-na-glavnuyu": "Вернуться на главную",
-    "kak-vy-zdes-ochutilis": "Как вы здесь очутились?"
+    "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
   },
   "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
   "Error": {
@@ -190,5 +190,6 @@
   "nazad": "Назад",
   "katalog": "Каталог",
   "net-dannykh": "Нет данных",
-  "oshibka": "Ошибка"
+  "oshibka": "Ошибка",
+  "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
 }
