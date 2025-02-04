@@ -5,8 +5,7 @@ export async function GET(request: NextRequest) {
   const queryParamsCode = request.nextUrl.searchParams.get("code");
   if (queryParamsCode) {
     const Tokens = await createGoogleAccount(queryParamsCode);
-    const port = `:${process.env.HOST_PORT}`
-    const url = `${process.env.HOST_URL}${port??""}/auth?accessTokenData=${Tokens.access.token}&refreshTokenData=${Tokens.refresh.token}`
+    const url = `${process.env.HOST_URL}/auth?accessTokenData=${Tokens.access.token}&refreshTokenData=${Tokens.refresh.token}`
     console.log("url =>   ",url)
     return Response.redirect(url);
   }
