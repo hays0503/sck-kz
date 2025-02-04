@@ -10,5 +10,5 @@ export async function GET(request: NextRequest) {
     console.log("url =>   ",url)
     return Response.redirect(url);
   }
-  return Response.redirect(process.env.HOST_URL??"http://sck.kz:3000");
+  return Response.redirect(process.env.HOST_URL??"http://sck.kz");
 }
