@@ -15,16 +15,16 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
     const { product } = props
     const t = useTranslations("ProductDetail");
     const locale = useLocale();
-    const discount = product?.discount ?? 0;
+    const discount = product?.discount ?? null;
     const name = product?.name[locale] ?? `Название товара не заданно на текущем языке - ${locale}`;
     const article = product?.article ?? "Артикул не задан";
     const rating = product?.rating
     const review = product?.reviews?.length;
-    const oldPrice = product?.oldPrice??0;
-    const price = product?.price??0;
-    const deltaPrice = price  - oldPrice;
+    const oldPrice = product?.oldPrice ?? null;
+    const price = product?.price ?? 0;
+    const deltaPrice = price - (oldPrice ?? 0);
 
-    const DiscountComponent = () => <Tag color="#19B275" style={{ width: "fit-content" }}>{`${discount} %`}</Tag>;
+    const DiscountComponent = () => <>{discount && <Tag color="#19B275" style={{ width: "fit-content" }}>{`${discount} %`}</Tag>}</>;
 
     const NameProductComponent = () => <Text strong>{name}</Text>;
 
@@ -74,47 +74,47 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
 
     const PriceDiscountProductComponent = () => {
         const textStyle = {
-            fontWeight:"400",
-            fontSize:"16px",
-            lineHeight:"24px",
-            lineHeightStep:"24px",
-            letterSpacing:"-0.6px",
+            fontWeight: "400",
+            fontSize: "16px",
+            lineHeight: "24px",
+            lineHeightStep: "24px",
+            letterSpacing: "-0.6px",
         } as CSSProperties
         return <>
-            {oldPrice && <Text delete style={{...textStyle,color:"#8C8C8C"}}>
-                { beautifulCost(oldPrice)}
-                </Text>}
+            {oldPrice && <Text delete style={{ ...textStyle, color: "#8C8C8C" }}>
+                {beautifulCost(oldPrice)}
+            </Text>}
         </>
     }
 
     const PriceDeltaComponent = () => {
         const textStyle = {
-            fontWeight:"600",
-            fontSize:"14px",
-            lineHeight:"22px",
-            lineHeightStep:"22px",
-            letterSpacing:"-0.6px",
+            fontWeight: "600",
+            fontSize: "14px",
+            lineHeight: "22px",
+            lineHeightStep: "22px",
+            letterSpacing: "-0.6px",
         } as CSSProperties
         return <>
-            <Text strong style={{...textStyle, color: "#19B275" }}>
+            {discount && <Text strong style={{ ...textStyle, color: "#19B275" }}>
                 {beautifulCost(deltaPrice)}
-                </Text>
-            </>
+            </Text>}
+        </>
     }
 
     const PriceProductComponent = () => {
         const textStyle = {
-            fontWeight:"600",
-            fontSize:"20px",
-            lineHeight:"28px",
-            lineHeightStep:"24px",
-            letterSpacing:"-0.6px",
+            fontWeight: "600",
+            fontSize: "20px",
+            lineHeight: "28px",
+            lineHeightStep: "24px",
+            letterSpacing: "-0.6px",
         } as CSSProperties
         return <>
-            <Text strong style={{...textStyle, color: "#FF3E4A" }}>
+            <Text strong style={{ ...textStyle, color: "#FF3E4A" }}>
                 {beautifulCost(price)}
-                </Text>
-            </>
+            </Text>
+        </>
     }
 
     return (<Flex vertical={true} gap={10} style={{ width: "100%", padding: "10px" }}>
@@ -136,7 +136,7 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
             <PriceDiscountProductComponent />
             <Flex justify="space-between" align="center">
                 <PriceProductComponent />
-                <PriceDeltaComponent/>
+                <PriceDeltaComponent />
             </Flex>
         </Flex>
 

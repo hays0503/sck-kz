@@ -1,9 +1,10 @@
 "use client";
 
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { mutate } from "swr";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
+import { useLocalStorage } from "@undefined/usehooks-ts";
+import { v4 as uuidv4 } from 'uuid';
 
 interface useBasketAddProps {
   readonly prod_id: number;
@@ -12,7 +13,12 @@ interface useBasketAddProps {
 type useBasketAddHook = (props: useBasketAddProps) => () => void;
 
 const useBasketAdd: useBasketAddHook = ({ prod_id }) => {
-  const uuid = useReadLocalStorage<string>("uuid_id");
+  const [uuid, setUuid] = useLocalStorage<string|null>("uuid_id",null);
+  useEffect(() => {
+    if(!uuid){
+      setUuid(uuidv4())
+    }
+  }, [setUuid, uuid]);
   const cityEn = useGetCityParams();
   const action = useCallback(async () => {
     const url = `/api-mapping/basket/add-product?uuid=${uuid}&prod_id=${prod_id}&city=${cityEn}`;

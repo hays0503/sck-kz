@@ -20,7 +20,7 @@ interface OrderPageProps {
 
 const OrderHistoryPage = async ({ params }: OrderPageProps) => {
 
-    const t = await getTranslations()
+    const t = await getTranslations("OrderHistoryPage")
 
     let fallback = {};
 

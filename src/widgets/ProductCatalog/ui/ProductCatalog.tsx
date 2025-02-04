@@ -103,6 +103,7 @@ const Render: React.FC<RenderProps> = ({
 }) => {
   const router = useRouter();
   const t = useTranslations("Render");
+  const cityEn = useGetCityParams();
   return (
     <>
       {ProductsLen <= 0 && <>
@@ -122,7 +123,7 @@ const Render: React.FC<RenderProps> = ({
         </Flex>
       </>}
       {ProductsLen > 0 && <><Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
-        <SortingProducts slugCatalog={Slug} />
+        <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${Slug}`} />
         <Filter category={Slug} filterActive={ActiveFilterProductIds} setFilterActive={SetActiveFilterProductIds} />
       </Flex>
         <Flex

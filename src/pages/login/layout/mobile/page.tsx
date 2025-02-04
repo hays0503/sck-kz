@@ -20,7 +20,7 @@ const LoginPage = async ({
   
   const urlCallback = params?.link && `/${params?.link.join("/")}`; 
 
-  const t = await getTranslations();
+  const t = await getTranslations("LoginPage");
 
   return (
     <ProvidersServer>

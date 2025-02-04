@@ -81,7 +81,7 @@ const Level2: React.FC<Level2Props> = (props) => {
   const isGuest = props.IsAnonymous;
 
   const currentCity = useGetCityParams();
-  const t = useTranslations();
+  const t = useTranslations("Level2");
   const refreshToken = useReadLocalStorage<{token: string}>("refreshToken");
 
   return (
@@ -110,7 +110,7 @@ const Level2: React.FC<Level2Props> = (props) => {
       />
       <ElementList
         title={t("izbrannye-tovary")}
-        href={`/city/${currentCity}/main`}
+        href={`/city/${currentCity}/featured-products`}
         disabled={isGuest}
         icon={
           <svg

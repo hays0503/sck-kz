@@ -15,7 +15,7 @@ const { Title } = Typography;
 
 const ProductDetailRelatedProduct: React.FC<IProductDetailRelatedProductProps> = (props) => {
     const { productsRelated } = props;
-    const t = useTranslations();
+    const t = useTranslations("ProductDetailRelatedProduct");
 
     const SwiperProps: SwiperProps = {
         slidesPerView: 2,

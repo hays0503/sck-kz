@@ -37,12 +37,17 @@ const ProductPage: ProductPageComponent = async (props) => {
     city={city}
   />;
 
+  // Извлекаем id категории к которой принадлежит товар
+  const productCategoryId = (productData.data as MappedProductDetailType).categoryId;
+
   const categoryAllData = await getCategoryAll();
 
-  const categoryName = findCategory(categoryAllData?.results, (category) => category.id === ((productData.data) as MappedProductDetailType )?.categoryId)?.name[locale] ?? "";
 
+  const categoryName = findCategory(categoryAllData?.results, (category) => category.id === productCategoryId)?.name[locale] ?? "";
+
+ 
   const fallback = {
-    [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData
+    [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData.data
   }
 
 

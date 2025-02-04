@@ -17,7 +17,7 @@ const { Search } = Input;
 export default function SearchProduct() {
   const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
   // const city = useSelectedCity();
-  const t = useTranslations();
+  const t = useTranslations("SearchProduct");
   // const locale = useLocale();
   const router = useRouter();
   const cityEn = useGetCityParams();

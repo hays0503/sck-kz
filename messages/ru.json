@@ -1,5 +1,11 @@
 {
   "locale": "ru-RU",
+  "MainLabel": {
+    "glavnaya": "Главная"
+  },
+  "FeaturedProductsPage": {
+    "izbrannye-tovary": "Избранные товары"
+  },
   "InDevelopPlug": {
     "stranica-v-razrabotke": "Страница в разработке",
     "pozhaluista-vernites-pozdnee": "Пожалуйста, вернитесь позднее."
@@ -14,15 +20,12 @@
     "vybrannyi-vami-gorod": "Выбранный вами город",
     "selectCity": "Выбор города"
   },
-  "placeholder-search": "Найти продукты",
   "ProfileLabel": {
     "profil": "Профиль"
   },
   "ProductDetailBreadcrumb": {
     "glavnaya": "Главная"
   },
-  "glavnaya": "Главная",
-  "korzina": "Корзина",
   "Status": {
     "zagruzka": "Загрузка",
     "oshibka": "Ошибка",
@@ -40,13 +43,11 @@
   "Catalog": {
     "katalog": "Каталог"
   },
-  "zagruzka-filtrov": "Загрузка фильтров...",
   "Filter": {
     "zagruzka-filtrov": "Загрузка фильтров ...",
     "filtry": "Фильтры",
     "pokazat-vybrannye-tovary": "Показать выбранные товары"
   },
-  "filtry": "Фильтры",
   "FilterGroupCheckBox": {
     "pokazat-eshe": "Показать еще",
     "spryatat": "Спрятать"
@@ -58,8 +59,6 @@
     "avtorizuites-dlya-prodolzhenie-oformlenie": "Авторизируйтесь для продолжение оформление",
     "pusto": "Пусто"
   },
-  "avtorizuites-dlya-prodolzhenie-oformlenie": "Авторизуйтесь для  продолжение оформление",
-  "pusto": "Пусто",
   "BasketInfo": {
     "obratite-vnimanie": "Обратите внимание",
     "tovar-iz-vashei-korziny-dostupen-drugim-polzovatelyam-dlya-vykupa-esli-kto-to-vykupit-tovar-ranshe-vas-on-stanet-nedostupen-dlya-pokupki": "Товар из вашей корзины доступен другим пользователям для выкупа. Если кто-то выкупит товар раньше вас, он станет недоступен для покупки."
@@ -79,7 +78,6 @@
     "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
     "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
   },
-  "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
   "Error": {
     "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
     "retry": "Повторить"
@@ -88,7 +86,6 @@
     "oformit": "Оформить",
     "vnalichii": "В наличии"
   },
-  "artikul": "Артикул",
   "ProductDetail": {
     "artikul": "Артикул",
     "reviews": "Отзыв(ов)"
@@ -117,8 +114,6 @@
     "svernut": "Свернуть",
     "smotret-vse-opisanie": "Читать полностью"
   },
-  "rekomenduemye-tovary": "Рекомендуемые товары",
-  "placing-an-order": "Оформление заказа",
   "Total": {
     "tovarov-na-summu": "товаров на сумму"
   },
@@ -138,7 +133,6 @@
     "loading": "Загрузка",
     "error": "Ошибка"
   },
-  "login": "Вход",
   "Profile": {
     "profil": "Профиль",
     "dannye-polzovatelya": "Данные пользователя"
@@ -147,13 +141,6 @@
     "gost": "Гость",
     "vy-ne-avtorizovany": "Вы не авторизованы"
   },
-  "istoriya-zakazov": "История заказов",
-  "izbrannye-tovary": "Избранные товары",
-  "otzyvy": "Отзывы",
-  "sravnenie-tovarov": "Сравнение товаров",
-  "nastroi-ki": "Настройки",
-  "vykhod": "Выход",
-  "dannye-polzovatelya": "Данные пользователя",
   "OrderPage": {
     "placing-an-order": "Оформление заказа"
   },
@@ -187,9 +174,30 @@
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "В выбранном городе нет товаров из данной категории или их уже раскупили, пожалуйста вернитесь позднее....",
     "nazad": "Назад"
   },
-  "nazad": "Назад",
-  "katalog": "Каталог",
-  "net-dannykh": "Нет данных",
-  "oshibka": "Ошибка",
-  "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
+  "Label": {
+    "korzina": "Корзина"
+  },
+  "BasketPage": {
+    "korzina": "Корзина"
+  },
+  "LoginPage": {
+    "login": "Вход"
+  },
+  "ProductDetailRelatedProduct": {
+    "rekomenduemye-tovary": "Рекомендуемые товары"
+  },
+  "SearchProduct": {
+    "placeholder-search": "Искать"
+  },
+  "Level2": {
+    "istoriya-zakazov": "История заказов",
+    "izbrannye-tovary": "Избранные товары",
+    "otzyvy": "Отзывы",
+    "sravnenie-tovarov": "Сравнение товаров",
+    "nastroi-ki": "Настройки",
+    "vykhod": "Выход"
+  },
+  "OrderHistoryPage": {
+    "istoriya-zakazov": "История заказов"
+  }
 }

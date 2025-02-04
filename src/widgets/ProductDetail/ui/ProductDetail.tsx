@@ -18,9 +18,9 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   const locale = useLocale();
   const t = useTranslations("Status");
   const cityEn = useGetCityParams();
-  const {data,isLoading,error} = useGetProductBySlugSWR(slug,cityEn);
+  const {data:ProductBySlug,isLoading,error} = useGetProductBySlugSWR(slug,cityEn);
 
-  if(!data && isLoading){
+  if(!ProductBySlug && isLoading){
     return <div>{t('zagruzka')}</div>
   }
 
@@ -28,8 +28,8 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
     return <div>{t('oshibka')}</div>
   }
 
-  const product:MappedProductDetailType = data as MappedProductDetailType;
-
+  const product:MappedProductDetailType = ProductBySlug as MappedProductDetailType;
+ 
   return (
     <Flex 
       style={{backgroundColor:"#EEEFF1"}}

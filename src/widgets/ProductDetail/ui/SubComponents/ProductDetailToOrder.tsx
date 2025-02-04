@@ -21,7 +21,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
     const { product } = props
 
     const price = product?.price
-    const discountPrice = product?.discount
+    const discountPrice = product?.oldPrice
     const quantity = product?.quantity
 
     const StickFlex = {

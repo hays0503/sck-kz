@@ -6,7 +6,7 @@ import { BasketProductCounter } from "@/entities/Basket";
 const { Text } = Typography;
 
 export const Label: React.FC<{ styleActive: CSSProperties, styleActiveBg: string, styleActiveAccent: string }> = ({ styleActive, styleActiveBg, styleActiveAccent }) => {
-    const t = useTranslations();
+    const t = useTranslations("Label");
     return <Flex vertical={true} gap={"10px"} align="center">
         <svg
             width="25"

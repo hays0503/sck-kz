@@ -1,5 +1,4 @@
 import { Link } from "@/i18n/routing";
-import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Dropdown, Flex, MenuProps, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
@@ -7,19 +6,19 @@ import { useQueryState } from "nuqs";
 const { Text, Title } = Typography;
 
 interface SortingProductsProps {
-  slugCatalog: string;
+  url: string;
 }
 
-const SortingProducts: React.FC<SortingProductsProps> = ({ slugCatalog }) => {
+const SortingProducts: React.FC<SortingProductsProps> = ({url }) => {
   const t = useTranslations("SortingProducts");
   const [sortOrder, setSortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
-  const city = useGetCityParams();
+
   const items: MenuProps["items"] = [
     {
       key: "stocks__price",
       label: (
         <Link
-          href={`/city/${city}/catalog/category-slug/${slugCatalog}/?sortOrder=stocks__price`}
+          href={`${url}/?sortOrder=stocks__price`}
           style={{ color: "black" }}
           onClick={() => setSortOrder("stocks__price")}
         >
@@ -31,7 +30,7 @@ const SortingProducts: React.FC<SortingProductsProps> = ({ slugCatalog }) => {
       key: "-stocks__price",
       label: (
         <Link
-          href={`/city/${city}/catalog/category-slug/${slugCatalog}/?sortOrder=-stocks__price`}
+          href={`${url}/?sortOrder=-stocks__price`}
           style={{ color: "black" }}
           onClick={() => setSortOrder("-stocks__price")}
         >
@@ -43,7 +42,7 @@ const SortingProducts: React.FC<SortingProductsProps> = ({ slugCatalog }) => {
       key: "avg_rating",
       label: (
         <Link
-          href={`/city/${city}/catalog/category-slug/${slugCatalog}/?sortOrder=avg_rating`}
+          href={`${url}/?sortOrder=avg_rating`}
           style={{ color: "black" }}
           onClick={() => setSortOrder("avg_rating")}
         >
@@ -55,7 +54,7 @@ const SortingProducts: React.FC<SortingProductsProps> = ({ slugCatalog }) => {
       key: "-avg_rating",
       label: (
         <Link
-          href={`/city/${city}/catalog/category-slug/${slugCatalog}/?sortOrder=-avg_rating`}
+          href={`${url}/?sortOrder=-avg_rating`}
           style={{ color: "black" }}
           onClick={() => setSortOrder("-avg_rating")}
         >

@@ -1,0 +1,1 @@
+export { default } from "@/pages/featured-products/page";

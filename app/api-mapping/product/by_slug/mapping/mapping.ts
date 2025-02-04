@@ -22,7 +22,7 @@ const mapping = async (
 
   const price = priceInfo?.price ?? 0;
   const oldPrice = priceInfo?.price_before_discount != priceInfo?.price ? priceInfo?.price_before_discount : null;
-  console.log("oldPrice", oldPrice);
+
   const quantity = priceInfo?.quantity ?? 0;
 
   //Сбор основных данных

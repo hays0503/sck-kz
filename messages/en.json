@@ -14,13 +14,9 @@
   "Product": {
     "otzyvov": "Reviews"
   },
-  "placeholder-search": "Find products",
   "ProfileLabel": {
     "profil": "Profile"
   },
-  "katalog": "Catalog",
-  "glavnaya": "Home",
-  "korzina": "Basket",
   "Status": {
     "zagruzka": "Loading",
     "oshibka": "Error",
@@ -109,8 +105,6 @@
     "svernut": "Collapse",
     "smotret-vse-opisanie": "Read more"
   },
-  "rekomenduemye-tovary": "Featured Products",
-  "placing-an-order": "Ordering of the order",
   "Total": {
     "tovarov-na-summu": "goods in the amount"
   },
@@ -130,7 +124,6 @@
     "loading": "Loading",
     "error": "Error"
   },
-  "login": "Entrance",
   "Profile": {
     "profil": "Profile",
     "dannye-polzovatelya": "User data"
@@ -139,12 +132,6 @@
     "vy-ne-avtorizovany": "You are not authorized",
     "gost": "Guest"
   },
-  "istoriya-zakazov": "The history of orders",
-  "izbrannye-tovary": "Selected goods",
-  "otzyvy": "Reviews",
-  "sravnenie-tovarov": "Comparison of goods",
-  "nastroi-ki": "Settings",
-  "vykhod": "Exit",
   "OrderPage": {
     "placing-an-order": "Ordering of the order"
   },
@@ -174,15 +161,6 @@
     "populyarnye": "Popular",
     "uspey-kupit": "Use to buy at a bargain price"
   },
-  "artikul": "Article",
-  "avtorizuites-dlya-prodolzhenie-oformlenie": "Autominate to continue design",
-  "dannye-polzovatelya": "User data",
-  "filtry": "Filters",
-  "kak-vy-zdes-ochutilis": "How did you find yourself here?",
-  "net-dannykh": "No data",
-  "oshibka": "Error",
-  "pusto": "Empty",
-  "zagruzka-filtrov": "Download filters ...",
   "Render": {
     "v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee": "There are no goods from this category in the selected city or they have already been bought out, please return later ....",
     "nazad": "Back"
@@ -190,5 +168,36 @@
   "ProductDetailBreadcrumb": {
     "glavnaya": "Home"
   },
-  "nazad": "Back"
+  "FeaturedProductsPage": {
+    "izbrannye-tovary": "Selected goods"
+  },
+  "Label": {
+    "korzina": "Basket"
+  },
+  "BasketPage": {
+    "korzina": "Basket"
+  },
+  "LoginPage": {
+    "login": "Entrance"
+  },
+  "ProductDetailRelatedProduct": {
+    "rekomenduemye-tovary": "Recommended goods"
+  },
+  "MainLabel": {
+    "glavnaya": "Home"
+  },
+  "SearchProduct": {
+    "placeholder-search": "Search"
+  },
+  "Level2": {
+    "istoriya-zakazov": "The history of orders",
+    "izbrannye-tovary": "Selected goods",
+    "otzyvy": "Reviews",
+    "sravnenie-tovarov": "Comparison of goods",
+    "nastroi-ki": "Settings",
+    "vykhod": "Exit"
+  },
+  "OrderHistoryPage": {
+    "istoriya-zakazov": "The history of orders"
+  }
 }

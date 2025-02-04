@@ -32,7 +32,7 @@ async function BasketPage({params}: BasketPageProps) {
   }
 
 
-  const t = await getTranslations()
+  const t = await getTranslations("BasketPage")
 
   return (
     <ProvidersServer>

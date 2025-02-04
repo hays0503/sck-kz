@@ -1,0 +1,3 @@
+export const FEATURED_PRODUCTS = {
+    PRODUCTS_PER_PAGE: 8
+}
