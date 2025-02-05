@@ -1,8 +1,9 @@
 "use client";
-import React, { useMemo, useCallback } from "react";
+import React, {  } from "react";
 import { Button, Flex } from "antd";
 import { motion } from "framer-motion";
-import { useAddToLocalFavorite, useRemoveToLocalFavorite } from "../model";
+import { useAddToRemoteFavorite, useRemoveToRemoteFavorite } from "../model";
+import useGetProductsIdsByFavoriteSWR from "@/entities/Product/model/getProductsIdsByFavoriteSWR";
 
 // Анимация для иконки сердца
 const Heart: React.FC<{ isFavorite: boolean }> = ({ isFavorite }) => {
@@ -40,19 +41,26 @@ const Heart: React.FC<{ isFavorite: boolean }> = ({ isFavorite }) => {
 
 // Основной компонент
 const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
-  const { favoriteProducts, addFavoriteProduct } = useAddToLocalFavorite();
-  const { removeFavoriteProduct } = useRemoveToLocalFavorite();
+  const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
+  const [contextHolderAddMsg, add] = useAddToRemoteFavorite();
+  const [contextHolderDelMsg, del] = useRemoveToRemoteFavorite();  
 
-  const isFavorite = useMemo(() => favoriteProducts.includes(prod_id), [favoriteProducts, prod_id]);
+  if (isLoading) {
+    return <div style={{ width: "25px", height: "25px" }} />;
+  }
 
-  const action = useCallback(
-    () => (isFavorite ? removeFavoriteProduct(prod_id) : addFavoriteProduct(prod_id)),
-    [isFavorite, prod_id, addFavoriteProduct, removeFavoriteProduct]
-  );
+  if (error) {
+    return <Flex style={{ width: "25px", height: "25px" }} justify="center" align="center">!</Flex>;
+  }
+
+  const isFavorite =  data?.data.includes(prod_id)
+  const action = isFavorite ? ()=>del(prod_id) : ()=>add(prod_id);
 
   return (
-    <Flex style={{ width: "25px", height: "25px",position:"relative",zIndex:999 }} justify="center" align="center">
-      <Button type={"text"} shape="default" size="small" onClick={action} style={{position:"absolute",bottom:"-40px"}}>
+    <Flex style={{ width: "25px", height: "25px", position: "relative", zIndex: 999 }} justify="center" align="center">
+      {contextHolderAddMsg}
+      <Button type={"text"} shape="default" size="small" onClick={action} style={{ position: "absolute", bottom: "-40px" }}>
+        {contextHolderDelMsg}
         <Heart isFavorite={isFavorite} />
       </Button>
     </Flex>

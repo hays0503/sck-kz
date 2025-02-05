@@ -199,5 +199,13 @@
   },
   "OrderHistoryPage": {
     "istoriya-zakazov": "История заказов"
+  },
+  "AddToFavorite": {
+    "tovar-dobavlen-v-izbrannoe": "Товар добавлен в избранное",
+    "proizoshla-oshibka-pri-dobavlenii-v-izbrannoe": "Произошла ошибка при добавлении в избранное"
+  },
+  "AddToRemote":{
+    "tovar-udalen-iz-izbrannogo": "Товар удален из избранного",
+    "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "Произошла ошибка при удалении товара из избранного"
   }
 }

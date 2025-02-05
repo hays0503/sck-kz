@@ -199,5 +199,13 @@
   },
   "OrderHistoryPage": {
     "istoriya-zakazov": "The history of orders"
+  },
+  "AddToFavorite": {
+    "tovar-dobavlen-v-izbrannoe": "The goods are added to favorites",
+    "proizoshla-oshibka-pri-dobavlenii-v-izbrannoe": "An error occurred when adding to favorites"
+  },
+  "AddToRemote": {
+    "tovar-udalen-iz-izbrannogo": "The goods are removed from the chosen",
+    "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "There was an error when removing goods from the chosen"
   }
 }

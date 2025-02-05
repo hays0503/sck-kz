@@ -199,5 +199,13 @@
   },
   "OrderHistoryPage": {
     "istoriya-zakazov": "Тапсырыстардың тарихы"
+  },
+  "AddToFavorite": {
+    "tovar-dobavlen-v-izbrannoe": "Тауарлар Таңдаулыларға қосылады",
+    "proizoshla-oshibka-pri-dobavlenii-v-izbrannoe": "Таңдаулыларға қосу кезінде қате пайда болды"
+  },
+  "AddToRemote": {
+    "tovar-udalen-iz-izbrannogo": "Тауарлар таңдалғаннан алынады",
+    "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "Таңдалғаннан тауарларды алып тастағанда қате пайда болды"
   }
 }
