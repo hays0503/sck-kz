@@ -58,7 +58,7 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
             preview={{
               mask: null
             } as ImagePreviewType}
-            src={item}
+            src={item.replace("http://185.100.67.246:8888", "https://sck.kz")}
             alt={`${name}-slide-${index}`}
             width={width}
             height={height}

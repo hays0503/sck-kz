@@ -40,7 +40,7 @@ export default async function FeaturedProductsPage(props: FeaturedProductsPagePr
           content={<FeaturedProductsListPagination order={order} page={page}/>}
 
           footerContent={
-            <FooterMobile />
+            <FooterMobile defaultKey="4" />
           }
 
         />

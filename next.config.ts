@@ -125,7 +125,6 @@ const nextConfig = {
         source: `/search/product/:search_text`,
         destination: `${process.env.API_URL}:${process.env.API_PORT}/search/product/:search_text/`,
       },
-
       // Обработка картинок (проксирование)
       {
         source: `/media/product_images/:patch*`,
