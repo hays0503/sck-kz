@@ -1,4 +1,6 @@
 "use client";
+import { CopyUrlButton } from "@/features/copy-url-button/ui";
+import { ShareButton } from "@/features/share-button";
 import { useRouter } from "@/i18n/routing";
 import { Button, Flex, Typography } from "antd";
 interface IHeaderTextProps {
@@ -11,14 +13,15 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
   const { text } = props;
   return (
-    <Flex style={{ width: "100%", position: "relative" }}>
+    <Flex style={{ width: "100%", justifyContent: "center" }}>
       <Flex
         align="center"
-        justify="space-between"
-        style={{ 
-          position: "absolute",
-          left: 0,
-          top: 15
+        justify="center"
+        style={{
+          //   position: "absolute",
+          //   left: 0,
+          //   top: 15
+          width: "25%",
         }}
       >
         <Button
@@ -48,7 +51,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
       <Flex
         align="center"
         justify="center"
-        style={{ width: "100%", paddingTop: "10px" }}
+        style={{ paddingTop: "10px",width: "50%" }}
       >
         <Title
           level={3}
@@ -60,6 +63,11 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
           {text}
         </Title>
       </Flex>
+      <Flex gap={10} align="center" justify="center" style={{ width: "25%", }} >
+        <CopyUrlButton />
+        <ShareButton />
+      </Flex>
+
     </Flex>
   );
 };

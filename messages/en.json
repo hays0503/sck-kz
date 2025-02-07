@@ -207,5 +207,16 @@
   "AddToRemote": {
     "tovar-udalen-iz-izbrannogo": "The goods are removed from the chosen",
     "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "There was an error when removing goods from the chosen"
+  },
+  "CopyUrlButton": {
+    "kopirovat-ssylku": "Copy the link",
+    "ne-udalos-skopirovat-ssylku": "It was not possible to copy the link.",
+    "ssylka-uspeshno-skopirovana": "The link is successfully copied!"
+  },
+  "ShareButton": {
+    "podelitsya": "Share",
+    "ssylka-uspeshno-otpravlena": "The link is successfully sent!",
+    "ne-udalos-otpravit-ssylku": "Failed to send a link",
+    "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Function \\ \"Share \\\" is not supported in your browser"
   }
 }

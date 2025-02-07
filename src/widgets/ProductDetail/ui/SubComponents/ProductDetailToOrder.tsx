@@ -14,7 +14,8 @@ const { Text } = Typography;
 
 const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
 
-    const t = useTranslations("ProductDetailToOrder");
+    const tt =  useTranslations("ProductDetailToOrder");
+    const t = useTranslations("AddToBasketProduct");
 
     const addAction = useBasketAdd({ prod_id: props.product.id });
 
@@ -25,7 +26,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
     const quantity = product?.quantity
 
     const StickFlex = {
-         backgroundColor: "#FFFAAA",
+        //  backgroundColor: "#FFFAAA",
 
          width: "100%",
          padding: "10px",
@@ -38,7 +39,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
 
     return <Flex style={StickFlex} justify="space-between" align="center">
         <Flex vertical={true} gap={10}>
-            <Text style={{ color:"#808185"}}>{`${t("vnalichii")}: ${quantity} `}</Text>
+            <Text style={{ color:"#808185"}}>{`${tt("vnalichii")}: ${quantity} `}</Text>
             <Flex gap={10} align="center">
                 <Text strong>
                     {beautifulCost(price)}
@@ -64,7 +65,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
                     fontWeight: "400",
                 }}
             >
-                {t("oformit")}
+                {t('v-korzinu')}
             </Text>
         </Button>
     </Flex>

@@ -207,5 +207,16 @@
   "AddToRemote": {
     "tovar-udalen-iz-izbrannogo": "Тауарлар таңдалғаннан алынады",
     "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "Таңдалғаннан тауарларды алып тастағанда қате пайда болды"
+  },
+  "CopyUrlButton": {
+    "kopirovat-ssylku": "Сілтемені көшіріңіз",
+    "ne-udalos-skopirovat-ssylku": "Сілтемені көшіру мүмкін болмады.",
+    "ssylka-uspeshno-skopirovana": "Сілтеме сәтті көшірілді!"
+  },
+  "ShareButton": {
+    "podelitsya": "Бөлу",
+    "ssylka-uspeshno-otpravlena": "Сілтеме сәтті жіберілді!",
+    "ne-udalos-otpravit-ssylku": "Сілтеме жіберілмеді",
+    "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Функция \\ «Бөлісу \\» дегеніміз шолғышта қолдау көрсетпейді"
   }
 }

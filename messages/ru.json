@@ -204,8 +204,26 @@
     "tovar-dobavlen-v-izbrannoe": "Товар добавлен в избранное",
     "proizoshla-oshibka-pri-dobavlenii-v-izbrannoe": "Произошла ошибка при добавлении в избранное"
   },
-  "AddToRemote":{
+  "AddToRemote": {
     "tovar-udalen-iz-izbrannogo": "Товар удален из избранного",
     "proizoshla-oshibka-pri-udalenii-tovara-iz-izbrannogo": "Произошла ошибка при удалении товара из избранного"
-  }
+  },
+  "kopirovat-ssylku": "Копировать ссылку",
+  "CopyUrlButton": {
+    "kopirovat-ssylku": "Копировать ссылку",
+    "ssylka-uspeshno-skopirovana": "Ссылка успешно скопирована!",
+    "ne-udalos-skopirovat-ssylku": "Не удалось скопировать ссылку."
+  },
+  "podelitsya": "Поделиться",
+  "ShareButton": {
+    "podelitsya": "Поделиться",
+    "ssylka-uspeshno-otpravlena": "Ссылка успешно отправлена!",
+    "ne-udalos-otpravit-ssylku": "Не удалось отправить ссылку",
+    "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Функция \\\"Поделиться\\\" не поддерживается в вашем браузере"
+  },
+  "ssylka-uspeshno-otpravlena": "Ссылка успешно отправлена!",
+  "ne-udalos-otpravit-ssylku": "Не удалось отправить ссылку.",
+  "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Функция \\\"Поделиться\\\" не поддерживается в вашем браузере.",
+  "ssylka-uspeshno-skopirovana": "Ссылка успешно скопирована!",
+  "ne-udalos-skopirovat-ssylku": "Не удалось скопировать ссылку."
 }
