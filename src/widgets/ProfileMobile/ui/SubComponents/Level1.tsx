@@ -30,10 +30,12 @@ const Level1: React.FC<Level1Props> = (props) => {
   const AuthUser = () => (
     <Flex vertical={true} gap={5}>
       <Title level={3}>{`${infoUser?.username}`}</Title>
-        <Text>{`${infoUser?.phone?.phone_number ?? infoUser?.email?.[0]}`}</Text>      
+        <Text>{`${infoUser?.phone?.phone_number ?? infoUser?.email}`}</Text>      
     </Flex>
   );
-
+  
+  const fotoProfile = infoUser?.avatar_path ?? "/sck-user.svg"
+  console.log("fotoProfile =>",fotoProfile)
   return (
     <Flex
       vertical={true}
@@ -55,7 +57,7 @@ const Level1: React.FC<Level1Props> = (props) => {
         justify="space-between"
       >
         <Flex gap={10}>
-          <Image priority={true} src="/sck-user.svg" alt="user" width={66} height={66} />
+          <Image priority={true} src={fotoProfile} alt="user" width={66} height={66} style={{borderRadius:infoUser?.avatar_path ? `50%`:`0%`}}/>
           {isGuest ? <GuestUser /> : <AuthUser />}
         </Flex>
         <Link prefetch={true} href={isGuest ? `/city/${currentCity}/login` : `/city/${currentCity}/user`}>

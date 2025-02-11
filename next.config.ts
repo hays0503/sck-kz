@@ -1,4 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import { hostname } from "os";
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -8,6 +9,9 @@ const nextConfig = {
   // staticPageGenerationTimeout: 1000,
   images: {
     remotePatterns: [
+      {
+        hostname: "*.googleusercontent.com",
+      },
       {
         hostname: "sck-kz",
       },
