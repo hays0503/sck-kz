@@ -14,7 +14,7 @@ export type CreateGoogleAccount = {
 };
 
 const createGoogleAccount: CreateGoogleAccount = async (code) => {
-  const url = `http://${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/auth/google?code=${code}`;
+  const url = `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/auth/google?code=${code}`;
   console.log("createGoogleAccount url=>", url);
   return await fetch(url, {
     method: "GET",
