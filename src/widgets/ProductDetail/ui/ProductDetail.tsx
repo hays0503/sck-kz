@@ -7,9 +7,30 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useLocale, useTranslations } from "next-intl";
 import { MappedProductDetailType } from "api-mapping/product/_type/productDetail";
 import ProductDetailRelatedProduct from "./SubComponents/ProductDetailRelatedProduct";
+import { useEffect } from "react";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
 interface IProductDetailProps {
   slug: string;
+}
+
+const SendMessage: React.FC<{id:number}> = ({id}) => {
+  const client_uuid = useReadLocalStorage<string>("uuid_id");
+
+  useEffect(() => {
+    fetch("/auth_api/v1/viewed/add_viewed", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: id,
+        client_uuid: client_uuid,
+      })
+    })
+  }, [client_uuid, id]);
+  return <></>
 }
 
 const ProductDetail: React.FC<IProductDetailProps> = (props) => {
@@ -18,21 +39,30 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   const locale = useLocale();
   const t = useTranslations("Status");
   const cityEn = useGetCityParams();
-  const {data:ProductBySlug,isLoading,error} = useGetProductBySlugSWR(slug,cityEn);
+  const { data: ProductBySlug, isLoading, error } = useGetProductBySlugSWR(slug, cityEn);
 
-  if(!ProductBySlug && isLoading){
+
+  if (!ProductBySlug && isLoading) {
     return <div>{t('zagruzka')}</div>
   }
 
-  if(error){
+  if (error) {
     return <div>{t('oshibka')}</div>
   }
 
-  const product:MappedProductDetailType = ProductBySlug as MappedProductDetailType;
- 
+  const product: MappedProductDetailType = ProductBySlug as MappedProductDetailType;
+
+
+
+
+
   return (
-    <Flex 
-      style={{backgroundColor:"#EEEFF1"}}
+    <>
+
+    <SendMessage id={product.id}/>
+
+    <Flex
+      style={{ backgroundColor: "#EEEFF1" }}
       vertical={true}
       gap={10}
       itemScope={true}
@@ -52,11 +82,11 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           height={300}
         />
       </ProductDetailItem>
- 
+
       {product?.configuration && (
         <ProductDetailItem>
           {/* Название товара и Конфигурация */}
-          <ProductDetailConfiguration nameProduct={product.name[locale]??product.slug} Configurations={product.configuration} />
+          <ProductDetailConfiguration nameProduct={product.name[locale] ?? product.slug} Configurations={product.configuration} />
         </ProductDetailItem>
       )}
 
@@ -80,7 +110,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           <ProductDetailDescription product={product} />
         </ProductDetailItem>
       )}
-{/*
+      {/*
       <ProductDetailItem>
         <ReviewsList productId={fetchProduct.id} />
       </ProductDetailItem>
@@ -92,8 +122,9 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           />
         </ProductDetailItem>
       )}
-       
+
     </Flex>
+    </>
   );
 };
 export default ProductDetail;

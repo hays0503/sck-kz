@@ -87,7 +87,8 @@
   },
   "LoginWithSms": {
     "t-vvedite-nomer-telefona": "Enter your phone number",
-    "poluchit-sms-kod": "Get an SMS code"
+    "poluchit-sms-kod": "Get an SMS code",
+    "error": "Error"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Please use your Kaspi number to register.",
@@ -218,5 +219,12 @@
     "ssylka-uspeshno-otpravlena": "The link is successfully sent!",
     "ne-udalos-otpravit-ssylku": "Failed to send a link",
     "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Function \\ \"Share \\\" is not supported in your browser"
+  },
+  "UserMobile": {
+    "login": "Login",
+    "phoneNumber": "Phone number",
+    "adres": "Address",
+    "avatar": "Photo profile",
+    "authorization": "Logue"
   }
 }

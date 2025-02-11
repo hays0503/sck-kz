@@ -11,6 +11,7 @@ const useAddToRemoteFavorite = (): [React.ReactNode, (product_id: number) => Pro
     const [messageApi, contextHolder] = message.useMessage();
 
     const uuid = useReadLocalStorage<string>("uuid_id");
+    const user_id = useReadLocalStorage<{user_id:string}>("user_id");
 
     const add = useCallback(async (product_id: number) => {
 
@@ -29,7 +30,7 @@ const useAddToRemoteFavorite = (): [React.ReactNode, (product_id: number) => Pro
                 type: 'success',
                 content: t('tovar-dobavlen-v-izbrannoe'),
             })
-            const urlForUpdateSwr = `/api-mapping/featured-products/get-product/?uuid=${uuid}`;
+            const urlForUpdateSwr = `/api-mapping/featured-products/get-product/?uuid=${uuid}&user_id=${user_id?.user_id ?? ""}`;
             mutate(urlForUpdateSwr);
         }else{
             messageApi.open({
@@ -38,7 +39,7 @@ const useAddToRemoteFavorite = (): [React.ReactNode, (product_id: number) => Pro
             })
         }
 
-    },[messageApi, t, uuid]);
+    },[messageApi, t, uuid, user_id]);
 
     return [
         contextHolder,

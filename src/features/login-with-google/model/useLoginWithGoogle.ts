@@ -7,6 +7,7 @@ const useLoginWithGoogle = () => {
   const [googleAuthUrl, setGoogleAuthUrl] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    // debugger;
     getGoogleUrl().then(({ url }) => {
       setUrlToGoogleAuth(url);
     });

@@ -1,18 +1,22 @@
 "use client";
 import { Collapse, CollapseProps, message, Typography } from "antd";
 import { Delivered, PaymentOptions, Recipient } from "./SubModule";
-import { CSSProperties, JSX, useEffect, useState } from "react";
+import { CSSProperties, JSX,  useEffect, useState } from "react";
 
 import { IOrderCreate } from "@/shared/types/order";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/entities/User";
 import CityEnToRu from "@/shared/constant/city";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
 
 const { Title } = Typography
 
 const InputOrderData = ({basket_id}:{ basket_id:string }):{OrderData:IOrderCreate,Context:JSX.Element} => {
+
+    const {isAnonymous} = useUser();
+    const accessToken = useReadLocalStorage<{ token: string }>("accessToken");
 
     const t = useTranslations("InputOrderData");
     
@@ -31,8 +35,6 @@ const InputOrderData = ({basket_id}:{ basket_id:string }):{OrderData:IOrderCreat
     } as IOrderCreate);
 
     const [orderData, setOrderData] = orderManager;
-
-    const accessToken = useUser().accessToken.token;
 
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -100,11 +102,13 @@ const InputOrderData = ({basket_id}:{ basket_id:string }):{OrderData:IOrderCreat
     };
 
     useEffect(() => {
-        setOrderData((prevData) => ({
-            ...prevData,
-            access_token: { access_token: accessToken },
-        }));
-    }, [accessToken, setOrderData]);
+        if (!isAnonymous && accessToken) {
+            setOrderData((prevData) => ({
+                ...prevData,
+                access_token: { access_token: accessToken.token },
+            }));
+        }
+    }, [accessToken, setOrderData,isAnonymous]);
 
 
     const Context = <>

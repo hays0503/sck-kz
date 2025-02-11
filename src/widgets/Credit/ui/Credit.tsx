@@ -134,8 +134,8 @@ export default function Credit({
   const verifyCode = () => {
     if (smsIdentifier) {
       getSmsAuthToken(smsCode, smsIdentifier).then((response) => {
-        setAccessToken(response.access);
-        setRefreshToken(response.refresh);
+        setAccessToken(response.data.access);
+        setRefreshToken(response.data.refresh);
         setIsMaskVisible(false);
 
         // Инициализация кнопки Kaspi после успешной проверки кода

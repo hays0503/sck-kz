@@ -2,7 +2,6 @@
 
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { Button, Flex, Typography } from "antd";
 import { MappedPopularProductType, orderByType } from "api-mapping/product/populates";
 import { Level1, Level2 } from "./SubComponent";
@@ -13,14 +12,13 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { Dispatch } from "react";
+import useGetProductsIdsByFavoriteSWR from "@/entities/Product/model/getProductsIdsByFavoriteSWR";
 
-const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number }> = ({ order, page }) => {
+const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number }> = ({ FeaturedProductsIds, order, page }) => {
 
-    const cityEn = useGetCityParams();
-    const FeaturedProductsIds = useReadLocalStorage<number[]>("favoriteProducts");
     const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [sortOrder] = useQueryState("order", { defaultValue: order??"stocks__price" });
-
+    const cityEn = useGetCityParams();
     const { data, isLoading, error } = useGetProductByIdsSWR({
         ids: FeaturedProductsIds || [],
         city: cityEn,
@@ -94,6 +92,25 @@ const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: numbe
     }
 
     return <Render Products={Products} ProductsLen={ProductsLen} CurrentPage={currentPage} SetCurrentPage={setCurrentPage}/>
+}
+
+const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number }> = ({ order, page }) => {
+
+    
+    const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
+
+    
+    if (!data && isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
+    const FeaturedProductsIds = data?.data;
+
+    return <>{FeaturedProductsIds && <RenderFeaturedProducts FeaturedProductsIds={FeaturedProductsIds} order={order} page={page} />}</>
 }
 
 export default FeaturedProductsListPagination;

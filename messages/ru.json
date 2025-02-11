@@ -96,7 +96,8 @@
   },
   "LoginWithSms": {
     "t-vvedite-nomer-telefona": "Введите номер телефона",
-    "poluchit-sms-kod": "Получить SMS-код"
+    "poluchit-sms-kod": "Получить SMS-код",
+    "error": "Ошибка"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Пожалуйста используйте для регистрации ваш kaspi номер.",
@@ -225,5 +226,15 @@
   "ne-udalos-otpravit-ssylku": "Не удалось отправить ссылку.",
   "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Функция \\\"Поделиться\\\" не поддерживается в вашем браузере.",
   "ssylka-uspeshno-skopirovana": "Ссылка успешно скопирована!",
-  "ne-udalos-skopirovat-ssylku": "Не удалось скопировать ссылку."
+  "ne-udalos-skopirovat-ssylku": "Не удалось скопировать ссылку.",
+  "login": "Логин",
+  "UserMobile": {
+    "login": "Логин",
+    "phoneNumber": "Номер телефона",
+    "adres": "Адрес ",
+    "avatar": "Фото профиля",
+    "gost": "Гость не авторизоаван",
+    "authorization": "Авторизоваться"
+  },
+  "adres": "Адрес"
 }

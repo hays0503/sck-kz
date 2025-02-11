@@ -1,30 +1,41 @@
 export type GetSmsAuthTokenResponse = {
   readonly access: {
     readonly token: string;
+    readonly user_id: string;
   };
   readonly refresh: {
     readonly token: string;
+    readonly user_id: string;
   };
 };
 
-type GetSmsAuthToken = (code: string, phone_number_id: string) => Promise<GetSmsAuthTokenResponse>;
+type GetSmsAuthToken = (code: string, phone_number_id: string) => Promise<{data:GetSmsAuthTokenResponse,statusCode: number}>;
 
 const getSmsAuthToken: GetSmsAuthToken = async(code, phone_number_id) => {
-  const url = `/auth_api/v1/auth_user/auth/phone?code=${code}&phone_number_id=${phone_number_id}`;
-  return await fetch(url, {
-    method: "GET",
+  const url = `/auth_api/v1/auth_phone/auth/phone`;
+  const response = await fetch(url, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-  }).then((response:Response) => {
-    if(response.status !== 201) {
-      return {
-        detail: response.statusText
-      }
-    }
-    return response.json();
+    body: JSON.stringify({
+      code: code,
+      phone_number_id: phone_number_id,
+    }),
   });
+
+  if (response.ok) {
+    return {
+      statusCode: response.status,
+      data: await response.json(),
+    }
+  }else{
+    return {
+      statusCode: response.status,
+      data: await response.json(),
+    }
+  }
 };
 
 export default getSmsAuthToken;

@@ -19,7 +19,7 @@ const useLoginWithSms = () => {
           dataForSendSms.codeInSms,
           dataForSendSms.phone_number_id
         );
-        setData(auth);
+        setData(auth.data);
       })();
     }
   }, [dataForSendSms]);

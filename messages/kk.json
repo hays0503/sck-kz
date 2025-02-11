@@ -87,7 +87,8 @@
   },
   "LoginWithSms": {
     "t-vvedite-nomer-telefona": "Телефон нөміріңізді енгізіңіз",
-    "poluchit-sms-kod": "SMS кодын алыңыз"
+    "poluchit-sms-kod": "SMS кодын алыңыз",
+    "error": "Қателік"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Тіркелу үшін Kaspi нөміріңізді пайдаланыңыз.",
@@ -218,5 +219,12 @@
     "ssylka-uspeshno-otpravlena": "Сілтеме сәтті жіберілді!",
     "ne-udalos-otpravit-ssylku": "Сілтеме жіберілмеді",
     "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Функция \\ «Бөлісу \\» дегеніміз шолғышта қолдау көрсетпейді"
+  },
+  "UserMobile": {
+    "login": "Кіру",
+    "phoneNumber": "Телефон нөмірі",
+    "adres": "Айналу",
+    "avatar": "Фотофиль",
+    "authorization": "Кан тілеу"
   }
 }

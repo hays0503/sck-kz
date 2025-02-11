@@ -8,23 +8,19 @@ import React from "react";
 
 type UserProfileReturnValue = [
   React.ReactNode,
-  {
-    useIsAnonymous:() => boolean | undefined;
-    info: ResponseUserInfo | null;
-    error: boolean;
-  }
+  ResponseUserInfo | null
 ]
 
 export default function UserProfile():UserProfileReturnValue {
-  const data = useUser();
+  const {isAnonymous,info} = useUser();
   return [
     <>
       <Avatar
         size={32}
         icon={<UserOutlined />}
-        alt={data.info?.user?.first_name}
+        alt={isAnonymous ? "Аноним" : info?.username ?? ""}
       />
     </>,
-    data,
+    info,
   ];
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Button, Flex, Input, Typography } from "antd";
+import { Button, Flex, Input, message, Typography } from "antd";
 import { useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
@@ -13,12 +13,14 @@ import { InputNumberPhoneKz } from "@/shared/ui";
 const { Title, Text } = Typography;
 type OTPProps = GetProps<typeof Input.OTP>;
 
-export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined}) {
+export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | undefined }) {
+  const [messageApi, contextHolder] = message.useMessage();
   const [numberString, setNumberString] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const { smsIdentifier, setPhone } = useSendSms();
   const [, setAccessToken] = useLocalStorage("accessToken", { token: "" });
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
+  const [, setUserId] = useLocalStorage("user_id", { user_id: "" });
   const t = useTranslations("LoginWithSms");
 
   const city = useGetCityParams();
@@ -33,13 +35,23 @@ export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined
   const SendCodeInSms = () => {
     if (smsIdentifier) {
       getSmsAuthToken(code, smsIdentifier).then((response) => {
-        // debugger;
-        setAccessToken(response.access);
-        setRefreshToken(response.refresh);
-        if(callbackUrl) {
-          window.open(callbackUrl)
+
+        debugger;
+        if (response.statusCode === 201) {
+          setAccessToken({ token: response.data.access.token });
+          setRefreshToken({ token: response.data.refresh.token });
+          setUserId({ user_id: response.data.access.user_id });
+          if (callbackUrl) {
+            window.open(callbackUrl)
+          }
+          router.push(`/city/${city}/main`);
+        }else{
+          messageApi.open({
+            type: "error",
+            content: t("error"),
+          });
         }
-        router.push(`/city/${city}/main`);
+
       });
     }
   };
@@ -65,6 +77,7 @@ export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined
       justify="center"
       align="center"
     >
+      {contextHolder}
       <Title>
         <Text>{t("t-vvedite-nomer-telefona")}</Text>
       </Title>
@@ -80,7 +93,7 @@ export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined
             numberString={numberString}
             setNumberString={setNumberString}
           />
-          <Button style={{backgroundColor:"#4954F0",color:"#fff"}} onClick={SendSmsTo}>{t("poluchit-sms-kod")}</Button>
+          <Button style={{ backgroundColor: "#4954F0", color: "#fff" }} onClick={SendSmsTo}>{t("poluchit-sms-kod")}</Button>
         </Flex>
       ) : (
         <Flex
@@ -91,7 +104,7 @@ export default function LoginWithSms({callbackUrl}:{callbackUrl:string|undefined
           }}
         >
           <Input.OTP variant="filled" length={4} {...sharedProps} />
-          <Button style={{backgroundColor:"#4954F0",color:"#fff"}}  onClick={SendCodeInSms}>Авторизоваться</Button>
+          <Button style={{ backgroundColor: "#4954F0", color: "#fff" }} onClick={SendCodeInSms}>Авторизоваться</Button>
         </Flex>
       )}
     </Flex>

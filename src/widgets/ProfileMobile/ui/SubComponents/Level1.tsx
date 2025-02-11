@@ -9,7 +9,6 @@ import Image from "next/image";
 interface Level1Props {
   readonly IsAnonymous: boolean|undefined;
   readonly infoUser: UserInfo | null;
-  readonly error: boolean;
 }
 
 const { Text, Title } = Typography;
@@ -30,14 +29,8 @@ const Level1: React.FC<Level1Props> = (props) => {
 
   const AuthUser = () => (
     <Flex vertical={true} gap={5}>
-      <Title
-        level={3}
-      >{`${infoUser?.user?.first_name} ${infoUser?.user?.last_name}`}</Title>
-      {(infoUser?.phoneNumber?.phoneNumber ?? infoUser?.emails?.[0]?.email) && (
-        <Text>{`${
-          infoUser?.phoneNumber?.phoneNumber ?? infoUser?.emails?.[0]?.email
-        }`}</Text>
-      )}
+      <Title level={3}>{`${infoUser?.username}`}</Title>
+        <Text>{`${infoUser?.phone?.phone_number ?? infoUser?.email?.[0]}`}</Text>      
     </Flex>
   );
 

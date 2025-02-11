@@ -73,7 +73,6 @@ const ElementList: React.FC<{
 interface Level2Props {
   readonly IsAnonymous: boolean|undefined;
   readonly infoUser: UserInfo | null;
-  readonly error: boolean;
 }
 
 const Level2: React.FC<Level2Props> = (props) => {

@@ -2,20 +2,33 @@
 
 import { UserInfo } from "@/shared/types/user";
 
-export type ResponseUserInfo = UserInfo
+export type ResponseUserInfo = UserInfo;
 
-
-export type GetUserInfo = (token: string) => Promise<ResponseUserInfo>;
+export type GetUserInfo = (
+  token: string
+) => Promise<{ statusCode: number; data: ResponseUserInfo | null }>;
 
 const getUserInfo: GetUserInfo = async (token) => {
-  return await fetch("/auth_api/v1/user/info", {
-    method: "POST",
+  const response = await fetch("/auth_api/v1/user/info", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ token: token }),
-  }).then((response) => response.json());
+  });
+
+  if (response.ok) {
+    return {
+      statusCode: response.status,
+      data: await response.json(),
+    };
+  } else {
+    return {
+      statusCode: response.status,
+      data: null,
+    };
+  }
 };
 
 export default getUserInfo;

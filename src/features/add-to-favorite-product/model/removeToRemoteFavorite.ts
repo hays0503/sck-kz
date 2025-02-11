@@ -10,7 +10,8 @@ const useRemoveToRemoteFavorite = (): [React.ReactNode, (product_id: number) => 
 
     const [messageApi, contextHolder] = message.useMessage();
 
-    const uuid = useReadLocalStorage<string>("uuid_id");
+    const uuid = useReadLocalStorage<string>("uuid_id");    
+    const user_id = useReadLocalStorage<{user_id:string}>("user_id");
 
     const del = useCallback(async (product_id: number) => {
 
@@ -29,7 +30,7 @@ const useRemoveToRemoteFavorite = (): [React.ReactNode, (product_id: number) => 
                 type: 'success',
                 content: t('tovar-udalen-iz-izbrannogo'),
             })
-            const urlForUpdateSwr = `/api-mapping/featured-products/get-product/?uuid=${uuid}`;
+            const urlForUpdateSwr = `/api-mapping/featured-products/get-product/?uuid=${uuid}&user_id=${user_id?.user_id ?? ""}`;
             mutate(urlForUpdateSwr);
         }else{
             messageApi.open({

@@ -29,10 +29,22 @@ const nextConfig = {
     API_PORT: process.env.API_PORT,
     API_AUTH_PORT: process.env.API_AUTH_PORT,
     API_BASKET_PORT: process.env.API_BASKET_PORT,
+
+    HYPERDX_API_KEY: process.env.HYPERDX_API_KEY,
+    OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+  },
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  webpack: (config: { ignoreWarnings: { module: RegExp; }[]; },{ isServer }: any, ) => {
+    if (isServer) {
+      config.ignoreWarnings = [{ module: /opentelemetry/ }];
+    }
+    return config;
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   experimental: {
+    instrumentationHook: true,    
     turbo: {
       rules: {
         "*.scss": {
@@ -159,7 +171,7 @@ const nextConfig = {
       //Получение ссылки на авторизацию google
       {
         source: `/auth_api/v1/auth_user/login/google`,
-        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/login/google/`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/login/google`,
       },
       //api по работе с пользователем
       // Создаем пользователя через акаунт google
@@ -175,16 +187,36 @@ const nextConfig = {
         destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/login/phone`,
       },
       //api по работе с пользователем
+      //Endpoint для отправки sms-кода
+      {
+        source: `/auth_api/v1/auth_phone/login/phone`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_phone/login/phone`,
+      },
+      //api по работе с пользователем
       //Через данный endpoint будут выданы ключи доступа.
       {
         source: `/auth_api/v1/auth_user/auth/phone`,
         destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_user/auth/phone`,
       },
+
+      //api по работе с пользователем
+      //Через данный endpoint будут выданы ключи доступа.
+      {
+        source: `/auth_api/v1/auth_phone/auth/phone`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/auth_phone/auth/phone`,
+      },
+
       //api по работе с пользователем
       //Endpoint для обновления токенов
       {
         source: `/auth_api/v1/token/refresh`,
         destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/token/refresh`,
+      },
+            //api по работе с пользователем
+      //Endpoint для обновления токенов
+      {
+        source: `/auth_api/v1/viewed/add_viewed`,
+        destination: `http://185.100.67.246:9876/auth_api/v1/viewed/add_viewed`,
       },
     ];
   },

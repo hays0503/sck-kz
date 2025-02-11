@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -14,8 +15,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  let response = undefined;
   try {
-    const response = await fetch(
+    const body = {
+      client_uuid: uuid,
+      product_id: Number(prodId),
+      user_id: userId,
+      is_active: false,
+    };
+    console.log(body);
+    response = await fetch(
       `http://185.100.67.246:9876/auth_api/v1/wishlist/add_wishlist`,
       {
         method: "POST",
@@ -23,12 +32,7 @@ export async function POST(request: NextRequest) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          client_uuid: uuid,
-          product_id: prodId,
-          user_id: userId,
-          is_active: false,
-        }),
+        body: JSON.stringify(body),
       }
     );
 
@@ -37,6 +41,7 @@ export async function POST(request: NextRequest) {
         {
           status: 500,
           message: "Произошла ошибка при удалении из избранного",
+          details: await response.json(),
         },
         { status: 500 }
       );
@@ -49,5 +54,13 @@ export async function POST(request: NextRequest) {
       },
       { status: 200 }
     );
-  } catch {}
+  } catch {
+    return NextResponse.json(
+      {
+        status: 500,
+        message: "Произошла ошибка при удалении из избранного, при отправке запроса",
+      },
+      { status: 500 }
+    );
+  }
 }
