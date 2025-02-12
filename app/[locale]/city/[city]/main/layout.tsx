@@ -2,14 +2,10 @@ import basicMetadata from "@/shared/metadata/basicMetadata";
 import viewportMetadata from "@/shared/metadata/viewportMetadata";
 import { Metadata, Viewport } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { Inter } from "next/font/google";
 
 export const metadata: Metadata = basicMetadata();
 export const viewport: Viewport = viewportMetadata();
 
-const inter = Inter({
-  subsets: ["cyrillic", "latin"],
-});
 
 
 export default async function CityLayout(
@@ -30,11 +26,5 @@ export default async function CityLayout(
 
   setRequestLocale(locale);
 
-  return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        {children}
-      </body>
-    </html>
-  );
+  return (<>{children}</>);
 }

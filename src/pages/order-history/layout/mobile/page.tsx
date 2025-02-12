@@ -92,7 +92,7 @@ const OrderHistoryPage = async ({ params }: OrderPageProps) => {
                 <LayoutCustom
                     h="px"
                     hightHeader={70}
-                    hightFooter={70}
+                    hightFooter={95}
                     headerContent={<HeaderText text={t('istoriya-zakazov')} />}
                     content={<OrderHistoryMobile Orders={Orders} />}
                     footerContent={<FooterMobile defaultKey="4" />}

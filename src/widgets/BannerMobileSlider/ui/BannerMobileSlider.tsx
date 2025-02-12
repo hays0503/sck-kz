@@ -23,11 +23,6 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
         slidesPerView: 'auto',
         centeredSlides: true,
         spaceBetween:10,
-        // loop: true,
-        // autoplay: {
-        //     delay: 2000,
-        //     disableOnInteraction: false,
-        // },
         // Разрешение
         breakpoints: {
             768: {

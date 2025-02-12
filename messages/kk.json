@@ -226,5 +226,14 @@
     "adres": "Айналу",
     "avatar": "Фотофиль",
     "authorization": "Кан тілеу"
+  },
+  "FeaturedProductsListPagination": {
+    "izbrannye-tovary-ne-nai-deny": "Таңдалған тауарлар табылмады",
+    "title": "Қате болды:",
+    "na-glavnuyu": "Негізгі жағында"
+  },
+  "RenderFeaturedProducts": {
+    "loading": "Тиеу",
+    "error": "Қателік"
   }
 }

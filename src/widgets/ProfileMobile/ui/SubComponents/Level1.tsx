@@ -5,6 +5,7 @@ import { UserInfo } from "@/shared/types/user";
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { CSSProperties } from "react";
 
 interface Level1Props {
   readonly IsAnonymous: boolean|undefined;
@@ -34,8 +35,14 @@ const Level1: React.FC<Level1Props> = (props) => {
     </Flex>
   );
   
-  const fotoProfile = infoUser?.avatar_path ?? "/sck-user.svg"
-  console.log("fotoProfile =>",fotoProfile)
+  const isDefault: boolean = Boolean(infoUser?.avatar_path) || infoUser?.avatar_path != "avatar_default.png"
+  console.log("isDefault =>",isDefault)
+  const photoProfile: string = isDefault ? "/sck-user.svg" : infoUser!.avatar_path
+  const styleImg: CSSProperties = {
+    borderRadius:isDefault ? `50%`:`0%`
+  } as CSSProperties
+
+  console.log("photoProfile =>",photoProfile)
   return (
     <Flex
       vertical={true}
@@ -57,7 +64,7 @@ const Level1: React.FC<Level1Props> = (props) => {
         justify="space-between"
       >
         <Flex gap={10}>
-          <Image priority={true} src={fotoProfile} alt="user" width={66} height={66} style={{borderRadius:infoUser?.avatar_path ? `50%`:`0%`}}/>
+          <Image priority={true} src={photoProfile} alt="user" width={66} height={66} style={styleImg}/>
           {isGuest ? <GuestUser /> : <AuthUser />}
         </Flex>
         <Link prefetch={true} href={isGuest ? `/city/${currentCity}/login` : `/city/${currentCity}/user`}>

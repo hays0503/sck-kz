@@ -32,7 +32,7 @@ async function OrderPage({params}: OrderPageProps) {
             <LayoutCustom
             h="px"
             hightHeader={70}
-            hightFooter={70}
+            hightFooter={95}
             headerContent={<HeaderText text={t("placing-an-order")} />}
             content={<OrderMobile basket_id={basket_id}/>}
             footerContent={<FooterMobile defaultKey="3" />}

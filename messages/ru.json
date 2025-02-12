@@ -236,5 +236,18 @@
     "gost": "Гость не авторизоаван",
     "authorization": "Авторизоваться"
   },
-  "adres": "Адрес"
+  "adres": "Адрес",
+  "izbrannye-tovary-ne-nai-deny": "Избранные товары не найдены",
+  "FeaturedProductsListPagination": {
+    "izbrannye-tovary-ne-nai-deny": "Избранные товары не найдены",
+    "loading": "Загрузка",
+    "title": "Случилась ошибка: ",
+    "na-glavnuyu": "На главную"
+  },
+  "loading": "Loading..",
+  "RenderFeaturedProducts": {
+    "loading": "Загрузка",
+    "error": "Ошибка"
+  },
+  "error": "Error:"
 }

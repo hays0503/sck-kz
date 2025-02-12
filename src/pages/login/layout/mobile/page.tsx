@@ -28,7 +28,7 @@ const LoginPage = async ({
         <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={70}
+          hightFooter={95}
           headerContent={
             <Flex vertical={true} gap={10} justify="center" align="center">
               <HeaderText text={t("login")} />

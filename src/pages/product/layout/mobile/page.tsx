@@ -61,7 +61,7 @@ const DefaultPage: React.FC<{ fallback: object, categoryName: string, slug: stri
     <LayoutCustom
       h="px"
       hightHeader={70}
-      hightFooter={80}
+      hightFooter={95}
       headerContent={
         <HeaderText text={categoryName} />
       }
@@ -78,7 +78,7 @@ const ErrorPage: React.FC<{ fallback: object, content: JSX.Element, city: string
       <LayoutCustom
         h="px"
         hightHeader={70}
-        hightFooter={80}
+        hightFooter={95}
         headerContent={
           <HeaderText text={"Увы товара нет"} />
         }

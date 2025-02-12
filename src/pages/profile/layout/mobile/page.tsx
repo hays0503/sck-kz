@@ -22,7 +22,7 @@ const ProfilePage = async (
         <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={70}
+          hightFooter={95}
           headerContent={<HeaderText text={t('profil')}/>}
           content={<ProfileMobile/>}
           footerContent={<FooterMobile defaultKey="4"/>}

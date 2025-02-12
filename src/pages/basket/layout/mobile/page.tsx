@@ -40,7 +40,7 @@ async function BasketPage({params}: BasketPageProps) {
         <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={70}
+          hightFooter={95}
           headerContent={<HeaderText text={t('korzina')} />}
           content={<BasketMobile basket_id={basket_id}/>}
           footerContent={<FooterMobile defaultKey="3" />}

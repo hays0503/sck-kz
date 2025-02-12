@@ -28,7 +28,7 @@ export default async function FeaturedProductsPage(props: FeaturedProductsPagePr
         <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={80}
+          hightFooter={95}
           headerContent={
             <HeaderText
               text={

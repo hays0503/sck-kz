@@ -50,7 +50,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
          <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={70}
+          hightFooter={95}
           headerContent={<HeaderText text={headerText} />}
           content={<CatalogMenu slugCategory={slug} />}
           footerContent={<FooterMobile defaultKey="2" />}

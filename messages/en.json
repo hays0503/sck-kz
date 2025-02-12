@@ -226,5 +226,14 @@
     "adres": "Address",
     "avatar": "Photo profile",
     "authorization": "Logue"
+  },
+  "FeaturedProductsListPagination": {
+    "izbrannye-tovary-ne-nai-deny": "Selected goods were not found",
+    "title": "There was a mistake:",
+    "na-glavnuyu": "On the main one"
+  },
+  "RenderFeaturedProducts": {
+    "loading": "Loading",
+    "error": "Error"
   }
 }

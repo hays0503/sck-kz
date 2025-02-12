@@ -31,15 +31,17 @@ const Row: React.FC<{ Items: { id: number, title: string, image: string,slug:str
     borderRadius: "15px",
     overflow: "hidden",
     border: "1px solid #e5e5e5",
-    background: "linear-gradient(128deg, rgba(70,55,146,1) 0%, rgba(144,53,148,1) 43%, rgba(188,37,68,1) 100%)"
+    background: "linear-gradient(128deg, rgba(70,55,146,1) 0%, rgba(144,53,148,1) 43%, rgba(188,37,68,1) 100%)",
+    
   } as React.CSSProperties
 
   return (
-    <Flex style={{ width: "100%", height: "110px", backgroundColor: "transparent" }}>
+    <Flex style={{ width: "100%", height: "110px", backgroundColor: "transparent",transform:"translateX(20px)" }}>
       <Swiper
         spaceBetween={10}
-        slidesPerView={'auto'}
+        slidesPerView={'auto'}        
         modules={[Grid]}
+        
       >
         {Items.map((category) => (
           <SwiperSlide key={category.id} style={styleSwiperSlide}>

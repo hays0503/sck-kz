@@ -63,7 +63,7 @@ export default async function CatalogPage(props: PageProps) {
         <LayoutCustom
           h="px"
           hightHeader={70}
-          hightFooter={80}
+          hightFooter={95}
           headerContent={
             <HeaderText
               text={

@@ -10,12 +10,14 @@ import { parseAsInteger, useQueryState } from "nuqs";
 import { SortingProducts } from "@/features/sorting-products";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { Dispatch } from "react";
 import useGetProductsIdsByFavoriteSWR from "@/entities/Product/model/getProductsIdsByFavoriteSWR";
 
-const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number }> = ({ FeaturedProductsIds, order, page }) => {
+const { Title } = Typography;
 
+const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number }> = ({ FeaturedProductsIds, order, page }) => {
+    const t = useTranslations("RenderFeaturedProducts");
     const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [sortOrder] = useQueryState("order", { defaultValue: order??"stocks__price" });
     const cityEn = useGetCityParams();
@@ -27,11 +29,11 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
     })
 
     if (!data && isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t('loading')}</div>;
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div>{t('error')} {error.message}</div>;
     }
 
     const Products = data?.results || [];
@@ -95,20 +97,26 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
 }
 
 const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number }> = ({ order, page }) => {
-
-    
+    const cityEn = useGetCityParams();
+    const t = useTranslations("FeaturedProductsListPagination");
     const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
 
-    
     if (!data && isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t('loading')}</div>;
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div>{t('title')} {error.message}</div>;
     }
 
     const FeaturedProductsIds = data?.data;
+
+    if (FeaturedProductsIds.length <= 0) {
+        return <Flex vertical gap={10} align="center">
+            <Title level={5}>{t('izbrannye-tovary-ne-nai-deny')}</Title>
+            <Link href={`/city/${cityEn}/main`} prefetch={true}>{t("na-glavnuyu")}</Link>
+        </Flex>
+    }
 
     return <>{FeaturedProductsIds && <RenderFeaturedProducts FeaturedProductsIds={FeaturedProductsIds} order={order} page={page} />}</>
 }
