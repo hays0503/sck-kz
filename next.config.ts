@@ -48,7 +48,6 @@ const nextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   experimental: {
-    instrumentationHook: true,    
     turbo: {
       rules: {
         "*.scss": {
@@ -221,7 +220,7 @@ const nextConfig = {
       {
         source: `/auth_api/v1/viewed/add_viewed`,
         destination: `http://185.100.67.246:9876/auth_api/v1/viewed/add_viewed`,
-      },
+      },   
     ];
   },
 };
