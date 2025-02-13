@@ -10,7 +10,7 @@ import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { InputNumberPhoneKz } from "@/shared/ui";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 type OTPProps = GetProps<typeof Input.OTP>;
 
 export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | undefined }) {
@@ -45,7 +45,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             window.open(callbackUrl)
           }
           router.push(`/city/${city}/main`);
-        }else{
+        } else {
           messageApi.open({
             type: "error",
             content: t("error"),
@@ -68,8 +68,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   return (
     <Flex
       style={{
-        border: "1px solid #D2D2D2",
-        borderRadius: "4px",
         width: "100%",
       }}
       vertical={true}
@@ -78,8 +76,13 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
       align="center"
     >
       {contextHolder}
-      <Title>
-        <Text>{t("t-vvedite-nomer-telefona")}</Text>
+      <Title style={{
+        fontWeight: "500",
+        fontSize: "16px",
+        lineHeight: "24px",
+        letterSpacing: "-0.6%",
+        textAlign: "center"
+      }}>{t("t-vvedite-nomer-telefona")}
       </Title>
       {!smsIdentifier ? (
         <Flex
@@ -93,7 +96,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             numberString={numberString}
             setNumberString={setNumberString}
           />
-          <Button style={{ backgroundColor: "#4954F0", color: "#fff" }} onClick={SendSmsTo}>{t("poluchit-sms-kod")}</Button>
+          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px" }} onClick={SendSmsTo}>{t("poluchit-sms-kod")}</Button>
         </Flex>
       ) : (
         <Flex

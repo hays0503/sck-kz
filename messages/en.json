@@ -179,7 +179,9 @@
     "korzina": "Basket"
   },
   "LoginPage": {
-    "login": "Entrance"
+    "login": "Entrance",
+    "ili-voidite-cherez": "Or enter through",
+    "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "By pressing the “Get SMS Code” button, I confirm that I am familiar with and agree with the conditions of privacy policy"
   },
   "ProductDetailRelatedProduct": {
     "rekomenduemye-tovary": "Recommended goods"

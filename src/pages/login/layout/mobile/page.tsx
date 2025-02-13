@@ -1,15 +1,12 @@
 "use server";
-import { LoginWithGoogle } from "@/features/login-with-google";
-import { LoginWithSms } from "@/features/login-with-sms";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
-import LogoSCK from "@/shared/ui/LogoSCK/LogoSCK";
 
 import { LayoutCustom } from "@/widgets/LayoutCustom";
-import { Flex } from "antd";
+import { LoginMobile } from "@/widgets/LoginMobile/ui";
+import { Flex} from "antd";
 import { getTranslations } from "next-intl/server";
-
 
 const LoginPage = async ({
   params,
@@ -34,27 +31,7 @@ const LoginPage = async ({
               <HeaderText text={t("login")} />
             </Flex>
           }
-          content={
-            <Flex
-              vertical={true}
-              gap={10}
-              justify="center"
-              align="center"
-              style={{ width: "100%" }}
-            >
-              <LogoSCK size="large" />
-              <Flex
-                vertical={true}
-                gap={10}
-                justify="center"
-                align="stretch"
-                style={{ width: "100%" }}
-              >
-                <LoginWithSms callbackUrl={urlCallback} />
-              </Flex>
-              <LoginWithGoogle callbackUrl={urlCallback} />
-            </Flex>
-          }
+          content={<LoginMobile urlCallback={urlCallback} />}
           footerContent={<></>}
         />
       </ProvidersClient>

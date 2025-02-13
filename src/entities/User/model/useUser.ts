@@ -10,36 +10,10 @@ type HookUseUser = () => {
   info: ResponseUserInfo | null;
 };
 
-// const setTelemetry = async (
-//   info: UserInfo | null,
-//   uuid: string | null | undefined
-// ) => {
-//   // const UserHeaders = (await headers()).get('user-agent');
-//   const userInfo = {
-//     userId: info?.id,
-//     userEmail: info?.email,
-//     userName: info?.username,
-//     uuid: uuid,
-//     // userAgent: UserHeaders,
-//   } as Record<
-//     "userId" | "userEmail" | "userName" | "teamName" | "teamId" | string,
-//     string
-//   >;
-//   // alert(JSON.stringify(userInfo));
-//   HyperDX.setGlobalAttributes(userInfo);
-//   HyperDX.addAction("login", userInfo);
-// };
 
 const useUser: HookUseUser = () => {
+  
   const { isAnonymous, info } = useGetUserInfo();
-  // const uuid = useReadLocalStorage<string | undefined>("uuid_id");
-
-  // useEffect(() => {
-  //   if (info && uuid) {
-  //     setTelemetry(info, uuid);
-      
-  //   }
-  // }, [info, uuid]);
 
   // Мемоизируем возвращаемый объект
   const memoizedUser = useMemo(

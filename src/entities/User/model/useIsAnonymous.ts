@@ -2,7 +2,7 @@ import { useLocalStorage, useReadLocalStorage } from "@undefined/usehooks-ts";
 import { useEffect, useState, useMemo } from "react";
 import { getRefreshToken } from "../api";
 
-const verifyAuth = async (token: string) => {
+export const verifyAuth = async (token: string) => {
   try {
     const { statusCode, data } = await getRefreshToken(token);
     if (statusCode === 200 || statusCode === 201) {

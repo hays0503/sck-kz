@@ -182,7 +182,9 @@
     "korzina": "Корзина"
   },
   "LoginPage": {
-    "login": "Вход"
+    "login": "Вход",
+    "ili-voidite-cherez": "Или войдите через",
+    "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «‎Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности"
   },
   "ProductDetailRelatedProduct": {
     "rekomenduemye-tovary": "Рекомендуемые товары"
@@ -249,5 +251,7 @@
     "loading": "Загрузка",
     "error": "Ошибка"
   },
-  "error": "Error:"
+  "error": "Error:",
+  "ili-voidite-cherez": "Или войдите через",
+  "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности"
 }

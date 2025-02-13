@@ -27,7 +27,7 @@ const ProfilePage = async (
           hightFooter={95}
           headerContent={<HeaderText text={t('dannye-polzovatelya')}/>}
           content={<UserMobile/>}
-          footerContent={<FooterMobile />}
+          footerContent={<FooterMobile defaultKey="4"/>}
         />
       </ProvidersClient>
     </ProvidersServer>

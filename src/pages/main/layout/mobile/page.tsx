@@ -14,7 +14,7 @@ import getCity from "@/entities/City/api/getCity";
 import { MappedCityType } from "api-mapping/city";
 import { SearchProduct } from "@/features/search-products";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { CategoryListMobile } from "@/widgets/CategoryListMobile";
+// import { CategoryListMobile } from "@/widgets/CategoryListMobile";
 import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 import { getCategoryRoot } from "@/entities/Category";
 import { TabletCategory } from "@/widgets/TabletCategory/ui";
@@ -66,7 +66,6 @@ export default async function HomePage(props: PageProps) {
               SelectCity={SelectCity}
               ChangeLanguage={ChangeLanguage}
               SearchProduct={SearchProduct}
-              CategoryListMobile={CategoryListMobile}
             />
           }
 

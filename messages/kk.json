@@ -179,7 +179,9 @@
     "korzina": "Кәрзеңке"
   },
   "LoginPage": {
-    "login": "Кіру"
+    "login": "Кіру",
+    "ili-voidite-cherez": "Немесе енгізіңіз",
+    "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "«SMS кодын алу» түймесін басу арқылы мен құпиялылық саясатының шарттарымен танысып, келісетінімді растаймын"
   },
   "ProductDetailRelatedProduct": {
     "rekomenduemye-tovary": "Ұсынылатын тауарлар"

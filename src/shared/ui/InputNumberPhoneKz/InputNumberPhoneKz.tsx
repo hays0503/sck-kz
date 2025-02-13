@@ -2,14 +2,16 @@
 import { Flex, Input, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import {  useState } from "react";
+import { useState } from "react";
 
 const { Text } = Typography;
 export default function InputNumberPhoneKz({ numberString, setNumberString }: { numberString: string, setNumberString: (value: string) => void }) {
   const t = useTranslations("InputNumberPhoneKz");
   const [showPaste, setShowPaste] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const checkClipboard = async () => {
+    setHover(true);
     try {
       if (navigator.clipboard && navigator.clipboard.readText) {
         const text = await navigator.clipboard.readText();
@@ -114,6 +116,11 @@ export default function InputNumberPhoneKz({ numberString, setNumberString }: { 
   </Flex>}</>
 
 
+  const hoverStyle = {
+    "boxShadow": hover? "1px 1px 10px 2px #FFC00E80":"none",
+    "borderRadius": "10px",   
+  }
+
   return <Input
     autoFocus={true}
     type="tel"
@@ -122,9 +129,16 @@ export default function InputNumberPhoneKz({ numberString, setNumberString }: { 
     placeholder={t('vash-telefon')}
     size="large"
     onClick={checkClipboard}
+    onMouseLeave={() => setHover(false)}
+    
     onPaste={e => actionPaste(e.clipboardData.getData("Text"))}
     onChange={e => actionChange(e)}
     pattern="\(\d{3}\) \d{3} - \d{4}"
     suffix={<OnPasteComponent />}
+    style={{ 
+      ...hoverStyle,
+      "--ant-line-height-lg": "2.1",
+      "--ant-input-active-border-color": "#FFC00E80",
+     } as React.CSSProperties}
   />
 }
