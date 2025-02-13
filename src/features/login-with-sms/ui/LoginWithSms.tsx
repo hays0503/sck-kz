@@ -10,7 +10,7 @@ import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { InputNumberPhoneKz } from "@/shared/ui";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 type OTPProps = GetProps<typeof Input.OTP>;
 
 export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | undefined }) {
@@ -82,8 +82,24 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         lineHeight: "24px",
         letterSpacing: "-0.6%",
         textAlign: "center"
-      }}>{t("t-vvedite-nomer-telefona")}
+      }}>{!smsIdentifier ? t("t-vvedite-nomer-telefona") : t('vvedite-kod-iz-sms')}
       </Title>
+      {!smsIdentifier && <Text style={{
+        color:"#8C8C8C",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "20px",
+        letterSpacing: "-0.6%",
+        textAlign: "center"
+      }}>{t('my-otpravili-kod-podtverzhdeniya-na-nomer')}</Text>}
+      {!smsIdentifier && <Text style={{
+        color:"#4954F0",
+        fontSize: "14px",
+        fontWeight: "500",
+        lineHeight: "20px",
+        letterSpacing: "-0.6%",
+        textAlign: "center"
+      }}>{numberString}</Text>}
       {!smsIdentifier ? (
         <Flex
           vertical={true}
@@ -106,7 +122,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%",
           }}
         >
-          <Input.OTP variant="filled" length={4} {...sharedProps} />
+
+          <Input.OTP variant="filled" length={4} {...sharedProps} type="tel"/>
           <Button style={{ backgroundColor: "#4954F0", color: "#fff" }} onClick={SendCodeInSms}>Авторизоваться</Button>
         </Flex>
       )}

@@ -88,7 +88,9 @@
   "LoginWithSms": {
     "t-vvedite-nomer-telefona": "Enter your phone number",
     "poluchit-sms-kod": "Get an SMS code",
-    "error": "Error"
+    "error": "Error",
+    "vvedite-kod-iz-sms": "Enter the code from SMS",
+    "my-otpravili-kod-podtverzhdeniya-na-nomer": "We sent a confirmation code to the number"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Please use your Kaspi number to register.",

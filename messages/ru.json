@@ -97,7 +97,9 @@
   "LoginWithSms": {
     "t-vvedite-nomer-telefona": "Введите номер телефона",
     "poluchit-sms-kod": "Получить SMS-код",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "vvedite-kod-iz-sms": "Введите код из SMS",
+    "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Пожалуйста используйте для регистрации ваш kaspi номер.",
@@ -253,5 +255,7 @@
   },
   "error": "Error:",
   "ili-voidite-cherez": "Или войдите через",
-  "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности"
+  "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности",
+  "vvedite-kod-iz-sms": "Введите код из SMS",
+  "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер"
 }
