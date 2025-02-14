@@ -90,7 +90,9 @@
     "poluchit-sms-kod": "SMS кодын алыңыз",
     "error": "Қателік",
     "vvedite-kod-iz-sms": "SMS-тен кодты енгізіңіз",
-    "my-otpravili-kod-podtverzhdeniya-na-nomer": "Біз растау кодын нөмірге жібердік"
+    "my-otpravili-kod-podtverzhdeniya-na-nomer": "Біз растау кодын нөмірге жібердік",
+    "avtorizovatsya": "Кан тілеу",
+    "vvesti-drugoi-nomer-telefona": "Басқа телефон нөмірін енгізіңіз"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Тіркелу үшін Kaspi нөміріңізді пайдаланыңыз.",

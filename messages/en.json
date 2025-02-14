@@ -90,7 +90,9 @@
     "poluchit-sms-kod": "Get an SMS code",
     "error": "Error",
     "vvedite-kod-iz-sms": "Enter the code from SMS",
-    "my-otpravili-kod-podtverzhdeniya-na-nomer": "We sent a confirmation code to the number"
+    "my-otpravili-kod-podtverzhdeniya-na-nomer": "We sent a confirmation code to the number",
+    "avtorizovatsya": "Logue",
+    "vvesti-drugoi-nomer-telefona": "Enter another phone number"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Please use your Kaspi number to register.",

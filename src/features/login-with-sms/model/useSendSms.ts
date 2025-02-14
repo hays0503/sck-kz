@@ -20,7 +20,7 @@ const useSendSms = () => {
         }
     },[phone_number])
 
-    return { smsIdentifier, setPhone }
+    return { smsIdentifier, setPhone, back:()=>setSmsIdentifier(undefined) };
 }
 
 export default useSendSms

@@ -99,7 +99,9 @@
     "poluchit-sms-kod": "Получить SMS-код",
     "error": "Ошибка",
     "vvedite-kod-iz-sms": "Введите код из SMS",
-    "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер"
+    "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер",
+    "avtorizovatsya": "Авторизоваться",
+    "vvesti-drugoi-nomer-telefona": "Ввести другой номер телефона"
   },
   "Credit": {
     "pozhaluista-ispolzuite-dlya-registracii-vash-kaspi-nomer": "Пожалуйста используйте для регистрации ваш kaspi номер.",
@@ -257,5 +259,7 @@
   "ili-voidite-cherez": "Или войдите через",
   "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности",
   "vvedite-kod-iz-sms": "Введите код из SMS",
-  "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер"
+  "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер",
+  "avtorizovatsya": "Авторизоваться",
+  "vvesti-drugoi-nomer-telefona": "Ввести другой номер телефона"
 }

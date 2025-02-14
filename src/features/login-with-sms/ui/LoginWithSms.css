@@ -1,0 +1,8 @@
+.ant-otp-input{
+    background-color: aquamarine;
+    font-size: 40px !important;
+    height: 70px !important;
+    --ant-input-input-font-size: 123px !important;
+    --ant-input-input-font-size-lg: 40px !important;
+    --ant-input-input-font-size-sm: 40px !important;
+}

@@ -33,12 +33,17 @@ export async function ProvidersServer({
   return (
 
     <AntdRegistry>
-      <ConfigProvider theme={{ cssVar: true,token:{
-        fontFamily: 'Inter',
-      } }} locale={antdLocale()}>
-        <NextIntlClientProvider 
-        locale={lang}
-         messages={messages}>
+      <ConfigProvider theme={{
+        cssVar: true,
+        token: {
+          fontFamily: 'Inter',
+
+        }
+        
+      }} locale={antdLocale()}>
+        <NextIntlClientProvider
+          locale={lang}
+          messages={messages}>
           {children}
         </NextIntlClientProvider>
       </ConfigProvider>

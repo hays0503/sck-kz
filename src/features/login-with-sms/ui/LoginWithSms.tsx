@@ -1,6 +1,6 @@
 "use client";
 import { Button, Flex, Input, message, Typography } from "antd";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
 import type { GetProps } from "antd";
@@ -9,15 +9,15 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { InputNumberPhoneKz } from "@/shared/ui";
-
-const { Title, Text } = Typography;
+import "./LoginWithSms.css";
+const { Title, Text, Link } = Typography;
 type OTPProps = GetProps<typeof Input.OTP>;
 
 export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | undefined }) {
   const [messageApi, contextHolder] = message.useMessage();
   const [numberString, setNumberString] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const { smsIdentifier, setPhone } = useSendSms();
+  const { smsIdentifier, setPhone, back } = useSendSms();
   const [, setAccessToken] = useLocalStorage("accessToken", { token: "" });
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
   const [, setUserId] = useLocalStorage("user_id", { user_id: "" });
@@ -44,7 +44,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           if (callbackUrl) {
             window.open(callbackUrl)
           }
-          router.push(`/city/${city}/main`);
+          router.push(`/city/${city}/profile`);
         } else {
           messageApi.open({
             type: "error",
@@ -69,7 +69,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
     <Flex
       style={{
         width: "100%",
-      }}
+      } as CSSProperties}
       vertical={true}
       gap={10}
       justify="center"
@@ -84,22 +84,22 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         textAlign: "center"
       }}>{!smsIdentifier ? t("t-vvedite-nomer-telefona") : t('vvedite-kod-iz-sms')}
       </Title>
-      {!smsIdentifier && <Text style={{
-        color:"#8C8C8C",
+      {smsIdentifier && <Text style={{
+        color: "#8C8C8C",
         fontSize: "14px",
         fontWeight: "400",
         lineHeight: "20px",
         letterSpacing: "-0.6%",
         textAlign: "center"
       }}>{t('my-otpravili-kod-podtverzhdeniya-na-nomer')}</Text>}
-      {!smsIdentifier && <Text style={{
-        color:"#4954F0",
+      {smsIdentifier && <Text style={{
+        color: "#4954F0",
         fontSize: "14px",
         fontWeight: "500",
         lineHeight: "20px",
         letterSpacing: "-0.6%",
         textAlign: "center"
-      }}>{numberString}</Text>}
+      }}>+7{numberString}</Text>}
       {!smsIdentifier ? (
         <Flex
           vertical={true}
@@ -117,14 +117,22 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
       ) : (
         <Flex
           vertical={true}
-          gap={10}
+          gap={20}
+          align="center"
+          justify="center"
           style={{
-            width: "100%",
-          }}
+            width: "100%"
+          } as CSSProperties}
         >
+          <Input.OTP style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
+           variant="filled"
+           size="large"
+           length={4}
+           type="tel"
+           {...sharedProps} />
+          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
 
-          <Input.OTP variant="filled" length={4} {...sharedProps} type="tel"/>
-          <Button style={{ backgroundColor: "#4954F0", color: "#fff" }} onClick={SendCodeInSms}>Авторизоваться</Button>
+          <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
       )}
     </Flex>
