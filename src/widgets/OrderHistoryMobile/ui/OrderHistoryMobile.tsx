@@ -13,7 +13,7 @@ interface IOrderHistoryMobileProps {
 const { Text, Title } = Typography;
 
 const OrderHistoryMobile: React.FC<IOrderHistoryMobileProps> = ({ Orders }) => {
-    const t = useTranslations();
+    const t = useTranslations("OrderHistoryMobile");
     const locale = useLocale();
 
     const RowInList: React.FC<{ order: TOrder }> = ({ order }) => {
@@ -107,17 +107,15 @@ const OrderHistoryMobile: React.FC<IOrderHistoryMobileProps> = ({ Orders }) => {
     return (
         <Flex vertical style={{ width: "100%" }}>
             {Object.entries(SortedByMonthArray).map(([month, orders]) => (
-                <Flex key={month} vertical style={{ backgroundColor: "#fff",padding:"10px" }}>
+                <Flex key={month} vertical style={{ backgroundColor: "#fff", padding: "10px" }}>
                     <Title level={4}>
                         {String(month).charAt(0).toUpperCase() + String(month).slice(1)}
                     </Title>
-                    {orders.map((order) => (<>
-                        <Flex vertical key={order.id} style={{padding:"10px"}}>
+                    {orders.map((order) => (
+                        <Flex key={order.id} vertical style={{ padding: "10px" }}>
                             <Divider />
                             <RowInList order={order} />
                         </Flex>
-                    </>
-
                     ))}
                 </Flex>
             ))}

@@ -261,5 +261,13 @@
   "vvedite-kod-iz-sms": "Введите код из SMS",
   "my-otpravili-kod-podtverzhdeniya-na-nomer": "Мы отправили код подтверждения на номер",
   "avtorizovatsya": "Авторизоваться",
-  "vvesti-drugoi-nomer-telefona": "Ввести другой номер телефона"
+  "vvesti-drugoi-nomer-telefona": "Ввести другой номер телефона",
+  "OrderHistoryMobile": {
+    "novyi": "Новый",
+    "v-rabote": "В работе",
+    "vypolnen": "Выполненный",
+    "otmenen": "Отменённый",
+    "neizvestno": "Не известно",
+    "zakaz": "Заказ"
+  }
 }

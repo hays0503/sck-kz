@@ -36,13 +36,11 @@ const Level1: React.FC<Level1Props> = (props) => {
   );
   
   const isDefault: boolean = infoUser?.avatar_path == "avatar_default.png" 
-  console.log("isDefault =>",isDefault,infoUser?.avatar_path)
   const photoProfile: string = isDefault ? "/sck-user.svg" : infoUser?.avatar_path??"/sck-user.svg"
   const styleImg: CSSProperties = {
     borderRadius:`50%`
   } as CSSProperties
 
-  console.log("photoProfile =>",photoProfile)
   return (
     <Flex
       vertical={true}

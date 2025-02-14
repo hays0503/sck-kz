@@ -2,12 +2,11 @@
 import { CopyUrlButton } from "@/features/copy-url-button/ui";
 import { ShareButton } from "@/features/share-button";
 import { useRouter } from "@/i18n/routing";
-import { Button, Flex, Typography } from "antd";
+import { Button, Flex } from "antd";
+import { TextTruncate } from "../TextTruncate";
 interface IHeaderTextProps {
   readonly text: string;
 }
-
-const { Title } = Typography;
 
 const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
@@ -53,15 +52,15 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
         justify="center"
         style={{ paddingTop: "10px",width: "50%" }}
       >
-        <Title
-          level={3}
-          style={{
-            padding: "5px" /* Поля вокруг текста */,
-            textAlign: "left",
-          }}
-        >
-          {text}
-        </Title>
+          <TextTruncate text={text} style={{
+            fontSize: "16px",
+            lineHeight: "20px",
+            fontWeight: "600",
+            letterSpacing: "-0.6%",
+            color: "#000000",
+            textAlign: "center",
+            width: "100%"
+          }}/>
       </Flex>
       <Flex gap={10} align="center" justify="center" style={{ width: "25%", }} >
         <CopyUrlButton />

@@ -5,8 +5,12 @@ import { Flex, message, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
+import Image from "next/image";
 
 const { Title } = Typography;
+
+
+import { motion } from "framer-motion";
 
 const ElementList: React.FC<{
   title: string;
@@ -18,19 +22,29 @@ const ElementList: React.FC<{
   const t = useTranslations("ProfileMobile");
   const { title, href, disabled, color, icon } = props;
   const [messageApi, contextHolder] = message.useMessage();
+
   return (
     <>
       {contextHolder}
-      <Flex
-        align="center"
-        justify="center"
+      <motion.div
+        whileTap={
+          !disabled
+            ? {
+                y: 4, // Более заметный сдвиг вниз
+                boxShadow: "inset 0px 4px 6px rgba(0, 0, 0, 0.15)", // Вдавливание
+              }
+            : {}
+        }
+        transition={{ type: "spring", stiffness: 280, damping: 18 }} // Упругое движение
         style={{
           width: "100%",
-          backgroundColor: `${disabled ? "#f0f0f0" : "#fff"}`,
+          backgroundColor: disabled ? "#f0f0f0" : "#fff",
           border: "1px solid #d7d7d7",
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.05)",
-          padding: "10px",
-          cursor: `${disabled ? "not-allowed" : "pointer"}`,
+          boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.12)", // Базовая тень
+          padding: "12px",
+          cursor: disabled ? "not-allowed" : "pointer",
+          borderRadius: "10px",
+          transition: "background-color 0.2s ease",
         }}
         onClick={() => {
           if (disabled) {
@@ -41,37 +55,28 @@ const ElementList: React.FC<{
           }
         }}
       >
-        <Flex align="center" justify="space-between" style={{ width: "95%" }}>
-          <Flex align="normal" justify="space-between" gap={10}>
-            {icon}
-            <Title level={5} style={{ color }}>
-              {title}
-            </Title>
+        <Link href={disabled ? "#" : href} prefetch={true} style={{ width: "100%" }}>
+          <Flex align="center" justify="space-between" style={{ width: "100%" }}>
+            <Flex align="center" justify="space-between" gap={10}>
+              {icon}
+              <Title level={5} style={{ color }}>
+                {title}
+              </Title>
+            </Flex>
+            <Flex align="center" justify="center">
+              <Image src={"/arrow.svg"} alt="arrow" width={36} height={36} />
+            </Flex>
           </Flex>
-          <Link href={disabled ? "#" : href} prefetch={true} style={{width:"40px", height:"40px"}}>
-            <svg
-              // width="36"
-              // height="36"
-              viewBox="-10 9 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M9.26399 22.2636C8.91252 22.6151 8.91252 23.1849 9.264 23.5364L13.7276 28L9.26399 32.4636C8.91252 32.8151 8.91252 33.3849 9.264 33.7364C9.61547 34.0879 10.1853 34.0879 10.5368 33.7364L15.6368 28.6364C15.9883 28.2849 15.9883 27.715 15.6368 27.3636L10.5368 22.2636C10.1853 21.9121 9.61546 21.9121 9.26399 22.2636Z"
-                fill="#99A2AD"
-              />
-            </svg>
-          </Link>
-        </Flex>
-      </Flex>
+        </Link>
+      </motion.div>
     </>
   );
 };
 
+
+
 interface Level2Props {
-  readonly IsAnonymous: boolean|undefined;
+  readonly IsAnonymous: boolean | undefined;
   readonly infoUser: UserInfo | null;
 }
 
@@ -81,7 +86,7 @@ const Level2: React.FC<Level2Props> = (props) => {
 
   const currentCity = useGetCityParams();
   const t = useTranslations("Level2");
-  const refreshToken = useReadLocalStorage<{token: string}>("refreshToken");
+  const refreshToken = useReadLocalStorage<{ token: string }>("refreshToken");
 
   return (
     <Flex vertical={true} gap={10} align="center" style={{ width: "100%" }}>

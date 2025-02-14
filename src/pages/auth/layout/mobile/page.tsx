@@ -36,7 +36,7 @@ const AuthPage = () => {
       removeCallbackUrl();
       router.replace(url);
     }else{
-      const url = `/${parameters.locale}/city/${parameters.city}/main`;
+      const url = `/${parameters.locale}/city/${parameters.city}/profile`;
       router.replace(url)
     }
 

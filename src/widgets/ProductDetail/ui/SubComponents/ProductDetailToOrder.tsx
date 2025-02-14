@@ -23,7 +23,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
 
     const price = product?.price
     const discountPrice = product?.oldPrice
-    const quantity = product?.quantity
+    // const quantity = product?.quantity // По просьбе Олега удаленна 13.03.25
 
     const StickFlex = {
         //  backgroundColor: "#FFFAAA",
@@ -39,7 +39,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
 
     return <Flex style={StickFlex} justify="space-between" align="center">
         <Flex vertical={true} gap={10}>
-            <Text style={{ color:"#808185"}}>{`${tt("vnalichii")}: ${quantity} `}</Text>
+            <Text style={{ color:"#808185"}}>{`${tt("vnalichii")}`}</Text>
             <Flex gap={10} align="center">
                 <Text strong>
                     {beautifulCost(price)}
