@@ -2,9 +2,7 @@ import React from "react";
 import { Button,  message } from "antd";
 import { ShareAltOutlined } from '@ant-design/icons';
 import { useTranslations } from "next-intl";
-import { Typography } from "antd";
-import Style from "./ShareButton.module.css";
-const {Text} = Typography;
+
 const ShareButton = () => {
   const [messageApi, contextHolder] = message.useMessage(); // API для уведомлений
   const t = useTranslations("ShareButton");
@@ -40,10 +38,7 @@ const ShareButton = () => {
         onClick={shareCurrentUrl}
         icon={
             <ShareAltOutlined />
-        }
-      >
-        <Text className={Style.ButtonText}>{t('podelitsya')}</Text>
-      </Button>
+        }/>
     </>
   );
 };

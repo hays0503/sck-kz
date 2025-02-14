@@ -12,7 +12,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
   const { text } = props;
   return (
-    <Flex style={{ width: "100%", justifyContent: "center" }}>
+    <Flex justify="space-between" align="center" style={{ width: "100%",height: "100%" }}>
       <Flex
         align="center"
         justify="center"
@@ -50,19 +50,23 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
       <Flex
         align="center"
         justify="center"
-        style={{ paddingTop: "10px",width: "50%" }}
+        style={{ paddingTop: "10px",width: "50%",height: "100%",
+        // background:"red" 
+        }}
       >
           <TextTruncate text={text} style={{
-            fontSize: "16px",
+            fontSize: "18px",
             lineHeight: "20px",
             fontWeight: "600",
             letterSpacing: "-0.6%",
             color: "#000000",
             textAlign: "center",
-            width: "100%"
+            width: "100%",
+            height: "50%",
+            // background:"green"
           }}/>
       </Flex>
-      <Flex gap={10} align="center" justify="center" style={{ width: "25%", }} >
+      <Flex gap={10} align="center" justify="center" style={{ width: "25%",height: "100%"  }} >
         <CopyUrlButton />
         <ShareButton />
       </Flex>
