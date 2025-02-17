@@ -1,6 +1,10 @@
+import basicMetadata from "@/shared/metadata/basicMetadata";
+import viewportMetadata from "@/shared/metadata/viewportMetadata";
 import { getCategorySlugs } from "api-mapping/category/slugs/api/getCategorySlugs";
+import { Metadata, Viewport } from "next";
 
-
+export const metadata: Metadata = basicMetadata();
+export const viewport: Viewport = viewportMetadata();
 
 export async function generateStaticParams() {
   try {

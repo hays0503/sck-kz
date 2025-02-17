@@ -5,7 +5,6 @@ import { HeaderText } from "@/shared/ui";
 
 import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { LoginMobile } from "@/widgets/LoginMobile/ui";
-import { Flex} from "antd";
 import { getTranslations } from "next-intl/server";
 
 const LoginPage = async ({
@@ -26,11 +25,7 @@ const LoginPage = async ({
           h="px"
           hightHeader={70}
           hightFooter={0}
-          headerContent={
-            <Flex vertical={true} gap={10} justify="center" align="center">
-              <HeaderText text={t("login")} />
-            </Flex>
-          }
+          headerContent={<HeaderText text={t("login")} />}
           content={<LoginMobile urlCallback={urlCallback} />}
           footerContent={<></>}
         />

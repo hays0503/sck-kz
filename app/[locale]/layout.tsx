@@ -1,11 +1,15 @@
 import { ProvidersServer } from "@/shared/providers/providersServer";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import {setRequestLocale} from 'next-intl/server';
 import { Inter } from "next/font/google";
 import { locales, routing } from "@/i18n/routing";
 import basicMetadata from "@/shared/metadata/basicMetadata";
 import {notFound} from 'next/navigation';
+import viewportMetadata from "@/shared/metadata/viewportMetadata";
+
+
 export const metadata: Metadata = basicMetadata();
+export const viewport: Viewport = viewportMetadata();
 
 
 export function generateStaticParams() {

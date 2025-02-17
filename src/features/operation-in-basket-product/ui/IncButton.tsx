@@ -12,8 +12,13 @@ const IncButton: React.FC<{ prod_id: number }> = ({ prod_id }) => {
         backgroundColor: "#F5F5F5",
       };
 
-    const addAction = useBasketAdd({ prod_id });
-
+    const _addAction = useBasketAdd({ prod_id });
+    const addAction = async () => {
+        if ('vibrate' in navigator) {
+            navigator.vibrate([50, 30, 80, 30, 50]);
+        }
+        _addAction()
+    }
     return (
         <Button
             onClick={addAction}

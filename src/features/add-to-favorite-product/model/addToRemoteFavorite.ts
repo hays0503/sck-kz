@@ -14,7 +14,9 @@ const useAddToRemoteFavorite = (): [React.ReactNode, (product_id: number) => Pro
     const user_id = useReadLocalStorage<{user_id:string}>("user_id");
 
     const add = useCallback(async (product_id: number) => {
-
+        if ('vibrate' in navigator) {
+            navigator.vibrate([50, 30, 80, 30, 50]);
+        }
         const url = `/api-mapping/featured-products/add-product/?uuid=${uuid}&product_id=${product_id}`
 
         const response = await fetch(url, {

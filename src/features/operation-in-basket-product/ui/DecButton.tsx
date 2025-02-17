@@ -48,8 +48,13 @@ const DecButton: React.FC<{ prod_id: number, count: number }> = ({ prod_id,count
           </svg>
         );
     
-      const delProduct = useBasketDec({ prod_id });
-    
+      const _delProduct = useBasketDec({ prod_id });
+      const delProduct = async () => {
+        if ('vibrate' in navigator) {
+          navigator.vibrate([50, 30, 80, 30, 50]);
+        }
+        _delProduct()
+      }
       return <Button
       onClick={delProduct} 
       style={styleButtonDeleted}
