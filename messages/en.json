@@ -249,5 +249,9 @@
     "otmenen": "Canceled",
     "neizvestno": "Not known",
     "zakaz": "Order"
+  },
+  "CatalogMenu": {
+    "zagruzka": "Loading",
+    "oshibka": "Error"
   }
 }

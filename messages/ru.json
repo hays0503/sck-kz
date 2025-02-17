@@ -269,5 +269,11 @@
     "otmenen": "Отменённый",
     "neizvestno": "Не известно",
     "zakaz": "Заказ"
+  },
+  "zagruzka": "Загрузка",
+  "oshibka": "Ошибка",
+  "CatalogMenu": {
+    "zagruzka": "Загрузка",
+    "oshibka": "Ошибка"
   }
 }

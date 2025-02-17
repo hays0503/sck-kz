@@ -68,7 +68,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
                 ) : (
                   <div style={{ width: 24, height: 24 }}></div>
                 )}
-                <Title level={5} style={{ fontWeight: "600", margin: 0 }}>
+                <Title level={5} style={{ fontWeight: "600", margin: 0,color:root ? "#328fbf" : "black" }}>
                   {root ? `Посмотреть все товары категории: ${name}` : name}
                 </Title>
               </Flex>

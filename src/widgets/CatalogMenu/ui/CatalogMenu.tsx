@@ -46,12 +46,12 @@ const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
         return <div>
         <ul style={ListStyle}>
             {
-                <RowCategory key={categoryFind.slug} item={categoryFind} root />
-            }
-            {
                 categoryFind.children.map((category: MappedCategoryType) => (
                     <RowCategory key={category.slug} item={category} />
                 ))
+            }            
+            {
+                <RowCategory key={categoryFind.slug} item={categoryFind} root />
             }
         </ul>
     </div>

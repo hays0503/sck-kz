@@ -6,7 +6,7 @@ import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
-import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
+import { CatalogMenu } from "@/widgets/CatalogMenuLikeKaspi";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutCustom } from "@/widgets/LayoutCustom";
 

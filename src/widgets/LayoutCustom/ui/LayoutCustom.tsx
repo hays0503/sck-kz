@@ -16,7 +16,7 @@ const { Header, Footer, Content } = Layout;
 const LayoutCustom: React.FC<ILayoutMainCustomProps> = (props) => {
   const { headerContent, content, footerContent,h,hightHeader,hightFooter } = props;
 
-  const hightContent = hightFooter+hightHeader;
+  // const hightContent = hightFooter+hightHeader;
 
   const layoutStyle: CSSProperties = {
     backgroundColor: "#FFF",
@@ -38,13 +38,12 @@ const LayoutCustom: React.FC<ILayoutMainCustomProps> = (props) => {
   const contentStyle: CSSProperties = {
     marginTop:`${hightHeader}${h}`,
     backgroundColor: "unset",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    height: `calc(100vh - ${hightContent}${h})`,
+    // paddingTop: `${hightHeader}${h}`,
+    // paddingBottom: "10px",
+    height: `calc(99vh)`,
     marginBottom:`${hightFooter}${h}`,
     overflowY: "auto",
     overflowX: "hidden",
-
   };
   const footerStyle: CSSProperties = {
     paddingTop: "0px",

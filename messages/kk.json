@@ -249,5 +249,9 @@
     "otmenen": "Болдырмады",
     "neizvestno": "Белгісіз",
     "zakaz": "Бұйрық"
+  },
+  "CatalogMenu": {
+    "zagruzka": "Тиеу",
+    "oshibka": "Қателік"
   }
 }
