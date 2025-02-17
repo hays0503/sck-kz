@@ -17,8 +17,13 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
     const tt =  useTranslations("ProductDetailToOrder");
     const t = useTranslations("AddToBasketProduct");
 
-    const addAction = useBasketAdd({ prod_id: props.product.id });
-
+    const [_addAction, msg] = useBasketAdd({ prod_id: props.product.id });
+    const addAction = async () => {
+        if ('vibrate' in navigator) {
+          navigator.vibrate([50, 30, 80, 30, 50]);
+        }
+        _addAction()
+      }; 
     const { product } = props
 
     const price = product?.price
@@ -38,6 +43,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
     } as CSSProperties
 
     return <Flex style={StickFlex} justify="space-between" align="center">
+        {msg}
         <Flex vertical={true} gap={10}>
             <Text style={{ color:"#808185"}}>{`${tt("vnalichii")}`}</Text>
             <Flex gap={10} align="center">

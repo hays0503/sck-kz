@@ -253,5 +253,9 @@
   "CatalogMenu": {
     "zagruzka": "Тиеу",
     "oshibka": "Қателік"
+  },
+  "Basket": {
+    "tovar-dobavlen-v-korzinu": "Тауарлар себетке қосылады",
+    "error": "Қателік"
   }
 }

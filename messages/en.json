@@ -253,5 +253,9 @@
   "CatalogMenu": {
     "zagruzka": "Loading",
     "oshibka": "Error"
+  },
+  "Basket": {
+    "tovar-dobavlen-v-korzinu": "The goods are added to the basket",
+    "error": "Error"
   }
 }
