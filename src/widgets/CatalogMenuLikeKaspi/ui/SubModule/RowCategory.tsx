@@ -41,11 +41,11 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
       justifyContent: "flex-start",
 
     }} href={url} >
-      <Flex style={{padding:"10px"}}>
+      <Flex style={{paddingTop:"5px",paddingLeft:"10px"}}>
         <Title level={5} style={{ color: "gray" }}>{name}</Title>
       </Flex>
       <Flex align="flex-start" justify="flex-end" style={{ width: "100%", height: "100%", overflow: "hidden" }}>
-        {img && <Image src={img} alt={name} width={100} height={100} />}
+        {img && <Image src={img} alt={name} width={80} height={80} />}
       </Flex>
     </Link>
   </Flex>
