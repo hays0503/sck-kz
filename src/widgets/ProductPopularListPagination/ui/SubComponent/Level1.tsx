@@ -1,4 +1,4 @@
-import { ProductCart } from "@/entities/Product/ui/Cart";
+import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import { Col, ColProps, Row } from "antd";
@@ -15,11 +15,11 @@ const Level1: React.FC<Level1Props> = (props) => {
   const { Products } = props;
 
   const ColResponsive: ColProps = {
-    xs: { offset: 1 }
+    // xs: { offset: 1 }
   }
 
   return (
-    <Row gutter={[1, 1]} justify="center" align="stretch">
+    <Row gutter={[5,5]} justify="center" align="stretch">
       {Products?.map((item, index) => (
         <Col {...ColResponsive} key={index}>
           <ProductCart

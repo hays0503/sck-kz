@@ -53,7 +53,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
           hightFooter={95}
           headerContent={<HeaderText text={headerText} />}
           content={<CatalogMenu slugCategory={slug} />}
-          footerContent={<FooterMobile defaultKey="2" />}
+          footerContent={<FooterMobile defaultKey="5" />}
         />
       </ProvidersClient>
     </ProvidersServer>

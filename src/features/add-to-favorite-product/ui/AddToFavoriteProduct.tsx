@@ -1,5 +1,5 @@
 "use client";
-import React, {  } from "react";
+import React, { } from "react";
 import { Button, Flex } from "antd";
 import { motion } from "framer-motion";
 import { useAddToRemoteFavorite, useRemoveToRemoteFavorite } from "../model";
@@ -43,7 +43,7 @@ const Heart: React.FC<{ isFavorite: boolean }> = ({ isFavorite }) => {
 const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
   const [contextHolderAddMsg, add] = useAddToRemoteFavorite();
-  const [contextHolderDelMsg, del] = useRemoveToRemoteFavorite();  
+  const [contextHolderDelMsg, del] = useRemoveToRemoteFavorite();
 
   if (isLoading) {
     return <div style={{ width: "25px", height: "25px" }} />;
@@ -53,13 +53,13 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
     return <Flex style={{ width: "25px", height: "25px" }} justify="center" align="center">!</Flex>;
   }
 
-  const isFavorite =  data?.data.includes(prod_id)
-  const action = isFavorite ? ()=>del(prod_id) : ()=>add(prod_id);
+  const isFavorite = data?.data.includes(prod_id)
+  const action = isFavorite ? () => del(prod_id) : () => add(prod_id);
 
   return (
-    <Flex style={{ width: "25px", height: "25px", position: "relative", zIndex: 999 }} justify="center" align="center">
+    <Flex style={{ width: "50px", height: "50px", position: "relative", zIndex: 999 }} justify="center" align="center">
       {contextHolderAddMsg}
-      <Button type={"text"} shape="default" size="small" onClick={action} style={{ position: "absolute", bottom: "-40px" }}>
+      <Button type={"text"} shape="default" size="small" onClick={action} style={{ position: "absolute", width: "50px", height: "50px",padding:"10px" }}>
         {contextHolderDelMsg}
         <Heart isFavorite={isFavorite} />
       </Button>

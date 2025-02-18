@@ -54,6 +54,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     width: "100%",
     height: "auto",
     backgroundColor: "#fff",
+    padding:"5px"
   };
 
   return (

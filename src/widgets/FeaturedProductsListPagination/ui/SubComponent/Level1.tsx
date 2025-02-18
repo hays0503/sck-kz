@@ -1,4 +1,4 @@
-import { ProductCart } from "@/entities/Product/ui/Cart";
+import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import { Col, ColProps, Row } from "antd";

@@ -28,6 +28,15 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
       key: "2",
     },
     {
+      label: <CatalogLabel
+        styleActive={returnStyleActive("5", current)}
+        styleActiveBg={returnStyleActiveBg("5", current)}
+        styleActiveAccent={returnStyleActiveAccent("5", current)}
+        text="V2"
+        />,
+      key: "5",
+    },
+    {
       label: <BasketLabel
       uuid_id={uuid_id}
       styleActive={returnStyleActive("3", current)}
@@ -78,6 +87,9 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
           }
           if (key === "4") {
             router.push(`/city/${currentCity}/profile`)
+          }
+          if (key === "5") {
+            router.push(`/city/${currentCity}/catalog/menuV2/main`)
           }
         }}
       />
