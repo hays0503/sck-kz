@@ -33,7 +33,13 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   const cityRu:string = CityEnToRu[cityEn] as string ?? "Караганда";
   const offset = POPULATES_PRODUCTS.POPULATES_PER_PAGE * (parseInt(page)-1);
-  const url = `${UrlApiWithDomainV2.getProductsPopulates}?ordering=${orderBy}&offset=${offset}&limit=${POPULATES_PRODUCTS.POPULATES_PER_PAGE}&city=${cityRu}`;
+  let url
+  if(orderBy !== "none_sort"){
+    url = `${UrlApiWithDomainV2.getProductsPopulates}?ordering=${orderBy}&offset=${offset}&limit=${POPULATES_PRODUCTS.POPULATES_PER_PAGE}&city=${cityRu}`;
+  }else{
+    url = `${UrlApiWithDomainV2.getProductsPopulates}?offset=${offset}&limit=${POPULATES_PRODUCTS.POPULATES_PER_PAGE}&city=${cityRu}`
+    console.log(url)
+  }
 
   const response = await fetch(url,{
     next: { revalidate: 60 }, // Данные кешируются на 60 секунд

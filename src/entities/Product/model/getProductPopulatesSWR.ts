@@ -8,7 +8,7 @@ const useGetProductPopulatesSWR = ({
   page,
 }: {
   city: string;
-  orderBy: "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price";
+  orderBy: "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price"|"none_sort";
   page: number;
 }): SWRResponse<getProductResult> => {
   const url = `/api-mapping/product/populates?page=${page}&order=${orderBy}&city=${city}`;

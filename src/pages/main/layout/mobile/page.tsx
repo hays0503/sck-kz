@@ -34,7 +34,7 @@ export default async function HomePage(props: PageProps) {
 
   const products: getProductResult = await getProductPopulates({
     city: (await params).city,
-    orderBy: "stocks__price",
+    orderBy: "none_sort",
     page
   })
 
@@ -42,7 +42,7 @@ export default async function HomePage(props: PageProps) {
 
   const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot();
 
-  const urlPopulates = `/api-mapping/product/populates?page=${page}&order=stocks__price&city=${(await params).city}`
+  const urlPopulates = `/api-mapping/product/populates?page=${page}&order=none_sort&city=${(await params).city}`
   const urlCity = `/api-mapping/city`
   const urlCategoryRoot = `/api-mapping/category/root`
   const fallback = {

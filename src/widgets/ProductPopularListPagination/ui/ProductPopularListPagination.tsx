@@ -20,7 +20,7 @@ export default function ProductPopularListPagination(
   const tt = useTranslations("ProductPopularListPagination");
   const { data, isLoading, error } = useGetProductPopulatesSWR({
     city: useGetCityParams(),
-    orderBy: "stocks__price",
+    orderBy: "none_sort",
     page: currentPage
   });
 

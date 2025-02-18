@@ -4,7 +4,7 @@ import { MappedPopularProductType } from "api-mapping/product/populates";
 
 interface getProductPopulatesProps {
     city: string;
-    orderBy: "avg_rating"|"-avg_rating"|"stocks__price"|"-stocks__price";
+    orderBy: "avg_rating"|"-avg_rating"|"stocks__price"|"-stocks__price"|"none_sort";
     page: number;
 }
 
@@ -18,7 +18,7 @@ export type getProductResult =
 const getProductPopulates = async ({city,orderBy,page}: getProductPopulatesProps):Promise<getProductResult> => {
 
     // Поверка на корректность orderBy   
-    const isCorrectOrderBy = !orderBy || ["avg_rating", "-avg_rating", "stocks__price", "-stocks__price"].includes(orderBy);
+    const isCorrectOrderBy = !orderBy || ["avg_rating", "-avg_rating", "stocks__price", "-stocks__price","none_sort"].includes(orderBy);
 
     // Пресутсвуют ли обязательные параметры   
     if (!isCorrectOrderBy || !city || !page) {
