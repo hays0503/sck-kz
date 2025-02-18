@@ -1,6 +1,6 @@
 "use client";
 import { Flex, Spin } from "antd";
-import { JSX, lazy, Suspense, useLayoutEffect, useRef, useState } from "react";
+import { JSX, lazy, Suspense, useRef } from "react";
 import { Level1, Level2, Level3 } from "./SubComponent";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Link } from "@/i18n/routing";
