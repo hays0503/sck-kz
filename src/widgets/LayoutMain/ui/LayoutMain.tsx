@@ -1,64 +1,72 @@
 "use client";
 import { Layout } from "antd";
-import { CSSProperties, JSX } from "react";
+import React, { CSSProperties, useLayoutEffect, useRef, useState } from "react";
 
 interface ILayoutMainProps {
-  readonly headerContent: JSX.Element;
-  readonly content: JSX.Element;
-  readonly footerContent: JSX.Element;
+  readonly headerContent: React.ReactNode;
+  readonly content: React.ReactNode;
+  readonly footerContent: React.ReactNode;
 }
 
 const { Header, Footer, Content } = Layout;
 
-const LayoutMain: React.FC<ILayoutMainProps> = (props) => {
-  const { headerContent, content, footerContent } = props;
+const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footerContent }) => {
+  const refHeader = useRef<HTMLDivElement>(null);
+  const refContent = useRef<HTMLDivElement>(null);
+  const refFooter = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState("100dvh");
 
-  const h = "px";
-  const hightHeader = 70;
-  const hightFooter = 95;
-  const hightContent = hightFooter+hightHeader;
+  useLayoutEffect(() => {
+    if (refHeader.current && refFooter.current && refContent.current) {
+      const headerHeight = refHeader.current.offsetHeight || 0;
+      const footerHeight = refFooter.current.offsetHeight || 0;
+      setContentHeight(`calc(100dvh - ${headerHeight + footerHeight}px)`);
+    }
+  }, []);
 
   const layoutStyle: CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#FFF",
-    borderRadius: 8,
     overflow: "hidden",
     width: "calc(100% - 8px)",
     maxWidth: "calc(100% - 8px)",
   };
 
   const headerStyle: CSSProperties = {
-    "--ant-layout-header-padding": "0 10px",
-    backgroundColor: "#FFF",
-    width: "100dvw",
-    height:`${hightHeader}${h}`,
-    position: "fixed",
-    zIndex: 1000,
-    top: 0,    
-  } as CSSProperties;
-  const contentStyle: CSSProperties = {
-    marginTop:`${hightHeader}${h}`,
-    backgroundColor: "unset",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    height: `calc(100vh - ${hightContent}${h})`,
-    overflowY: "auto",
-    overflowX: "hidden",
+    width: "100%",
+    height: "auto",
+    padding: "5px",
+    backgroundColor: "#fff",
+  };
 
+  const contentStyle: CSSProperties = {
+    width: "100%",
+    backgroundColor: "#fff",
+    height: contentHeight,
+    overflowY:"auto",
+    overflowX:"clip"
   };
+
   const footerStyle: CSSProperties = {
-    paddingTop: "0px",
-    backgroundColor: "#FFF",
-    width: "100dvw",
-    height:`${hightFooter}${h}`,
-    position: "fixed",
-    zIndex: 1000,
-    bottom: 0,
+    width: "100%",
+    height: "auto",
+    backgroundColor: "#fff",
   };
+
   return (
     <Layout style={layoutStyle}>
-      <Header style={headerStyle}>{headerContent}</Header>
-      <Content style={contentStyle}>{content}</Content>
-      <Footer style={footerStyle}>{footerContent}</Footer>
+      <Header style={headerStyle} ref={refHeader}>
+        {headerContent}
+      </Header>
+      <Content style={contentStyle} ref={refContent}>
+        {content}
+      </Content>
+      <Footer style={footerStyle} ref={refFooter}>
+        {footerContent}
+      </Footer>
     </Layout>
   );
 };

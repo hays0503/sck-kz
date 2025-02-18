@@ -55,7 +55,6 @@ export default async function HomePage(props: PageProps) {
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
         <LayoutMain
-
           headerContent={
             <HeaderMobile
               SelectCity={SelectCity}
@@ -63,7 +62,6 @@ export default async function HomePage(props: PageProps) {
               SearchProduct={SearchProduct}
             />
           }
-
           content={
             <Flex vertical={true} gap={20}>
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
