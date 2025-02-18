@@ -10,11 +10,14 @@ interface ILayoutMainProps {
 
 const { Header, Footer, Content } = Layout;
 
+
 const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footerContent }) => {
   const refHeader = useRef<HTMLDivElement>(null);
   const refContent = useRef<HTMLDivElement>(null);
   const refFooter = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState("100dvh");
+
+  // useDisableRubberBandScroll();
 
   useLayoutEffect(() => {
     if (refHeader.current && refFooter.current && refContent.current) {
@@ -31,8 +34,11 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     justifyContent: "center",
     backgroundColor: "#FFF",
     overflow: "hidden",
-    width: "calc(100% - 8px)",
-    maxWidth: "calc(100% - 8px)",
+    height:"100dvh",
+    width: "calc(100%)",
+    touchAction:"none",
+    scrollBehavior:"smooth",
+    overscrollBehavior:"none"
   };
 
   const headerStyle: CSSProperties = {
@@ -54,7 +60,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     width: "100%",
     height: "auto",
     backgroundColor: "#fff",
-    padding:"5px"
+    padding:"0px",
   };
 
   return (
@@ -62,7 +68,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
       <Header style={headerStyle} ref={refHeader}>
         {headerContent}
       </Header>
-      <Content style={contentStyle} ref={refContent}>
+      <Content style={contentStyle} className="scrollable" ref={refContent}>
         {content}
       </Content>
       <Footer style={footerStyle} ref={refFooter}>

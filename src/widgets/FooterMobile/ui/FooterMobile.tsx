@@ -57,7 +57,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
 
   const TabsProperties: TabsProps = {
     defaultActiveKey: current,
-    style: { "--ant-tabs-horizontal-item-gutter": "3.5dvw" } as CSSProperties,
+    style: { "--ant-tabs-horizontal-item-gutter": "3.5dvw","--ant-margin":"0px" } as CSSProperties,
     accessKey: current,
     onTabClick: (key) => setCurrent(key),
     size: "small",
@@ -68,7 +68,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
 
   return (
     <Flex
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%",paddingBottom:"5px" }}
       justify="center"
       align="center"
     >

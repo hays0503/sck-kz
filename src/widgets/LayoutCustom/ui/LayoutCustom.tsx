@@ -47,6 +47,7 @@ const LayoutCustom: React.FC<ILayoutMainCustomProps> = (props) => {
   };
   const footerStyle: CSSProperties = {
     paddingTop: "0px",
+    padding:"0px",
     backgroundColor: "#FFF",
     width: "100dvw",
     height:`${hightFooter}${h}`,

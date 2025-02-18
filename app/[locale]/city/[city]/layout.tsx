@@ -6,6 +6,7 @@ import { getDataCity, MappedCityType } from "api-mapping/city";
 import { Metadata, Viewport } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
+import { CSSProperties } from "react";
 
 
 export const metadata: Metadata = basicMetadata();
@@ -54,8 +55,11 @@ export default async function CityLayout(
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={locale} style={{overflow: "hidden"}}>
+      <body className={inter.className} style={{
+        overflow: "hidden",
+        WebkitOverflowScrolling:"touch"
+      }as CSSProperties}>
         <ProvidersServer>{children}</ProvidersServer>
       </body>
     </html>
