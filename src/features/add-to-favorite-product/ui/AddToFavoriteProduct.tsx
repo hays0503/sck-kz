@@ -1,5 +1,5 @@
 "use client";
-import React, { } from "react";
+import React from "react";
 import { Button, Flex } from "antd";
 import { motion } from "framer-motion";
 import { useAddToRemoteFavorite, useRemoveToRemoteFavorite } from "../model";
@@ -44,6 +44,7 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
   const [contextHolderAddMsg, add] = useAddToRemoteFavorite();
   const [contextHolderDelMsg, del] = useRemoveToRemoteFavorite();
+  // const refButton = useRef<HTMLButtonElement>(null);
 
   if (isLoading) {
     return <div style={{ width: "25px", height: "25px" }} />;
@@ -54,7 +55,7 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   }
 
   const isFavorite = data?.data.includes(prod_id)
-  const action = isFavorite ? () => del(prod_id) : () => add(prod_id);
+  const action = isFavorite ? () => del(prod_id) : () => add(prod_id)
 
   return (
     <Flex style={{ width: "50px", height: "50px", position: "relative", zIndex: 999 }} justify="center" align="center">
