@@ -44,11 +44,12 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
         <Text
           style={{
             color: "#fff",
-            fontSize: "12px",
+            fontSize: "14px",
             lineHeight: "22px",
-            fontWeight: "300",
-            letterSpacing: "-0.084px",
+            fontWeight: "500",
+            letterSpacing: "-0.6%",
             fontStyle: "normal",
+            textAlign:"center"
           }}
         >
           {t("v-korzinu")}
@@ -58,3 +59,10 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   );
 }
 export default AddToBasketProduct
+
+// font-family: Inter;
+// font-weight: 500;
+// font-size: 14px;
+// line-height: 22px;
+// letter-spacing: -0.6%;
+// text-align: center;

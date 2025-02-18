@@ -25,7 +25,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
     box: "border-box",
   });
 
-  const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
+  const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'] ;
 
   const ProductCartSwiper = lazy(() => import("./SubComponent").then((module) => ({ default: module.ProductCartSwiper })));
 
@@ -38,11 +38,11 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
       justify="space-between"
       itemScope
       itemType="http://schema.org/Product"
-      gap={10}
+      gap={5}
       style={{
-        backgroundColor: "",
+        // backgroundColor: "",
         width: "calc(100dvw / 2 - 20px)",
-        borderRadius: "15px",
+        // backgroundColor:"#0000000F"
       }}
     >
       <Level1
@@ -58,6 +58,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+               /////////////////////////////////////////////////////////////////
             }}
           >
             <Suspense
@@ -66,8 +67,9 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
                   justify="center"
                   align="center"
                   style={{
-                    width: CartWidth - 30,
-                    height: CartWidth - 30,
+                    width: CartWidth - 5,
+                    height: CartWidth - 5,
+                    
                   }}
                 >
                   <Spin />
@@ -77,8 +79,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               <ProductCartSwiper
                 name={ProductName}
                 images={Product.img}
-                width={CartWidth - 30}
-                height={CartWidth - 30} 
+                width={CartWidth - 5}
+                height={CartWidth - 5} 
               />
             </Suspense>
           </Link>

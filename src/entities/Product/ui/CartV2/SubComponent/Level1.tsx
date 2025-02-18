@@ -19,10 +19,11 @@ const Level1: React.FC<ILevel1Props> = (props) => {
       width: "100%",
       height:0,
       flexDirection: "row-reverse",
+      zIndex:999
       }}
   >
     <>{addToFavoriteSlot}</>
-    {discount && <Tag color="#464646" style={{
+    {discount && <Tag color="#19B275" style={{
       
     }}>{`-${Math.round(Number(discount))}%`}</Tag>}
   </Flex>
