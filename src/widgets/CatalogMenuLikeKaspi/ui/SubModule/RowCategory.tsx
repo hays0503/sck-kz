@@ -36,7 +36,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
 
   return <Flex component={'li'} style={
     {
-      border:'1px solid rgb(232, 232, 232)',
+      // border:'1px solid rgb(232, 232, 232)',
       width: `${width}dvw`,
       height: `${width}dvw`,
       maxHeight: `${maxWidth}px`,

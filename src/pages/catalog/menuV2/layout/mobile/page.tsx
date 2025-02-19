@@ -64,7 +64,7 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
       <ProvidersClient fallback={fallback}>
         <LayoutMain
           headerContent={<HeaderText text={headerText} />}
-          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%",padding:"5px" }}>
+          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%",height:"100%",padding:"5px" }}>
             {!categoryFind && <SearchProduct />}
             {!categoryFind && <BannerMobileSlider category={categoryRoot?.results || []} />}
             {categoryFind ? <CatalogMenu slugCategory={slug} /> : <CatalogMenuDefault slugCategory={slug} v2flag={true} />}
