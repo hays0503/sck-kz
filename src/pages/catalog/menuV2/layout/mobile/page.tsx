@@ -69,9 +69,9 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
             {!categoryFind && <BannerMobileSlider category={categoryRoot?.results || []} />}
             {categoryFind ? <CatalogMenu slugCategory={slug} /> : <CatalogMenuDefault slugCategory={slug} v2flag={true} />}
             {
-              <Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%" }}>
+             !categoryFind &&<Flex vertical={true} gap={3} justify="center" align="center" style={{ width: "100%" }}>
                 <span style={styleText}>{`Выбирайте лучшее`}</span>
-                <Image src="/logo.svg" alt="kaspi" width={300} height={200} />
+                <Image src="/logo.svg" alt="kaspi" width={300} height={160} />
                 <span style={styleText}>{`качество, цена, удобство!`}</span>
               </Flex>
             }
