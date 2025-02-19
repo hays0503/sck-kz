@@ -63,7 +63,7 @@ const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
                         <Divider style={{margin:"0px"}}/>
                         <Link href={`/city/${cityEn}/catalog/category-slug/${categoryFind.slug}`} style={{color:"black"}}>
                         <Flex align="center" justify="space-between" style={{width:"100%",height:"auto"}}>
-                            <Title level={4} style={{color:"#007dc6"}}>
+                            <Title level={4} style={{color:"#007dc6",margin:0}}>
                                 Все товары
                             </Title>                            
                             <Image src={'/arrow.svg'} alt="arrow" width={50} height={50}/>
