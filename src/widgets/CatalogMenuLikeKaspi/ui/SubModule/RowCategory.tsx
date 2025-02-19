@@ -30,7 +30,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
       height: `${width}dvw`,
       maxHeight:`${maxWidth}px`,
       maxWidth:`${maxWidth}px`,
-      backgroundColor: "#efefef",
+      backgroundColor: "#ffc00e",
       borderRadius: "10px",
       overflow: "hidden",
     }}>

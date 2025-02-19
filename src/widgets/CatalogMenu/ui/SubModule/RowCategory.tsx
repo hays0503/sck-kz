@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const { Title } = Typography;
 
-const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ item, root }) => {
+const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:boolean  }> = ({ item, root,v2flag  }) => {
   const selectCity = useGetCityParams();
   const localActive = useLocale();
   const RowStyle: React.CSSProperties = {
@@ -23,7 +23,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
   const isRoot = root || item.children.length === 0;
   const url = isRoot
     ? `/city/${selectCity}/catalog/category-slug/${item.slug}`
-    : `/city/${selectCity}/catalog/menu/${item.slug}`;
+    : v2flag?`/city/${selectCity}/catalog/menuV2/${item.slug}`:`/city/${selectCity}/catalog/menu/${item.slug}`;
 
   const name = item.name[localActive] ?? item.name.ru;
 

@@ -7,6 +7,7 @@ import { ProvidersServer } from "@/shared/providers/providersServer";
 import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
 import { CatalogMenu } from "@/widgets/CatalogMenuLikeKaspi";
+import { CatalogMenu as CatalogMenuDefault } from "@/widgets/CatalogMenu";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutCustom } from "@/widgets/LayoutCustom";
 
@@ -52,7 +53,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
           hightHeader={70}
           hightFooter={95}
           headerContent={<HeaderText text={headerText} />}
-          content={<CatalogMenu slugCategory={slug} />}
+          content={categoryFind?<CatalogMenu slugCategory={slug} />:<CatalogMenuDefault slugCategory={slug} v2flag={true}/>}
           footerContent={<FooterMobile defaultKey="5" />}
         />
       </ProvidersClient>

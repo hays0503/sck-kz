@@ -6,7 +6,7 @@ import RowCategory from "./SubModule/RowCategory";
 // import { useTranslations } from "next-intl";
 
 
-const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
+const CatalogMenu: React.FC<{ slugCategory: string,v2flag?:boolean }> = ({ slugCategory,v2flag }) => {
 
     // const t = useTranslations("CatalogMenu");
 
@@ -37,7 +37,7 @@ const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
             <ul style={ListStyle}>
                 {
                     fetchCategory.map((category: MappedCategoryType) => (
-                        <RowCategory key={category.slug} item={category} />
+                        <RowCategory key={category.slug} item={category} v2flag={v2flag}/>
                     ))
                 }
             </ul>
