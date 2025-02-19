@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { Flex} from "antd";
 import React from "react";
 
 interface IHeaderMobileProps {
@@ -9,7 +9,6 @@ interface IHeaderMobileProps {
   readonly SearchProduct: React.FC;
 }
 
-const { Text } = Typography;
 
 const HeaderMobile: React.FC<IHeaderMobileProps> = ({ 
   SelectCity, SearchProduct,ChangeLanguage
@@ -19,7 +18,6 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
       <Flex justify="space-around" align="center" style={{ width: "100%" }}>
         <SelectCity/>
         <Flex gap={10} justify="center" align="center" wrap="wrap">
-          <Text>{"+7 705 655 00 00"}</Text>
           <ChangeLanguage/>  
         </Flex>
       </Flex>
