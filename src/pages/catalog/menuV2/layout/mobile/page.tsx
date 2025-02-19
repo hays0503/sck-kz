@@ -9,7 +9,7 @@ import { HeaderText } from "@/shared/ui";
 import { CatalogMenu } from "@/widgets/CatalogMenuLikeKaspi";
 import { CatalogMenu as CatalogMenuDefault } from "@/widgets/CatalogMenu";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 
 interface CategoryMenuPageProps {
   readonly params: {
@@ -48,10 +48,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
   return (
     <ProvidersServer>
        <ProvidersClient fallback={fallback}>
-         <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+         <LayoutMain
           headerContent={<HeaderText text={headerText} />}
           content={categoryFind?<CatalogMenu slugCategory={slug} />:<CatalogMenuDefault slugCategory={slug} v2flag={true}/>}
           footerContent={<FooterMobile defaultKey="5" />}

@@ -50,8 +50,8 @@ const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
                 </Flex>
     } else {
         const sorted = categoryFind.children.slice().sort(sortImgFirst);
-        return <Flex align="center" gap={30} vertical style={{ width: "100%", height: "100%",paddingTop:"10px"}}>
-                    <Flex component={"ul"} gap={10} wrap={"wrap"}style={{ width: "95%", height: "100%", alignContent: "flex-start" }}>
+        return <Flex align="center" justify="space-between" vertical style={{ width: "100%", height: "inherit",paddingTop:"10px"}}>
+                    <Flex component={"ul"} gap={10} wrap={"wrap"}style={{ width: "95%", height: "auto", alignContent: "flex-start" }}>
                         {
                             sorted.map((category: MappedCategoryType) => (
                                 <RowCategory key={category.slug} item={category} />
@@ -59,10 +59,10 @@ const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
                         }
                     </Flex> 
 
-                    <Flex vertical style={{padding:"10px",width:"100%",height:"100%"}}>
-                        <Divider />
+                    <Flex vertical style={{padding:"10px",width:"100%",height:"auto"}}>
+                        <Divider style={{margin:"0px"}}/>
                         <Link href={`/city/${cityEn}/catalog/category-slug/${categoryFind.slug}`} style={{color:"black"}}>
-                        <Flex align="center" justify="space-between" style={{width:"100%",height:"100%"}}>
+                        <Flex align="center" justify="space-between" style={{width:"100%",height:"auto"}}>
                             <Title level={4} style={{color:"#007dc6"}}>
                                 Все товары
                             </Title>                            
