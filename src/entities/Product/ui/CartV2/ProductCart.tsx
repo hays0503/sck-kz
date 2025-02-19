@@ -38,10 +38,10 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
       justify="space-between"
       itemScope
       itemType="http://schema.org/Product"
-      gap={5}
+      gap={10}
       style={{
         // backgroundColor: "",
-        width: "calc(100dvw / 2 - 20px)",
+        width: "calc(100dvw / 2 - 10px)",
         // backgroundColor:"#0000000F"
       }}
     >
@@ -67,8 +67,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
                   justify="center"
                   align="center"
                   style={{
-                    width: CartWidth - 5,
-                    height: CartWidth - 5,
+                    width: CartWidth,
+                    height: CartWidth,
                     
                   }}
                 >
@@ -79,8 +79,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               <ProductCartSwiper
                 name={ProductName}
                 images={Product.img}
-                width={CartWidth - 5}
-                height={CartWidth - 5} 
+                width={CartWidth}
+                height={CartWidth} 
               />
             </Suspense>
           </Link>
