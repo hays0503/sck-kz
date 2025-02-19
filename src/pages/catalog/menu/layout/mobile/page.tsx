@@ -1,14 +1,18 @@
 "use server";
 
+import { getCategoryRoot } from "@/entities/Category";
 import getCategoryAll from "@/entities/Category/api/getCategoryAll";
 import getCategorySlugs from "@/entities/Category/api/getCategorySlugs";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
+import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
 import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { Flex } from "antd";
+import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 
 interface CategoryMenuPageProps {
   readonly params: {
@@ -34,6 +38,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
 
   const urlAllCategory = `/api-mapping/category/all`;
   const {results:allCategory} = await getCategoryAll();
+  const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot();
 
   const fallback = {
     [urlAllCategory]:allCategory,
@@ -52,7 +57,11 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
           hightHeader={70}
           hightFooter={95}
           headerContent={<HeaderText text={headerText} />}
-          content={<CatalogMenu slugCategory={slug} />}
+          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%" }}>
+            <BannerMobileSlider category={categoryRoot?.results || []} />
+            <CatalogMenu slugCategory={slug} />
+            </Flex>
+            }
           footerContent={<FooterMobile defaultKey="2" />}
         />
       </ProvidersClient>

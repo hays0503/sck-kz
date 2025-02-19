@@ -33,7 +33,7 @@ const CatalogMenu: React.FC<{ slugCategory: string,v2flag?:boolean }> = ({ slugC
     const categoryFind = findCategory(fetchCategory, (category)=>category.slug===slugCategory);
 
     if (!categoryFind) {
-        return <div>
+        return <>
             <ul style={ListStyle}>
                 {
                     fetchCategory.map((category: MappedCategoryType) => (
@@ -41,9 +41,9 @@ const CatalogMenu: React.FC<{ slugCategory: string,v2flag?:boolean }> = ({ slugC
                     ))
                 }
             </ul>
-        </div>
+        </>
     } else {
-        return <div>
+        return <>
         <ul style={ListStyle}>
             {
                 categoryFind.children.map((category: MappedCategoryType) => (
@@ -54,7 +54,7 @@ const CatalogMenu: React.FC<{ slugCategory: string,v2flag?:boolean }> = ({ slugC
                 <RowCategory key={categoryFind.slug} item={categoryFind} root />
             }
         </ul>
-    </div>
+    </>
     }
 
 }

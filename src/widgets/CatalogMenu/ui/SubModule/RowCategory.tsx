@@ -46,7 +46,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
           style={{
             width: "100%",
             height: "100%",
-            backgroundColor: "white",
+            backgroundColor:"#ffc00e",
             border: "1px solid #d7d7d7",
             borderRadius: "8px", // Закругленные углы для более плавного вида
             padding: "12px",
@@ -78,31 +78,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
           </Link>
 
         </motion.div>
-        {/* {!isRoot && (
-          <Button
-            type="text"
-            shape="circle"
-            onClick={() =>
-              router.push(`/city/${selectCity}/catalog/menu/${item.slug}`)
-            }
-            style={{ padding: 0 }}
-          >
-            <svg
-              width="7"
-              height="12"
-              viewBox="0 0 7 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M0.263993 0.263605C-0.0874782 0.615078 -0.0874767 1.18493 0.263996 1.5364L4.7276 5.99998L0.263993 10.4636C-0.0874782 10.8151 -0.0874767 11.3849 0.263996 11.7364C0.615469 12.0879 1.18532 12.0879 1.53679 11.7364L6.63679 6.63637C6.98826 6.2849 6.98826 5.71505 6.63679 5.36358L1.53679 0.263602C1.18531 -0.0878686 0.615464 -0.0878673 0.263993 0.263605Z"
-                fill="#A6A2A2"
-              />
-            </svg>
-          </Button>
-        )} */}
+
       </li>
       <Divider variant="solid" type="vertical" />
     </>
