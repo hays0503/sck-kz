@@ -14,7 +14,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   const sizeConstant = "32px";
   const items: TabsProps["items"] = [
     {
-      label: <MainLabel styleActive={returnStyleActive("1", current)} size={sizeConstant} />,
+      label: <MainLabel styleActive={returnStyleActive("1", current)} styleActiveBg={returnStyleActiveBg("1", current)} size={sizeConstant} />,
       key: "1",
     },
     {
@@ -92,7 +92,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
 
   return (
     <Flex
-      style={{ width: "100%", height: "100%", paddingBottom: "5px" }}
+      style={{ width: "100%", height: "100%", paddingBottom: "5px",background: "linear-gradient(0deg,#ffc600,rgb(255, 255, 255))" }}
       justify="center"
       align="center"
     >

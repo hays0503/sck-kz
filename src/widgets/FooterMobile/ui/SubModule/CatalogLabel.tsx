@@ -25,7 +25,7 @@ export const CatalogLabel: React.FC<CatalogLabelProps> = ({
        width:"100%",
        height:size,
        contain: "strict",
-    }
+      }
     const t = useTranslations("Catalog");
     return <Flex vertical={true} gap={5}>
         <Flex align="center" justify="center" style={imageContainerStyle}>
