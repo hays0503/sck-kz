@@ -63,7 +63,7 @@ export default async function HomePage(props: PageProps) {
             />
           }
           content={
-            <Flex vertical={true} gap={20}>
+            <Flex vertical={true} gap={5}>
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
               <BannerMobileSlider category={categoryRoot?.results || []} />
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
