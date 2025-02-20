@@ -5,6 +5,7 @@ import { Flex, Typography } from "antd";
 import { MappedCategoryType } from "api-mapping/category/all/type";
 import { useLocale } from "next-intl";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const { Title } = Typography;
 
@@ -24,31 +25,26 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
 
   const img = item.img?.[0] ? item.img?.[0] : null;
 
-  const componentColor0 = `#fcb900`;
-  // const componentColor1 = `#423795`;
-  // const componentColor2 = `#873695`;
-  // const componentColor3 = `#a93695`;
-  // const componentColor4 = `#dc2329`;
-  const componentColor5 = `#FFFFFF`;
-  // const componentColor6 = `#fcb9007a`;
-
-  
-
-  return <Flex component={'li'} style={
+  return <motion.div
+          whileHover={{
+            scale: 1.03, // Легкое увеличение при наведении
+            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)", // Более выраженная тень
+            transition: { duration: 0.3, ease: "easeOut" }, // Плавный переход
+          }}
+          whileTap={{
+            scale: 0.98, // Слегка уменьшаем при нажатии
+            y: 3, // Легкий сдвиг вниз
+            boxShadow: "inset 0px 4px 6px rgba(0, 0, 0, 0.15)", // Эффект вдавливания
+            transition: { duration: 0.2, ease: "easeInOut" }, // Плавное нажатие
+          }} style={
     {
       border:'1px solid #ffc00e4d',
       width: `${width}dvw`,
       height: `${width}dvw`,
       maxHeight: `${maxWidth}px`,
       maxWidth: `${maxWidth}px`,
-      // backgroundColor: "rgb(255 191 14 / 53%)",
       borderRadius: "10px",
       overflow: "hidden",
-      // background: `linear-gradient(45deg,
-      //           ${componentColor1} 25%,
-      //           ${componentColor2} 50%,
-      //           ${componentColor3} 75%,
-      //           ${componentColor4} 100%)`
       background: `linear-gradient(140deg, rgb(255 191 14 / 53%) 0%, rgba(255, 255, 255, 1) 100%)`
     }}>
     <Link style={{
@@ -65,7 +61,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
         {img && <Image src={img} alt={name} width={80} height={80} />}
       </Flex>
     </Link>
-  </Flex>
+  </motion.div>
 };
 
 export default RowCategory;
