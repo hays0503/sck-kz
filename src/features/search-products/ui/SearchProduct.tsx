@@ -4,20 +4,19 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 
 import beautifulCost from "@/shared/tools/beautifulCost";
 
-import { AutoComplete, AutoCompleteProps,  Flex, Input, Typography } from "antd";
-import { useTranslations } from "next-intl";
+import { AutoComplete, AutoCompleteProps, Flex, Input, Typography } from "antd";
+// import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { useDebounceCallback } from "@undefined/usehooks-ts";
-
+import { SearchOutlined} from '@ant-design/icons';
 const { Text } = Typography;
-const { Search } = Input;
 
 
 export default function SearchProduct() {
   const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
   // const city = useSelectedCity();
-  const t = useTranslations("SearchProduct");
+  // const t = useTranslations("SearchProduct");
   // const locale = useLocale();
   const router = useRouter();
   const cityEn = useGetCityParams();
@@ -51,8 +50,8 @@ export default function SearchProduct() {
               label: <>
                 <Flex align="center" justify="space-between">
                   <Flex align="center" justify="start" gap={10} style={{
-                      width: "70%"
-                    }}>
+                    width: "70%"
+                  }}>
                     <Image src={product.list_url_to_image[0] ?? '/nofoto.jpg'} alt={product.name_product} width={50} height={50} />
                     <Text ellipsis >Название</Text>
                   </Flex>
@@ -81,14 +80,20 @@ export default function SearchProduct() {
 
   return <AutoComplete
     options={options}
-    style={{ width: "100%", height: "100%" }}
+    style={{ width: "100%", height: "100%",padding:"5px", }}
     onSearch={search}
     onSelect={(value) => {
       router.push(`/city/${cityEn}/product/${value}`);
     }}
-  >    
-    <Search
-      placeholder={t("placeholder-search")}
+  >
+    <Input
+      placeholder={"Поиск"}
+      style={{        
+        height: "40px",
+        backgroundColor:"transparent",
+        border: "1px solid rgb(142, 142, 142)",
+      }}
+      prefix={<SearchOutlined style={{ color: "rgba(0, 0, 0, 0.25)" }}/>}
       role="search"
       name="search"
     />

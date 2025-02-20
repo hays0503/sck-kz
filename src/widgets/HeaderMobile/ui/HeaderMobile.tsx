@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex} from "antd";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 interface IHeaderMobileProps {
   readonly SelectCity: React.FC;
@@ -13,8 +13,12 @@ interface IHeaderMobileProps {
 const HeaderMobile: React.FC<IHeaderMobileProps> = ({ 
   SelectCity, SearchProduct,ChangeLanguage
  }) => {
+  const HeaderMobileStyle: CSSProperties = {
+    width: "100%",
+    background: "linear-gradient(180deg, #ffc600,rgb(255, 255, 255))"
+  };
   return (
-    <Flex vertical={true} gap={5} style={{ width: "100%" }}>
+    <Flex vertical={true} gap={5} style={HeaderMobileStyle}>
       <Flex justify="space-around" align="center" style={{ width: "100%" }}>
         <SelectCity/>
         <Flex gap={10} justify="center" align="center" wrap="wrap">
