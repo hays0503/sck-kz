@@ -10,7 +10,7 @@ import { HeaderText } from "@/shared/ui";
 import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
 import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { Flex } from "antd";
 import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 
@@ -52,10 +52,7 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
   return (
     <ProvidersServer>
        <ProvidersClient fallback={fallback}>
-         <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+         <LayoutMain
           headerContent={<HeaderText text={headerText} />}
           content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%" }}>
             <BannerMobileSlider category={categoryRoot?.results || []} />
