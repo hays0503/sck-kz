@@ -51,13 +51,13 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
 
   const headerText = categoryFind ? categoryFind.name[locale] : "Каталог";
 
-  const styleText:CSSProperties ={
-    fontSize:"28px",
-    fontWeight:"bold",
-    color:"#ffc00e",
-    textDecoration:"none",
-    textAlign:"center"
-  } 
+  // const styleText:CSSProperties ={
+  //   fontSize:"28px",
+  //   fontWeight:"bold",
+  //   color:"#ffc00e",
+  //   textDecoration:"none",
+  //   textAlign:"center"
+  // } 
 
   return (
     <ProvidersServer>
