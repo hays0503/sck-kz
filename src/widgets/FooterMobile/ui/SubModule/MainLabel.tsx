@@ -1,7 +1,6 @@
 import { Flex, Typography } from "antd"
 import { Property } from "csstype";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { CSSProperties } from "react";
 
 const { Text } = Typography;
