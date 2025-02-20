@@ -46,7 +46,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
           style={{
             width: "100%",
             height: "100%",
-            backgroundColor:"#ffc00e",
+            background:"linear-gradient(140deg, rgba(255, 191, 14, 0.84) 0%, rgba(255,255,255,1) 100%)",
             border: "1px solid #d7d7d7",
             borderRadius: "8px", // Закругленные углы для более плавного вида
             padding: "12px",
@@ -57,13 +57,13 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
         >
           <Link href={url} prefetch={true} style={{ width: "100%", height: "100%" }}>
             <Flex align="center" justify="space-between">
-              <Flex align="normal" gap={10} style={{ height: "100%" }}>
+              <Flex align="center" gap={10} style={{ height: "100%" }}>
                 {item.img[0] ? (
                   <Image
                     src={item.img[0]}
                     alt={name ?? ""}
-                    width={24}
-                    height={24}
+                    width={36}
+                    height={36}
                   />
                 ) : (
                   <div style={{ width: 24, height: 24 }}></div>

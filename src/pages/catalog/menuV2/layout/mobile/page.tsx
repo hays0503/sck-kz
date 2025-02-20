@@ -15,8 +15,7 @@ import { Flex } from "antd";
 import { getCategoryRoot } from "@/entities/Category";
 import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
 import { SearchProduct } from "@/features/search-products";
-import { CSSProperties } from "react";
-import Image from "next/image";
+
 
 interface CategoryMenuPageProps {
   readonly params: {
@@ -51,14 +50,6 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
 
   const headerText = categoryFind ? categoryFind.name[locale] : "Каталог";
 
-  const styleText:CSSProperties ={
-    fontSize:"28px",
-    fontWeight:"bold",
-    color:"#ffc00e",
-    textDecoration:"none",
-    textAlign:"center"
-  } 
-
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
@@ -68,13 +59,7 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
             <Flex style={{width:"100%",display:`${categoryFind ? "none" : "block"}`}}><SearchProduct /></Flex>
             <Flex style={{width:"100%",display:`${categoryFind ? "none" : "block"}`}}><BannerMobileSlider category={categoryRoot?.results || []} /></Flex>
             {categoryFind ? <CatalogMenu slugCategory={slug} /> : <CatalogMenuDefault slugCategory={slug} v2flag={true} />}
-            {
-             !categoryFind &&<Flex vertical={true} gap={3} justify="center" align="center" style={{ width: "100%" }}>
-                <span style={styleText}>{`Выбирайте лучшее`}</span>
-                <Image src="/logo.svg" alt="kaspi" width={300} height={160} />
-                <span style={styleText}>{`качество, цена, удобство!`}</span>
-              </Flex>
-            }
+            
           </Flex>}
           footerContent={<FooterMobile defaultKey="5" />}
         />

@@ -36,12 +36,12 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
 
   return <Flex component={'li'} style={
     {
-      // border:'1px solid rgb(232, 232, 232)',
+      border:'1px solid #ffc00e4d',
       width: `${width}dvw`,
       height: `${width}dvw`,
       maxHeight: `${maxWidth}px`,
       maxWidth: `${maxWidth}px`,
-      // backgroundColor: "#fcb900",
+      backgroundColor: "rgb(255 191 14 / 53%)",
       borderRadius: "10px",
       overflow: "hidden",
       // background: `linear-gradient(45deg,
@@ -49,9 +49,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
       //           ${componentColor2} 50%,
       //           ${componentColor3} 75%,
       //           ${componentColor4} 100%)`
-      background: `linear-gradient(90deg,
-      ${componentColor0} 1%,      
-      ${componentColor5} 100%)`
+      // background: `linear-gradient(140deg, rgb(255 191 14 / 53%) 0%, rgba(255, 255, 255, 1) 100%)`
     }}>
     <Link style={{
       width: "100%", height: "100%",

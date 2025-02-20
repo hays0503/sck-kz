@@ -3,28 +3,27 @@ import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Flex, Tabs, TabsProps } from "antd";
 import { CSSProperties, useState } from "react";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { BasketLabel, CatalogLabel, MainLabel, ProfileLabel, returnStyleActive, returnStyleActiveAccent, returnStyleActiveBg } from "./SubModule";
-
-
-
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
+import "./FooterMobile.css";
 export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   const currentCity = useGetCityParams();
   const [current, setCurrent] = useState<string>(defaultKey ?? "1");
+  const uuid: string | null = useReadLocalStorage<string>("uuid_id")
   const router = useRouter();
-
-  const uuid_id = useReadLocalStorage<string>("uuid_id");
-
+  const sizeConstant = "32px";
   const items: TabsProps["items"] = [
     {
-      label: <MainLabel styleActive={returnStyleActive("1", current)} />,
+      label: <MainLabel styleActive={returnStyleActive("1", current)} size={sizeConstant} />,
       key: "1",
     },
     {
       label: <CatalogLabel
         styleActive={returnStyleActive("2", current)}
         styleActiveBg={returnStyleActiveBg("2", current)}
-        styleActiveAccent={returnStyleActiveAccent("2", current)} />,
+        styleActiveAccent={returnStyleActiveAccent("2", current)}
+        size={sizeConstant}
+      />,
       key: "2",
     },
     {
@@ -32,16 +31,17 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
         styleActive={returnStyleActive("5", current)}
         styleActiveBg={returnStyleActiveBg("5", current)}
         styleActiveAccent={returnStyleActiveAccent("5", current)}
+        size={sizeConstant}
         text="V2"
-        />,
+      />,
       key: "5",
     },
     {
       label: <BasketLabel
-      uuid_id={uuid_id}
-      styleActive={returnStyleActive("3", current)}
-      styleActiveBg={returnStyleActiveBg("3", current)}
-      styleActiveAccent={returnStyleActiveAccent("3", current)}
+        styleActive={returnStyleActive("3", current)}
+        styleActiveBg={returnStyleActiveBg("3", current)}
+        styleActiveAccent={returnStyleActiveAccent("3", current)}
+        size={sizeConstant}
       />,
       key: "3",
     },
@@ -49,15 +49,39 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
       label: <ProfileLabel
         styleActive={returnStyleActive("4", current)}
         styleActiveBg={returnStyleActiveBg("4", current)}
-        styleActiveAccent={returnStyleActiveAccent("4", current)} />,
-
+        styleActiveAccent={returnStyleActiveAccent("4", current)}
+        size={sizeConstant}
+      />,
       key: "4",
+      style: {
+        display: "flex",
+        alignItems: "flex-start !important",
+      }
+    },
+    {
+      label: <ProfileLabel
+        styleActive={returnStyleActive("6", current)}
+        styleActiveBg={returnStyleActiveBg("6", current)}
+        styleActiveAccent={returnStyleActiveAccent("6", current)}
+        size={sizeConstant}
+        text="V2"
+      />,
+      key: "6",
+      style: {
+        display: "flex",
+        alignItems: "flex-start !important",
+      }
     },
   ];
 
   const TabsProperties: TabsProps = {
+    className: "footerMobile",
     defaultActiveKey: current,
-    style: { "--ant-tabs-horizontal-item-gutter": "3.5dvw","--ant-margin":"0px" } as CSSProperties,
+    style: {
+      width: "100%",
+      "--ant-tabs-horizontal-item-gutter": "2dvw",
+      "--ant-margin": "0px",
+    } as CSSProperties,
     accessKey: current,
     onTabClick: (key) => setCurrent(key),
     size: "small",
@@ -68,11 +92,11 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
 
   return (
     <Flex
-      style={{ width: "100%", height: "100%",paddingBottom:"5px" }}
+      style={{ width: "100%", height: "100%", paddingBottom: "5px" }}
       justify="center"
       align="center"
     >
-      <Tabs        
+      <Tabs
         {...TabsProperties}
         onTabClick={(key: string) => {
           // Если выбран профиль
@@ -83,7 +107,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
             router.push(`/city/${currentCity}/catalog/menu/main`)
           }
           if (key === "3") {
-            router.push(`/city/${currentCity}/basket/${uuid_id}`)
+            router.push(`/city/${currentCity}/basket/${uuid}`)
           }
           if (key === "4") {
             router.push(`/city/${currentCity}/profile`)
@@ -91,6 +115,10 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
           if (key === "5") {
             router.push(`/city/${currentCity}/catalog/menuV2/main`)
           }
+          if (key === "6") {
+            router.push(`/city/${currentCity}/profileV2`)
+          }
+
         }}
       />
     </Flex>

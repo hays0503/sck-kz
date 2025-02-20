@@ -1,0 +1,9 @@
+.footerMobile{
+    width: 100%;
+    height: 100%;
+}
+
+:where(.footerMobile).ant-tabs >.ant-tabs-nav .ant-tabs-nav-list, :where(.css-dev-only-do-not-override-163y5y2).ant-tabs >div>.ant-tabs-nav .ant-tabs-nav-list {
+    display: flex;
+    align-items: flex-start;
+}
