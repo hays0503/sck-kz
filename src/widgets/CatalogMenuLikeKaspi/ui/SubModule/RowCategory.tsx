@@ -41,7 +41,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
       height: `${width}dvw`,
       maxHeight: `${maxWidth}px`,
       maxWidth: `${maxWidth}px`,
-      backgroundColor: "rgb(255 191 14 / 53%)",
+      // backgroundColor: "rgb(255 191 14 / 53%)",
       borderRadius: "10px",
       overflow: "hidden",
       // background: `linear-gradient(45deg,
@@ -49,7 +49,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean }> = ({ i
       //           ${componentColor2} 50%,
       //           ${componentColor3} 75%,
       //           ${componentColor4} 100%)`
-      // background: `linear-gradient(140deg, rgb(255 191 14 / 53%) 0%, rgba(255, 255, 255, 1) 100%)`
+      background: `linear-gradient(140deg, rgb(255 191 14 / 53%) 0%, rgba(255, 255, 255, 1) 100%)`
     }}>
     <Link style={{
       width: "100%", height: "100%",
