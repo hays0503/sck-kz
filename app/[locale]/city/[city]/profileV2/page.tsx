@@ -1,1 +1,1 @@
-export {default} from "@/pages/profile/page"
+export {default} from "@/pages/profileV2/page"
