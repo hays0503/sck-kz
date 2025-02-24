@@ -35,68 +35,56 @@ const GRADIENTS = [
   },
   {
     key: '3',
-    name: "Градиент 1",
-    value: "linear-gradient(90deg,rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)",
+    name: "Фиолетово-красный",
+    value: "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)",
     textColor: "white"
   },
   {
     key: '4',
-    name: "Градиент 2",
-    value: "linear-gradient(56deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
+    name: "Оранжево-желтый",
+    value: "linear-gradient(45deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
     textColor: "white"
   },
   {
     key: '5',
-    name: "Градиент 3",
-    value: "linear-gradient(56deg, rgba(255,193,12,0.9) 0%, rgba(170,49,135,0.9) 50%, rgba(255,193,12,0.9) 100%)",
+    name: "Сине-фиолетовый",
+    value: "linear-gradient(135deg, rgba(51,51,255,1) 0%, rgba(153,102,255,1) 100%)",
     textColor: "white"
   },
   {
     key: '6',
-    name: "Градиент 4",
-    value: "linear-gradient(90deg, rgba(255,193,12,0.9) 0%, rgba(170,49,135,0.9) 50%, rgba(255,193,12,0.9) 100%)",
+    name: "Зеленый-оранжевый",
+    value: "linear-gradient(90deg, rgba(0,204,102,1) 0%, rgba(255,102,0,1) 100%)",
     textColor: "white"
   },
   {
     key: '7',
-    name: "Градиент 5",
-    value: "linear-gradient(330deg, rgba(255,193,12,0.9) 0%, rgba(170,49,135,0.9) 50%, rgba(255,193,12,0.9) 100%)",
+    name: "Голубой-малиновый",
+    value: "linear-gradient(45deg, rgba(0,153,255,1) 0%, rgba(204,0,102,1) 100%)",
     textColor: "white"
   },
   {
     key: '8',
-    name: "Градиент 6",
-    value: "linear-gradient(299deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
+    name: "Желтый-синий",
+    value: "linear-gradient(225deg, rgba(255,255,102,1) 0%, rgba(51,51,153,1) 100%)",
     textColor: "white"
   },
   {
     key: '9',
-    name: "Градиент 7",
-    value: "linear-gradient(352deg, rgba(255,193,12,1) 0%, rgba(170,49,135,0.68) 50%, rgba(255,193,12,1) 100%)",
+    name: "Градиент под углом 45°",
+    value: "linear-gradient(45deg, rgba(102,0,153,1) 0%, rgba(255,204,0,1) 100%)",
     textColor: "white"
   },
   {
     key: '10',
-    name: "Градиент 8",
-    value: "linear-gradient(40deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
+    name: "Градиент под углом 135°",
+    value: "linear-gradient(135deg, rgba(255,102,102,1) 0%, rgba(0,204,102,1) 100%)",
     textColor: "white"
   },
   {
     key: '11',
-    name: "Градиент 9",
-    value: "linear-gradient(123deg, rgba(170,49,135,1) 0%, rgba(255,193,12,0.94) 50%, rgba(170,49,135,1) 100%)",
-    textColor: "white"
-  },
-  {
-    key: '12',
-    name: "Градиент 10",
-    value: "linear-gradient(90deg, rgba(170,49,135,1) 0%, rgba(255,193,12,0.95) 50%, rgba(170,49,135,1) 100%)",
-    textColor: "white"
-  },
-  {
-    key: '13',
-    name: "Градиент 11",
-    value: "linear-gradient(90deg, rgba(170,49,135,1) 0%, rgba(87,81,66,0.62) 50%, rgba(170,49,135,1) 100%)",
+    name: "Градиент под углом 225°",
+    value: "linear-gradient(225deg, rgba(51,51,255,1) 0%, rgba(255,193,12,1) 100%)",
     textColor: "white"
   }
 ];
