@@ -30,7 +30,7 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
       borderRadius: "4px"
     }
     return <Flex gap={5} justify="space-between" align="center" style={ButtonStyle}>
-      <DecButton prod_id={prod_id} count={Count} color="#d7d7fa" colorBg="inherit" />
+      <DecButton prod_id={prod_id} count={0} color="#d7d7fa" colorBg="inherit" />
       <Text style={{ color: "#ffffff" }}>{Count}</Text>
       <IncButton prod_id={prod_id} color="#d7d7fa" colorBg="inherit" />
     </Flex>

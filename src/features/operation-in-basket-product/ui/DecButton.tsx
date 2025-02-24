@@ -7,7 +7,8 @@ interface DecButtonProps {
   count: number,
   colorBg?: string,
   color?: string 
-  border?:string 
+  border?:string
+  
 }
 
 
