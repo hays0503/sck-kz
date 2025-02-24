@@ -101,7 +101,7 @@ const GRADIENTS = [
   }
 ];
 
-
+//123
 const CATEGORIES = [
   { id: 1, title: "Бытовая техника", image: "/tehnika.png", slug: "bytovaya-tehnika" },
   { id: 2, title: "ТВ, Аудио, Видео", image: "/tv.png", slug: "tv-audio-video" },
