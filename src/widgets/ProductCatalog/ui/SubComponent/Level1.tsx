@@ -1,3 +1,4 @@
+import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 import { ProductCart } from "@/entities/Product/ui/Cart";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
@@ -18,6 +19,8 @@ const Level1: React.FC<Level1Props> = (props) => {
     xs: { offset: 1 }
   }
 
+  const { data } = useGetBasketProductsSWR();
+
   return (
     <Row gutter={[16, 16]} justify="center" align="stretch">
       {Products?.map((item, index) => (
@@ -25,7 +28,7 @@ const Level1: React.FC<Level1Props> = (props) => {
           <ProductCart
             Product={item}
             addToCartSlot={
-              <AddToBasketProduct prod_id={item.id}/>
+              <AddToBasketProduct prod_id={item.id} data={data}/>
             }
             addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id}/>}
           />

@@ -1,18 +1,17 @@
 "use client"
-import { Button, Flex, Spin, Typography } from "antd";
+import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useBasketAdd } from "../model";
-import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 import IncButton from "./IncButton";
 import DecButton from "./DecButton";
-import React, { CSSProperties, Suspense } from "react";
-import { MappedBasketItemType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import React, { CSSProperties} from "react";
+import { MappedBasketItemType, MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
 
 
 const { Text } = Typography;
 
-const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
-  const { data, error } = useGetBasketProductsSWR();
+const AddToBasketProduct: React.FC<{ prod_id: number, data: MappedBasketType|null|undefined }> = ({ prod_id, data }) => {
+
   const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
     if ('vibrate' in navigator) {
@@ -76,34 +75,13 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
     </Flex>
   }
 
-  if (error) {
-    return <Flex style={{ width: "100%" }}>
-      <Text>Ошибка {JSON.stringify(error)}</Text>
-    </Flex>
-  }
-
   const Item = data?.items.find((ItemInBasked: MappedBasketItemType) => ItemInBasked.prod.id === prod_id)
   const Count = Item?.count;
 
-  const ButtonStyle: CSSProperties = {
-    width: "100%",
-    height: "40px",
-    background: "#2f369c",
-    padding: "8px 16px",
-    borderRadius: "4px"
-  }
-
-  return (
-    <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
-      <Spin spinning />
-    </Flex>}
-    >
-      <Flex style={{ width: "100%" }}>
-        {!Count && <NoClickedButton addAction={addAction} />}
-        {Count && <ClickedButton Count={Count} prod_id={prod_id} />}
-        {msg}
-      </Flex>
-    </Suspense>
-  );
+  return <Flex style={{ width: "100%" }}>
+      {!Count && <NoClickedButton addAction={addAction} />}
+      {Count && <ClickedButton Count={Count} prod_id={prod_id} />}
+      {msg}
+    </Flex>
 }
 export default AddToBasketProduct

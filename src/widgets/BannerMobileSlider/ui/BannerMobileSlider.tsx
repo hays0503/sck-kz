@@ -23,11 +23,12 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
         slidesPerView: 'auto',
         centeredSlides: true,
         loop: true,
+        speed:5000,
         autoplay:{
-            delay:2000,
+            delay:300,
             disableOnInteraction: false
         },
-        spaceBetween:10,
+        spaceBetween:5,
         // Разрешение
         breakpoints: {
             768: {
@@ -39,7 +40,7 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
         lazy: "true"
     } as SwiperProps;
 
-    return <Flex style={{ width: '100%', height: '120px' }} gap={20}>
+    return <Flex style={{ width: '100%', height: '120px' }} gap={10}>
         <Swiper {...swiperParams} className={style.swiper}>
 
             {category.map((item: MappedCategoryWithoutChildrenType|MappedCategoryType) => {

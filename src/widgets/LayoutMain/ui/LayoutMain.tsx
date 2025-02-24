@@ -35,7 +35,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     backgroundColor: "#FFF",
     overflow: "hidden",
     height:"100dvh",
-    width: "calc(100%)",
+    width: "100dvw",
     touchAction:"none",
     scrollBehavior:"smooth",
     overscrollBehavior:"none"

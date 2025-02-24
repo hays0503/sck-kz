@@ -47,24 +47,10 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
     },
     {
       label: <ProfileLabel
-        styleActive={returnStyleActive("4", current)}
-        styleActiveBg={returnStyleActiveBg("4", current)}
-        styleActiveAccent={returnStyleActiveAccent("4", current)}
-        size={sizeConstant}
-      />,
-      key: "4",
-      style: {
-        display: "flex",
-        alignItems: "flex-start !important",
-      }
-    },
-    {
-      label: <ProfileLabel
         styleActive={returnStyleActive("6", current)}
         styleActiveBg={returnStyleActiveBg("6", current)}
         styleActiveAccent={returnStyleActiveAccent("6", current)}
         size={sizeConstant}
-        text="V2"
       />,
       key: "6",
       style: {
