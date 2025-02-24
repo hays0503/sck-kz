@@ -2,14 +2,21 @@ import { Button } from "antd";
 import { useBasketAdd } from "../model";
 import { CSSProperties } from "react";
 
-const IncButton: React.FC<{ prod_id: number }> = ({ prod_id }) => {
+interface IncButtonProps { 
+    prod_id: number,
+    colorBg?:string,
+    color?:string
+    border?:string 
+}
+
+const IncButton: React.FC<IncButtonProps> = ({ prod_id,colorBg="#F5F5F5",color="gray",border="none"}) => {
 
     const styleButton: CSSProperties = {
-        color: "gray",
+        color:color,
         width: "32px",
         height: "32px",
-        border: "none",
-        backgroundColor: "#F5F5F5",
+        border: border,
+        backgroundColor: colorBg,
     };
 
     const [_addAction, msg] = useBasketAdd({ prod_id });
@@ -33,7 +40,7 @@ const IncButton: React.FC<{ prod_id: number }> = ({ prod_id }) => {
                     >
                         <path
                             d="M5 10H10M10 10H15M10 10V15M10 10V5"
-                            stroke="#464646"
+                            stroke={color}
                             strokeWidth="1.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"

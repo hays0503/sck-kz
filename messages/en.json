@@ -256,6 +256,7 @@
   },
   "Basket": {
     "tovar-dobavlen-v-korzinu": "The goods are added to the basket",
-    "error": "Error"
+    "error": "Error",
+    "tovar-udalyon-iz-korziny": "The goods are removed from the basket"
   }
 }

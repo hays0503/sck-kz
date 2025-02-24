@@ -256,6 +256,7 @@
   },
   "Basket": {
     "tovar-dobavlen-v-korzinu": "Тауарлар себетке қосылады",
-    "error": "Қателік"
+    "error": "Қателік",
+    "tovar-udalyon-iz-korziny": "Тауарлар себеттен алынып тасталады"
   }
 }

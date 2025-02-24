@@ -18,6 +18,7 @@ const useBasketAdd: useBasketAddHook = ({ prod_id }) => {
   const t = useTranslations("Basket");
   const [messageApi, contextHolder] = message.useMessage();
   const [uuid, setUuid] = useLocalStorage<string | null>("uuid_id", null);
+  
   useEffect(() => {
     if (!uuid) {
       setUuid(uuidv4());

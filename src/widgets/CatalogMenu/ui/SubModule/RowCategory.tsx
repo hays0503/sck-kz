@@ -46,7 +46,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
           style={{
             width: "100%",
             height: "100%",
-            background:"linear-gradient(140deg, rgba(255, 191, 14, 0.84) 0%, rgba(255,255,255,1) 100%)",
+            // background:"linear-gradient(140deg, rgba(255, 191, 14, 0.84) 0%, rgba(255,255,255,1) 100%)",
             border: "1px solid #d7d7d7",
             borderRadius: "8px", // Закругленные углы для более плавного вида
             padding: "12px",

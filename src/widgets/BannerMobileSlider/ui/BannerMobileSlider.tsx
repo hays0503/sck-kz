@@ -22,6 +22,7 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
     const swiperParams: SwiperProps = {
         slidesPerView: 'auto',
         centeredSlides: true,
+        loop: true,
         autoplay:{
             delay:2000,
             disableOnInteraction: false

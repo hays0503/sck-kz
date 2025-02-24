@@ -15,11 +15,11 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
  }) => {
   const HeaderMobileStyle: CSSProperties = {
     width: "100%",
-    background: "linear-gradient(180deg, #ffc600,rgb(255, 255, 255))"
+    borderBottom: "1px solid #41414145",
   };
   return (
     <Flex vertical={true} gap={5} style={HeaderMobileStyle}>
-      <Flex justify="space-around" align="center" style={{ width: "100%" }}>
+      <Flex justify="space-around" align="center" style={{ width: "100%",background: "linear-gradient(180deg, #ffc600,rgba(255, 200, 0, 0.18) 80%,rgb(255, 255, 255) 100%)" }}>
         <SelectCity/>
         <Flex gap={10} justify="center" align="center" wrap="wrap">
           <ChangeLanguage/>  

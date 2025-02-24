@@ -26,16 +26,16 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
       />,
       key: "2",
     },
-    {
-      label: <CatalogLabel
-        styleActive={returnStyleActive("5", current)}
-        styleActiveBg={returnStyleActiveBg("5", current)}
-        styleActiveAccent={returnStyleActiveAccent("5", current)}
-        size={sizeConstant}
-        text="V2"
-      />,
-      key: "5",
-    },
+    // {
+    //   label: <CatalogLabel
+    //     styleActive={returnStyleActive("5", current)}
+    //     styleActiveBg={returnStyleActiveBg("5", current)}
+    //     styleActiveAccent={returnStyleActiveAccent("5", current)}
+    //     size={sizeConstant}
+    //     text="V2"
+    //   />,
+    //   key: "5",
+    // },
     {
       label: <BasketLabel
         styleActive={returnStyleActive("3", current)}

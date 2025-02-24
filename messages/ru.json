@@ -279,6 +279,8 @@
   "tovar-dobavlen-v-korzinu": "Товар добавлен в корзину",
   "Basket": {
     "tovar-dobavlen-v-korzinu": "Товар добавлен в корзину",
-    "error": "Ошибка"
-  }
+    "error": "Ошибка",
+    "tovar-udalyon-iz-korziny": "Товар удалён из корзины"
+  },
+  "tovar-udalyon-iz-korziny": "Товар удалён из корзины"
 }

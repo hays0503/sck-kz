@@ -1,31 +1,49 @@
-import { Button, Flex, Typography } from "antd";
+"use client"
+import { Button, Flex, Spin, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useBasketAdd } from "../model";
+import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
+import IncButton from "./IncButton";
+import DecButton from "./DecButton";
+import React, { CSSProperties, Suspense } from "react";
+import { MappedBasketItemType } from "api-mapping/basket/get-products/type/MappedBasketType";
 
 
 const { Text } = Typography;
 
-
-
 const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
-
-  const [_addAction,msg] = useBasketAdd({ prod_id});
+  const { data, isLoading, error } = useGetBasketProductsSWR();
+  const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
     if ('vibrate' in navigator) {
       navigator.vibrate([50, 30, 80, 30, 50]);
     }
     _addAction()
-  }; 
-  const t = useTranslations("AddToBasketProduct");
+  };
 
-  return (
-    <Flex style={{ width: "100%" }}>
-      {msg}
+  const ClickedButton: React.FC<{ Count: number, prod_id: number }> = ({ Count, prod_id }) => {
+    const ButtonStyle: CSSProperties = {
+      width: "100%",
+      height: "40px",
+      background: "#2f369c",
+      padding: "8px 16px",
+      borderRadius: "4px"
+    }
+    return <Flex gap={5} justify="space-between" align="center" style={ButtonStyle}>
+      <DecButton prod_id={prod_id} count={Count} color="#d7d7fa" colorBg="inherit" />
+      <Text style={{ color: "#ffffff" }}>{Count}</Text>
+      <IncButton prod_id={prod_id} color="#d7d7fa" colorBg="inherit" />
+    </Flex>
+  }
+
+  const NoClickedButton: React.FC<{ addAction: () => void }> = ({ addAction }) => {
+    const t = useTranslations("AddToBasketProduct");
+    return <Flex style={{ width: "100%" }}>
       <Button
         onClick={addAction}
         shape="default"
         size="large"
-        style={{ 
+        style={{
           backgroundColor: "#4954F0",
           width: "100%",
           height: "40px", //
@@ -49,20 +67,45 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
             fontWeight: "500",
             letterSpacing: "-0.6%",
             fontStyle: "normal",
-            textAlign:"center"
+            textAlign: "center"
           }}
         >
           {t("v-korzinu")}
         </Text>
       </Button>
     </Flex>
+  }
+
+  console.log(data, isLoading, error)
+
+  if (error) {
+    return <Flex style={{ width: "100%" }}>
+      <Text>Ошибка {JSON.stringify(error)}</Text>
+    </Flex>
+  }
+
+  const Item = data?.items.find((ItemInBasked: MappedBasketItemType) => ItemInBasked.prod.id === prod_id)
+  const Count = Item?.count;
+
+  const ButtonStyle: CSSProperties = {
+    width: "100%",
+    height: "40px",
+    background: "#2f369c",
+    padding: "8px 16px",
+    borderRadius: "4px"
+  }
+
+  return (
+    <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
+      <Spin spinning />
+    </Flex>}
+    >
+      <Flex style={{ width: "100%" }}>
+        {!Count && <NoClickedButton addAction={addAction} />}
+        {Count && <ClickedButton Count={Count} prod_id={prod_id} />}
+        {msg}
+      </Flex>
+    </Suspense>
   );
 }
 export default AddToBasketProduct
-
-// font-family: Inter;
-// font-weight: 500;
-// font-size: 14px;
-// line-height: 22px;
-// letter-spacing: -0.6%;
-// text-align: center;
