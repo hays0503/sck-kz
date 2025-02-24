@@ -15,7 +15,7 @@ const OrderMobile: React.FC<{ basket_id: string }> = ({ basket_id }) => {
 
     const cityEn = useGetCityParams();
     
-    const { data: dataBasket, isLoading, error } = useGetBasketProductsSWR({ uuid: basket_id, cityEn: cityEn }); 
+    const { data: dataBasket, isLoading, error } = useGetBasketProductsSWR(); 
 
 
     const t = useTranslations("OrderMobile");
