@@ -12,7 +12,7 @@ import { MappedBasketItemType } from "api-mapping/basket/get-products/type/Mappe
 const { Text } = Typography;
 
 const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
-  const { data, isLoading, error } = useGetBasketProductsSWR();
+  const { data, error } = useGetBasketProductsSWR();
   const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
     if ('vibrate' in navigator) {
@@ -75,8 +75,6 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
       </Button>
     </Flex>
   }
-
-  console.log(data, isLoading, error)
 
   if (error) {
     return <Flex style={{ width: "100%" }}>

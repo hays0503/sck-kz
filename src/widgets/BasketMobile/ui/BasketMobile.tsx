@@ -19,7 +19,7 @@ const {Text} = Typography
 
 const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
   const t = useTranslations("BasketMobile");
-  const { data: fetchBasket, error } = useGetBasketProductsSWR({ uuid: basket_id, cityEn: useGetCityParams() });
+  const { data: fetchBasket, error } = useGetBasketProductsSWR();
   const accessToken = useReadLocalStorage<{ token: string }>("accessToken");
   const pathname  = usePathname();
   const city = useGetCityParams();
