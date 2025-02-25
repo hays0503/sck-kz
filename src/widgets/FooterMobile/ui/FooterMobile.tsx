@@ -65,7 +65,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
     defaultActiveKey: current,
     style: {
       width: "100%",
-      "--ant-tabs-horizontal-item-gutter": "2dvw",
+      "--ant-tabs-horizontal-item-gutter": "8dvw",
       "--ant-margin": "0px",
     } as CSSProperties,
     accessKey: current,

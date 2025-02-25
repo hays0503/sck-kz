@@ -20,13 +20,17 @@ const GRADIENTS = [
     "name": "Модифицированный градиент с двумя сферами Роман/Сергей",
     "value": `radial-gradient(
               farthest-side at left bottom,
-              rgba(102, 0, 153, 0.9) 0%,
+              rgba(102, 0, 153, 0.8) 0%,
+              rgba(102, 0, 153, 0.35) 50%,
+              rgba(102, 0, 153, 0.15) 70%,
               #fad35e 100%
             )
             left bottom / 50% 50% no-repeat,
             radial-gradient(
                 farthest-side at right top,
-                rgba(102, 0, 153, 0.9) 0%,
+                rgba(102, 0, 153, 0.8) 0%,
+                rgba(102, 0, 153, 0.35) 50%,
+                rgba(102, 0, 153, 0.15) 70%,
                 #fad35e 100%
             )
             right top / 50% 50% no-repeat,

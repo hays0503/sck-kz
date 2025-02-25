@@ -1,5 +1,6 @@
 import getCategoryAll from "@/entities/Category/api/getCategoryAll";
 import getProductBySlug from "@/entities/Product/api/getProductBySlug";
+import { SearchProduct } from "@/features/search-products";
 import { Link } from "@/i18n/routing";
 import { STATUS_CODE } from "@/shared/constant/statusCode";
 import { ProvidersClient } from "@/shared/providers/providersClient";
@@ -8,6 +9,7 @@ import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { ProductDetail } from "@/widgets/ProductDetail";
 import { Flex } from "antd";
 import { MappedProductDetailType } from "api-mapping/product/_type/productDetail";
@@ -58,12 +60,9 @@ const ProductPage: ProductPageComponent = async (props) => {
 
 const DefaultPage: React.FC<{ fallback: object, categoryName: string, slug: string }> = ({ fallback, categoryName, slug }) => <ProvidersServer>
   <ProvidersClient fallback={fallback}>
-    <LayoutCustom
-      h="px"
-      hightHeader={70}
-      hightFooter={95}
+    <LayoutMain
       headerContent={
-        <HeaderText text={categoryName} />
+        <HeaderText text={categoryName} SearchProduct={SearchProduct}/>
       }
       content={<ProductDetail slug={slug} />}
       footerContent={<FooterMobile defaultKey="1" />}

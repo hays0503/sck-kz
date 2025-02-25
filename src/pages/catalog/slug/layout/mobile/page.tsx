@@ -10,12 +10,13 @@ import { MappedCityType } from "api-mapping/city";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 import { getCategoryRoot } from "@/entities/Category";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { HeaderText } from "@/shared/ui";
 import { ProductCatalog } from "@/widgets/ProductCatalog";
 import getProductByCategory from "@/entities/Product/api/getProductByCategory";
 import getCategoryBySlugs from "@/entities/Category/api/getCategoryBySlugs";
 import { getTranslations } from "next-intl/server";
+import { LayoutMain } from "@/widgets/LayoutMain";
+import { SearchProduct } from "@/features/search-products";
 
 type PageProps = {
   params: Promise<{
@@ -60,15 +61,13 @@ export default async function CatalogPage(props: PageProps) {
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
-        <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+        <LayoutMain
           headerContent={
             <HeaderText
               text={
                 headerText
               }
+              SearchProduct={SearchProduct}
             />
           }
 

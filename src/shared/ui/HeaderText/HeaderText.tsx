@@ -6,12 +6,15 @@ import { Button, Flex } from "antd";
 import { TextTruncate } from "../TextTruncate";
 interface IHeaderTextProps {
   readonly text: string;
+  readonly SearchProduct?: React.FC;
 }
 
 const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
-  const { text } = props;
+  const { text,SearchProduct } = props;
   return (
+    <Flex vertical={true} style={{ width: "100%", height: "100%" }}>
+      {SearchProduct && <SearchProduct />}
     <Flex justify="space-between" align="center" style={{ width: "100%",height: "100%" }}>
       <Flex
         align="center"
@@ -70,7 +73,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
         <CopyUrlButton />
         <ShareButton />
       </Flex>
-
+    </Flex>
     </Flex>
   );
 };

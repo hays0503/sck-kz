@@ -3,6 +3,7 @@
 import { getCategoryRoot } from "@/entities/Category";
 import getCategoryAll from "@/entities/Category/api/getCategoryAll";
 import getCategorySlugs from "@/entities/Category/api/getCategorySlugs";
+import { SearchProduct } from "@/features/search-products";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import findCategory from "@/shared/tools/findCategory";
@@ -53,8 +54,8 @@ async function CatalogMenuPage({params}: CategoryMenuPageProps) {
     <ProvidersServer>
        <ProvidersClient fallback={fallback}>
          <LayoutMain
-          headerContent={<HeaderText text={headerText} />}
-          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%" }}>
+          headerContent={<HeaderText text={headerText} SearchProduct={SearchProduct}/>}
+          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%",marginTop:"10px" }}>
             <BannerMobileSlider category={categoryRoot?.results || []} />
             <CatalogMenu slugCategory={slug} />
             </Flex>
