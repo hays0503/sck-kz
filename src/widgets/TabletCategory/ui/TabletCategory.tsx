@@ -21,22 +21,17 @@ const GRADIENTS = [
     "value": `radial-gradient(
               farthest-side at left bottom,
               rgba(102, 0, 153, 0.9) 0%,
-              rgba(160, 90, 200, 0.7) 10%,
-              rgba(250, 210, 90, 0.7) 50%,
-              rgba(255, 220, 120, 0.6) 70%,
               #fad35e 100%
             )
             left bottom / 50% 50% no-repeat,
             radial-gradient(
                 farthest-side at right top,
                 rgba(102, 0, 153, 0.9) 0%,
-                rgba(160, 90, 200, 0.7) 10%,
-                rgba(250, 210, 90, 0.7) 50%,
-                rgba(255, 220, 120, 0.6) 70%,
                 #fad35e 100%
             )
             right top / 50% 50% no-repeat
-          #fad35e`,
+
+          `,
     "textColor": "white"
   },
   ...Array.from({ length: 200 }, (_, i) => {
@@ -49,7 +44,7 @@ const GRADIENTS = [
                 rgba(${140 + (i % 60)}, ${60 + (i % 50)}, ${180 + (i % 40)}, 0.7) 10%,
                 rgba(250, ${180 + (i % 40)}, 90, 0.7) 50%,
                 rgba(255, ${200 + (i % 30)}, 120, 0.6) 70%,
-                #fad35e 100%
+                 100%
               )
               left bottom / 50% 50% no-repeat,
               radial-gradient(
