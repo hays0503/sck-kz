@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button, Flex } from "antd";
+import { Flex } from "antd";
 import { motion } from "framer-motion";
 import { useAddToRemoteFavorite, useRemoveToRemoteFavorite } from "../model";
 import useGetProductsIdsByFavoriteSWR from "@/entities/Product/model/getProductsIdsByFavoriteSWR";
@@ -60,10 +60,10 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   return (
     <Flex style={{ width: "50px", height: "50px", position: "relative", zIndex: 999 }} justify="center" align="center">
       {contextHolderAddMsg}
-      <Button type={"text"} shape="default" size="small" onClick={action} style={{ position: "absolute", width: "50px", height: "50px",padding:"10px" }}>
+      <div onClick={action} style={{ position: "absolute", width: "50px", height: "50px",padding:"10px" }}>
         {contextHolderDelMsg}
         <Heart isFavorite={isFavorite} />
-      </Button>
+      </div>
     </Flex>
   );
 };
