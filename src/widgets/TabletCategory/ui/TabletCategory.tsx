@@ -11,8 +11,9 @@ import style from "./TabletCategory.module.css";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { MenuProps } from "antd/lib";
+import Paragraph from "antd/es/skeleton/Paragraph";
 
-const { Text } = Typography;
+const { Text, Paragraph } = Typography;
 
 const GRADIENTS = [
   {
@@ -144,7 +145,7 @@ const GRADIENTS = [
     const middleColor4 = `rgba(255,${230 + (i % 20)},${45 + (i % 5)},1)`; // Усиление центрального желтого
     const endColor = `rgba(${90 + (i % 50)},${5 + (i % 50)},${110 + (i % 70)},1)`; // Разные сиреневые оттенки
     return {
-      key: (17 + i).toString(),
+      key: (20 + i).toString(),
       name: `Сиренево-желтый градиент #${i + 1}`,
       value: `linear-gradient(${angle}deg, ${startColor} 0%, ${middleColor1} 25%, ${middleColor2} 40%, ${middleColor3} 50%, ${middleColor4} 60%, ${middleColor3} 70%, ${middleColor2} 80%, ${endColor} 100%)`,
       textColor: "white"
@@ -212,12 +213,12 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
     }))
     , []);
 
-  const getNextGradient = (currentKey:string) => {
+  const getNextGradient = (currentKey: string) => {
     const currentIndex = GRADIENTS.findIndex(g => g.key === currentKey);
     return GRADIENTS[(currentIndex + 1) % GRADIENTS.length];
   };
 
-  const getPreviousGradient = (currentKey:string) => {
+  const getPreviousGradient = (currentKey: string) => {
     const currentIndex = GRADIENTS.findIndex(g => g.key === currentKey);
     return GRADIENTS[(currentIndex - 1 + GRADIENTS.length) % GRADIENTS.length];
   };
@@ -250,11 +251,11 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
           </Flex>
         </SwiperSlide>
         <SwiperSlide style={SwiperSlideStyle(selectedGradient.value)}>
-          <Flex justify="center" align="center" style={{ width: "100%", height: "100%" }}>
+          <Flex justify="center" align="center" style={{ width: "150px", height: "100%" }}>
             <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
-              <Text strong style={{ color: selectedGradient.textColor, textAlign: "center", fontSize: "12px" }}>
+              <Paragraph ellipsis={{ rows: 2, expandable: true }} strong style={{ color: selectedGradient.textColor, textAlign: "center", fontSize: "12px" }}>
                 Градиент: <br />{selectedGradient.name}
-              </Text>
+              </Paragraph>
             </Dropdown>
           </Flex>
         </SwiperSlide>
