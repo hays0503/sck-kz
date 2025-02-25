@@ -135,23 +135,18 @@ const GRADIENTS = [
     "value": "linear-gradient(30deg, rgba(102,0,100,1) 10%, rgba(255,204,0,1) 30%, rgba(255,204,0,1) 50%, rgba(255,204,0,1) 70%, rgba(102,0,100,1) 90%)",
     "textColor": "white"
   },
-  ...Array.from({ length: 100 }, (_, i) => {
-    const angle = (i * 3.6) % 360;
-    const startColor = `rgba(${80 + (i % 70)},${10 + (i % 30)},${120 + (i % 80)},1)`;
-    const middleColor = `rgba(255,${180 + (i % 50)},${10 + (i % 20)},1)`;
-    const endColor = `rgba(${90 + (i % 60)},${5 + (i % 40)},${110 + (i % 90)},1)`;
-    const gradientType = i % 2 === 0 ? "linear-gradient" : "radial-gradient";
-    const position = i % 3 === 0 ? "circle" : "ellipse";
-
-    // Исправление для радиальных градиентов
-    const gradientValue = gradientType === "radial-gradient"
-      ? `${gradientType}(${position} at ${50 + (i % 30)}% ${50 + (i % 30)}%, ${startColor} 0%, ${middleColor} 45%, ${endColor} 100%)`
-      : `${gradientType}(${angle}deg, ${startColor} 0%, ${middleColor} 45%, ${endColor} 100%)`;
-
+  ...Array.from({ length: 200 }, (_, i) => {
+    const angle = (i * 1.8) % 360; // Разные углы градиентов
+    const startColor = `rgba(${50 + (i % 80)},${10 + (i % 40)},${130 + (i % 60)},1)`; // Разные сиреневые оттенки
+    const middleColor1 = `rgba(255,${160 + (i % 70)},${15 + (i % 25)},1)`; // Основной желтый оттенок
+    const middleColor2 = `rgba(255,${190 + (i % 50)},${25 + (i % 15)},1)`; // Дополнительный желтый оттенок
+    const middleColor3 = `rgba(255,${220 + (i % 30)},${35 + (i % 10)},1)`; // Еще один желтый для плавного перехода
+    const middleColor4 = `rgba(255,${230 + (i % 20)},${45 + (i % 5)},1)`; // Усиление центрального желтого
+    const endColor = `rgba(${90 + (i % 50)},${5 + (i % 50)},${110 + (i % 70)},1)`; // Разные сиреневые оттенки
     return {
-      key: (20 + i).toString(),
+      key: (17 + i).toString(),
       name: `Сиренево-желтый градиент #${i + 1}`,
-      value: gradientValue,
+      value: `linear-gradient(${angle}deg, ${startColor} 0%, ${middleColor1} 25%, ${middleColor2} 40%, ${middleColor3} 50%, ${middleColor4} 60%, ${middleColor3} 70%, ${middleColor2} 80%, ${endColor} 100%)`,
       textColor: "white"
     };
   })
@@ -217,7 +212,18 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
     }))
     , []);
 
-  const styleButton = { height: '45%', width: '95%', backgroundColor: "transparent", color: "inherit" }
+  const getNextGradient = (currentKey:string) => {
+    const currentIndex = GRADIENTS.findIndex(g => g.key === currentKey);
+    return GRADIENTS[(currentIndex + 1) % GRADIENTS.length];
+  };
+
+  const getPreviousGradient = (currentKey:string) => {
+    const currentIndex = GRADIENTS.findIndex(g => g.key === currentKey);
+    return GRADIENTS[(currentIndex - 1 + GRADIENTS.length) % GRADIENTS.length];
+  };
+
+
+  const styleButton = { height: '45%', width: '95%', backgroundColor: "transparent", color: "#ffffff" }
 
   return (
     <Flex className={style.container}>
@@ -228,12 +234,19 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
       >
         <SwiperSlide style={SwiperSlideStyle(selectedGradient.value)}>
           <Flex justify="center" align="center" style={{ width: "100%", height: "100%" }} vertical gap={5}>
-            <Button onClick={() => setSelectedGradient(GRADIENTS[(GRADIENTS.indexOf(selectedGradient) + 1) % GRADIENTS.length])} style={styleButton}>
+            <Button
+              onClick={() => setSelectedGradient(getNextGradient(selectedGradient.key))}
+              style={styleButton}
+            >
               Следующий градиент
             </Button>
-            <Button onClick={() => setSelectedGradient(GRADIENTS[(GRADIENTS.indexOf(selectedGradient) - 1) % GRADIENTS.length])} style={styleButton}>
+            <Button
+              onClick={() => setSelectedGradient(getPreviousGradient(selectedGradient.key))}
+              style={styleButton}
+            >
               Предыдущий градиент
             </Button>
+
           </Flex>
         </SwiperSlide>
         <SwiperSlide style={SwiperSlideStyle(selectedGradient.value)}>
