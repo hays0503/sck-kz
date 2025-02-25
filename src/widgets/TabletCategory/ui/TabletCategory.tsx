@@ -16,78 +16,109 @@ const { Text } = Typography;
 
 const GRADIENTS = [
   {
-    key: '0',
-    name: "По умолчанию",
-    value: "linear-gradient(128deg, rgba(70,55,146,1) 0%, rgba(144,53,148,1) 43%, rgba(188,37,68,1) 100%)",
-    textColor: "white"
+    "key": "0",
+    "name": "По умолчанию",
+    "value": "linear-gradient(128deg, rgba(70,55,146,1) 0%, rgba(144,53,148,1) 43%, rgba(188,37,68,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '1',
-    name: "Как у FreedomBank",
-    value: "linear-gradient(45deg, rgb(8 185 187 / 85%) 0%, rgb(202 216 217) 35%, rgb(210 218 220) 70%, rgb(75 198 196 / 83%) 100%)",
-    textColor: "#161e20"
+    "key": "1",
+    "name": "Как у FreedomBank",
+    "value": "linear-gradient(45deg, rgb(8 185 187 / 85%) 0%, rgb(202 216 217) 35%, rgb(210 218 220) 70%, rgb(75 198 196 / 83%) 100%)",
+    "textColor": "#161e20"
   },
   {
-    key: '2',
-    name: "Как у FreedomBank но цвет SCK",
-    value: "linear-gradient(45deg,rgba(255, 200, 0, 0.63) 0%, #FEFEFE 35%, #FEFEFE 70%,rgba(255, 200, 0, 0.63) 100%)",
-    textColor: "#161e20"
+    "key": "2",
+    "name": "Как у FreedomBank но цвет SCK",
+    "value": "linear-gradient(45deg,rgba(255, 200, 0, 0.63) 0%, #FEFEFE 35%, #FEFEFE 70%,rgba(255, 200, 0, 0.63) 100%)",
+    "textColor": "#161e20"
   },
   {
-    key: '3',
-    name: "Фиолетово-красный",
-    value: "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)",
-    textColor: "white"
+    "key": "3",
+    "name": "Фиолетово-красный",
+    "value": "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '4',
-    name: "Оранжево-желтый",
-    value: "linear-gradient(45deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
-    textColor: "white"
+    "key": "4",
+    "name": "Оранжево-желтый",
+    "value": "linear-gradient(45deg, rgba(255,193,12,1) 0%, rgba(170,49,135,1) 50%, rgba(255,193,12,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '5',
-    name: "Сине-фиолетовый",
-    value: "linear-gradient(135deg, rgba(51,51,255,1) 0%, rgba(153,102,255,1) 100%)",
-    textColor: "white"
+    "key": "5",
+    "name": "Сине-фиолетовый",
+    "value": "linear-gradient(135deg, rgba(51,51,255,1) 0%, rgba(153,102,255,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '6',
-    name: "Зеленый-оранжевый",
-    value: "linear-gradient(90deg, rgba(0,204,102,1) 0%, rgba(255,102,0,1) 100%)",
-    textColor: "white"
+    "key": "6",
+    "name": "Зеленый-оранжевый",
+    "value": "linear-gradient(90deg, rgba(0,204,102,1) 0%, rgba(255,102,0,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '7',
-    name: "Голубой-малиновый",
-    value: "linear-gradient(45deg, rgba(0,153,255,1) 0%, rgba(204,0,102,1) 100%)",
-    textColor: "white"
+    "key": "7",
+    "name": "Голубой-малиновый",
+    "value": "linear-gradient(45deg, rgba(0,153,255,1) 0%, rgba(204,0,102,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '8',
-    name: "Желтый-синий",
-    value: "linear-gradient(225deg, rgba(255,255,102,1) 0%, rgba(51,51,153,1) 100%)",
-    textColor: "white"
+    "key": "8",
+    "name": "Желтый-синий",
+    "value": "linear-gradient(225deg, rgba(255,255,102,1) 0%, rgba(51,51,153,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '9',
-    name: "Градиент под углом 45°",
-    value: "linear-gradient(45deg, rgba(102,0,153,1) 0%, rgba(255,204,0,1) 100%)",
-    textColor: "white"
+    "key": "9",
+    "name": "Градиент под углом 45°",
+    "value": "linear-gradient(45deg, rgba(102,0,153,1) 0%, rgba(255,204,0,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '10',
-    name: "Градиент под углом 135°",
-    value: "linear-gradient(135deg, rgba(255,102,102,1) 0%, rgba(0,204,102,1) 100%)",
-    textColor: "white"
+    "key": "10",
+    "name": "Градиент под углом 135°",
+    "value": "linear-gradient(135deg, rgba(255,102,102,1) 0%, rgba(0,204,102,1) 100%)",
+    "textColor": "white"
   },
   {
-    key: '11',
-    name: "Градиент под углом 225°",
-    value: "linear-gradient(225deg, rgba(51,51,255,1) 0%, rgba(255,193,12,1) 100%)",
-    textColor: "white"
+    "key": "11",
+    "name": "Градиент под углом 225°",
+    "value": "linear-gradient(225deg, rgba(51,51,255,1) 0%, rgba(255,193,12,1) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "12",
+    "name": "Фиолетово-желтый (45°)",
+    "value": "linear-gradient(45deg, rgba(102,0,100,1) 0%, rgba(255,204,0,1) 50%, rgba(102,0,100,1) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "13",
+    "name": "Фиолетово-желтый (30° с градиентными полосами)",
+    "value": "linear-gradient(30deg, rgba(102,0,100,1) 0%, rgba(255,204,0,1) 35%, rgba(255,204,0,1) 50%, rgba(255,204,0,1) 65%, rgba(102,0,100,1) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "14",
+    "name": "Фиолетово-желтый (30° с плавными переходами)",
+    "value": "linear-gradient(30deg, rgba(102,0,100,1) 0%, rgba(255,204,0,0.9) 30%, rgba(255,204,0,1) 50%, rgba(255,204,0,0.9) 70%, rgba(102,0,100,1) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "15",
+    "name": "Фиолетово-желтый (30° с равными полосами)",
+    "value": "linear-gradient(30deg, rgba(102,0,100,1) 10%, rgba(255,204,0,0.9) 30%, rgba(255,204,0,1) 50%, rgba(255,204,0,0.9) 70%, rgba(102,0,100,1) 90%)",
+    "textColor": "white"
+  },
+  {
+    "key": "16",
+    "name": "Фиолетово-желтый (30° с четкими границами)",
+    "value": "linear-gradient(30deg, rgba(102,0,100,1) 10%, rgba(255,204,0,1) 30%, rgba(255,204,0,1) 50%, rgba(255,204,0,1) 70%, rgba(102,0,100,1) 90%)",
+    "textColor": "white"
   }
 ];
+
 
 //123
 const CATEGORIES = [
