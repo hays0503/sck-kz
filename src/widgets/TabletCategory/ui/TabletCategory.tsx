@@ -11,7 +11,6 @@ import style from "./TabletCategory.module.css";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { MenuProps } from "antd/lib";
-import Paragraph from "antd/es/skeleton/Paragraph";
 
 const { Text, Paragraph } = Typography;
 
