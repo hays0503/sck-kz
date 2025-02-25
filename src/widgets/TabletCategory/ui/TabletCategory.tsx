@@ -223,7 +223,7 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
   };
 
 
-  const styleButton = { height: '45%', width: '95%', backgroundColor: "transparent", color: "#ffffff" }
+  const styleButton = { height: '45%', width: '95%', backgroundColor: "transparent", color: selectedGradient.textColor }
 
   return (
     <Flex className={style.container}>
