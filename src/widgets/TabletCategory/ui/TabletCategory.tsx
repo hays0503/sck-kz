@@ -193,8 +193,6 @@ const SwiperSlideStyle = (gradient: string): CSSProperties => ({
 
 const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
 
-  console.log(GRADIENTS)
-
   const cityEn = useGetCityParams();
   const [selectedGradient, setSelectedGradient] = useState(GRADIENTS[0]);
 
