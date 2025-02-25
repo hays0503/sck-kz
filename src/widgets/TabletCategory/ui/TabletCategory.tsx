@@ -29,8 +29,8 @@ const GRADIENTS = [
                 rgba(102, 0, 153, 0.9) 0%,
                 #fad35e 100%
             )
-            right top / 50% 50% no-repeat
-
+            right top / 50% 50% no-repeat,
+          #fad35e
           `,
     "textColor": "white"
   },
