@@ -26,6 +26,7 @@ const Level1: React.FC<Level1Props> = (props) => {
   const GuestUser = () => (
     <Flex vertical={true} gap={5}>
       <Title level={3}>{t("gost")}</Title>
+      <Link href={`/city/${currentCity}/login`}>Войдите или зарегистрируйтесь </Link>
     </Flex>
   );
 

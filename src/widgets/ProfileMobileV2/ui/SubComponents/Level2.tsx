@@ -38,7 +38,7 @@ const ElementList: React.FC<{
         transition={{ type: "spring", stiffness: 280, damping: 18 }} // Упругое движение
         style={{
           width: "100%",
-          backgroundColor: !disabled ? "#f0f0f0" : "#fff",
+          backgroundColor: disabled ? "#f0f0f0" : "#fff",
           border: "1px solid #d7d7d7",
           // boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.12)", // Базовая тень
           padding: "12px",
@@ -105,7 +105,7 @@ const Level2: React.FC<Level2Props> = (props) => {
       <ElementList
         title={t("izbrannye-tovary")}
         href={`/city/${currentCity}/featured-products`}
-        disabled={isGuest}
+        disabled={true}
         icon={
           <IconLikeIOS
             ionicons
