@@ -8,6 +8,7 @@ import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import IconLikeIOS from "@/shared/ui/IconLikeIOS/IconLikeIOS";
+import { Watermark } from "antd";
 
 const { Title } = Typography;
 
@@ -105,7 +106,7 @@ const Level2: React.FC<Level2Props> = (props) => {
       <ElementList
         title={t("izbrannye-tovary")}
         href={`/city/${currentCity}/featured-products`}
-        disabled={true}
+        disabled={false}
         icon={
           <IconLikeIOS
             ionicons
@@ -126,27 +127,34 @@ const Level2: React.FC<Level2Props> = (props) => {
           />
         }
       />
-      <ElementList
-        title={t("sravnenie-tovarov")}
-        href={`/city/${currentCity}/main`}
-        icon={
-          <IconLikeIOS
-            src="/scales.svg"
-            color="red"
-          />
-        }
-      />
-      <ElementList
-        title={t("nastroi-ki")}
-        href={`/city/${currentCity}/main`}
-        icon={
-          <IconLikeIOS
-            ionicons
-            src="settings-outline"
-            color="#37bd2b"
-          />
-        }
-      />
+      <Watermark gap={[10, 10]} rotate={-10} content={"В разработке"} style={{ width: "100%" }}>
+        <ElementList
+          title={t("sravnenie-tovarov")}
+          href={`/city/${currentCity}/main`}
+          disabled={true}
+          icon={
+            <IconLikeIOS
+              src="/scales.svg"
+              color="red"
+            />
+          }
+        />
+      </Watermark>      
+      <Watermark gap={[10, 10]} rotate={-10} content={"В разработке"} style={{ width: "100%" }}>
+        <ElementList
+          title={t("nastroi-ki")}
+          href={`/city/${currentCity}/main`}
+          disabled={true}
+          icon={
+            <IconLikeIOS
+              ionicons
+              src="settings-outline"
+              color="#37bd2b"
+            />
+          }
+        />
+      </Watermark>
+
       <ElementList
         title={t('vykhod')}
         href={`/city/${currentCity}/logout`}
