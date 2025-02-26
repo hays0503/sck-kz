@@ -80,7 +80,7 @@ export default function SearchProduct() {
 
   return <AutoComplete
     options={options}
-    style={{ width: "100%", height: "100%",padding:"5px", }}
+    style={{ width: "100%", height: "100%",paddingLeft:"5px",paddingRight:"5px",paddingBottom:"5px" }}
     onSearch={search}
     onSelect={(value) => {
       router.push(`/city/${cityEn}/product/${value}`);

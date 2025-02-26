@@ -115,10 +115,11 @@ const Level2: React.FC<Level2Props> = (props) => {
           />
         }
       />
+      <Watermark gap={[10, 10]} rotate={-10} content={"В разработке"} style={{ width: "100%" }}>
       <ElementList
         title={t("otzyvy")}
         href={`/city/${currentCity}/main`}
-        disabled={isGuest}
+        disabled={true}
         icon={
           <IconLikeIOS
             ionicons
@@ -127,6 +128,7 @@ const Level2: React.FC<Level2Props> = (props) => {
           />
         }
       />
+      </Watermark>
       <Watermark gap={[10, 10]} rotate={-10} content={"В разработке"} style={{ width: "100%" }}>
         <ElementList
           title={t("sravnenie-tovarov")}
