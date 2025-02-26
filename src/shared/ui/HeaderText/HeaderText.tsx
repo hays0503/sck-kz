@@ -57,7 +57,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
       <Flex
         align="center"
         justify="center"
-        style={{ paddingTop: "10px",width: "50%",height: "100%",
+        style={{ width: "50%",height: "100%",
         // background:"red" 
         }}
       >
