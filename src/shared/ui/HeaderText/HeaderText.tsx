@@ -21,8 +21,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
     borderBottom: "1px solid #41414145",
   };
   return (
-    <Flex vertical={true} style={HeaderMobileStyle}>
-      {SearchProduct && <SearchProduct />}
+    <Flex vertical={true} style={HeaderMobileStyle}>      
     <Flex justify="space-between" align="center" style={{ width: "100%",height: "100%" }}>
       <Flex
         align="center"
@@ -79,6 +78,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
         <ShareButton />
       </Flex>
     </Flex>
+    {SearchProduct && <SearchProduct />}
     </Flex>
   );
 };
