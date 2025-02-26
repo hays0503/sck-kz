@@ -32,7 +32,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFF",
+    backgroundColor: "#f5f5f5",
     overflow: "hidden",
     height:"100dvh",
     width: "100dvw",
@@ -45,12 +45,12 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
     width: "100%",
     height: "auto",
     padding: "0px",
-    backgroundColor: "#fff",
+    backgroundColor: "#f5f5f5",
   };
 
   const contentStyle: CSSProperties = {
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#f5f5f5",
     height: contentHeight,
     overflowY:"auto",
     overflowX:"clip"

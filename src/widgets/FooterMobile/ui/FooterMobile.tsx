@@ -26,16 +26,6 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
       />,
       key: "2",
     },
-    // {
-    //   label: <CatalogLabel
-    //     styleActive={returnStyleActive("5", current)}
-    //     styleActiveBg={returnStyleActiveBg("5", current)}
-    //     styleActiveAccent={returnStyleActiveAccent("5", current)}
-    //     size={sizeConstant}
-    //     text="V2"
-    //   />,
-    //   key: "5",
-    // },
     {
       label: <BasketLabel
         styleActive={returnStyleActive("3", current)}
@@ -47,12 +37,12 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
     },
     {
       label: <ProfileLabel
-        styleActive={returnStyleActive("6", current)}
-        styleActiveBg={returnStyleActiveBg("6", current)}
-        styleActiveAccent={returnStyleActiveAccent("6", current)}
+        styleActive={returnStyleActive("4", current)}
+        styleActiveBg={returnStyleActiveBg("4", current)}
+        styleActiveAccent={returnStyleActiveAccent("4", current)}
         size={sizeConstant}
       />,
-      key: "6",
+      key: "4",
       style: {
         display: "flex",
         alignItems: "flex-start !important",
@@ -98,13 +88,6 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
           if (key === "4") {
             router.push(`/city/${currentCity}/profile`)
           }
-          if (key === "5") {
-            router.push(`/city/${currentCity}/catalog/menuV2/main`)
-          }
-          if (key === "6") {
-            router.push(`/city/${currentCity}/profileV2`)
-          }
-
         }}
       />
     </Flex>

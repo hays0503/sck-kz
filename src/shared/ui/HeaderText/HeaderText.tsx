@@ -4,6 +4,7 @@ import { ShareButton } from "@/features/share-button";
 import { useRouter } from "@/i18n/routing";
 import { Button, Flex } from "antd";
 import { TextTruncate } from "../TextTruncate";
+import { CSSProperties } from "react";
 interface IHeaderTextProps {
   readonly text: string;
   readonly SearchProduct?: React.FC;
@@ -12,17 +13,21 @@ interface IHeaderTextProps {
 const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
   const { text,SearchProduct } = props;
+  const HeaderMobileStyle: CSSProperties = {
+    width: "100%",
+    height: "100%",
+    paddingTop:"10px",
+    paddingBottom:"10px",
+    borderBottom: "1px solid #41414145",
+  };
   return (
-    <Flex vertical={true} style={{ width: "100%", height: "100%" }}>
+    <Flex vertical={true} style={HeaderMobileStyle}>
       {SearchProduct && <SearchProduct />}
     <Flex justify="space-between" align="center" style={{ width: "100%",height: "100%" }}>
       <Flex
         align="center"
         justify="center"
         style={{
-          //   position: "absolute",
-          //   left: 0,
-          //   top: 15
           width: "25%",
         }}
       >

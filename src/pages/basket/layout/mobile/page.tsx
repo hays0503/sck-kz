@@ -6,9 +6,9 @@ import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { BasketMobile } from "@/widgets/BasketMobile";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { MappedCityType } from "api-mapping/city";
-import {getTranslations} from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 
 interface BasketPageProps {
@@ -20,9 +20,9 @@ interface BasketPageProps {
 }
 
 
-async function BasketPage({params}: BasketPageProps) {
+async function BasketPage({ params }: BasketPageProps) {
 
-  const {basket_id} = await params;
+  const { basket_id } = await params;
 
   const urlCity = `/api-mapping/city`
   const cities: MappedCityType[] = await getCity();
@@ -37,12 +37,9 @@ async function BasketPage({params}: BasketPageProps) {
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback} >
-        <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+        <LayoutMain
           headerContent={<HeaderText text={t('korzina')} />}
-          content={<BasketMobile basket_id={basket_id}/>}
+          content={<BasketMobile basket_id={basket_id} />}
           footerContent={<FooterMobile defaultKey="3" />}
         />
       </ProvidersClient>

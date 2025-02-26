@@ -38,7 +38,8 @@ const Level1: React.FC<Level1Props> = (props) => {
             addToCartSlot={
               <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
                 <Spin spinning />
-              </Flex>}
+              </Flex>
+              }
               >
                 <AddToBasketProduct prod_id={item.id} data={data} />
               </Suspense>

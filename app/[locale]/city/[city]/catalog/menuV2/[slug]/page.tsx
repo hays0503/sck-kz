@@ -1,1 +1,0 @@
-export {default} from "@/pages/catalog/menuV2/page"

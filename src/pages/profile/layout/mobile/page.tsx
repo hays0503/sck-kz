@@ -4,7 +4,7 @@ import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
-import { ProfileMobile } from "@/widgets/ProfileMobile";
+import { ProfileMobile } from "@/widgets/ProfileMobileV2";
 import { getTranslations } from "next-intl/server";
 
 const ProfilePage = async (

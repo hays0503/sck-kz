@@ -16,7 +16,7 @@ const { Text, Paragraph } = Typography;
 
 const GRADIENTS = [
   {
-    "key": "0",
+    "key": "31",
     "name": "Модифицированный градиент с двумя сферами Роман/Сергей",
     "value": `radial-gradient(
               farthest-side at left bottom,
@@ -38,32 +38,108 @@ const GRADIENTS = [
           `,
     "textColor": "white"
   },
-  ...Array.from({ length: 200 }, (_, i) => {
-    return {
-      key: (20 + i).toString(),
-      name: `Модифицированный градиент #${i + 1}`,
-      value: `radial-gradient(
-                farthest-side at left bottom,
-                rgba(${80 + (i % 50)}, 0, ${130 + (i % 70)}, 0.9) 0%,
-                rgba(${140 + (i % 60)}, ${60 + (i % 50)}, ${180 + (i % 40)}, 0.7) 10%,
-                rgba(250, ${180 + (i % 40)}, 90, 0.7) 50%,
-                rgba(255, ${200 + (i % 30)}, 120, 0.6) 70%,
-                 100%
-              )
-              left bottom / 50% 50% no-repeat,
-              radial-gradient(
-                farthest-side at right top,
-                rgba(${80 + (i % 50)}, 0, ${130 + (i % 70)}, 0.9) 0%,
-                rgba(${140 + (i % 60)}, ${60 + (i % 50)}, ${180 + (i % 40)}, 0.7) 10%,
-                rgba(250, ${180 + (i % 40)}, 90, 0.7) 50%,
-                rgba(255, ${200 + (i % 30)}, 120, 0.6) 70%,
-                #fad35e 100%
-              )
-              right top / 50% 50% no-repeat
-              #fad35e`,
-      textColor: "white"
-    };
-  })  
+  {
+    "key": "0",
+    "name": "v1",
+    "value": "radial-gradient(ellipse at left bottom, #B53075 11%, transparent 50%), radial-gradient(ellipse at right top, #B53075 11%, transparent 50%), linear-gradient(45deg, rgba(254, 194, 16, 0.8) 0%, rgba(254, 194, 16, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "1",
+    "name": "v2",
+    "value": "radial-gradient(ellipse at left bottom, rgba(254, 194, 16, 0.8) 15%, transparent 50%), radial-gradient(ellipse at right top, rgba(254, 194, 16, 0.8) 20%, transparent 50%), linear-gradient(300deg, rgba(63, 54, 149, 0.8) 10%, rgba(100, 54, 149, 0.8) 20%, rgba(131, 51, 148, 0.8) 30%, rgba(161, 51, 147, 0.8) 45%, rgba(181, 48, 117, 0.8) 60%, rgba(196, 42, 86, 0.8) 70%, rgba(212, 36, 53, 0.8) 80%, rgba(217, 34, 44, 0.8) 90%)",
+    "textColor": "white"
+  },
+  {
+    "key": "2",
+    "name": "v3",
+    "value": "radial-gradient(ellipse at left bottom, rgba(102, 0, 153, 0.9) -15%, rgba(160, 90, 200, 0.7) 10%, rgba(250, 210, 90, 0.7) 50%, rgba(255, 220, 120, 0.6) 50%, rgba(250, 210, 90, 0.7) 50%, transparent 50%), radial-gradient(ellipse at right top, rgba(102, 0, 153, 0.9) -15%, rgba(160, 90, 200, 0.7) 10%, rgba(250, 210, 90, 0.7) 50%, rgba(255, 220, 120, 0.6) 50%, rgba(250, 210, 90, 0.7) 50%, transparent 50%), linear-gradient(45deg, rgba(255, 204, 0, 0.8) 0%, rgba(255, 204, 0, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "3",
+    "name": "v4",
+    "value": "radial-gradient(ellipse at left bottom, #B53075 3%, transparent 47%), radial-gradient(ellipse at right top, #B53075 3%, transparent 47%), linear-gradient(45deg, rgba(254, 194, 16, 0.8) 0%, rgba(254, 194, 16, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "5",
+    "name": "v6",
+    "value": "radial-gradient(ellipse at left bottom, rgba(102, 0, 153, 0.9) -15%, rgba(160, 90, 200, 0.7) 10%, rgba(250, 210, 90, 0.7) 50%, rgba(255, 220, 120, 0.6) 50%, rgba(250, 210, 90, 0.7) 50%, transparent 50%),  radial-gradient(ellipse at right top, rgba(102, 0, 153, 0.9) -15%, rgba(160, 90, 200, 0.7) 10%, rgba(250, 210, 90, 0.7) 50%, rgba(255, 220, 120, 0.6) 50%, rgba(250, 210, 90, 0.7) 50%, transparent 50%),  linear-gradient(45deg, rgba(255, 204, 0, 0.8) 0%, rgba(255, 204, 0, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "6",
+    "name": "v7",
+    "value": "radial-gradient(ellipse at left bottom, rgba(254, 194, 16, 0.8) 15%, transparent 50%),  radial-gradient(ellipse at right top, rgba(254, 194, 16, 0.8) 20%, transparent 50%),  linear-gradient(300deg, rgba(63, 54, 149, 0.8) 10%, rgba(100, 54, 149, 0.8) 20%, rgba(131, 51, 148, 0.8) 30%, rgba(161, 51, 147, 0.8) 45%, rgba(181, 48, 117, 0.8) 60%, rgba(196, 42, 86, 0.8) 70%, rgba(212, 36, 53, 0.8) 80%, rgba(217, 34, 44, 0.8) 90%)",
+    "textColor": "white"
+  },
+  {
+    "key": "8",
+    "name": "v9",
+    "value": "radial-gradient(ellipse at left bottom, #B53075 3%, rgba(254, 194, 16, 0.8) 0%, transparent 33%),  radial-gradient(ellipse at right top, #B53075 3%, rgba(254, 194, 16, 0.8) 100%, transparent 33%),  linear-gradient(325deg, rgba(254, 194, 16, 0.8) 0%, rgba(254, 194, 16, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "11",
+    "name": "v12",
+    "value": "radial-gradient(ellipse at left bottom, #B53075 3%, transparent 55%),  radial-gradient(ellipse at right top, #B53075 3%, transparent 55%),  linear-gradient(325deg, rgba(254, 194, 16, 0.8) 0%, rgba(254, 194, 16, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "14",
+    "name": "v15",
+    "value": "radial-gradient(ellipse at left bottom, rgba(181, 48, 117, 0.9) 3%, transparent 55%),  radial-gradient(ellipse at right top, rgba(181, 48, 117, 0.9) 3%, transparent 55%),  linear-gradient(325deg, rgba(254, 194, 16, 0.6) 0%, rgba(254, 194, 16, 0.6) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "17",
+    "name": "v18",
+    "value": "radial-gradient(ellipse at left bottom, rgba(181, 48, 117, 0.9) 3%, transparent 55%),  radial-gradient(ellipse at right top, rgba(181, 48, 117, 0.9) 3%, transparent 55%),  radial-gradient(circle, rgba(254, 194, 16, 0.6) 100%, rgba(254, 194, 16, 0.949) 30%)",
+    "textColor": "white"
+  },
+  {
+    "key": "20",
+    "name": "v21",
+    "value": "radial-gradient(ellipse at left bottom, rgba(181, 48, 117, 0.95) 1%, transparent 55%),  radial-gradient(ellipse at right top, rgba(181, 48, 117, 0.95) 1%, transparent 55%),  radial-gradient(circle, rgba(254, 194, 16, 0.7) 100%, rgba(254, 194, 16, 0.949) 30%)",
+    "textColor": "white"
+  },
+  {
+    "key": "21",
+    "name": "v22",
+    "value": "radial-gradient(ellipse at left top, #3F3695 11%, #643695 18%, #833394 24%, #A13393 31%, rgba(181, 48, 117) 38%, #C42A56 45%, #F24547 57%, #FB8931 63%, #FFD823 68%, #FEFB4A 78%, #FEFB4A 85%, #FEFB4A 98%, transparent 1%)",
+    "textColor": "white"
+  },
+  {
+    "key": "22",
+    "name": "v23",
+    "value": "radial-gradient(ellipse at left bottom, rgba(102, 0, 153, 0.9) 10%, rgba(160, 90, 200, 0.7) 20%, rgba(250, 210, 90, 0.6) 50%, rgba(255, 220, 120, 0.5) 70%, rgba(102, 0, 153, 0.9) 100%),  radial-gradient(ellipse at right top, rgba(102, 0, 153, 0.9) 10%, rgba(160, 90, 200, 0.7) 20%, rgba(250, 210, 90, 0.6) 50%, rgba(255, 220, 120, 0.5) 70%, rgba(102, 0, 153, 0.9) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "23",
+    "name": "v24",
+    "value": "radial-gradient(ellipse at left top, #3F3695 11%, #643695 18%, #833394 24%, #A13393 31%, rgba(181, 48, 117, 0.8) 38%, #C42A56 45%, #F24547 57%, #FB8931 63%, #FFD823 70%, rgba(254, 251, 74, 0.8) 85%, rgba(254, 251, 74, 0.6) 98%, transparent 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "24",
+    "name": "v25",
+    "value": "linear-gradient(90deg, rgba(0, 153, 255, 0.8) 0%, rgba(255, 102, 0, 0.8) 100%)",
+    "textColor": "white"
+  },
+  {
+    "key": "28",
+    "name": "v29",
+    "value": "radial-gradient(ellipse, rgba(255, 255, 255, 0.304) 98%, rgba(254, 251, 74, 0.6) 98%),  radial-gradient(ellipse at left top, #3F3695 11%, #643695 18%, #833394 24%, #A13393 31%, rgba(181, 48, 117) 38%, #C42A56 45%, #F24547 57%, #FB8931 63%, #FFD823 70%, rgba(254, 251, 74, 0.8) 85%, rgba(254, 251, 74, 0.6) 98%, transparent 10%)",
+    "textColor": "white"
+  },
+  {
+    "key": "30",
+    "name": "v31",
+    "value": "radial-gradient(ellipse, rgba(255, 255, 255, 0.189) 98%, rgba(254, 251, 74, 0.6) 98%),  radial-gradient(ellipse at left top, #3F3695 11%, #643695 18%, #833394 24%, #A13393 31%, rgba(181, 48, 117) 38%, #C42A56 45%, #F24547 57%, #FB8931 63%, #FFD823 70%, rgba(254, 251, 74, 0.8) 85%, rgba(254, 251, 74, 0.6) 98%, transparent 10%)",
+    "textColor": "white"
+  }
 ];
 
 

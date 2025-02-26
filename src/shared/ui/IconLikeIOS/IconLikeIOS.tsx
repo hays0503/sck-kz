@@ -5,14 +5,14 @@ import { CSSProperties } from "react"
 interface IconLikeIOSProps {
     src: string,
     size?: number
-    color?: string
+    color?: string,
+    ionicons?:boolean
 }
 
-const IconLikeIOS: React.FC<IconLikeIOSProps> = ({ src, size = 24, color = "#ffba06" }) => {
+const IconLikeIOS: React.FC<IconLikeIOSProps> = ({ src, size = 24, color = "#ffba06",ionicons }) => {
 
-    const fullSrc = `/ionicons/${src}.svg`
+    const fullSrc = ionicons?`/ionicons/${src}.svg`:src
     const backgroundStyle: CSSProperties = {
-        // background: `linear-gradient(180deg, ${color}50 0%, ${color} 100%)`,
         background: color,
         padding:"3px",
         borderRadius: "8px",
