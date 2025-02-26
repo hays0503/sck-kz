@@ -90,7 +90,7 @@ const Level1: React.FC<Level1Props> = (props) => {
                       <IconLikeIOS ionicons src="log-in-outline" color="green" size={28} />
                     </motion.div>
                   ) : (
-                    <IconLikeIOS ionicons src="create-outline" color="green" />
+                    <IconLikeIOS ionicons src="create-outline" color="green" size={28}/>
                   )}
                 </>
               }

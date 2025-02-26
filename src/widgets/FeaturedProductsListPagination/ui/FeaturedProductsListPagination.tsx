@@ -19,7 +19,7 @@ const { Title } = Typography;
 const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number }> = ({ FeaturedProductsIds, order, page }) => {
     const t = useTranslations("RenderFeaturedProducts");
     const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
-    const [sortOrder] = useQueryState("order", { defaultValue: order??"stocks__price" });
+    const [sortOrder] = useQueryState("order", { defaultValue: order ?? "stocks__price" });
     const cityEn = useGetCityParams();
     const { data, isLoading, error } = useGetProductByIdsSWR({
         ids: FeaturedProductsIds || [],
@@ -39,7 +39,7 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
     const Products = data?.results || [];
     const ProductsLen = data?.len || 0;
 
-    const {  Text } = Typography;
+    const { Text } = Typography;
 
     interface RenderProps {
         Products: MappedPopularProductType[],
@@ -72,28 +72,28 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
                     </Flex>
                 </>}
                 {ProductsLen > 0 && <>
-                        <Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
+                    <Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
                         <SortingProducts url={`/city/${cityEn}/featured-products`} />
                     </Flex>
                     <Flex
                         vertical={true}
                         align="center"
                         justify="space-evenly"
-                        gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}>
+                        gap={10} style={{ width: "100%", height: "fit-content", backgroundColor: "transparent" }}>
 
                         <Level1 Products={Products} />
-                        <Level2
+                        {ProductsLen > FEATURED_PRODUCTS.PRODUCTS_PER_PAGE && <Level2
                             pageSize={FEATURED_PRODUCTS.PRODUCTS_PER_PAGE}
                             total={ProductsLen}
                             current={CurrentPage}
-                            onChange={SetCurrentPage} />
+                            onChange={SetCurrentPage} />}
                     </Flex>
                 </>}
             </>
         );
     }
 
-    return <Render Products={Products} ProductsLen={ProductsLen} CurrentPage={currentPage} SetCurrentPage={setCurrentPage}/>
+    return <Render Products={Products} ProductsLen={ProductsLen} CurrentPage={currentPage} SetCurrentPage={setCurrentPage} />
 }
 
 const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number }> = ({ order, page }) => {

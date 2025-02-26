@@ -1,6 +1,6 @@
 "use client";
 import { Flex, Spin } from "antd";
-import { JSX, lazy, Suspense, useRef } from "react";
+import { JSX, lazy, Suspense, useRef, memo } from "react";
 import { Level1, Level2, Level3 } from "./SubComponent";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Link } from "@/i18n/routing";
@@ -14,7 +14,8 @@ interface IProductCartProps {
   readonly addToFavoriteSlot: JSX.Element;
 }
 
-const ProductCart: React.FC<IProductCartProps> = (props) => {
+// eslint-disable-next-line react/display-name
+const ProductCart: React.FC<IProductCartProps> = memo((props) => {
   const { Product, addToCartSlot, addToFavoriteSlot } = props;
   const currentCity = useGetCityParams();
   const locale = useLocale();
@@ -25,7 +26,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
     box: "border-box",
   });
 
-  const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'] ;
+  const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
 
   const ProductCartSwiper = lazy(() => import("./SubComponent").then((module) => ({ default: module.ProductCartSwiper })));
 
@@ -40,9 +41,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
       itemType="http://schema.org/Product"
       gap={10}
       style={{
-        // backgroundColor: "",
         width: "calc(100dvw / 2 - 10px)",
-        // backgroundColor:"#0000000F"
       }}
     >
       <Level1
@@ -57,8 +56,7 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               height: CartWidth,
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
-               /////////////////////////////////////////////////////////////////
+              alignItems: "center"
             }}
           >
             <Suspense
@@ -69,7 +67,6 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
                   style={{
                     width: CartWidth,
                     height: CartWidth,
-                    
                   }}
                 >
                   <Spin />
@@ -98,6 +95,6 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
       <Level3 addToCartSlot={addToCartSlot} />
     </Flex>
   );
-};
+});
 
 export default ProductCart;

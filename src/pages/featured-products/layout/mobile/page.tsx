@@ -2,12 +2,12 @@
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { HeaderText } from "@/shared/ui";
 import { getTranslations } from "next-intl/server";
 import { SearchParams } from "nuqs";
 import { searchParamsCache } from "./searchParams";
 import { FeaturedProductsListPagination } from "@/widgets/FeaturedProductsListPagination/ui";
+import { LayoutMain } from "@/widgets/LayoutMain";
 
 type FeaturedProductsPageProps = {
   params: Promise<{
@@ -25,10 +25,7 @@ export default async function FeaturedProductsPage(props: FeaturedProductsPagePr
   return (
     <ProvidersServer>
       <ProvidersClient fallback={{}}>
-        <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+        <LayoutMain
           headerContent={
             <HeaderText
               text={
@@ -37,7 +34,7 @@ export default async function FeaturedProductsPage(props: FeaturedProductsPagePr
             />
           }
 
-          content={<FeaturedProductsListPagination order={order} page={page}/>}
+          content={<FeaturedProductsListPagination order={order} page={page} />}
 
           footerContent={
             <FooterMobile defaultKey="4" />

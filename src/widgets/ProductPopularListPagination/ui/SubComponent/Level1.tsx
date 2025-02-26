@@ -1,4 +1,3 @@
-import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
@@ -15,8 +14,6 @@ interface Level1Props {
 // Первый уровень карты (карточки товаров)
 const Level1: React.FC<Level1Props> = (props) => {
   const { Products } = props;
-
-  const { data } = useGetBasketProductsSWR();
 
   const ColResponsive: ColProps = {
     // xs: { offset: 1 }
@@ -41,7 +38,7 @@ const Level1: React.FC<Level1Props> = (props) => {
               </Flex>
               }
               >
-                <AddToBasketProduct prod_id={item.id} data={data} />
+                <AddToBasketProduct prod_id={item.id} />
               </Suspense>
             }
             addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}

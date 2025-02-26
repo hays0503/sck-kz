@@ -1,57 +1,59 @@
-import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
-import { Col, ColProps, Flex, Row, Spin } from "antd";
+import { Col, Flex, Row, Spin } from "antd";
 import { MappedPopularProductType } from "api-mapping/product/populates";
-import { CSSProperties, Suspense } from "react";
-
-
+import { memo, Suspense, useCallback, useMemo } from "react";
 
 interface Level1Props {
-  readonly Products: MappedPopularProductType[]
+  readonly Products: MappedPopularProductType[];
 }
 
-// Первый уровень карты (карточки товаров)
-const Level1: React.FC<Level1Props> = (props) => {
-  const { Products } = props;
+// eslint-disable-next-line react/display-name
+const Level1: React.FC<Level1Props> = memo(({ Products }) => {
+  // const { data } = useGetBasketProductsSWR();
 
-  const ColResponsive: ColProps = {
-    // xs: { offset: 1 }
-  }
+  const fallback = useMemo(
+    () => (
+      <Flex
+        style={{
+          width: "100%",
+          height: "40px",
+          background: "#2f369c",
+          padding: "8px 16px",
+          borderRadius: "4px",
+        }}
+        align="center"
+        justify="center"
+      >
+        <Spin spinning />
+      </Flex>
+    ),
+    []
+  );
 
-  const { data } = useGetBasketProductsSWR();
-
-  const ButtonStyle: CSSProperties = {
-    width: "100%",
-    height: "40px",
-    background: "#2f369c",
-    padding: "8px 16px",
-    borderRadius: "4px"
-  }
+  const renderAddToCart = useCallback(
+    (prod_id: number) => (
+      <Suspense fallback={fallback}>
+        <AddToBasketProduct prod_id={prod_id}/>
+      </Suspense>
+    ),
+    [fallback]
+  );
 
   return (
     <Row gutter={[5, 5]} justify="center" align="stretch">
-      {Products?.map((item, index) => (
-        <Col {...ColResponsive} key={index}>
+      {Products.map((item) => (
+        <Col key={item.id}>
           <ProductCart
             Product={item}
-            addToCartSlot={
-              <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
-                <Spin spinning />
-              </Flex>
-              }
-              >
-                <AddToBasketProduct prod_id={item.id} data={data} />
-              </Suspense>
-            }
+            addToCartSlot={renderAddToCart(item.id)}
             addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
           />
         </Col>
       ))}
     </Row>
   );
-};
+});
 
-
-export default Level1
+export default Level1;

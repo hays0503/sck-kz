@@ -3,7 +3,7 @@ import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { UserMobile } from "@/widgets/UserMobile";
 import { getTranslations } from "next-intl/server";
 
@@ -21,10 +21,7 @@ const ProfilePage = async (
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
-        <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+        <LayoutMain
           headerContent={<HeaderText text={t('dannye-polzovatelya')}/>}
           content={<UserMobile/>}
           footerContent={<FooterMobile defaultKey="4"/>}

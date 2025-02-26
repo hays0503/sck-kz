@@ -78,7 +78,7 @@ export default async function CatalogPage(props: PageProps) {
           }
 
           footerContent={
-            <FooterMobile />
+            <FooterMobile defaultKey="2"/>
           }
 
         />

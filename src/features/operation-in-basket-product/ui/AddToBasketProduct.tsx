@@ -5,13 +5,14 @@ import { useBasketAdd } from "../model";
 import IncButton from "./IncButton";
 import DecButton from "./DecButton";
 import React, { CSSProperties} from "react";
-import { MappedBasketItemType, MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketItemType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 
 
 const { Text } = Typography;
 
-const AddToBasketProduct: React.FC<{ prod_id: number, data: MappedBasketType|null|undefined }> = ({ prod_id, data }) => {
-
+const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
+  const { data } = useGetBasketProductsSWR();
   const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
     if ('vibrate' in navigator) {

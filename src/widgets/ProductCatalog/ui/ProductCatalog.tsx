@@ -15,7 +15,7 @@ import { MappedPopularProductType } from "api-mapping/product/populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
 
-const {  Text } = Typography;
+const { Text } = Typography;
 
 interface ProductsCatalogProps {
   params: { slug: string };
@@ -110,9 +110,9 @@ const Render: React.FC<RenderProps> = ({
         <Flex vertical>
           <Flex vertical align="center" justify="" style={{ width: "100%", height: "100%" }}>
             <Text strong style={{ textAlign: "center" }}>{t('v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee')}</Text>
-            <Button 
-             style={{ padding: "20px", backgroundColor: "#4954f0", color: "#FFFF",zIndex:999 }}
-             onClick={() => router.back()}
+            <Button
+              style={{ padding: "20px", backgroundColor: "#4954f0", color: "#FFFF", zIndex: 999 }}
+              onClick={() => router.back()}
             >
               {t('nazad')}
             </Button>
@@ -133,7 +133,10 @@ const Render: React.FC<RenderProps> = ({
           gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}>
 
           <Level1 Products={Products} />
-          <Level2 pageSize={PRODUCT.PRODUCT_PER_PAGE} total={ProductsLen} current={CurrentPage} onChange={SetCurrentPage} />
+          {
+            ProductsLen > PRODUCT.PRODUCT_PER_PAGE &&
+            <Level2 pageSize={PRODUCT.PRODUCT_PER_PAGE} total={ProductsLen} current={CurrentPage} onChange={SetCurrentPage} />
+          }
         </Flex>
       </>}
     </>

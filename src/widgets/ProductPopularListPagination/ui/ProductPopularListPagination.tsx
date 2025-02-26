@@ -46,7 +46,10 @@ export default function ProductPopularListPagination(
         <Text style={{ color: "#808185" }}>{tt('uspey-kupit')}</Text>
       </Flex>
       <Level1 Products={PopulatesProducts} />
-      <Level2 pageSize={POPULATES_PRODUCTS.POPULATES_PER_PAGE} total={PopulatesProductsLen} current={currentPage} onChange={setCurrentPage}/>
+      {
+        PopulatesProductsLen > POPULATES_PRODUCTS.POPULATES_PER_PAGE && 
+        <Level2 pageSize={POPULATES_PRODUCTS.POPULATES_PER_PAGE} total={PopulatesProductsLen} current={currentPage} onChange={setCurrentPage}/>
+      }
     </Flex>
   );
 }
