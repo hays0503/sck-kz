@@ -5,7 +5,6 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import { ProductCart } from "@/entities/Product/ui/Cart";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
-import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
 
 
 interface IProductDetailRelatedProductProps {
@@ -26,8 +25,6 @@ const ProductDetailRelatedProduct: React.FC<IProductDetailRelatedProductProps> =
         height: 500
     } as SwiperProps;
 
-    const { data } = useGetBasketProductsSWR();
-
     return <Flex vertical={true} style={{ width: "100%", padding: "10px" }} justify="flex-start">
         <Title level={5}>{t("rekomenduemye-tovary")}</Title>
         <Swiper
@@ -38,7 +35,7 @@ const ProductDetailRelatedProduct: React.FC<IProductDetailRelatedProductProps> =
                     <ProductCart
                         Product={product}
                         addToCartSlot={
-                            <AddToBasketProduct prod_id={product.id} data={data}/>
+                            <AddToBasketProduct prod_id={product.id}/>
                         }
                         addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
                     />
