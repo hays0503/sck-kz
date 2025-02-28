@@ -1,0 +1,24 @@
+@import "CatalogNavigation.module.scss";
+
+.CatalogSubMenuRoot{
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    grid-gap: 16px;
+    gap: 16px;
+    width: 100%;
+    max-height: calc(100vh - 144px);
+    overflow-y: auto;
+}
+
+.CatalogSubMenuMain{
+    column-count: 3;
+    padding: 0 16px;
+    border-right: 1px solid #f4f4f4;
+    border-left: 1px solid #f4f4f4;
+}
+
+.CatalogSubMenuContainer{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}

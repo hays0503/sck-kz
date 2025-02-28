@@ -258,5 +258,11 @@
     "tovar-dobavlen-v-korzinu": "Тауарлар себетке қосылады",
     "error": "Қателік",
     "tovar-udalyon-iz-korziny": "Тауарлар себеттен алынып тасталады"
+  },
+  "CatalogDesktop": {
+    "catalog": "Каталог"
+  },
+  "UserCabinet": {
+    "lichnyi-kabinet": "Жеке кабинет"
   }
 }

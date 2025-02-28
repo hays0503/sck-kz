@@ -35,9 +35,10 @@ export async function GET(request: NextRequest) {
                 status: STATUS_CODE.OK,
               });
             }
-          } catch {
+          } catch(error) {
             return NextResponse.json({
               message: "Ошибка при обработке",
+              detail: error
             });
           }
     }

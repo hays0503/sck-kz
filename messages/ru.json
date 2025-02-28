@@ -282,5 +282,12 @@
     "error": "Ошибка",
     "tovar-udalyon-iz-korziny": "Товар удалён из корзины"
   },
-  "tovar-udalyon-iz-korziny": "Товар удалён из корзины"
+  "tovar-udalyon-iz-korziny": "Товар удалён из корзины",
+  "CatalogDesktop": {
+    "catalog": "Каталог"
+  },
+  "lichnyi-kabinet": "Личный кабинет",
+  "UserCabinet": {
+    "lichnyi-kabinet": "Личный кабинет"
+  }
 }

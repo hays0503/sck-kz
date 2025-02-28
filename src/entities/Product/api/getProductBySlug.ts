@@ -27,7 +27,7 @@ const getProductBySlug = async ({slug,city}: getProductByCategoryProps):Promise<
 
     const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : ""
     const url = `${process.env.HOST_URL}${host_port}/api-mapping/product/by_slug/?slug=${slug}&city=${city}`;
-
+    console.log(url)
     let response:Response;
     try {
         response = await fetch(url, {

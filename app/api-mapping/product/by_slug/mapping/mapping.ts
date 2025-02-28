@@ -69,7 +69,7 @@ const mapping = async (
 
     const descFetch = await fetch(url)
       .then((res) => res.json() as Promise<descType>)
-      .catch((e) => console.error(e));
+      // .catch((e) => console.error(e));
 
     desc = {
       name: {
@@ -86,7 +86,9 @@ const mapping = async (
     console.log("urlRelatedProducts=>",urlRelatedProducts);
     const relatedProductsFetch = await fetch(urlRelatedProducts)
       .then((res) => res.json() as Promise<{ count: number; results: rawResult[] }>)
-      .catch((e) => console.error(e));
+      // .catch((e) => console.error(e));
+
+    console.log("relatedProductsFetch=>",relatedProductsFetch);
 
     if (relatedProductsFetch) {
       relatedProducts = mappingForMappedList(
@@ -95,19 +97,22 @@ const mapping = async (
         cityRu
       ).results;      
     }
+
   }
 
   const MappedData = {
     ...mainData,
     article: rawData?.vendor_code,
     quantity: quantity,
-    categoryId: rawData?.category.id,
+    categoryId: rawData?.category?.id,
     specifications: specificationsProduct,
     reviews: [],
     desc: desc,
     relatedProducts: relatedProducts,
     configuration: [],
   } as MappedProductDetailType;
+
+  // console.log("MappedData", MappedData);
 
   return MappedData;
 };

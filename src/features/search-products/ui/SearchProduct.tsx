@@ -9,15 +9,12 @@ import { AutoComplete, AutoCompleteProps, Flex, Input, Typography } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 import { useDebounceCallback } from "@undefined/usehooks-ts";
-import { SearchOutlined} from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
 
 export default function SearchProduct() {
   const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
-  // const city = useSelectedCity();
-  // const t = useTranslations("SearchProduct");
-  // const locale = useLocale();
   const router = useRouter();
   const cityEn = useGetCityParams();
   const search = useDebounceCallback(async (value: string) => {
@@ -80,7 +77,7 @@ export default function SearchProduct() {
 
   return <AutoComplete
     options={options}
-    style={{ width: "100%", height: "100%",paddingLeft:"5px",paddingRight:"5px",paddingBottom:"5px" }}
+    style={{ width: "100%", height: "100%"}}
     onSearch={search}
     onSelect={(value) => {
       router.push(`/city/${cityEn}/product/${value}`);
@@ -88,12 +85,12 @@ export default function SearchProduct() {
   >
     <Input
       placeholder={"Поиск"}
-      style={{        
+      style={{
         height: "40px",
-        backgroundColor:"transparent",
+        backgroundColor: "transparent",
         border: "1px solid rgb(142, 142, 142)",
       }}
-      prefix={<SearchOutlined style={{ color: "rgba(0, 0, 0, 0.25)" }}/>}
+      prefix={<SearchOutlined style={{ color: "rgba(0, 0, 0, 0.25)" }} />}
       role="search"
       name="search"
     />

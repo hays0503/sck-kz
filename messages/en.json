@@ -258,5 +258,11 @@
     "tovar-dobavlen-v-korzinu": "The goods are added to the basket",
     "error": "Error",
     "tovar-udalyon-iz-korziny": "The goods are removed from the basket"
+  },
+  "CatalogDesktop": {
+    "catalog": "Catalog"
+  },
+  "UserCabinet": {
+    "lichnyi-kabinet": "Personal office"
   }
 }

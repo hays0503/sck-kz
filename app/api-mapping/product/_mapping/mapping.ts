@@ -12,22 +12,22 @@ const mapping = (
   rawData: rawResult[],
   city: string
 ): { results: MappedPopularProductType[]; len: number } => {
-  const Populates: MappedProductType[] = rawData.map((product: rawResult) => ({
-    id: product.id,
-    slug: product.slug,
+  const Populates: MappedProductType[] = rawData?.map((product: rawResult) => ({
+    id: product?.id,
+    slug: product?.slug,
     name: {
-      ru: product.name_product,
+      ru: product?.name_product,
       en: getLocalizedName(product, "EN"),
       kk: getLocalizedName(product, "KZ"),
     },
     img: product.images?.map((image: rawImage) => image.image) ?? [],
-    rating: typeof product.avg_rating === "number" ? product.avg_rating : 0, // Приведение к number
-    price: product.stocks[city]?.price ?? 0,
+    rating: typeof product.avg_rating === "number" ? product?.avg_rating : 0, // Приведение к number
+    price: product?.stocks?.[city]?.price ?? 0,
     oldPrice: 
-      product.stocks[city]?.price != product.stocks[city]?.price_before_discount
-        ? product.stocks[city]?.price_before_discount
+      product?.stocks?.[city]?.price != product?.stocks[city]?.price_before_discount
+        ? product.stocks?.[city]?.price_before_discount
         : null,
-    reviews: product.reviews_count,
+    reviews: product?.reviews_count,
     discount: product?.discount?.amount ?? null,
   }));
 

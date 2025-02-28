@@ -1,0 +1,13 @@
+.listElementHover {    
+    color: rgb(0, 0, 0);
+    &:hover{
+        color: #ffa600;
+        text-shadow: 0 0 20px #ffbb00;
+    }
+}
+
+.navigationElement{
+    padding: 12px 20px 12px 16px;
+    text-decoration: none;
+    border-bottom: 1px dotted rgb(221, 221, 221);
+}

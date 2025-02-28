@@ -1,0 +1,15 @@
+.animationHoverOn {
+  width: 56px;
+  height: 44px;
+  background-position: center;
+  background-image: url('data:image/svg+xml,<svg width="56" height="44" viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M22.5 22H37.5M22.5 17H37.5M22.5 27H32.5" stroke="white" stroke-width="1.5" stroke-linecap="square" /> </svg>');
+  transition: background-image 0.3s ease;
+}
+
+.animationHoverOff {
+  width: 56px;
+  height: 44px;
+  background-position: center;
+  transition: background-image 0.3s ease;
+  background-image: url('data:image/svg+xml,<svg width="56" height="44" viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M35 17L25 27M25 17L35 27" stroke="white" stroke-width="1.5" stroke-linecap="square" /> </svg>');
+}
