@@ -1,3 +1,3 @@
-import CatalogPopover from './CatalogPopover.tsx'
+import CatalogPopover from './CatalogPopover'
 
 export { CatalogPopover }

@@ -18,6 +18,7 @@ import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/typ
 import { getCategoryRoot } from "@/entities/Category";
 import { TabletCategory } from "@/widgets/TabletCategory/ui";
 import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
+import { CSSProperties } from "react";
 
 
 type PageProps = {
@@ -63,13 +64,13 @@ export default async function HomePage(props: PageProps) {
             />
           }
           content={
-            <Flex vertical={true} gap={5}>
+            <Flex vertical={true} gap={5} style={{ "--sck-columns-on-page":2} as CSSProperties}>
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
               <BannerMobileSlider category={categoryRoot?.results || []} />
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
               <TabletCategory />
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
-              <ProductPopularListPagination />
+              <ProductPopularListPagination  justify="start" align="start"/>
             </Flex>
           }
 

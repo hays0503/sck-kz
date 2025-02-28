@@ -1,56 +1,62 @@
-import { Popover } from "antd";
+import { Flex, Popover } from "antd";
 import CatalogNavigation from "./CatalogNavigation";
 import { CatalogSubMenu } from "./CatalogSubMenu";
 import { MappedCategoryType } from "api-mapping/category/all/type";
+import { useState } from "react";
 
 export default function CatalogPopover({
   children,
   isOpen,
   setIsOpen,
   CategoriesData,
-  selectCategory,
-  setSelectCategory,
 }: {
   children: React.ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   CategoriesData: MappedCategoryType[];
-  selectCategory: MappedCategoryType;
-  setSelectCategory: (data: MappedCategoryType) => void;
 }) {
-  return (
-    <div >
-      <Popover
+
+  const [selectCategory, setSelectCategory] = useState<MappedCategoryType>(CategoriesData[0]);
+
+  return (<Popover
         trigger="click"
-        placement="topLeft"
+        placement="bottomLeft"
         styles={{
           root:
           {
             left: "0px",
-            width: "100dvw",
-            height: "100dvh",
-            overflow: "auto",
+            width: "100%",
+            height:  "100%",
+            overflow: "clip",
             position: "fixed",
+            backgroundColor:"transparent"
+          },
+          body:{
+            backgroundColor:"transparent"
           }
         }}
         content={
-          <div
+          <Flex
             style={{
               display: "flex",
               width: "100%",
               height: "100dvh",
+              backgroundColor:"transparent"
             }}
+            justify="center"
           >
-            <CatalogNavigation
-              CategoriesData={CategoriesData}
-              HoveredElement={selectCategory}
-              setHoveredElement={setSelectCategory}
-              style={{
-                width: "30%",
-              }}
-            />
-            <CatalogSubMenu Categories={selectCategory.children} />
-          </div>
+            <Flex style={{width:"90%",padding:"5px",height:"100%",backgroundColor:"#ffff"}}>
+              <CatalogNavigation
+                CategoriesData={CategoriesData}
+                HoveredElement={selectCategory}
+                setHoveredElement={setSelectCategory}
+                style={{
+                  width: "30%",
+                }}
+              />
+              <CatalogSubMenu Categories={selectCategory.children} />
+            </Flex>
+          </Flex>
         }
         arrow={false}
         onOpenChange={() => {
@@ -59,7 +65,6 @@ export default function CatalogPopover({
       >
         {children}
       </Popover>
-    </div>
 
   );
 }

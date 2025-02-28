@@ -264,5 +264,24 @@
   },
   "UserCabinet": {
     "lichnyi-kabinet": "Personal office"
+  },
+  "FooterSCK": {
+    "sck-essikei-zona-unikalnykh-cen": "SCK (Essential) Zone of unique prices",
+    "politika-konfidencialnosti": "Privacy Policy",
+    "polzovatelskoe-soglashenie": "User agreement",
+    "svyazhites-s-nami": "Contact us!",
+    "internet-magazin": "Online store",
+    "oplata": "Payment",
+    "pomosh": "Help",
+    "kontakty": "Contacts",
+    "nashi-garantii": "Our guarantees",
+    "o-nas": "About Us",
+    "kompaniya": "Company"
+  },
+  "HeaderDesktop": {
+    "dostavka": "Delivery",
+    "oplata": "Payment",
+    "garantiya": "Guarantees",
+    "kontakty": "Contacts"
   }
 }

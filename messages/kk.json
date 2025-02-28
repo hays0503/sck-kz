@@ -264,5 +264,24 @@
   },
   "UserCabinet": {
     "lichnyi-kabinet": "Жеке кабинет"
+  },
+  "FooterSCK": {
+    "sck-essikei-zona-unikalnykh-cen": "Бірегей бағалардың SCK (маңызды) аймағы",
+    "politika-konfidencialnosti": "Құпиялылық саясаты",
+    "polzovatelskoe-soglashenie": "Пайдаланушы келісімі",
+    "svyazhites-s-nami": "Бізбен хабарласыңы!",
+    "internet-magazin": "Интернет-дүкен",
+    "oplata": "Төлем",
+    "pomosh": "Көмектесу",
+    "kontakty": "Байланыстар",
+    "nashi-garantii": "Біздің кепілдіктеріміз",
+    "o-nas": "Біз туралы",
+    "kompaniya": "Компания"
+  },
+  "HeaderDesktop": {
+    "dostavka": "Жеткізілім",
+    "oplata": "Төлем",
+    "garantiya": "Кепілдіктер",
+    "kontakty": "Байланыстар"
   }
 }

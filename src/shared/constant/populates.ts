@@ -1,5 +1,5 @@
 
 export const POPULATES_PRODUCTS = {
-    POPULATES_PER_PAGE: 8
+    POPULATES_PER_PAGE: 12
 }
 

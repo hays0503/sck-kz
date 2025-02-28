@@ -1,7 +1,8 @@
 "use client";
-import { useGetCityParams } from "@/shared/hook/useGetCityParams";
+
+import { useRouter } from "@/i18n/routing";
+import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Button, Typography } from "antd";
-import { useLocale } from "next-intl";
 import { CSSProperties } from "react";
 const { Text } = Typography;
 const ButtonNavigation: React.FC<{
@@ -10,8 +11,8 @@ const ButtonNavigation: React.FC<{
   role?: string;
   slug: string
 }> = ({ item, style, role,slug }) => {
-  const localActive = useLocale();
   const currentCity = useGetCityParams();
+  const route = useRouter();
   return (
     <>
       <Button
@@ -21,7 +22,7 @@ const ButtonNavigation: React.FC<{
         aria-label={item}
         onClick={() => {
           // перенаправление на страницу с категорией
-          window.location.href = `/${localActive}/${currentCity}/catalog/${slug}`;
+          route.push(`/city/${currentCity}/catalog/category-slug/${slug}`);
         }}        
       >
         <Text>{item}</Text>

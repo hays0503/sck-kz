@@ -8,7 +8,6 @@ import { ProvidersServer } from "@/shared/providers/providersServer";
 import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { ProductDetail } from "@/widgets/ProductDetail";
 import { Flex } from "antd";
@@ -74,10 +73,7 @@ const ErrorPage: React.FC<{ fallback: object, content: JSX.Element, city: string
   const t = await getTranslations("NotFound");
   return <ProvidersServer>
     <ProvidersClient fallback={fallback}>
-      <LayoutCustom
-        h="px"
-        hightHeader={70}
-        hightFooter={95}
+      <LayoutMain
         headerContent={
           <HeaderText text={"Увы товара нет"} />
         }

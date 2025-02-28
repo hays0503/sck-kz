@@ -1,3 +1,3 @@
-import CatalogDesktop from './CatalogDesktop.tsx'
+import CatalogDesktop from './CatalogDesktop'
 
 export { CatalogDesktop }

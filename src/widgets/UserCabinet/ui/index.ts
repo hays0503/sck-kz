@@ -1,3 +1,3 @@
-import UserCabinet from './UserCabinet.tsx'
+import UserCabinet from './UserCabinet'
 
 export { UserCabinet }

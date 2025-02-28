@@ -4,7 +4,7 @@ import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { Flex } from "antd";
 import { getTranslations } from "next-intl/server";
 
@@ -21,10 +21,7 @@ const LogoutPage = async (
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
-        <LayoutCustom
-          h="px"
-          hightHeader={70}
-          hightFooter={95}
+        <LayoutMain
           headerContent={
             <Flex vertical={true} gap={10} justify="center" align="center">
               <HeaderText text={t("logout")} />

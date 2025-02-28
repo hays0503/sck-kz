@@ -1,3 +1,3 @@
-import ButtonNavigation from './ButtonNavigation.tsx'
+import ButtonNavigation from './ButtonNavigation'
 
 export { ButtonNavigation }

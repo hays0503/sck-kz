@@ -17,6 +17,13 @@ import { SearchProduct } from "@/features/search-products";
 import { HeaderDesktop } from "@/widgets/HeaderDesktop";
 import { CatalogDesktop } from "@/widgets/CatalogDesktop";
 import { UserCabinet } from "@/widgets/UserCabinet";
+import { BasketButton } from "@/widgets/BasketButton";
+import { Flex } from "antd";
+import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
+import { TabletCategory } from "@/widgets/TabletCategory";
+import { ProductPopularListPagination } from "@/widgets/ProductPopularListPagination";
+import { CSSProperties } from "react";
+import { FooterSCK } from "@/widgets/FooterSCK";
 
 type PageProps = {
     params: Promise<{
@@ -58,17 +65,27 @@ export default async function HomePage(props: PageProps) {
             <ProvidersClient fallback={fallback}>
                 <LayoutMainDesktop
                     headerContent={
-                    <HeaderDesktop
-                        SelectCity={SelectCity}
-                        ChangeLanguage={ChangeLanguage}
-                        SearchProduct={SearchProduct}
-                        CatalogDesktop={CatalogDesktop}
-                        UserCabinet={UserCabinet}
-                    />}
-                    content={2}
-                    footerContent={3}                
+                        <HeaderDesktop
+                            SelectCity={SelectCity}
+                            ChangeLanguage={ChangeLanguage}
+                            SearchProduct={SearchProduct}
+                            CatalogDesktop={CatalogDesktop}
+                            UserCabinet={UserCabinet}
+                            BasketButton={BasketButton}
+                        />}
+                    content={<Flex vertical={true} gap={5} style={{
+                        "--sck-columns-on-page": 7
+                    } as CSSProperties}>
+                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
+                        <BannerMobileSlider category={categoryRoot?.results || []} />
+                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
+                        <TabletCategory />
+                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
+                        <ProductPopularListPagination justify="start" align="start"/>
+                    </Flex>}
+                    footerContent={<FooterSCK/>}
                 />
             </ProvidersClient>
         </ProvidersServer>
-    );  
+    );
 }

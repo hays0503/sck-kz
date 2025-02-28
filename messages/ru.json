@@ -289,5 +289,24 @@
   "lichnyi-kabinet": "Личный кабинет",
   "UserCabinet": {
     "lichnyi-kabinet": "Личный кабинет"
+  },
+  "FooterSCK": {
+    "kompaniya": "Компания",
+    "o-nas": "О нас",
+    "nashi-garantii": "Наши гарантии",
+    "kontakty": "Контакты",
+    "pomosh": "Помощь",
+    "oplata": "Оплата",
+    "internet-magazin": "Интернет магазин",
+    "svyazhites-s-nami": "Свяжитесь с нами!",
+    "polzovatelskoe-soglashenie": "Пользовательское соглашение",
+    "politika-konfidencialnosti": "Политика конфиденциальности",
+    "sck-essikei-zona-unikalnykh-cen": "SCK (ЭсСиКей) Зона Уникальных Цен"
+  },
+  "HeaderDesktop": {
+    "dostavka": "Доставка",
+    "oplata": "Оплата",
+    "garantiya": "Гарантии",
+    "kontakty": "Контакты"
   }
 }

@@ -6,14 +6,12 @@ import { useTranslations } from "next-intl";
 import { Divider, Flex, Typography } from "antd";
 import styles from "./CatalogDesktop.module.scss";
 import useGetCategoryAllSWR from "@/entities/Category/model/getCategoryAllSWR";
-import { MappedCategoryType } from "api-mapping/category/all/type";
 
 const { Text } = Typography;
 
 export default function CatalogDesktop() {
   const [isOpen, setIsOpen] = useState(true);
-  const [selectCategory, setSelectCategory] = useState({} as MappedCategoryType );
-  const CatalogStyleText: CSSProperties = {
+    const CatalogStyleText: CSSProperties = {
     color: "white",
     // padding:"5px"
   };
@@ -32,13 +30,11 @@ export default function CatalogDesktop() {
 
   const CategoriesData = data?.results ?? [];
 
-  return (<>
+  return (<Flex>
     {CategoriesData && <CatalogPopover
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       CategoriesData={CategoriesData}
-      selectCategory={selectCategory}
-      setSelectCategory={setSelectCategory}
     >
       <Flex
         align="center"
@@ -61,10 +57,10 @@ export default function CatalogDesktop() {
           plain={true}
           style={{ borderColor: "white", height: "36px" }}
         />
-        <Flex justify="center" align="center" style={{ width: "100%", height: "100%" }}>
+        <Flex justify="center" align="center" style={{ width: "100%", height: "100%",padding:"0px 10px" }}>
           <Text style={CatalogStyleText}>{t("catalog")}</Text>
         </Flex>
       </Flex>
-    </CatalogPopover>}</>
+    </CatalogPopover>}</Flex>
   )
 }

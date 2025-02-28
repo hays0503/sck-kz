@@ -5,7 +5,7 @@ import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { OrderHistoryMobile } from "@/widgets/OrderHistoryMobile";
 import { getTranslations } from "next-intl/server";
 
@@ -89,10 +89,7 @@ const OrderHistoryPage = async ({ params }: OrderPageProps) => {
     return (
         <ProvidersServer>
             <ProvidersClient fallback={fallback}>
-                <LayoutCustom
-                    h="px"
-                    hightHeader={70}
-                    hightFooter={95}
+                <LayoutMain
                     headerContent={<HeaderText text={t('istoriya-zakazov')} />}
                     content={<OrderHistoryMobile Orders={Orders} />}
                     footerContent={<FooterMobile defaultKey="4" />}

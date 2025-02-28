@@ -8,7 +8,7 @@ import useSWR, { SWRResponse } from "swr";
 
 const useGetBasketProductsSWR = ():SWRResponse<MappedBasketType> => {
     const cityEn = useGetCityParams();
-    const uuid = useReadLocalStorage<string>("uuid_id");
+    const uuid = useReadLocalStorage<string>("uuid_id",{initializeWithValue:false});
     const shouldFetch = Boolean(uuid); // Проверяем, нужен ли запрос
     const url = shouldFetch ? `/api-mapping/basket/get-products/?uuid=${uuid}&city=${cityEn}` : null;
     const object = useSWR(url, (_url) => defaultFetcher(_url).catch(() => null));  

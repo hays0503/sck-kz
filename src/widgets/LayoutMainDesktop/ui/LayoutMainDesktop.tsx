@@ -1,6 +1,6 @@
 "use client";
 import { Layout } from "antd";
-import React, { CSSProperties, useRef } from "react";
+import React, { CSSProperties, useLayoutEffect, useRef, useState } from "react";
 
 interface ILayoutMainProps {
   readonly headerContent: React.ReactNode;
@@ -14,18 +14,16 @@ const { Header, Footer, Content } = Layout;
 const LayoutMainDesktop: React.FC<ILayoutMainProps> = ({ headerContent, content, footerContent }) => {
   const refHeader = useRef<HTMLDivElement>(null);
   const refContent = useRef<HTMLDivElement>(null);
-  const refFooter = useRef<HTMLDivElement>(null);
-  // const [contentHeight, setContentHeight] = useState("100dvh");
+  const [contentHeight, setContentHeight] = useState("100dvh");
 
   // useDisableRubberBandScroll();
 
-  // useLayoutEffect(() => {
-  //   if (refHeader.current && refFooter.current && refContent.current) {
-  //     const headerHeight = refHeader.current.offsetHeight || 0;
-  //     const footerHeight = refFooter.current.offsetHeight || 0;
-  //     setContentHeight(`calc(100dvh - ${headerHeight + footerHeight}px)`);
-  //   }
-  // }, []);
+  useLayoutEffect(() => {
+    if (refHeader.current && refContent.current) {
+      const headerHeight = refHeader.current.offsetHeight || 0;
+      setContentHeight(`calc(100dvh - ${headerHeight}px)`);
+    }
+  }, []);
 
   const layoutStyle: CSSProperties = {
     display: "flex",
@@ -34,30 +32,37 @@ const LayoutMainDesktop: React.FC<ILayoutMainProps> = ({ headerContent, content,
     justifyContent: "center",
     backgroundColor: "#f5f5f5",
     overflow: "hidden",
-    height:"100dvh",
+    height: "100dvh",
     width: "100dvw",
-    touchAction:"none",
-    scrollBehavior:"smooth",
-    overscrollBehavior:"none"
+    touchAction: "none",
+    scrollBehavior: "smooth",
+    overscrollBehavior: "none",
+    gap: 5
   };
 
   const headerStyle: CSSProperties = {
-    width: "80%",
+    width: "90%",
     height: "auto",
     padding: "0px",
     backgroundColor: "#f5f5f5",
   };
 
   const contentStyle: CSSProperties = {
-    width: "80%",
-    backgroundColor: "red"
+    width: "90%",
+    height: contentHeight,
+    scrollBehavior: "smooth",
+    scrollbarGutter: "stable",
+    scrollbarWidth: "none",
+    overflowY: "auto",
+    overflowX: "clip",
+    backgroundColor: "#f5f5f5",
   };
 
   const footerStyle: CSSProperties = {
-    width: "80%",
-    height: "auto",
+    width: "100%",
+    // height: "auto",
     backgroundColor: "#f5f5f5",
-    padding:"0px",
+    padding: "0px",
   };
 
   return (
@@ -67,10 +72,11 @@ const LayoutMainDesktop: React.FC<ILayoutMainProps> = ({ headerContent, content,
       </Header>
       <Content style={contentStyle} className="scrollable" ref={refContent}>
         {content}
-      </Content>
-      <Footer style={footerStyle} ref={refFooter}>
-        {footerContent}
+      <Footer style={footerStyle}>
+          {footerContent}
       </Footer>
+      </Content>
+
     </Layout>
   );
 };

@@ -4,7 +4,7 @@ import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
-import { LayoutCustom } from "@/widgets/LayoutCustom";
+import { LayoutMain } from "@/widgets/LayoutMain";
 import { OrderMobile } from "@/widgets/OrderMobile/ui";
 import { getTranslations } from "next-intl/server";
 
@@ -29,10 +29,7 @@ async function OrderPage({params}: OrderPageProps) {
     return (
         <ProvidersServer>
         <ProvidersClient fallback={{}}>
-            <LayoutCustom
-            h="px"
-            hightHeader={70}
-            hightFooter={95}
+            <LayoutMain
             headerContent={<HeaderText text={t("placing-an-order")} />}
             content={<OrderMobile basket_id={basket_id}/>}
             footerContent={<FooterMobile defaultKey="3" />}

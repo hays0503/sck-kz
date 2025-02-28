@@ -18,7 +18,8 @@ const CategoryListMobile: React.FC = () => {
         "--ant-segmented-item-selected-bg":"#3E54CF",
         "--ant-segmented-item-selected-color":"#FFF",
         "--ant-segmented-track-bg":"transparent",
-        "height":32
+        "height":32,
+        "--ant-control-padding-horizontal": "6px",
       } as CSSProperties
 
     if (!categoryRoot && isLoading) {

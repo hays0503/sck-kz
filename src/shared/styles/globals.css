@@ -2,3 +2,8 @@ html body{
     overflow: hidden;
     /* -webkit-overflow-scrolling: touch; */
 }
+
+
+.sck-var{
+    --sck-columns-on-page: 2;
+}

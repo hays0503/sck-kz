@@ -8,12 +8,17 @@ import { Level1, Level2 } from "./SubComponent";
 import { MappedPopularProductType } from "api-mapping/product/populates";
 import { POPULATES_PRODUCTS } from "@/shared/constant/populates";
 import { useTranslations } from "next-intl";
+import { ResponsiveAligns, ResponsiveJustify } from "./SubComponent/Level1";
 
 const {Title,Text}= Typography
 
-export default function ProductPopularListPagination(
+interface ProductPopularListPaginationProps{
+  justify:React.CSSProperties['justifyContent'],
+  align:React.CSSProperties['alignItems']
+}
 
-) {
+
+const ProductPopularListPagination:React.FC<ProductPopularListPaginationProps> = ({justify,align}) => {
   // Параметры адресной строки для номера страницы
   const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const t = useTranslations("Status");
@@ -41,11 +46,13 @@ export default function ProductPopularListPagination(
       height: "100%",
       backgroundColor: "#FFF",
       paddingBottom:"25px" }}>
-      <Flex vertical align="start" justify="start" style={{ width: "95%" }}> 
+      <Flex vertical align="start" justify="start" style={{ width: "95%",padding:"15px" }}> 
         <Title level={5}>{tt('populyarnye')}</Title>
         <Text style={{ color: "#808185" }}>{tt('uspey-kupit')}</Text>
       </Flex>
-      <Level1 Products={PopulatesProducts} />
+      <Flex justify={"center"} align={"center"} style={{width:"100%"}}>
+        <Level1 Products={PopulatesProducts} justify={justify as ResponsiveJustify} align={align as ResponsiveAligns}/>
+      </Flex>
       {
         PopulatesProductsLen > POPULATES_PRODUCTS.POPULATES_PER_PAGE && 
         <Level2 pageSize={POPULATES_PRODUCTS.POPULATES_PER_PAGE} total={PopulatesProductsLen} current={currentPage} onChange={setCurrentPage}/>
@@ -53,3 +60,5 @@ export default function ProductPopularListPagination(
     </Flex>
   );
 }
+
+export default ProductPopularListPagination

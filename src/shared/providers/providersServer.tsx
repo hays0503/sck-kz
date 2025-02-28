@@ -3,6 +3,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "@/shared/styles/Reset.scss";
+import "@/shared/styles/globals.css";
 import { ConfigProvider } from "antd";
 import ruRU from 'antd/locale/ru_RU';
 import enUS from 'antd/locale/en_US';

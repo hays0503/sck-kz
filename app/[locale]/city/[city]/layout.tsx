@@ -6,7 +6,7 @@ import { getDataCity, MappedCityType } from "api-mapping/city";
 import { Metadata, Viewport } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
-import "./globals.css"
+// import "./globals.css"
 
 export const metadata: Metadata = basicMetadata();
 export const viewport: Viewport = viewportMetadata();

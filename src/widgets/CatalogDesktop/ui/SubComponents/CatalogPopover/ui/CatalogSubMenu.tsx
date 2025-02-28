@@ -1,16 +1,17 @@
 import styles from "./CatalogSubMenu.module.scss";
-import Link from "next/link";
+
 import { Space, Typography } from "antd";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { MappedCategoryType } from "api-mapping/category/all/type";
+import { Link } from "@/i18n/routing";
 
 const { Text } = Typography;
 export const CatalogSubMenu = ({ Categories }: { Categories: MappedCategoryType[] }) => {
   const localActive = useLocale();
   const currentCity = useGetCityParams();
-  
+  console.log("Categories", Categories)
   return (
     <>
       <div className={styles.CatalogSubMenuRoot}>
@@ -29,7 +30,7 @@ export const CatalogSubMenu = ({ Categories }: { Categories: MappedCategoryType[
                 )}
                 <div className={styles.listElementHover}>
                   <Link
-                    href={`/${localActive}/${currentCity}/catalog/${Category.slug}`}
+                    href={`/city/${currentCity}/catalog/category-slug/${Category.slug}`}
                     style={{ color: "inherit" }}
                   >
                     <Text underline style={{ color: "inherit" }}>
@@ -44,9 +45,9 @@ export const CatalogSubMenu = ({ Categories }: { Categories: MappedCategoryType[
                     key={SubCategory.id}
                     className={styles.listElementHover}
                   >
-                    <Link 
-                    style={{ color: "inherit" }}
-                    href={`/${localActive}/${currentCity}/catalog/${SubCategory.slug}`}>
+                    <Link
+                      style={{ color: "inherit" }}
+                      href={`/city/${currentCity}/catalog/category-slug/${SubCategory.slug}`}>
                       {SubCategory?.name?.[localActive] ?? ""}
                     </Link>
                   </li>

@@ -1,77 +1,73 @@
 "use client";
 
-import React, { CSSProperties} from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid } from 'swiper/modules';
-import { Flex, Typography } from "antd";
+import { Flex } from "antd";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/grid";
 import style from "./TabletCategory.module.css";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-const { Text } = Typography;
+// const { Text } = Typography;
 
-const GRADIENTS = [
-  {
-    "key": "1",
-    "name": "Модифицированный градиент с двумя сферами Роман/Сергей",
-    "value": `radial-gradient(
-              farthest-side at left bottom,
-              rgba(102, 0, 153, 0.8) 0%,
-              rgba(102, 0, 153, 0.35) 50%,
-              rgba(102, 0, 153, 0.15) 70%,
-              #fad35e 100%
-            )
-            left bottom / 50% 50% no-repeat,
-            radial-gradient(
-                farthest-side at right top,
-                rgba(102, 0, 153, 0.8) 0%,
-                rgba(102, 0, 153, 0.35) 50%,
-                rgba(102, 0, 153, 0.15) 70%,
-                #fad35e 100%
-            )
-            right top / 50% 50% no-repeat,
-          #fad35e
-          `,
-    "textColor": "white"
-  }
+
+// const CATEGORIES = [
+//   { id: 1, title: "Бытовая техника", image: "/tehnika.png", slug: "bytovaya-tehnika" },
+//   { id: 2, title: "ТВ, Аудио, Видео", image: "/tv.png", slug: "tv-audio-video" },
+//   { id: 3, title: "Мебель", image: "/mebel.png", slug: "mebel" },
+//   { id: 5, title: "Аксессуары", image: "/aksisuar.png", slug: "aksessuary" },
+// ];
+
+
+// const SwiperSlideStyle: CSSProperties = {
+//   minWidth: 150,
+//   width: "fit-content",
+//   height: 100,
+//   borderRadius: 15,
+//   overflow: "hidden",
+//   border: "1px solid #e5e5e5"
+// };
+
+const imageNames = [
+  "1pic.png", "2pic.png", "3pic.png", "4pic.png",
+  "5pic.png", "6pic.png", "7pic.png", "8pic.png",
+  "9pic.png", "10pic.png", "11pic.png", "12pic.png",
+  "13pic.png", "14pic.png", "15pic.png", "16pic.png"
 ];
 
-const CATEGORIES = [
-  { id: 1, title: "Бытовая техника", image: "/tehnika.png", slug: "bytovaya-tehnika" },
-  { id: 2, title: "ТВ, Аудио, Видео", image: "/tv.png", slug: "tv-audio-video" },
-  { id: 3, title: "Мебель", image: "/mebel.png", slug: "mebel" },
-  { id: 5, title: "Аксессуары", image: "/aksisuar.png", slug: "aksessuary" },
-];
-
-
-const SwiperSlideStyle = (gradient: string): CSSProperties => ({
-  minWidth: 150,
-  width: "fit-content",
-  height: 100,
-  borderRadius: 15,
-  overflow: "hidden",
-  border: "1px solid #e5e5e5",
-  background: gradient,
-});
-
-const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
+const Row: React.FC = () => {
 
   const cityEn = useGetCityParams();
 
   return (
     <Flex className={style.container}>
       <Swiper
-        spaceBetween={5}
+        spaceBetween={20}
         slidesPerView="auto"
         modules={[Grid]}
       >
+        {
+          imageNames.map((image, index) => (
+            <SwiperSlide key={index} style={{ width: 80, height: 80 }}>
+              <Link href={`/city/${cityEn}/catalog/menu/mebel`}>
+                <Image
+                  src={`/TestPic/${image}`}
+                  alt={image}
+                  width={80}
+                  height={80}
+                  priority
+                />
+              </Link>
+            </SwiperSlide>
+          ))
+        }
 
-        {items.map((category) => (
+        {/* {items.map((category) => (
           <SwiperSlide
             key={category.id}
-            style={SwiperSlideStyle(GRADIENTS[0].value)}  
+            style={SwiperSlideStyle}
           >
             <Link href={`/city/${cityEn}/catalog/menu/${category.slug}`}>
               <Flex vertical={true}
@@ -96,7 +92,7 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
               </Flex>
             </Link>
           </SwiperSlide>
-        ))}
+        ))} */}
       </Swiper>
     </Flex>
   );
@@ -104,7 +100,7 @@ const Row: React.FC<{ items: typeof CATEGORIES }> = ({ items }) => {
 
 const TabletCategory: React.FC = () => (
   <Flex vertical className={style.wrapper}>
-    <Row items={CATEGORIES} />
+    <Row/>
   </Flex>
 );
 

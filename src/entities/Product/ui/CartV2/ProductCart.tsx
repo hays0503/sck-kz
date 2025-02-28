@@ -41,9 +41,10 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
       itemType="http://schema.org/Product"
       gap={10}
       style={{
-        width: "calc(100dvw / 2 - 10px)",
+        width: "calc(100dvw / var(--sck-columns-on-page) - 20px)",
       }}
     >
+      
       <Level1
         discount={Product.discount}
         addToFavoriteSlot={addToFavoriteSlot}
