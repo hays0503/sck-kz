@@ -34,7 +34,7 @@ const Level1: React.FC<Level1Props> = ({ Products,justify,align }) => {
   }
 
   return (
-    <Row justify={justify} align={align} style={{ width: "95%"}}>
+    <Row gutter={[5, 5]} justify={justify} align={align} style={{ width: "95%"}}>
       {Products?.map((item, index) => (
         <Col key={index}>
           <ProductCart
