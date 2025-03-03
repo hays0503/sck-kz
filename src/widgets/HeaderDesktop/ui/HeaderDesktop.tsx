@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
+import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import LogoSCK from "@/shared/ui/LogoSCK/LogoSCK";
 import { CategoryListMobile } from "@/widgets/CategoryListMobile";
 import { Flex,Typography } from "antd";
@@ -26,6 +27,7 @@ const HeaderDesktop: React.FC<IHeaderMobileProps> = ({
   UserCabinet,
   BasketButton
 }) => {
+  const cityEn = useGetCityParams();  
   const t = useTranslations("HeaderDesktop");
   const HeaderMobileStyle: CSSProperties = {
     width: "100%",
@@ -53,10 +55,10 @@ const HeaderDesktop: React.FC<IHeaderMobileProps> = ({
           <Link href="/">
             <Text>{t('oplata')}</Text>
           </Link>
-          <Link href="/">
+          <Link href={`/city/${cityEn}/about/guarantees`}>
             <Text>{t('garantiya')}</Text>
           </Link>
-          <Link href="/">
+          <Link href={`/city/${cityEn}/about/contact`}>
             <Text>{t('kontakty')}</Text>
           </Link>
 

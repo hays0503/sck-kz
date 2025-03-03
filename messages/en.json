@@ -283,5 +283,19 @@
     "oplata": "Payment",
     "garantiya": "Guarantees",
     "kontakty": "Contacts"
+  },
+  "Contacts": {
+    "kontakty": "Contacts",
+    "nashi-kontakty": "Our contacts",
+    "Thanks": "Thank you for you! \nWe do everything so that you appreciate our level of service and enjoy your purchases. \nWe develop services and work with your wishes, help you find what exactly you. \nAre there any questions? \nSuggestions for our work? \nWrite or call us!",
+    "nashi-osnovnye-sklady": "Our main warehouses",
+    "g-astana-pereulok-ashutas-2": "Astana, Lane Ashutas 2",
+    "g-almaty-nurmakova-1a": "Almaty, Nurmakova 1a",
+    "g-aktobe-41-razezd-114-a": "Aktobe, 41 travel, 114 A",
+    "g-karaganda-ul-sakena-seifullina-105": "G. Karaganda, st. \nSakena Seyfullina, 105",
+    "g-petropavlovsk-ul-musrepova-34a": "Petropavlovsk, st. \nMusrepova, 34a",
+    "g-shymkent-ul-koikeldi-batyra-18-2": "G. Shymkent, st. \nKoykeldi Batyr, 18/2",
+    "dlya-predlozhenii-o-sotrudnichestve": "For proposals for cooperation",
+    "po-voprosam": "On issues of advertising on various media and consideration of commercial offers. \nSpecialist in advertising SCK LLP (Essikey) - \"Sales Center of Kazakhstan\""
   }
 }
