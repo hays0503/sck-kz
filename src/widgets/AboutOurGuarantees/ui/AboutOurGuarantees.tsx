@@ -4,7 +4,6 @@ import React from "react";
 import {
   Typography,
   Card,
-  Row,
   Col,
   Divider
 } from "antd";
@@ -13,10 +12,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const AboutOurGuarantees = () => {
   return (
-    <>
-      <div style={{ padding: "20px" }}>
-        <Row justify="center">
-          <Col span={16}>
+          <Col>
             <Card>
               <Typography>
                 <Title level={2}>Гарантия</Title>
@@ -168,9 +164,6 @@ const AboutOurGuarantees = () => {
               </Typography>
             </Card>
           </Col>
-        </Row>
-      </div>
-    </>
   );
 }
 export default AboutOurGuarantees;
