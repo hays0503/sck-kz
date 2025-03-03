@@ -8,13 +8,13 @@ import { useTranslations } from "next-intl";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Level1, Level2 } from "./SubComponent";
 import { SortingProducts } from "@/features/sorting-products";
-import { Filter } from "@/features/new-product-filter";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
-import { Dispatch, useState } from "react";
+import { Dispatch, memo, useRef, useState } from "react";
 import { MappedPopularProductType } from "api-mapping/product/populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
-
+import FilterDesktop from "@/features/new-product-filter/ui/FilterDesktop";
+import { useResizeObserver } from "@undefined/usehooks-ts";
 const { Text } = Typography;
 
 interface ProductsCatalogProps {
@@ -35,7 +35,8 @@ interface WrapperOnDefaultProps {
   SortOrder: string
 }
 
-const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
+// eslint-disable-next-line react/display-name
+const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = memo((params) => {
   const { Slug, SortOrder, CurrentPage } = params;
   const t = useTranslations("Status");
   const { data, isLoading, error } = useGetProductByCategorySWR({
@@ -60,13 +61,14 @@ const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
   }
 
   return <Render {...renderProps} />
-}
+})
 
 interface WrapperOnFilter extends WrapperOnDefaultProps {
   ActiveFilterProductIds: number[]
 }
 
-const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
+// eslint-disable-next-line react/display-name
+const WrapperOnFilter: React.FC<WrapperOnFilter> = memo((params) => {
   const { SortOrder, CurrentPage, ActiveFilterProductIds } = params;
   const t = useTranslations("Status");
   const { data, isLoading, error } = useGetProductByIdsSWR({
@@ -91,19 +93,28 @@ const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
   }
 
   return <Render {...renderProps} />
-}
+})
 
 interface RenderProps extends WrapperOnDefaultProps {
   Products: MappedPopularProductType[],
   ProductsLen: number,
 }
 
-const Render: React.FC<RenderProps> = ({
+// eslint-disable-next-line react/display-name
+const Render: React.FC<RenderProps> = memo(({
   Slug, Products, ActiveFilterProductIds, SetActiveFilterProductIds, ProductsLen, CurrentPage, SetCurrentPage
-}) => {
+}) => 
+{
   const router = useRouter();
   const t = useTranslations("Render");
   const cityEn = useGetCityParams();
+  const catalogRef = useRef<HTMLDivElement>(null);
+    
+  const { height: catalogHeight = 500 } = useResizeObserver({
+    ref: catalogRef,
+    box: "border-box",
+  });
+
   return (
     <>
       {ProductsLen <= 0 && <>
@@ -122,29 +133,40 @@ const Render: React.FC<RenderProps> = ({
           </Flex>
         </Flex>
       </>}
-      {ProductsLen > 0 && <><Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
-        <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${Slug}`} />
-        <Filter dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }} category={Slug} filterActive={ActiveFilterProductIds} setFilterActive={SetActiveFilterProductIds} />
-      </Flex>
+      {ProductsLen > 0 && <>
         <Flex
-          vertical={true}
-          align="center"
-          justify="space-evenly"
-          gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent",padding:"5px" }}>
+          style={{ width: "100%", height: "auto", backgroundColor: "transparent" }}>
+          <FilterDesktop
+            height={catalogHeight}
+            category={Slug}
+            filterActive={ActiveFilterProductIds}
+            setFilterActive={SetActiveFilterProductIds}
+            dropFilter={() => {
+              SetActiveFilterProductIds([])
+              SetCurrentPage(1)
+            }}
+          />
+          <Flex
+            ref={catalogRef}
+            gap={25}
+            vertical align="end" justify="end"
+            style={{ width: "100%", height: "auto" }}>
+            <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${Slug}`} />
+            <Level1 Products={Products} />
+            {
+              ProductsLen > PRODUCT.PRODUCT_PER_PAGE &&
+              <Level2 pageSize={PRODUCT.PRODUCT_PER_PAGE} total={ProductsLen} current={CurrentPage} onChange={SetCurrentPage} />
+            }
+          </Flex>
 
-          <Level1 Products={Products} />
-          {
-            ProductsLen > PRODUCT.PRODUCT_PER_PAGE &&
-            <Level2 pageSize={PRODUCT.PRODUCT_PER_PAGE} total={ProductsLen} current={CurrentPage} onChange={SetCurrentPage} />
-          }
         </Flex>
       </>}
     </>
   );
-}
+})
 
 
-const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params }) => {
+const ProductCatalogDesktop: React.FC<ProductsCatalogProps> = ({ params }) => {
   const { slug } = params;
   const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [sortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
@@ -166,7 +188,9 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params }) => {
     SortOrder: sortOrder
   }
 
+  console.log("activeFilterProductIds=>",activeFilterProductIds)
+
   return <>{renderMode ? <WrapperOnDefault {...renderParams} /> : <WrapperOnFilter {...renderParams} />}</>
 };
 
-export default ProductCatalog;
+export default ProductCatalogDesktop;

@@ -11,7 +11,7 @@ const { Text } = Typography;
 
 export default function CatalogDesktop() {
   const [isOpen, setIsOpen] = useState(true);
-    const CatalogStyleText: CSSProperties = {
+  const CatalogStyleText: CSSProperties = {
     color: "white",
     // padding:"5px"
   };
@@ -21,46 +21,53 @@ export default function CatalogDesktop() {
   const { data, isLoading, error } = useGetCategoryAllSWR();
 
   if (!data && isLoading) {
-    return <div>Загрузка</div>
+    return <Flex align="center" justify="center" style={{ width: "150px", height: "50px" }}>
+      Загрузка
+    </Flex>
   }
 
   if (error) {
-    return <div>Ошибка</div>
+    return <Flex align="center" justify="center" style={{ width: "150px", height: "50px" }}>
+      Ошибка
+    </Flex>
   }
 
-  const CategoriesData = data?.results ?? [];
+  const CategoriesData = data?.results ?? undefined;
 
-  return (<Flex>
-    {CategoriesData && <CatalogPopover
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      CategoriesData={CategoriesData}
-    >
-      <Flex
-        align="center"
-        justify="center"
-        style={{
-          cursor: "pointer",
-          borderRadius: "4px",
-          backgroundColor: "#3F54CF",
-          width:"max-content",
-        }}
+  return (<Flex align="center" justify="center" style={{ width: "150px", height: "50px" }}>
+    {CategoriesData &&
+      <CatalogPopover
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        CategoriesData={CategoriesData}
       >
-        <div
-          className={
-            isOpen ? styles.animationHoverOn : styles.animationHoverOff
-          }
-        ></div>
-        <Divider
-          type="vertical"
-          dashed={true}
-          plain={true}
-          style={{ borderColor: "white", height: "36px" }}
-        />
-        <Flex justify="center" align="center" style={{ width: "100%", height: "100%",padding:"0px 10px" }}>
-          <Text style={CatalogStyleText}>{t("catalog")}</Text>
+        <Flex
+          align="center"
+          justify="center"
+          style={{
+            cursor: "pointer",
+            borderRadius: "4px",
+            backgroundColor: "#3F54CF",
+            width: "max-content",
+          }}
+        >
+          <div
+            className={
+              isOpen ? styles.animationHoverOn : styles.animationHoverOff
+            }
+          ></div>
+          <Divider
+            type="vertical"
+            dashed={true}
+            plain={true}
+            style={{ borderColor: "white", height: "36px" }}
+          />
+          <Flex justify="center" align="center" style={{ width: "100%", height: "100%", padding: "0px 10px" }}>
+            <Text style={CatalogStyleText}>{t("catalog")}</Text>
+          </Flex>
         </Flex>
-      </Flex>
-    </CatalogPopover>}</Flex>
+      </CatalogPopover>
+    }
+  </Flex>
   )
 }

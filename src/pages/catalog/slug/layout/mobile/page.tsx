@@ -17,6 +17,7 @@ import getCategoryBySlugs from "@/entities/Category/api/getCategoryBySlugs";
 import { getTranslations } from "next-intl/server";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { SearchProduct } from "@/features/search-products";
+import { CSSProperties } from "react";
 
 type PageProps = {
   params: Promise<{
@@ -72,13 +73,15 @@ export default async function CatalogPage(props: PageProps) {
           }
 
           content={
-            <Flex vertical={true} gap={20} style={{ width: "100%", height: "100%", backgroundColor: "#fff" }}>
+            <Flex vertical={true} gap={20} style={{ 
+              width: "100%", height: "100%", backgroundColor: "#fff",
+              "--sck-columns-on-page": 2 } as CSSProperties}>
               <ProductCatalog params={await params} />
             </Flex>
           }
 
           footerContent={
-            <FooterMobile defaultKey="2"/>
+            <FooterMobile defaultKey="2" />
           }
 
         />

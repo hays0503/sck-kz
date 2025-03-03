@@ -6,28 +6,36 @@ import beautifulCost from "@/shared/tools/beautifulCost";
 import { useLocalStorage } from "@undefined/usehooks-ts";
 import { Badge, Button, Divider, Flex, Typography } from "antd";
 import { useLayoutEffect } from "react";
-import {  v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 const { Text } = Typography;
 
 export default function BasketButton() {
   const route = useRouter();
   const cityEn = useGetCityParams();
-  const [uuid,setUuid] = useLocalStorage<string>('uuid_id',"")
+  const [uuid, setUuid] = useLocalStorage<string>('uuid_id', "")
   const { data, isLoading, error } = useGetBasketProductsSWR();
 
-  useLayoutEffect(()=>{
-    if(!uuid){
+  useLayoutEffect(() => {
+    if (!uuid) {
       setUuid(uuidv4())
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (isLoading) {
-    return <div>Загрузка...</div>;
+    return <Flex 
+     justify="center" align="center"
+     style={{ width: "350px", height: "50px", border: "1px solid #f5f5f5"   }}>
+      <Text>Загрузка...</Text>
+    </Flex>;
   }
 
   if (error) {
-    return <div>Ошибка</div>;
+    return <Flex 
+     justify="center" align="center"
+     style={{ width: "350px", height: "50px", border: "1px solid #f5f5f5"   }}>
+      <Text>Ошибка</Text>
+    </Flex>;
   }
 
   const BasketItems = data?.items;
@@ -39,7 +47,8 @@ export default function BasketButton() {
     route.push(`/city/${cityEn}/basket/${uuid}`)
   }
 
-  return (
+  return (<Flex justify="center" align="center" style={{ 
+    width: "350px", height: "50px", border: "1px solid #f5f5f5"  }}>
     <Button
       size="large"
       style={{ backgroundColor: "#3E54CF", border: "4px" }}
@@ -91,6 +100,6 @@ export default function BasketButton() {
           </Text>
         </Flex>
       </Flex>
-    </Button>
+    </Button></Flex>
   )
 }

@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 
 const { Text } = Typography
 
-const Filter: React.FC<{ category: string, filterActive: number[], setFilterActive: Dispatch<React.SetStateAction<number[]>> }> = ({ category, filterActive, setFilterActive }) => {
+const Filter: React.FC<{     dropFilter: () => void, category: string, filterActive: number[], setFilterActive: Dispatch<React.SetStateAction<number[]>> }> = ({dropFilter, category, filterActive, setFilterActive }) => {
     const t = useTranslations("Filter")
     const [tempFilterStorage,setTempFilterStorage]= useState<number[]>([]);
     const [dataSpecifications, setDataSpecifications] = useState<FilterType[]>();
@@ -88,7 +88,7 @@ const Filter: React.FC<{ category: string, filterActive: number[], setFilterActi
         <Modal width={"100%"} style={{ top: 0, "--ant-modal-content-padding": "0" } as CSSProperties}
             open={isOpen} footer={null} closeIcon={true} onCancel={() => setIsOpen(false)}
             mask={true} maskClosable={true}>
-            <FilterGroup specificationDefault={dataSpecifications} filterActive={tempFilterStorage} setFilterActive={setTempFilterStorage} />
+            <FilterGroup dropFilter={dropFilter} specificationDefault={dataSpecifications} filterActive={tempFilterStorage} setFilterActive={setTempFilterStorage} />
         </Modal>
     </Flex>
     </>

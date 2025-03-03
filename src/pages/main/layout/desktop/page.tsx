@@ -20,7 +20,6 @@ import { UserCabinet } from "@/widgets/UserCabinet";
 import { BasketButton } from "@/widgets/BasketButton";
 import { Flex } from "antd";
 import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
-import { TabletCategory } from "@/widgets/TabletCategory";
 import { ProductPopularListPagination } from "@/widgets/ProductPopularListPagination";
 import { CSSProperties } from "react";
 import { FooterSCK } from "@/widgets/FooterSCK";
@@ -78,8 +77,6 @@ export default async function HomePage(props: PageProps) {
                     } as CSSProperties}>
                         <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
                         <BannerMobileSlider category={categoryRoot?.results || []} />
-                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
-                        <TabletCategory />
                         <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
                         <ProductPopularListPagination justify="start" align="start"/>
                     </Flex>}

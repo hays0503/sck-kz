@@ -35,14 +35,15 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
   const renderAddToCart = useCallback(
     (prod_id: number) => (
       <Suspense fallback={fallback}>
-        <AddToBasketProduct prod_id={prod_id}/>
+        <AddToBasketProduct prod_id={prod_id} />
       </Suspense>
     ),
     [fallback]
   );
 
   return (
-    <Row gutter={[5, 5]} justify="start" align="stretch">
+    <Row gutter={[5, 5]} justify="start" align="stretch"
+      style={{ width: "100%", height: "auto",padding: "15px" }}>
       {Products.map((item) => (
         <Col key={item.id}>
           <ProductCart
@@ -53,7 +54,7 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
         </Col>
       ))}
     </Row>
-  );
+  )
 });
 
 export default Level1;
