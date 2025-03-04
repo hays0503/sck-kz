@@ -1,7 +1,7 @@
 import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
-import { Col, Flex, Row, Spin } from "antd";
+import { Flex, Spin } from "antd";
 import { MappedPopularProductType } from "api-mapping/product/populates";
 import { CSSProperties, Suspense } from "react";
 
@@ -23,7 +23,7 @@ interface Level1Props {
 }
 
 // Первый уровень карты (карточки товаров)
-const Level1: React.FC<Level1Props> = ({ Products,justify,align }) => {
+const Level1: React.FC<Level1Props> = ({ Products}) => {
 
   const ButtonStyle: CSSProperties = {
     width: "100%",
@@ -33,26 +33,30 @@ const Level1: React.FC<Level1Props> = ({ Products,justify,align }) => {
     borderRadius: "4px"
   }
 
+  const gridStyle: CSSProperties = {
+    width: "100%",
+    display:"grid",
+    gridTemplateColumns: "repeat(var(--sck-columns-on-page), 1fr)",
+    gridGap: "10px"
+  }
+
   return (
-    <Row gutter={[5, 5]} justify={justify} align={align} style={{ width: "95%"}}>
-      {Products?.map((item, index) => (
-        <Col key={index}>
-          <ProductCart
-            Product={item}
-            addToCartSlot={
-              <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
-                <Spin spinning />
-              </Flex>
-              }
-              >
-                <AddToBasketProduct prod_id={item.id} />
-              </Suspense>
-            }
-            addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
-          />
-        </Col>
-      ))}
-    </Row>
+    <div style={gridStyle}>
+      {Products?.map((item, index) => <ProductCart
+        key={index}
+        Product={item}
+        addToCartSlot={
+          <Suspense fallback={<Flex style={ButtonStyle} align="center" justify="center">
+            <Spin spinning />
+          </Flex>
+          }
+          >
+            <AddToBasketProduct prod_id={item.id} />
+          </Suspense>
+        }
+        addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
+      />
+      )}</div>
   );
 };
 

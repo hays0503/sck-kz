@@ -12,45 +12,88 @@ import { Navigation } from "swiper/modules";
 
 const { Text } = Typography;
 
+// const MixGroups = [
+//   {
+//     NameGroups: "Однотонные",
+//     Groups: [
+//       { imageNames: ["1.png", "2.png", "3.png", "4.png"], name: "Цвет `Баклажановый`" },
+//       { imageNames: ["5.png", "6.png", "7.png", "8.png"], name: "Цвет `Ярко-синий`" },
+//       { imageNames: ["9.png", "10.png", "11.png", "12.png"], name: "Цвет `Сиена жженая`" },
+//       { imageNames: ["13.png", "14.png", "15.png", "16.png"], name: "Цвет `Умеренный красный`" },
+//       { imageNames: ["17.png", "18.png", "19.png", "20.png"], name: "Цвет `Темный пурпурно-фиолетовый`" }
+//     ]
+//   },
+//   {
+//     NameGroups: "Гребешок",
+//     Groups: [
+//       { imageNames: ["1.png", "6.png", "3.png", "8.png"], name: "Цвет `Баклажановый/Ярко-синий`" },
+//       { imageNames: ["5.png", "2.png", "7.png", "4.png"], name: "Цвет `Ярко-синий/Баклажановый`" },
+//       { imageNames: ["9.png", "14.png", "11.png", "16.png"], name: "Цвет `Сиена жженая/Умеренный красный`" },
+//       { imageNames: ["13.png", "10.png", "15.png", "12.png"], name: "Цвет `Умеренный красный/Сиена жженая`" },
+//       { imageNames: ["1.png", "14.png", "3.png", "16.png"], name: "Цвет `Баклажановый/Умеренный красный`" },
+//       { imageNames: ["5.png", "10.png", "7.png", "12.png"], name: "Цвет `Ярко-синий/Сиена жженая`" },
+//       { imageNames: ["9.png", "18.png", "11.png", "20.png"], name: "Цвет `Сиена жженая/Тёмный пурпурно-фиолетовый`" },
+//       { imageNames: ["17.png", "2.png", "19.png", "4.png"], name: "Цвет `Тёмный пурпурно-фиолетовый/Баклажановый`" }
+//     ]
+//   },
+//   {
+//     NameGroups: "Градиентные переходы",
+//     Groups: [
+//       { imageNames: ["1.png", "6.png", "11.png", "16.png"], name: "`Закатный градиент (Баклажановый → Умеренный красный)`" },
+//       { imageNames: ["5.png", "10.png", "15.png", "20.png"], name: "`Горячий песок (Ярко-синий → Тёмный пурпурно-фиолетовый)`" },
+//       { imageNames: ["9.png", "14.png", "19.png", "4.png"], name: "`Осенний микс (Сиена жженая → Баклажановый)`" },
+//       { imageNames: ["13.png", "18.png", "3.png", "8.png"], name: "`Ледяное сияние (Умеренный красный → Ярко-синий)`" },
+//       { imageNames: ["17.png", "2.png", "7.png", "12.png"], name: "`Пурпурное сердце (Темный пурпурно-фиолетовый → Сиена жженая)`" }
+//     ]
+//   },
+//   {
+//     NameGroups: "Лесенка",
+//     Groups: [
+//       { imageNames: ["17.png", "6.png", "3.png", "16.png"], name: "`Лесенка (От тёплых цветов → К холодным)`" },
+//       { imageNames: ["13.png", "2.png", "7.png", "20.png"], name: "`Лесенка (От холодных цветов → К тёплым)`" },
+//     ]
+//   }
+// ];
+
 const MixGroups = [
   {
     NameGroups: "Однотонные",
     Groups: [
-      { imageNames: ["1.png", "2.png", "3.png", "4.png"], name: "Цвет `Баклажановый`" },
-      { imageNames: ["5.png", "6.png", "7.png", "8.png"], name: "Цвет `Ярко-синий`" },
-      { imageNames: ["9.png", "10.png", "11.png", "12.png"], name: "Цвет `Сиена жженая`" },
-      { imageNames: ["13.png", "14.png", "15.png", "16.png"], name: "Цвет `Умеренный красный`" },
-      { imageNames: ["17.png", "18.png", "19.png", "20.png"], name: "Цвет `Темный пурпурно-фиолетовый`" }
+      { imageNames: ["1.png", "2.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый`" },
+      { imageNames: ["5.png", "6.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий`" },
+      { imageNames: ["9.png", "10.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая`" },
+      { imageNames: ["13.png", "14.png", "15.png", "fire.svg"], name: "Цвет `Умеренный красный`" },
+      { imageNames: ["17.png", "18.png", "19.png", "fire.svg"], name: "Цвет `Темный пурпурно-фиолетовый`" }
     ]
   },
   {
     NameGroups: "Гребешок",
     Groups: [
-      { imageNames: ["1.png", "6.png", "3.png", "8.png"], name: "Цвет `Баклажановый/Ярко-синий`" },
-      { imageNames: ["5.png", "2.png", "7.png", "4.png"], name: "Цвет `Ярко-синий/Баклажановый`" },
-      { imageNames: ["9.png", "14.png", "11.png", "16.png"], name: "Цвет `Сиена жженая/Умеренный красный`" },
-      { imageNames: ["13.png", "10.png", "15.png", "12.png"], name: "Цвет `Умеренный красный/Сиена жженая`" },
-      { imageNames: ["1.png", "14.png", "3.png", "16.png"], name: "Цвет `Баклажановый/Умеренный красный`" },
-      { imageNames: ["5.png", "10.png", "7.png", "12.png"], name: "Цвет `Ярко-синий/Сиена жженая`" },
-      { imageNames: ["9.png", "18.png", "11.png", "20.png"], name: "Цвет `Сиена жженая/Тёмный пурпурно-фиолетовый`" },
-      { imageNames: ["17.png", "2.png", "19.png", "4.png"], name: "Цвет `Тёмный пурпурно-фиолетовый/Баклажановый`" }
+      { imageNames: ["1.png", "6.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый/Ярко-синий`" },
+      { imageNames: ["5.png", "2.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий/Баклажановый`" },
+      { imageNames: ["9.png", "14.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая/Умеренный красный`" },
+      { imageNames: ["13.png", "10.png", "15.png", "fire.svg"], name: "Цвет `Умеренный красный/Сиена жженая`" },
+      { imageNames: ["1.png", "14.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый/Умеренный красный`" },
+      { imageNames: ["5.png", "10.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий/Сиена жженая`" },
+      { imageNames: ["9.png", "18.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая/Тёмный пурпурно-фиолетовый`" },
+      { imageNames: ["17.png", "2.png", "19.png", "fire.svg"], name: "Цвет `Тёмный пурпурно-фиолетовый/Баклажановый`" }
     ]
   },
   {
     NameGroups: "Градиентные переходы",
     Groups: [
-      { imageNames: ["1.png", "6.png", "11.png", "16.png"], name: "`Закатный градиент (Баклажановый → Умеренный красный)`" },
-      { imageNames: ["5.png", "10.png", "15.png", "20.png"], name: "`Горячий песок (Ярко-синий → Тёмный пурпурно-фиолетовый)`" },
-      { imageNames: ["9.png", "14.png", "19.png", "4.png"], name: "`Осенний микс (Сиена жженая → Баклажановый)`" },
-      { imageNames: ["13.png", "18.png", "3.png", "8.png"], name: "`Ледяное сияние (Умеренный красный → Ярко-синий)`" },
-      { imageNames: ["17.png", "2.png", "7.png", "12.png"], name: "`Пурпурное сердце (Темный пурпурно-фиолетовый → Сиена жженая)`" }
+      { imageNames: ["1.png", "6.png", "11.png", "fire.svg"], name: "`Закатный градиент (Баклажановый → Умеренный красный)`" },
+      { imageNames: ["5.png", "10.png", "15.png", "fire.svg"], name: "`Горячий песок (Ярко-синий → Тёмный пурпурно-фиолетовый)`" },
+      { imageNames: ["9.png", "14.png", "19.png", "fire.svg"], name: "`Осенний микс (Сиена жженая → Баклажановый)`" },
+      { imageNames: ["13.png", "18.png", "3.png", "fire.svg"], name: "`Ледяное сияние (Умеренный красный → Ярко-синий)`" },
+      { imageNames: ["17.png", "2.png", "7.png", "fire.svg"], name: "`Пурпурное сердце (Темный пурпурно-фиолетовый → Сиена жженая)`" }
     ]
   },
   {
     NameGroups: "Лесенка",
     Groups: [
-      { imageNames: ["17.png", "6.png", "3.png", "16.png"], name: "`Лесенка (От тёплых цветов → К холодным)`" },
-      { imageNames: ["13.png", "2.png", "7.png", "20.png"], name: "`Лесенка (От холодных цветов → К тёплым)`" },
+      { imageNames: ["17.png", "6.png", "3.png", "fire.svg"], name: "`Лесенка (От тёплых цветов → К холодным)`" },
+      { imageNames: ["13.png", "2.png", "7.png", "fire.svg"], name: "`Лесенка (От холодных цветов → К тёплым)`" },
     ]
   }
 ];

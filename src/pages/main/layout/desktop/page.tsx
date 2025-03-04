@@ -73,12 +73,12 @@ export default async function HomePage(props: PageProps) {
                             BasketButton={BasketButton}
                         />}
                     content={<Flex vertical={true} gap={5} style={{
-                        "--sck-columns-on-page": 7
+                        "--sck-columns-on-page": 6
                     } as CSSProperties}>
                         <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
                         <BannerMobileSlider category={categoryRoot?.results || []} />
                         <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
-                        <ProductPopularListPagination justify="start" align="start"/>
+                        <ProductPopularListPagination/>
                     </Flex>}
                     footerContent={<FooterSCK/>}
                 />

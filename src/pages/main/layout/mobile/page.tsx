@@ -70,7 +70,7 @@ export default async function HomePage(props: PageProps) {
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
               <TabletCategory />
               <div style={{ width: "100%" ,height:"3px",backgroundColor:'#eeeff1'}}/>
-              <ProductPopularListPagination  justify="start" align="start"/>
+              <ProductPopularListPagination/>
             </Flex>
           }
 
