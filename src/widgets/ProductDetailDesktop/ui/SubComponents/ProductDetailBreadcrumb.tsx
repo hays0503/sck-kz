@@ -11,7 +11,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 interface IProductBreadcrumbProps {
   idCategoryProduct: number;
-  name: string
+  name: string|null
 }
 
 const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategoryProduct,name }) => {

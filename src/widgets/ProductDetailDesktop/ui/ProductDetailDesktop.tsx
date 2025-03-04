@@ -70,7 +70,7 @@ const ProductDetailDesktop: React.FC<IProductDetailProps> = (props) => {
 
         <ProductDetailItem>
           {/* Крошки */}
-          <ProductDetailBreadcrumb idCategoryProduct={product.categoryId} name={product.name[locale]} />
+          <ProductDetailBreadcrumb idCategoryProduct={product.categoryId} name={product?.name?.[locale]} />
         </ProductDetailItem>
 
         <ProductDetailItem>
