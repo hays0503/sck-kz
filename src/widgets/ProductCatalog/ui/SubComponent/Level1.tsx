@@ -1,9 +1,9 @@
 import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
-import { Col, Flex, Row, Spin } from "antd";
+import { Flex, Spin } from "antd";
 import { MappedPopularProductType } from "api-mapping/product/populates";
-import { memo, Suspense, useCallback, useMemo } from "react";
+import { CSSProperties, memo, Suspense, useCallback, useMemo } from "react";
 
 interface Level1Props {
   readonly Products: MappedPopularProductType[];
@@ -41,19 +41,23 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
     [fallback]
   );
 
+  const gridStyle: CSSProperties = {
+    width: "100%",
+    display:"grid",
+    gridTemplateColumns: "repeat(var(--sck-columns-on-page), 1fr)",
+    gridGap: "10px"
+  }
+
   return (
-    <Row gutter={[5, 5]} justify="start" align="stretch">
-      {Products.map((item) => (
-        <Col key={item.id}>
-          <ProductCart
+    <div style={gridStyle}>
+      {Products?.map((item, index) => <ProductCart
+            key={index}
             Product={item}
             addToCartSlot={renderAddToCart(item.id)}
             addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
-          />
-        </Col>
-      ))}
-    </Row>
-  );
+            />
+          )}</div>
+      );
 });
 
 export default Level1;
