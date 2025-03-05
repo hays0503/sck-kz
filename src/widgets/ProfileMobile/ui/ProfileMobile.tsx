@@ -6,7 +6,12 @@ import { useUser } from "@/entities/User";
 const ProfileMobile: React.FC = () => {
   const { isAnonymous, info } = useUser();
   return (
-    <Flex gap={10} vertical={true} style={{ width: "100%" }}>
+    <Flex gap={10} vertical={true} style={{ 
+      width: "100%",
+      backgroundColor:"#f5f5f5",
+      paddingLeft:"10px",
+      paddingRight:"10px"
+      }}>
       <Level1 infoUser={info} IsAnonymous={isAnonymous}/>
       <Level2 infoUser={info} IsAnonymous={isAnonymous}/>
       <Level3 />

@@ -20,9 +20,6 @@ import { FooterSCK } from "@/widgets/FooterSCK";
 import { getTranslations } from "next-intl/server";
 import getProductBySlug from "@/entities/Product/api/getProductBySlug";
 import { STATUS_CODE } from "@/shared/constant/statusCode";
-import { MappedProductDetailType } from "api-mapping/product/_type/productDetail";
-import getCategoryAll from "@/entities/Category/api/getCategoryAll";
-import findCategory from "@/shared/tools/findCategory";
 import Link from "next/link";
 import { ProductDetailDesktop } from "@/widgets/ProductDetailDesktop";
 

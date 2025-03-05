@@ -1,5 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import { hostname } from "os";
+
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -157,6 +157,11 @@ const nextConfig = {
       {
         source: `/basket_api/v1/order/:url*`,
         destination: `${process.env.API_URL}:${process.env.API_BASKET_PORT}/basket_api/v1/order/:url*/`,
+      },
+
+      {
+        source: `/auth_api/v0/token/refresh`,
+        destination: `http://sck.kz:8999/auth_api/v1/token/refresh`,
       },
 
       //api по работе с пользователем

@@ -43,7 +43,7 @@ export default function UserMobile() {
     return enterGuest();
   }
 
-  return <Flex vertical={true} gap={10}>
+  return <Flex vertical={true} gap={10} style={{ width: "100%" }}>
 
     {
       info?.username && <DataTag header={t('login')}

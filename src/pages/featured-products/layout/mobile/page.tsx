@@ -8,6 +8,7 @@ import { SearchParams } from "nuqs";
 import { searchParamsCache } from "./searchParams";
 import { FeaturedProductsListPagination } from "@/widgets/FeaturedProductsListPagination/ui";
 import { LayoutMain } from "@/widgets/LayoutMain";
+import { CSSProperties } from "react";
 
 type FeaturedProductsPageProps = {
   params: Promise<{
@@ -34,7 +35,9 @@ export default async function FeaturedProductsPage(props: FeaturedProductsPagePr
             />
           }
 
-          content={<FeaturedProductsListPagination order={order} page={page} />}
+          content={<FeaturedProductsListPagination order={order} page={page} style={{
+            "--sck-columns-on-page": "2"
+          } as CSSProperties}/>}
 
           footerContent={
             <FooterMobile defaultKey="4" />

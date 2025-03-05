@@ -8,17 +8,20 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { motion } from "framer-motion";
+import { UserMobile } from "@/widgets/UserMobile";
+import { LoginMobile } from "@/widgets/LoginMobile";
 
 interface Level1Props {
   readonly IsAnonymous: boolean | undefined;
   readonly infoUser: UserInfo | null;
+  readonly setContent: React.Dispatch<React.SetStateAction<React.ReactNode>>
 }
 
 const { Text, Title } = Typography;
 
 const Level1: React.FC<Level1Props> = (props) => {
   const currentCity = useGetCityParams();
-  const { infoUser } = props;
+  const { infoUser, setContent } = props;
 
   const isGuest = props.IsAnonymous;
   const t = useTranslations("ProfileMobile");
@@ -74,12 +77,19 @@ const Level1: React.FC<Level1Props> = (props) => {
             <Image priority={true} src={photoProfile} alt="user" width={66} height={66} style={styleImg} />
             {isGuest ? <GuestUser /> : <AuthUser />}
           </Flex>
-          <Link prefetch={true} href={isGuest ? `/city/${currentCity}/login` : `/city/${currentCity}/user`}>
+          
             <Button
               shape="circle"
               type="text"
               size="large"
               style={{ padding: "5px" }}
+              onClick={() => {
+                if (isGuest) {
+                  setContent(<LoginMobile urlCallback={'/'} />);
+                }else{
+                  setContent(<UserMobile/>);
+                }
+              }}
               icon={
                 <>
                   {isGuest ? (
@@ -95,7 +105,6 @@ const Level1: React.FC<Level1Props> = (props) => {
                 </>
               }
             />
-          </Link>
         </Flex>
       </Flex>
     </motion.div>

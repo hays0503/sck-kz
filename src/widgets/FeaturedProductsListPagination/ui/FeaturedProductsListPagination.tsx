@@ -11,12 +11,12 @@ import { SortingProducts } from "@/features/sorting-products";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/routing";
-import { Dispatch } from "react";
+import { CSSProperties, Dispatch } from "react";
 import useGetProductsIdsByFavoriteSWR from "@/entities/Product/model/getProductsIdsByFavoriteSWR";
 
 const { Title } = Typography;
 
-const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number }> = ({ FeaturedProductsIds, order, page }) => {
+const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: orderByType, page: number, style?: CSSProperties }> = ({ FeaturedProductsIds, order, page, style }) => {
     const t = useTranslations("RenderFeaturedProducts");
     const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [sortOrder] = useQueryState("order", { defaultValue: order ?? "stocks__price" });
@@ -71,7 +71,16 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
                         </Flex>
                     </Flex>
                 </>}
-                {ProductsLen > 0 && <>
+                {ProductsLen > 0 && <Flex vertical style={{
+                    ...style,
+                    width: "100%",
+                    backgroundColor:"#f5f5f5",
+                    borderRadius: "8px",
+                    height:"80dvh",
+                    overflowX:"hidden",
+                    overflowY:"scroll",
+                    border: "0.33px solid  #D9D9D9",
+                } as CSSProperties}>
                     <Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
                         <SortingProducts url={`/city/${cityEn}/featured-products`} />
                     </Flex>
@@ -88,7 +97,7 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
                             current={CurrentPage}
                             onChange={SetCurrentPage} />}
                     </Flex>
-                </>}
+                </Flex>}
             </>
         );
     }
@@ -96,7 +105,7 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
     return <Render Products={Products} ProductsLen={ProductsLen} CurrentPage={currentPage} SetCurrentPage={setCurrentPage} />
 }
 
-const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number }> = ({ order, page }) => {
+const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: number, style?: CSSProperties }> = ({ order, page, style }) => {
     const cityEn = useGetCityParams();
     const t = useTranslations("FeaturedProductsListPagination");
     const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
@@ -112,13 +121,13 @@ const FeaturedProductsListPagination: React.FC<{ order: orderByType, page: numbe
     const FeaturedProductsIds = data?.data;
 
     if (FeaturedProductsIds.length <= 0) {
-        return <Flex vertical gap={10} align="center">
+        return <Flex vertical gap={10} align="center" style={style}>
             <Title level={5}>{t('izbrannye-tovary-ne-nai-deny')}</Title>
             <Link href={`/city/${cityEn}/main`} prefetch={true}>{t("na-glavnuyu")}</Link>
         </Flex>
     }
 
-    return <>{FeaturedProductsIds && <RenderFeaturedProducts FeaturedProductsIds={FeaturedProductsIds} order={order} page={page} />}</>
+    return <>{FeaturedProductsIds && <RenderFeaturedProducts FeaturedProductsIds={FeaturedProductsIds} order={order} page={page} style={style} />}</>
 }
 
 export default FeaturedProductsListPagination;
