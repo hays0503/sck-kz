@@ -1,6 +1,5 @@
 "use client"
 import { CSSProperties, Dispatch, useEffect, useLayoutEffect, useState } from "react";
-import GetFilterCategory from "../model/getFilter";
 import FilterGroup from "./SubModule/FilterGroup";
 import { FilterType } from "./SubModule/FilterValueCheckBox";
 import { Button, Flex, Modal, Spin, notification, Typography } from "antd";
@@ -16,17 +15,12 @@ const Filter: React.FC<{     dropFilter: () => void, category: string, filterAct
     const [isOpen, setIsOpen] = useState(false);
 
     useLayoutEffect(() => {
-        const classRunner = new GetFilterCategory(category);
-        classRunner.getProductIdsByCategory(category).then((productIds) => {
-            classRunner.getRawSpecsByProductIdsAndParse(
-                productIds
-            ).then((data) => {
-                if (data) {
-                    const a = classRunner.specificationsMapToObject(data) as unknown as FilterType[];
-                    setDataSpecifications(a);
-                }
-            });
-        });
+        const GetFilterData = async () => {
+            const data = await fetch(`/api-mapping/filter/?category=${category}`);
+            const {result} = await data.json();
+            setDataSpecifications(result);
+        }
+        GetFilterData();
     }, [category])
 
     useEffect(() => {

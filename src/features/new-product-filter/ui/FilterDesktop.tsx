@@ -1,6 +1,5 @@
 "use client"
 import { Dispatch, useEffect, useLayoutEffect, useState } from "react";
-import GetFilterCategory from "../model/getFilter";;
 import { FilterType } from "./SubModule/FilterValueCheckBox";
 import { Button, Flex, notification, Typography } from "antd";
 import { useTranslations } from "next-intl";
@@ -21,17 +20,12 @@ const FilterDesktop: React.FC<{
     const [api, contextHolder] = notification.useNotification();
 
     useLayoutEffect(() => {
-        const classRunner = new GetFilterCategory(category);
-        classRunner.getProductIdsByCategory(category).then((productIds) => {
-            classRunner.getRawSpecsByProductIdsAndParse(
-                productIds
-            ).then((data) => {
-                if (data) {
-                    const a = classRunner.specificationsMapToObject(data) as unknown as FilterType[];
-                    setDataSpecifications(a);
-                }
-            });
-        });
+        const GetFilterData = async () => {
+            const data = await fetch(`/api-mapping/filter/?category=${category}`);
+            const {result} = await data.json();
+            setDataSpecifications(result);
+        }
+        GetFilterData();
     }, [category])
 
     useEffect(() => {

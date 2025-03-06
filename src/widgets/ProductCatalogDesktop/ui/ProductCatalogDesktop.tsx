@@ -119,7 +119,7 @@ const Render: React.FC<RenderProps> = memo(({
     <>
       {ProductsLen <= 0 && <>
         <Flex vertical>
-          <Flex vertical align="center" justify="" style={{ width: "100%", height: "100%" }}>
+          <Flex vertical align="center" justify="center" gap={20} style={{ width: "100%", height: "100%" }}>
             <Text strong style={{ textAlign: "center" }}>{t('v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee')}</Text>
             <Button
               style={{ padding: "20px", backgroundColor: "#4954f0", color: "#FFFF", zIndex: 999 }}
@@ -128,8 +128,8 @@ const Render: React.FC<RenderProps> = memo(({
               {t('nazad')}
             </Button>
           </Flex>
-          <Flex>
-            <Image src="/logo.svg" fill alt="logo" />
+          <Flex vertical align="center" justify="" style={{ width: "100%", height: "250px" }}>
+            <Image src="/logo.svg" alt="logo" height={250} width={250} />
           </Flex>
         </Flex>
       </>}

@@ -1,5 +1,5 @@
 import { Flex, Space, Typography } from "antd";
-import Link from "next/link";
+
 import { RightOutlined } from "@ant-design/icons";
 import styles from "./CatalogNavigation.module.scss";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { useLocale } from "next-intl";
 import React from "react";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { MappedCategoryType } from "api-mapping/category/all/type";
+import { Link } from "@/i18n/routing";
 const { Text } = Typography;
 
 interface CatalogHoveredProps {

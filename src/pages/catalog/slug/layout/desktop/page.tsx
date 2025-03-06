@@ -16,8 +16,6 @@ import { BasketButton } from "@/widgets/BasketButton";
 import { Flex } from "antd";
 import { FooterSCK } from "@/widgets/FooterSCK";
 import { searchParamsCache } from "./searchParams";
-// import { getTranslations } from "next-intl/server";
-// import getCategoryBySlugs from "@/entities/Category/api/getCategoryBySlugs";
 import getProductByCategory, { getProductResult } from "@/entities/Product/api/getProductByCategory";
 import getCity from "@/entities/City/api/getCity";
 import { MappedCityType } from "api-mapping/city";
@@ -37,12 +35,6 @@ const CatalogPage: React.FC<PageProps> = async (props) => {
 
     const { params, searchParams } = await props;
     const { page, order } = searchParamsCache.parse(await searchParams);
-
-    // const t = await getTranslations("Catalog");
-
-    // const categoryData = await getCategoryBySlugs((await params).slug);
-
-    // const headerText = categoryData ? categoryData.name[(await params).locale] : t('katalog');
 
     const products: getProductResult = await getProductByCategory({
         slug: (await params).slug,

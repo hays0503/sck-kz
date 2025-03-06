@@ -1,3 +1,5 @@
+import { UrlApiWithDomainV1, UrlApiWithDomainV2 } from "@/shared/constant/url";
+
 type SpecificationType = Map<
   string,
   Map<string, { disabled: boolean; productIds: Set<number>,a:string }>
@@ -25,7 +27,7 @@ type ProductSpecsType = {
 
 class GetFilterCategory {
   SLUG_CATEGORY: string; // Слаг категории из которого нужно получить фильтры
-  apiUrl = ``;
+
 
   constructor(slugCategory: string) {
     this.SLUG_CATEGORY = slugCategory;
@@ -33,9 +35,11 @@ class GetFilterCategory {
 
   // Получаем список продуктов из категории
   async getProductIdsByCategory(slugCategory: string): Promise<number[]> {
-    const urlProductsByCategory = `/api/v1/products/filter_by_cat/${slugCategory}`;
-    let responseProductsByCategory: Response;
 
+    const urlProductsByCategory = `${UrlApiWithDomainV2.getProductsByCategory}${slugCategory}/?limit=9999999999`;
+    // const urlProductsByCategory = `/api-mapping/filter/?category=${slugCategory}`;
+    let responseProductsByCategory: Response;
+    
     try {
       // Запрос продуктов по категории
       responseProductsByCategory = await fetch(urlProductsByCategory,{
@@ -52,7 +56,7 @@ class GetFilterCategory {
 
     try {
       // Парсим данные
-      const data = await responseProductsByCategory.json();
+      const {results:data} = await responseProductsByCategory.json();
       try {
         // Получаем из массива продуктов id продуктов
         if (!Array.isArray(data)) {
@@ -62,6 +66,7 @@ class GetFilterCategory {
           throw new Error("Запрашиваемы данные являются пустым массивом ");
         }
         const productIds = data.map((product) => product.id);
+        console.log("productIds =>", productIds);
         return productIds;
       } catch (error) {
         console.error("Ошибка при получении id продуктов", error);
@@ -89,7 +94,7 @@ class GetFilterCategory {
     let allSpecs: ProductSpecsType[] = [];
   
     for (const batch of batches) {
-      const url = `${this.apiUrl}/api/v1/specif/configurations/${batch.join(",")}/`;
+      const url = `${UrlApiWithDomainV1.getProductSpecificationsById}configurations/${batch.join(",")}/`;
   
       try {
         const response = await Promise.race([

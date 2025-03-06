@@ -107,7 +107,7 @@ const Render: React.FC<RenderProps> = ({
   return (
     <>
       {ProductsLen <= 0 && <>
-        <Flex vertical>
+        <Flex vertical style={{ width: "100%", height: "300px" }}>
           <Flex vertical align="center" justify="" style={{ width: "100%", height: "100%" }}>
             <Text strong style={{ textAlign: "center" }}>{t('v-vybrannom-gorode-net-tovarov-iz-dannoi-kategorii-ili-ikh-uzhe-raskupili-vernites-pozdnee')}</Text>
             <Button
@@ -117,8 +117,8 @@ const Render: React.FC<RenderProps> = ({
               {t('nazad')}
             </Button>
           </Flex>
-          <Flex>
-            <Image src="/logo.svg" fill alt="logo" />
+          <Flex style={{ width: "100%", height: "250px" }}>
+            <Image src="/logo.svg" alt="logo" height={250} width={250} />
           </Flex>
         </Flex>
       </>}
