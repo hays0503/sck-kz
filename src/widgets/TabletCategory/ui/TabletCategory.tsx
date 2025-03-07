@@ -195,7 +195,7 @@ const TabletCategory: React.FC = () => {
   return (
     <Flex vertical gap={10}>
       <Row setCurrentGroup={setCurrentGroupIndex} />
-      {/* {display && <Watermark content={"Для разработки"} gap={[10, 10]} rotate={-8}>
+      {display && <Watermark content={"Для разработки"} gap={[10, 10]} rotate={-8}>
         <Flex justify="space-around" align="center" style={{ width: "100%", height: "165px" }} >
           <Button className="swiper-button-prev"><Text >{"<-"}</Text></Button>
           <Flex justify="space-between" align="center" gap={5} vertical style={{ width: "50%", height: "100%" }}>
@@ -211,7 +211,7 @@ const TabletCategory: React.FC = () => {
           </Button>
           <Text type="danger" style={{ textAlign: "center" }}>Меню появиться после перезагрузки страницы</Text>
         </Flex>
-      </Watermark>} */}
+      </Watermark>}
     </Flex>
   );
 };
