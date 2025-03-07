@@ -57,6 +57,12 @@ const { Text } = Typography;
 
 const MixGroups = [
   {
+    NameGroups: "Круглые иконки",
+    Groups: [
+      { imageNames: ["21.png|Акции", "22.png|ТВ, Аудио, Видео", "23.png|Мебель", "24.png|Бытовая техника"], name: "Минимализм" },
+    ]
+  },
+  {
     NameGroups: "Однотонные",
     Groups: [
       { imageNames: ["1.png", "2.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый`" },
@@ -123,6 +129,7 @@ const Row: React.FC<{
   return (
     <Flex>
       <Swiper
+        autoHeight={true}
         spaceBetween={20}
         slidesPerView={4}
         slidesPerGroup={4}
@@ -138,15 +145,27 @@ const Row: React.FC<{
       >
         {flattenGroups.flatMap((group, groupIndex) =>
           group.imageNames.map((image, index) => (
-            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width: 80, height: 80 }}>
+            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width: 80}}>
               <Link href={`/city/${cityEn}/catalog/menu/mebel`}>
-                <Image
-                  src={`/TestPic/${image}`}
-                  alt={image}
-                  width={80}
-                  height={80}
-                  priority
-                />
+                <Flex vertical align="center" justify="center" gap={5}>
+                  <Image
+                    src={`/TestPic/${image.split("|")[0]}`}
+                    alt={image}
+                    width={80}
+                    height={80}
+                    priority
+                  />
+                  {image.split("|")[1] && <Text style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    lineHeight: " 100%",
+                    letterSpacing: 0,
+                    textAlign: "center",
+                    verticalAlign: "middle"
+                  }}>
+                    {image.split("|")[1]}
+                  </Text>}
+                </Flex>
               </Link>
             </SwiperSlide>
           ))
@@ -176,7 +195,7 @@ const TabletCategory: React.FC = () => {
   return (
     <Flex vertical gap={10}>
       <Row setCurrentGroup={setCurrentGroupIndex} />
-      {display && <Watermark content={"Для разработки"} gap={[10, 10]} rotate={-8}>
+      {/* {display && <Watermark content={"Для разработки"} gap={[10, 10]} rotate={-8}>
         <Flex justify="space-around" align="center" style={{ width: "100%", height: "165px" }} >
           <Button className="swiper-button-prev"><Text >{"<-"}</Text></Button>
           <Flex justify="space-between" align="center" gap={5} vertical style={{ width: "50%", height: "100%" }}>
@@ -192,7 +211,7 @@ const TabletCategory: React.FC = () => {
           </Button>
           <Text type="danger" style={{ textAlign: "center" }}>Меню появиться после перезагрузки страницы</Text>
         </Flex>
-      </Watermark>}
+      </Watermark>} */}
     </Flex>
   );
 };
