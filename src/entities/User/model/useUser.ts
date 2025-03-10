@@ -8,7 +8,7 @@ import useGetUserInfo from "./useGetUserInfo";
 type HookUseUser = () => {
   isAnonymous: boolean;
   info: ResponseUserInfo | null;
-  
+  reFetchUserInfo: () => Promise<void>;
 };
 
 
