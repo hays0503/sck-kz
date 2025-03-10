@@ -39,7 +39,7 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string,refetch: 
     if (event?.percent === 100) {
       if (window) {
         refetch();
-        window.location.reload();
+        // window.location.reload();
       }
     }
   };
