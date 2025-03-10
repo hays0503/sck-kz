@@ -175,6 +175,15 @@ const nextConfig = {
         destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/token/refresh`,
       },
 
+      {
+        source: `/auth_api/v1/user/update`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/user/update`,
+      },
+      {
+        source: `/auth_api/v1/user/avatar`,
+        destination: `${process.env.API_URL}:${process.env.API_AUTH_PORT}/auth_api/v1/user/avatar`,
+      },
+
       //api по работе с пользователем
       //Получение ссылки на авторизацию google
       {

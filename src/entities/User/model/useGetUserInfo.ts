@@ -1,10 +1,14 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import useIsAnonymous from "./useIsAnonymous";
 import { UserInfo } from "@/shared/types/user";
 import { getUserInfo } from "../api";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
 
-type ResponseUserInfo = { isAnonymous: boolean; info: UserInfo|null };
+type ResponseUserInfo = {
+  isAnonymous: boolean;
+  info: UserInfo | null;
+  reFetchUserInfo: () => Promise<void>;
+};
 
 const useGetUserInfo = (): ResponseUserInfo => {
   const isAnonymous = useIsAnonymous();
@@ -12,6 +16,22 @@ const useGetUserInfo = (): ResponseUserInfo => {
     "accessToken"
   );
   const [info, setInfo] = useState<UserInfo | null>(null);
+
+  const reFetchUserInfo = useCallback(async () => {
+    console.log("Попытка перезапросить информацию о пользователе");
+    if (isAnonymous || !accessToken?.token) {
+      console.log("Пользователь анонимен или токен отсутствует");
+      setInfo(null);
+    } else {
+      const userInfo = await getUserInfo(accessToken.token);
+      if (userInfo.statusCode === 200) {
+        console.log("Успешно получена информация о пользователе");
+        setInfo(userInfo.data);
+      } else {
+        console.log("Не удалось получить информацию о пользователе");
+      }
+    }
+  }, [isAnonymous, accessToken]);
 
   useEffect(() => {
     if (isAnonymous || !accessToken?.token) {
@@ -42,8 +62,8 @@ const useGetUserInfo = (): ResponseUserInfo => {
 
   // Мемоизация результатов
   const memoizedInfo = useMemo(
-    () => ({ isAnonymous, info }),
-    [info, isAnonymous]
+    () => ({ isAnonymous, info, reFetchUserInfo }),
+    [info, isAnonymous, reFetchUserInfo]
   );
 
   return memoizedInfo;

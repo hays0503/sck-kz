@@ -8,20 +8,22 @@ import useGetUserInfo from "./useGetUserInfo";
 type HookUseUser = () => {
   isAnonymous: boolean;
   info: ResponseUserInfo | null;
+  
 };
 
 
 const useUser: HookUseUser = () => {
   
-  const { isAnonymous, info } = useGetUserInfo();
+  const { isAnonymous, info,reFetchUserInfo } = useGetUserInfo();
 
   // Мемоизируем возвращаемый объект
   const memoizedUser = useMemo(
     () => ({
       isAnonymous,
       info,
+      reFetchUserInfo
     }),
-    [isAnonymous, info]
+    [isAnonymous, info, reFetchUserInfo]
   );
 
   return memoizedUser;

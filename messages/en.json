@@ -231,7 +231,12 @@
     "phoneNumber": "Phone number",
     "adres": "Address",
     "avatar": "Photo profile",
-    "authorization": "Logue"
+    "authorization": "Logue",
+    "save": "Save",
+    "profile": "Profile",
+    "name": "Login",
+    "email": "Mail",
+    "phone": "Telephone"
   },
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Selected goods were not found",

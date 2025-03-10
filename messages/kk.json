@@ -231,7 +231,12 @@
     "phoneNumber": "Телефон нөмірі",
     "adres": "Айналу",
     "avatar": "Фотофиль",
-    "authorization": "Кан тілеу"
+    "authorization": "Кан тілеу",
+    "save": "Құтқару",
+    "profile": "Қырынан бейнелеу",
+    "name": "Кіру",
+    "email": "Почта",
+    "phone": "Телефон"
   },
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Таңдалған тауарлар табылмады",

@@ -17,6 +17,7 @@
     "@hyperdx/node-opentelemetry": "^0.8.1",
     "@undefined/usehooks-ts": "^3.2.0",
     "antd": "^5.23.0",
+    "antd-img-crop": "^4.24.0",
     "cross-env": "^7.0.3",
     "framer-motion": "^11.16.0",
     "leaflet": "^1.9.4",
