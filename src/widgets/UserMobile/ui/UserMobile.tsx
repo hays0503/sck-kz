@@ -8,7 +8,7 @@ import { Avatar, Button, Flex, Form, FormProps, Input, Typography, Upload } from
 import { useTranslations } from "next-intl";
 // import Image from "next/image";
 import ImgCrop from 'antd-img-crop';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const { Title, Text } = Typography;
 
@@ -32,10 +32,29 @@ import type { ProgressProps, UploadFile, UploadProps } from 'antd';
 export default function UserMobile() {
   const cityEn = useGetCityParams();
   const t = useTranslations("UserMobile");
-  const { isAnonymous, info} = useUser();
+  const { isAnonymous, info } = useUser();
   const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
   const isGuest = isAnonymous;
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: `${info?.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info?.avatar_path}`,
+    }
+  ]);
+
+  useEffect(() => {
+    if (info) {
+      setFileList([{
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: `${info.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info.avatar_path}`,
+
+      }])
+    }
+  }, [info])
 
   const enterGuest = () => {
     return <Flex vertical={true} gap={5} align="center" style={{ width: "100%" }}>
@@ -68,8 +87,8 @@ export default function UserMobile() {
     setFileList(newFileList);
     if (event?.percent === 100) {
       console.log(newFileList)
-      if(window){
-        window.location.reload(); 
+      if (window) {
+        window.location.reload();
       }
     }
   };
