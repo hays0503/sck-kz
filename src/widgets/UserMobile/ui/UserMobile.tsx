@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useState } from "react";
+import Image from "next/image";
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
 
@@ -59,9 +60,9 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
       listType="picture-circle"
       fileList={fileList}
       onChange={onChange}
-      showUploadList={false}
+      // showUploadList={false}
     >
-      <img src={avatar_path} style={{ width: "100%", height: "100%", borderRadius: "50%" }} />
+      <Image width={80} height={80} alt="avatar" src={avatar_path} style={{borderRadius: "50%" }} />
     </Upload>
   </ImgCrop>
 }
