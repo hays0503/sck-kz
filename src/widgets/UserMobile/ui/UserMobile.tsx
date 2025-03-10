@@ -6,11 +6,14 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
 import { useTranslations } from "next-intl";
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import type {
+  // GetProp,
+  UploadFile, UploadProps
+} from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useState } from "react";
 import Image from "next/image";
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+// type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
 
 const changeData = async (NewData: {
@@ -29,21 +32,20 @@ const changeData = async (NewData: {
 };
 
 const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ avatar_path, accessToken }) => {
-    const [fileList, setFileList] = useState<UploadFile[]>([]);
-    
-  //   const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
-  //   if (event?.percent === 100) {
-  //     setFileList(newFileList);
-  //     console.log(newFileList)
-  //     if (window) {
-  //       window.location.reload();
-  //     }
-  //   }
-  // };
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
     setFileList(newFileList);
+    if (event?.percent === 100) {
+      if (window) {
+        window.location.reload();
+      }
+    }
   };
+
+  // const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  //   setFileList(newFileList);
+  // };
 
 
 
@@ -59,9 +61,9 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
       listType="picture-circle"
       fileList={fileList}
       onChange={onChange}
-      // showUploadList={false}
+    // showUploadList={false}
     >
-      <Image width={80} height={80} alt="avatar" src={avatar_path} style={{borderRadius: "50%" }} />
+      <Image width={80} height={80} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
     </Upload>
   </ImgCrop>
 }

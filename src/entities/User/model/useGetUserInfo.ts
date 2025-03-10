@@ -1,4 +1,6 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState,
+  //  useMemo, 
+   useCallback } from "react";
 import useIsAnonymous from "./useIsAnonymous";
 import { UserInfo } from "@/shared/types/user";
 import { getUserInfo } from "../api";
