@@ -4,11 +4,10 @@ import { useUser } from "@/entities/User";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
-import { Avatar, Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
+import { Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
 import { useTranslations } from "next-intl";
 // import Image from "next/image";
 import ImgCrop from 'antd-img-crop';
-import { useState } from "react";
 
 const { Title, Text } = Typography;
 
@@ -26,7 +25,7 @@ const changeData = async (NewData: {
   })
   console.log("Patch data", data);
 };
-import type { ProgressProps, UploadFile, UploadProps } from 'antd';
+import type { ProgressProps } from 'antd';
 
 const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ avatar_path, accessToken }) => {
   //   const [fileList, setFileList] = useState<UploadFile[]>([]);
