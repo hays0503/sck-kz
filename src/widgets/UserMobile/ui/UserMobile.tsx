@@ -6,9 +6,10 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
 import { useTranslations } from "next-intl";
-// import Image from "next/image";
+import type { GetProp, UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
-
+import { useState } from "react";
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
 
 const changeData = async (NewData: {
@@ -25,10 +26,9 @@ const changeData = async (NewData: {
   })
   console.log("Patch data", data);
 };
-import type { ProgressProps } from 'antd';
 
 const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ avatar_path, accessToken }) => {
-  //   const [fileList, setFileList] = useState<UploadFile[]>([]);
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
     
   //   const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
   //   if (event?.percent === 100) {
@@ -39,6 +39,10 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
   //     }
   //   }
   // };
+
+  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
 
 
@@ -53,16 +57,11 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
       }}
       // onChange={onChange}
       listType="picture-circle"
-      // fileList={fileList}
-      progress={{
-        type: "circle",
-      } as ProgressProps}
+      fileList={fileList}
+      onChange={onChange}
       showUploadList={false}
     >
-      <Flex justify="center" align="center" style={{ width: "100%" }}>
-        {/* // eslint-disable-next-line @next/next/no-img-element */}
-        <img style={{ width: 80, height: 80, borderRadius: "50%" }} alt="avatar" src={`${avatar_path === "avatar_default.png" ? "/sck-user.svg" : avatar_path}`} />
-      </Flex>
+      <img src={avatar_path} style={{ width: "100%", height: "100%", borderRadius: "50%" }} />
     </Upload>
   </ImgCrop>
 }
