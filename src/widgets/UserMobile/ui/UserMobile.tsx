@@ -35,26 +35,7 @@ export default function UserMobile() {
   const { isAnonymous, info } = useUser();
   const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
   const isGuest = isAnonymous;
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: `${info?.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info?.avatar_path}`,
-    }
-  ]);
-
-  useEffect(() => {
-    if (info) {
-      setFileList([{
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: `${info.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info.avatar_path}`,
-
-      }])
-    }
-  }, [info])
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const enterGuest = () => {
     return <Flex vertical={true} gap={5} align="center" style={{ width: "100%" }}>
@@ -96,31 +77,32 @@ export default function UserMobile() {
 
 
   return <Flex vertical={true} gap={10} align="center" justify="center" style={{ width: "100%", padding: "5px" }}>
-    <ImgCrop rotationSlider cropShape="round">
-      <Upload
-        name="file"
-        maxCount={1}
-        action="/auth_api/v1/user/avatar"
-        headers={{
-          "accept": "application/json",
-          // "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken?.token}`
-        }}
-        onChange={onChange}
-        listType="picture-circle"
-        fileList={fileList}
-        progress={{
-          type: "circle",
-        } as ProgressProps}
-        showUploadList={false}
-      >
-        {
-          info?.avatar_path && <Flex justify="center" align="center" style={{ width: "100%" }}>
+    {
+      info?.avatar_path && <ImgCrop rotationSlider cropShape="round">
+        <Upload
+          name="file"
+          maxCount={1}
+          action="/auth_api/v1/user/avatar"
+          headers={{
+            "accept": "application/json",
+            // "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken?.token}`
+          }}
+          onChange={onChange}
+          listType="picture-circle"
+          fileList={fileList}
+          progress={{
+            type: "circle",
+          } as ProgressProps}
+          showUploadList={false}
+        >
+          <Flex justify="center" align="center" style={{ width: "100%" }}>
             <Avatar size={100} alt="avatar" src={`${info.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info.avatar_path}`} />
           </Flex>
-        }
-      </Upload>
-    </ImgCrop>
+
+        </Upload>
+      </ImgCrop>
+    }
 
     {info && <Form {...formProps} >
       <Form.Item name="username" label={t('name')} initialValue={info?.username}>
