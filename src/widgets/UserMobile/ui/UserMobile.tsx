@@ -56,7 +56,6 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
         "accept": "application/json",
         Authorization: `Bearer ${accessToken}`
       }}
-      // onChange={onChange}
       listType="picture-circle"
       fileList={fileList}
       onChange={onChange}
