@@ -8,7 +8,7 @@ import { Avatar, Button, Flex, Form, FormProps, Input, Typography, Upload } from
 import { useTranslations } from "next-intl";
 // import Image from "next/image";
 import ImgCrop from 'antd-img-crop';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const { Title, Text } = Typography;
 
