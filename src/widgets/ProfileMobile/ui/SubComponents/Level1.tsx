@@ -71,7 +71,7 @@ const Level1: React.FC<Level1Props> = (props) => {
           justify="space-between"
         >
           <Flex gap={10}>
-            <Image priority={true} src={photoProfile} alt="user" width={66} height={66} style={styleImg} />
+            <Image priority={true} src={`${photoProfile}/?time=${Date.now()}`} alt="user" width={66} height={66} style={styleImg} />
             {isGuest ? <GuestUser /> : <AuthUser />}
           </Flex>
           <Link prefetch={true} href={isGuest ? `/city/${currentCity}/login` : `/city/${currentCity}/user`}>
