@@ -28,6 +28,46 @@ const changeData = async (NewData: {
 };
 import type { ProgressProps, UploadFile, UploadProps } from 'antd';
 
+const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ avatar_path, accessToken }) => {
+  //   const [fileList, setFileList] = useState<UploadFile[]>([]);
+    
+  //   const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
+  //   if (event?.percent === 100) {
+  //     setFileList(newFileList);
+  //     console.log(newFileList)
+  //     if (window) {
+  //       window.location.reload();
+  //     }
+  //   }
+  // };
+
+
+
+  return <ImgCrop cropShape="round" rotationSlider={false}>
+    <Upload
+      name="file"
+      maxCount={1}
+      action="/auth_api/v1/user/avatar"
+      headers={{
+        "accept": "application/json",
+        Authorization: `Bearer ${accessToken}`
+      }}
+      // onChange={onChange}
+      listType="picture-circle"
+      // fileList={fileList}
+      progress={{
+        type: "circle",
+      } as ProgressProps}
+      showUploadList={false}
+    >
+      <Flex justify="center" align="center" style={{ width: "100%" }}>
+        {/* // eslint-disable-next-line @next/next/no-img-element */}
+        <img style={{ width: 80, height: 80, borderRadius: "50%" }} alt="avatar" src={`${avatar_path === "avatar_default.png" ? "/sck-user.svg" : avatar_path}`} />
+      </Flex>
+    </Upload>
+  </ImgCrop>
+}
+
 
 export default function UserMobile() {
   const cityEn = useGetCityParams();
@@ -35,7 +75,7 @@ export default function UserMobile() {
   const { isAnonymous, info } = useUser();
   const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
   const isGuest = isAnonymous;
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
 
   const enterGuest = () => {
     return <Flex vertical={true} gap={5} align="center" style={{ width: "100%" }}>
@@ -64,44 +104,11 @@ export default function UserMobile() {
 
 
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
-    setFileList(newFileList);
-    if (event?.percent === 100) {
-      console.log(newFileList)
-      if (window) {
-        window.location.reload();
-      }
-    }
-  };
-
-
-
   return <Flex vertical={true} gap={10} align="center" justify="center" style={{ width: "100%", padding: "5px" }}>
-    {
-      info?.avatar_path && <ImgCrop rotationSlider cropShape="round">
-        <Upload
-          name="file"
-          maxCount={1}
-          action="/auth_api/v1/user/avatar"
-          headers={{
-            "accept": "application/json",
-            // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken?.token}`
-          }}
-          onChange={onChange}
-          listType="picture-circle"
-          fileList={fileList}
-          progress={{
-            type: "circle",
-          } as ProgressProps}
-          showUploadList={false}
-        >
-          <Flex justify="center" align="center" style={{ width: "100%" }}>
-            <Avatar size={100} alt="avatar" src={`${info.avatar_path === "avatar_default.png" ? "/sck-user.svg" : info.avatar_path}`} />
-          </Flex>
 
-        </Upload>
-      </ImgCrop>
+    {
+      info?.avatar_path
+      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} />
     }
 
     {info && <Form {...formProps} >
