@@ -31,13 +31,14 @@ const changeData = async (NewData: {
   console.log("Patch data", data);
 };
 
-const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ avatar_path, accessToken }) => {
+const ImageUpload: React.FC<{ avatar_path: string, accessToken: string,refetch: () => void }> = ({ avatar_path, accessToken,refetch }) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
     setFileList(newFileList);
     if (event?.percent === 100) {
       if (window) {
+        refetch();
         window.location.reload();
       }
     }
@@ -72,7 +73,7 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string }> = ({ a
 export default function UserMobile() {
   const cityEn = useGetCityParams();
   const t = useTranslations("UserMobile");
-  const { isAnonymous, info } = useUser();
+  const { isAnonymous, info, reFetchUserInfo } = useUser();
   const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
   const isGuest = isAnonymous;
 
@@ -108,7 +109,7 @@ export default function UserMobile() {
 
     {
       info?.avatar_path
-      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} />
+      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo}/>
     }
 
     {info && <Form {...formProps} >
@@ -125,5 +126,8 @@ export default function UserMobile() {
         <Text style={{ color: "#ffff" }}>{t('save')}</Text>
       </Button>
     </Form>}
+    {info && <Text>
+      Путь до изображения {JSON.stringify(info.avatar_path)}
+    </Text>}
   </Flex>;
 }

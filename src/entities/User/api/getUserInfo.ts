@@ -16,6 +16,7 @@ const getUserInfo: GetUserInfo = async (token) => {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
+    cache: "no-cache",
   });
 
   if (response.ok) {
