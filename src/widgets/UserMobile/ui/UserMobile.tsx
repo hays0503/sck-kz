@@ -15,7 +15,6 @@ import { useState } from "react";
 import Image from "next/image";
 // type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
-
 const changeData = async (NewData: {
   "username": string,
   "email": string
@@ -31,7 +30,7 @@ const changeData = async (NewData: {
   console.log("Patch data", data);
 };
 
-const ImageUpload: React.FC<{ avatar_path: string, accessToken: string,refetch: () => void }> = ({ avatar_path, accessToken,refetch }) => {
+const ImageUpload: React.FC<{ avatar_path: string, accessToken: string, refetch: () => void }> = ({ avatar_path, accessToken, refetch }) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
@@ -44,29 +43,25 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string,refetch: 
     }
   };
 
-  // const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-  //   setFileList(newFileList);
-  // };
-
-
-
-  return <ImgCrop cropShape="round" rotationSlider={false}>
-    <Upload
-      name="file"
-      maxCount={1}
-      action="/auth_api/v1/user/avatar"
-      headers={{
-        "accept": "application/json",
-        Authorization: `Bearer ${accessToken}`
-      }}
-      listType="picture-circle"
-      fileList={fileList}
-      onChange={onChange}
-      showUploadList={false}
-    >
-      <Image width={80} height={80} alt="avatar" src={`${avatar_path}/?time=${Date.now()}`} style={{ borderRadius: "50%" }}/>
-    </Upload>
-  </ImgCrop>
+  return <Flex style={{ width: "100%", height: "100%" }} justify="center" align="center">
+            <ImgCrop cropShape="rect" rotationSlider={false}>
+              <Upload
+                name="file"
+                maxCount={1}
+                action="/auth_api/v1/user/avatar"
+                headers={{
+                  "accept": "application/json",
+                  Authorization: `Bearer ${accessToken}`
+                }}
+                listType="picture-circle"
+                fileList={fileList}
+                onChange={onChange}
+                showUploadList={false}
+              >
+                <Image width={80} height={80} alt="avatar" src={`${avatar_path}/?time=${Date.now()}`} style={{ borderRadius: "50%" }} />
+              </Upload>
+          </ImgCrop>
+        </Flex>
 }
 
 
@@ -109,7 +104,7 @@ export default function UserMobile() {
 
     {
       info?.avatar_path
-      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo}/>
+      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo} />
     }
 
     {info && <Form {...formProps} >
@@ -119,15 +114,9 @@ export default function UserMobile() {
       <Form.Item name="email" label={t('email')} initialValue={info?.email}>
         <Input />
       </Form.Item>
-      {/* <Form.Item name="phone_number" label={t('phone')}>
-        <Input />
-      </Form.Item> */}
       <Button type="primary" htmlType="submit" style={{ width: "100%", height: "40px" }}>
         <Text style={{ color: "#ffff" }}>{t('save')}</Text>
       </Button>
     </Form>}
-    {info && <Text>
-      Путь до изображения {JSON.stringify(info.avatar_path)}
-    </Text>}
   </Flex>;
 }

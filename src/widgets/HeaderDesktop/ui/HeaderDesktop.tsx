@@ -49,10 +49,10 @@ const HeaderDesktop: React.FC<IHeaderMobileProps> = ({
           </Flex>
         </Flex>
         <Flex gap={10} justify="flex-end" align="center" style={{ width: "50%", height: "40px" }}>
-          <Link href="/">
+          <Link href={`/city/${cityEn}/about/delivery`}>
             <Text>{t('dostavka')}</Text>
           </Link>
-          <Link href="/">
+          <Link href={`/city/${cityEn}/about/payment`}>
             <Text>{t('oplata')}</Text>
           </Link>
           <Link href={`/city/${cityEn}/about/guarantees`}>
