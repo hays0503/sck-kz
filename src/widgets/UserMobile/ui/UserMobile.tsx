@@ -64,7 +64,7 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string,refetch: 
       onChange={onChange}
     // showUploadList={false}
     >
-      <Image width={80} height={80} alt="avatar" src={`${avatar_path}/?time=${Date.now()}`} style={{ borderRadius: "50%" }} unoptimized />
+      <Image width={80} height={80} alt="avatar" src={`${avatar_path}/?time=${Date.now()}`} style={{ borderRadius: "50%" }}/>
     </Upload>
   </ImgCrop>
 }
