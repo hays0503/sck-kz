@@ -17,16 +17,20 @@ const useUser: HookUseUser = () => {
   const { isAnonymous, info,reFetchUserInfo } = useGetUserInfo();
 
   // Мемоизируем возвращаемый объект
-  const memoizedUser = useMemo(
-    () => ({
-      isAnonymous,
-      info,
-      reFetchUserInfo
-    }),
-    [isAnonymous, info, reFetchUserInfo]
-  );
+  // const memoizedUser = useMemo(
+  //   () => ({
+  //     isAnonymous,
+  //     info,
+  //     reFetchUserInfo
+  //   }),
+  //   [isAnonymous, info, reFetchUserInfo]
+  // );
 
-  return memoizedUser;
+  return {
+    isAnonymous,
+    info,
+    reFetchUserInfo
+  };
 };
 
 export default useUser;

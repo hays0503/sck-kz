@@ -61,12 +61,12 @@ const useGetUserInfo = (): ResponseUserInfo => {
   }, [isAnonymous, accessToken]);
 
   // Мемоизация результатов
-  const memoizedInfo = useMemo(
-    () => ({ isAnonymous, info, reFetchUserInfo }),
-    [info, isAnonymous, reFetchUserInfo]
-  );
+  // const memoizedInfo = useMemo(
+  //   () => ({ isAnonymous, info, reFetchUserInfo }),
+  //   [info, isAnonymous, reFetchUserInfo]
+  // );
 
-  return memoizedInfo;
+  return { isAnonymous, info, reFetchUserInfo };
 };
 
 export default useGetUserInfo;
