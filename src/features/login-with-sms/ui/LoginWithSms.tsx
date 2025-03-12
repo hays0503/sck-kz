@@ -38,8 +38,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         } as CredentialRequestOptions)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {
-          alert(otp?.code);
-          setCode(otp?.code);                    
+          setCode(JSON.stringify(otp));                    
           ac.abort();
         })
         .catch((err) => {
