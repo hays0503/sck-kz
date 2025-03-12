@@ -40,8 +40,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         } as CredentialRequestOptions)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {
-          // setCode(otp.code);
-          setText(JSON.stringify(otp));
+          setCode(otp.code);
           ac.abort();
         })
         .catch((err) => {
@@ -158,15 +157,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             length={4}
             type="tel"
             {...sharedProps} />
-          {/* <input 
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="ant-otp-input"
-            autoComplete="one-time-code"
-            pattern="[0-9]{4}"
-            inputMode="numeric"
-            /> */}
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
 
           <Text>{JSON.stringify(text)}</Text>
