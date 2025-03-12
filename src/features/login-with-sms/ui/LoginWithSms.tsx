@@ -149,7 +149,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%"
           } as CSSProperties}
         >
-          <Input.OTP
+          {/* <Input.OTP
 
             ref={refOtp}
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
@@ -157,7 +157,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             size="large"
             length={4}
             type="tel"
-            {...sharedProps} />
+            {...sharedProps} /> */}
+            <input type="text" value={code} onChange={(e) => setCode(e.target.value)} className="ant-otp-input" />
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
           <Text>{JSON.stringify(text)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
