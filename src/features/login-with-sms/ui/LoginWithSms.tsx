@@ -44,7 +44,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         })
         .catch((err) => {
           ac.abort();
-          console.error(err);
+          console.log(err);
         });
     }
   }, []);
@@ -157,7 +157,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             type="tel"
             {...sharedProps} />
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
-
+          <Text>{JSON.stringify(code)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
       )}
