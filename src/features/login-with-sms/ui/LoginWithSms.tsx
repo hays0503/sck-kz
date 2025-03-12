@@ -40,10 +40,12 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         .get({
           otp: { transport: ['sms'] },
           signal: ac.signal,
-        } as CredentialRequestOptions)
+        })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {
-          setCode(otp.code);
+          console.log(otp);
+          console.log(otp?.code);
+          setCode(otp?.code);
           setText(JSON.stringify(otp));
           ac.abort();
         })
