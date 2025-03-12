@@ -100,36 +100,37 @@ const Row = () => {
     const { size, background, src, text, href } = props
     return <>
       <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
-        <Flex
-          vertical
-          style={{
-            width: size,
-            height: size,
-            background: background,
-            borderRadius: 10,
-            marginLeft:"10px"
-          }}
-          justify="start"
-          align="center"
-        >
-          <Image
-            src={src} alt={text} priority width={size - 27} height={size - 27}
+        <Flex vertical align="center" gap={5}>
+          <Flex
+            vertical
             style={{
-              objectFit: "scale-down"
+              width: size,
+              height: size,
+              background: background,
+              borderRadius: 10,
             }}
-          />
-          <Text style={{
-            fontSize: 10,
-            textAlign: "center",
-            alignSelf: "center",
-            color: "#fff",
-            fontWeight: 400,
-            lineHeight: "12px",
-            letterSpacing: "0px",
-            verticalAlign: "middle",
-          }}>
-            {text}
-          </Text>
+            justify="start"
+            align="center"
+          >
+            <Image
+              src={src} alt={text} priority width={size - 27} height={size - 27}
+              style={{
+                objectFit: "scale-down"
+              }}
+            />
+            <Text style={{
+              fontSize: 10,
+              textAlign: "center",
+              alignSelf: "center",
+              color: "#fff",
+              fontWeight: 400,
+              lineHeight: "12px",
+              letterSpacing: "0px",
+              verticalAlign: "middle",
+            }}>
+              {text}
+            </Text>
+          </Flex>
         </Flex>
       </Link>
     </>
@@ -157,12 +158,15 @@ const Row = () => {
   return (
     <Flex style={{ width: "100%" }} justify="center">
       <Swiper
-        spaceBetween={5}
+        spaceBetween={'1%'}
         slidesPerView={4}
         slidesPerGroup={4}
         navigation
         modules={[Navigation]}
         autoHeight
+        centerInsufficientSlides
+      // slidesOffsetBefore={5}
+      // slidesOffsetAfter={5}
       >
         {mix.map(({ sets, inner }, groupIndex) =>
           categories.map(({ image, text, href }, index) => {
@@ -176,8 +180,8 @@ const Row = () => {
             const key = `${groupIndex}-${index}`;
 
             return (
-              <SwiperSlide key={key} style={{ width: "80px" }}>
-                {inner ? <Inner {...PropsForSlide} size={80} /> : <Outer {...PropsForSlide} size={75} />}
+              <SwiperSlide key={key} style={{ width: "80px", margin: "0px" }}>
+                {inner ? <Inner {...PropsForSlide} size={75} /> : <Outer {...PropsForSlide} size={75} />}
               </SwiperSlide>
             );
 
