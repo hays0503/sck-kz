@@ -37,9 +37,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           signal: ac.signal,
         } as CredentialRequestOptions)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .then((otp: any) => {
-          
-          setCode(JSON.stringify(otp));                    
+        .then((otp: any) => {          
+          setCode(otp.code);                    
           ac.abort();
         })
         .catch((err) => {
@@ -149,7 +148,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           } as CSSProperties}
         >
           <Input.OTP
-            autocomplete=one-time-code
+
             ref={refOtp}
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
             variant="filled"
