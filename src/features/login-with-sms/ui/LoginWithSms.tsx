@@ -28,7 +28,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const city = useGetCityParams();
   const router = useRouter();
 
-  useEffect(()=>{refOtp.current.focus();},[smsIdentifier])
+  useEffect(()=>{refOtp?.current?.focus();},[smsIdentifier])
 
   // useEffect(() => {
   //   if ('OTPCredential' in window) {
