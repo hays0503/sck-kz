@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { Button, Flex, Typography, Watermark } from "antd";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Button, Flex, Typography } from "antd";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/grid";
@@ -12,159 +12,175 @@ import { Navigation } from "swiper/modules";
 
 const { Text } = Typography;
 
-// const MixGroups = [
-//   {
-//     NameGroups: "Однотонные",
-//     Groups: [
-//       { imageNames: ["1.png", "2.png", "3.png", "4.png"], name: "Цвет `Баклажановый`" },
-//       { imageNames: ["5.png", "6.png", "7.png", "8.png"], name: "Цвет `Ярко-синий`" },
-//       { imageNames: ["9.png", "10.png", "11.png", "12.png"], name: "Цвет `Сиена жженая`" },
-//       { imageNames: ["13.png", "14.png", "15.png", "16.png"], name: "Цвет `Умеренный красный`" },
-//       { imageNames: ["17.png", "18.png", "19.png", "20.png"], name: "Цвет `Темный пурпурно-фиолетовый`" }
-//     ]
-//   },
-//   {
-//     NameGroups: "Гребешок",
-//     Groups: [
-//       { imageNames: ["1.png", "6.png", "3.png", "8.png"], name: "Цвет `Баклажановый/Ярко-синий`" },
-//       { imageNames: ["5.png", "2.png", "7.png", "4.png"], name: "Цвет `Ярко-синий/Баклажановый`" },
-//       { imageNames: ["9.png", "14.png", "11.png", "16.png"], name: "Цвет `Сиена жженая/Умеренный красный`" },
-//       { imageNames: ["13.png", "10.png", "15.png", "12.png"], name: "Цвет `Умеренный красный/Сиена жженая`" },
-//       { imageNames: ["1.png", "14.png", "3.png", "16.png"], name: "Цвет `Баклажановый/Умеренный красный`" },
-//       { imageNames: ["5.png", "10.png", "7.png", "12.png"], name: "Цвет `Ярко-синий/Сиена жженая`" },
-//       { imageNames: ["9.png", "18.png", "11.png", "20.png"], name: "Цвет `Сиена жженая/Тёмный пурпурно-фиолетовый`" },
-//       { imageNames: ["17.png", "2.png", "19.png", "4.png"], name: "Цвет `Тёмный пурпурно-фиолетовый/Баклажановый`" }
-//     ]
-//   },
-//   {
-//     NameGroups: "Градиентные переходы",
-//     Groups: [
-//       { imageNames: ["1.png", "6.png", "11.png", "16.png"], name: "`Закатный градиент (Баклажановый → Умеренный красный)`" },
-//       { imageNames: ["5.png", "10.png", "15.png", "20.png"], name: "`Горячий песок (Ярко-синий → Тёмный пурпурно-фиолетовый)`" },
-//       { imageNames: ["9.png", "14.png", "19.png", "4.png"], name: "`Осенний микс (Сиена жженая → Баклажановый)`" },
-//       { imageNames: ["13.png", "18.png", "3.png", "8.png"], name: "`Ледяное сияние (Умеренный красный → Ярко-синий)`" },
-//       { imageNames: ["17.png", "2.png", "7.png", "12.png"], name: "`Пурпурное сердце (Темный пурпурно-фиолетовый → Сиена жженая)`" }
-//     ]
-//   },
-//   {
-//     NameGroups: "Лесенка",
-//     Groups: [
-//       { imageNames: ["17.png", "6.png", "3.png", "16.png"], name: "`Лесенка (От тёплых цветов → К холодным)`" },
-//       { imageNames: ["13.png", "2.png", "7.png", "20.png"], name: "`Лесенка (От холодных цветов → К тёплым)`" },
-//     ]
-//   }
-// ];
-
 const MixGroups = [
   {
-    NameGroups: "Круглые иконки",
+    background: "#0163E1",
     Groups: [
-      { imageNames: ["21.png|Акции", "22.png|ТВ, Аудио, Видео", "23.png|Мебель", "24.png|Бытовая техника"], name: "Минимализм" },
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
     ]
   },
   {
-    NameGroups: "Однотонные",
+    background: "#FF4B4B",
     Groups: [
-      { imageNames: ["1.png", "2.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый`" },
-      { imageNames: ["5.png", "6.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий`" },
-      { imageNames: ["9.png", "10.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая`" },
-      { imageNames: ["13.png", "14.png", "15.png", "fire.svg"], name: "Цвет `Умеренный красный`" },
-      { imageNames: ["17.png", "18.png", "19.png", "fire.svg"], name: "Цвет `Темный пурпурно-фиолетовый`" }
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
     ]
   },
   {
-    NameGroups: "Гребешок",
+    background: "#9737FF",
     Groups: [
-      { imageNames: ["1.png", "6.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый/Ярко-синий`" },
-      { imageNames: ["5.png", "2.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий/Баклажановый`" },
-      { imageNames: ["9.png", "14.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая/Умеренный красный`" },
-      { imageNames: ["13.png", "10.png", "15.png", "fire.svg"], name: "Цвет `Умеренный красный/Сиена жженая`" },
-      { imageNames: ["1.png", "14.png", "3.png", "fire.svg"], name: "Цвет `Баклажановый/Умеренный красный`" },
-      { imageNames: ["5.png", "10.png", "7.png", "fire.svg"], name: "Цвет `Ярко-синий/Сиена жженая`" },
-      { imageNames: ["9.png", "18.png", "11.png", "fire.svg"], name: "Цвет `Сиена жженая/Тёмный пурпурно-фиолетовый`" },
-      { imageNames: ["17.png", "2.png", "19.png", "fire.svg"], name: "Цвет `Тёмный пурпурно-фиолетовый/Баклажановый`" }
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
     ]
   },
   {
-    NameGroups: "Градиентные переходы",
+    background: "#E101A1",
     Groups: [
-      { imageNames: ["1.png", "6.png", "11.png", "fire.svg"], name: "`Закатный градиент (Баклажановый → Умеренный красный)`" },
-      { imageNames: ["5.png", "10.png", "15.png", "fire.svg"], name: "`Горячий песок (Ярко-синий → Тёмный пурпурно-фиолетовый)`" },
-      { imageNames: ["9.png", "14.png", "19.png", "fire.svg"], name: "`Осенний микс (Сиена жженая → Баклажановый)`" },
-      { imageNames: ["13.png", "18.png", "3.png", "fire.svg"], name: "`Ледяное сияние (Умеренный красный → Ярко-синий)`" },
-      { imageNames: ["17.png", "2.png", "7.png", "fire.svg"], name: "`Пурпурное сердце (Темный пурпурно-фиолетовый → Сиена жженая)`" }
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
     ]
   },
   {
-    NameGroups: "Лесенка",
+    background: "#1CB0F6",
     Groups: [
-      { imageNames: ["17.png", "6.png", "3.png", "fire.svg"], name: "`Лесенка (От тёплых цветов → К холодным)`" },
-      { imageNames: ["13.png", "2.png", "7.png", "fire.svg"], name: "`Лесенка (От холодных цветов → К тёплым)`" },
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "#EE8B0B",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  
+  
+  {
+    background: "linear-gradient(90deg, #0163E1 0%, #3C91FF 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "linear-gradient(180deg, #FF4B4B 0%, #FF8585 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "linear-gradient(90deg, #9737FF 0%, #AF64FF 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "linear-gradient(180deg, #E101A1 0%, #FF45CA 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "linear-gradient(180deg, #17ACF2 0%, #47C4FF 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
+    ]
+  },
+  {
+    background: "linear-gradient(180deg, #E18001 0%, #FFAC40 100%)",
+    Groups: [
+      { imageNames: "fire.png", text: "Акции" },
+      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
+      { imageNames: "sofa.png", text: "Мебель" },
+      { imageNames: "friger.png", text: "Бытовая техника" },
+      { imageNames: "accessories.png", text: "Аксессуары" }
     ]
   }
+
 ];
 
-
-// Разворачиваем MixGroups в удобный массив с вложенными группами
-const flattenGroups = MixGroups.flatMap((category, categoryIndex) =>
-  category.Groups.map((group, groupIndex) => ({
-    ...group,
-    categoryName: category.NameGroups,
-    categoryIndex: categoryIndex + 1, // Номер категории (1-based)
-    groupIndex: groupIndex + 1, // Номер группы внутри категории (1-based)
-    totalGroupsInCategory: category.Groups.length // Количество групп в данной категории
-  }))
-);
-
-const Row: React.FC<{
-  setCurrentGroup: (groupIndex: number) => void
-}> = ({ setCurrentGroup }) => {
+const Row: React.FC<{ setCurrentGroup: (groupIndex: number) => void }> = ({ setCurrentGroup }) => {
   const cityEn = useGetCityParams();
 
-  const handleSlideChange = (swiper: SwiperClass) => {
-    const newGroupIndex = Math.floor(swiper.activeIndex / 4);
+  const handleSlideChange = (swiper) => {
+    const newGroupIndex = Math.floor(swiper.activeIndex / 5);
     setCurrentGroup(newGroupIndex);
   };
 
   return (
     <Flex>
       <Swiper
-        autoHeight={true}
-        spaceBetween={20}
-        slidesPerView={4}
-        slidesPerGroup={4}
+        spaceBetween={5}
+        slidesPerView={5}
+        slidesPerGroup={5}
         loop={false}
         pagination={{ clickable: true }}
         onSlideChange={handleSlideChange}
-        onSwiper={handleSlideChange}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
+        navigation
         modules={[Navigation]}
       >
-        {flattenGroups.flatMap((group, groupIndex) =>
-          group.imageNames.map((image, index) => (
-            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width: 80}}>
+        {MixGroups.map(({ background, Groups }, groupIndex) =>
+          Groups.map(({ imageNames, text }, index) => (
+            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width:65 }}>
               <Link href={`/city/${cityEn}/catalog/menu/mebel`}>
                 <Flex vertical align="center" justify="center" gap={5}>
-                  <Image
-                    src={`/TestPic/${image.split("|")[0]}`}
-                    alt={image}
-                    width={80}
-                    height={80}
-                    priority
-                  />
-                  {image.split("|")[1] && <Text style={{
+                  <Flex justify="center" align="center"
+                    style={{ background, position: "relative", width: 65, height: 65, borderRadius: "10px" }}
+                  >
+                    <Image
+                      src={`/TestPic/${imageNames}`}
+                      alt={imageNames}
+                      fill
+                      priority
+                    />
+                  </Flex>
+                  <Text style={{
                     fontWeight: "400",
                     fontSize: "12px",
-                    lineHeight: " 100%",
-                    letterSpacing: 0,
-                    textAlign: "center",
-                    verticalAlign: "middle"
+                    lineHeight: "100%",
+                    textAlign: "center"
                   }}>
-                    {image.split("|")[1]}
-                  </Text>}
+                    {text}
+                  </Text>
                 </Flex>
               </Link>
             </SwiperSlide>
@@ -176,42 +192,11 @@ const Row: React.FC<{
 };
 
 const TabletCategory: React.FC = () => {
-  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
-  const [display, setDisplay] = useState(true);
-  const currentGroup = flattenGroups[currentGroupIndex] || {};
-  const categoryName = currentGroup.categoryName || "Неизвестная категория";
-  const currentGroupName = currentGroup.name || "Неизвестно";
-
-  // Подсчет категорий
-  const totalCategories = MixGroups.length;
-  const categoryIndex = currentGroup.categoryIndex || 1;
-
-  // Подсчет групп внутри текущей категории
-  const totalGroupsInCategory = currentGroup.totalGroupsInCategory || 1;
-  const groupIndex = currentGroup.groupIndex || 1;
-
-
+  const [currentGroup, setCurrentGroup] = useState(0);
 
   return (
     <Flex vertical gap={10}>
-      <Row setCurrentGroup={setCurrentGroupIndex} />
-      {display && <Watermark content={"Для разработки"} gap={[10, 10]} rotate={-8}>
-        <Flex justify="space-around" align="center" style={{ width: "100%", height: "165px" }} >
-          <Button className="swiper-button-prev"><Text >{"<-"}</Text></Button>
-          <Flex justify="space-between" align="center" gap={5} vertical style={{ width: "50%", height: "100%" }}>
-            <Text strong style={{ textAlign: "center" }}>Категория: {categoryName} ({categoryIndex} / {totalCategories})</Text>
-            <Text strong style={{ textAlign: "center" }}>Группа: {currentGroupName}</Text>
-            <Text strong style={{ textAlign: "center" }}>Порядковый номер в группе <br /> ({groupIndex} / {totalGroupsInCategory}) </Text>
-          </Flex>
-          <Button className="swiper-button-next"><Text >{"->"}</Text></Button>
-        </Flex>
-        <Flex align="center" justify="center" vertical>
-          <Button danger style={{ width: "100%", textAlign: "center" }} onClick={() => setDisplay(!display)}>
-            {`Удалить меню - для просмотра \"полной картины\"`}
-          </Button>
-          <Text type="danger" style={{ textAlign: "center" }}>Меню появиться после перезагрузки страницы</Text>
-        </Flex>
-      </Watermark>}
+      <Row setCurrentGroup={setCurrentGroup} />
     </Flex>
   );
 };

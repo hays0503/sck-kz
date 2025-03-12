@@ -76,7 +76,7 @@ export default function InputNumberPhoneKz({ numberString, setNumberString }: { 
   }
 
   const actionPaste = (text: string) => {
-
+    // debugger
 
     // Убираем все лишние символы и оставляем только цифры
     const digitsOnly = text.replace(/\D/g, '');
@@ -130,8 +130,8 @@ export default function InputNumberPhoneKz({ numberString, setNumberString }: { 
     size="large"
     onClick={checkClipboard}
     onMouseLeave={() => setHover(false)}
-    
     onPaste={e => actionPaste(e.clipboardData.getData("Text"))}
+    onPasteCapture={e => actionPaste(e.clipboardData.getData("Text"))}
     onChange={e => actionChange(e)}
     pattern="\(\d{3}\) \d{3} - \d{4}"
     suffix={<OnPasteComponent />}
