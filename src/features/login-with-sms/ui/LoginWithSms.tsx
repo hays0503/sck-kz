@@ -43,10 +43,20 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {
+          console.log("Получил код:", otp?.code);
+          messageApi.open({
+            type: "success",
+            content: `Получил код: ${JSON.stringify(otp)}`,
+          })
+          messageApi.open({
+            type: "success",
+            content: `Получил код: ${otp?.code}`,
+          })
           console.log(otp);
           console.log(otp?.code);
           setCode(otp?.code);
           setText(JSON.stringify(otp));
+          console.log("Закончил");
           ac.abort();
         })
         .catch((err) => {
@@ -172,6 +182,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             type="text"
             inputMode="text"
             pattern="[0-9]{4}"
+            required
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
             />
             <Text>{text}</Text>
