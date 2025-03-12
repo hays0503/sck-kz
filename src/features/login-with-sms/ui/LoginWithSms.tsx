@@ -18,6 +18,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const [messageApi, contextHolder] = message.useMessage();
   const [numberString, setNumberString] = useState<string>("");
   const [code, setCode] = useState<string>("");
+  const [text, setText] = useState<string>("");
   const { smsIdentifier, setPhone, back } = useSendSms();
   const [, setAccessToken] = useLocalStorage("accessToken", { token: "" });
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
@@ -38,7 +39,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         } as CredentialRequestOptions)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {          
-          setCode(otp.code);                    
+          // setCode(otp.code);
+          setText(JSON.stringify(otp));                    
           ac.abort();
         })
         .catch((err) => {
@@ -157,7 +159,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             type="tel"
             {...sharedProps} />
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
-          <Text>{JSON.stringify(code)}</Text>
+          <Text>{JSON.stringify(text)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
       )}
