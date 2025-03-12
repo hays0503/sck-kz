@@ -167,8 +167,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             ref={refOtp}
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            type="number"
-            inputMode="numeric"
+            type="text"
+            inputMode="text"
             pattern="[0-9]{4}"
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
             />
