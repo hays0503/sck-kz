@@ -1,150 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Button, Flex, Typography } from "antd";
+import { Typography, Flex } from "antd";
 import Image from "next/image";
 import "swiper/css";
-import "swiper/css/grid";
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Navigation } from "swiper/modules";
 
 const { Text } = Typography;
 
-const MixGroups = [
-  {
-    background: "#0163E1",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "#FF4B4B",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "#9737FF",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "#E101A1",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "#1CB0F6",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "#EE8B0B",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  
-  
-  {
-    background: "linear-gradient(90deg, #0163E1 0%, #3C91FF 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "linear-gradient(180deg, #FF4B4B 0%, #FF8585 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "linear-gradient(90deg, #9737FF 0%, #AF64FF 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "linear-gradient(180deg, #E101A1 0%, #FF45CA 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "linear-gradient(180deg, #17ACF2 0%, #47C4FF 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  },
-  {
-    background: "linear-gradient(180deg, #E18001 0%, #FFAC40 100%)",
-    Groups: [
-      { imageNames: "fire.png", text: "Акции" },
-      { imageNames: "TV.png", text: "ТВ, Аудио, Видео" },
-      { imageNames: "sofa.png", text: "Мебель" },
-      { imageNames: "friger.png", text: "Бытовая техника" },
-      { imageNames: "accessories.png", text: "Аксессуары" }
-    ]
-  }
-
+const categories = [
+  { image: "fire.png", text: "Акции" },
+  { image: "TV.png", text: "ТВ, Аудио, Видео" },
+  { image: "sofa.png", text: "Мебель" },
+  { image: "friger.png", text: "Бытовая техника" },
+  { image: "accessories.png", text: "Аксессуары" }
 ];
 
-const Row: React.FC<{ setCurrentGroup: (groupIndex: number) => void }> = ({ setCurrentGroup }) => {
+const backgrounds = [
+  "#0163E1", "#FF4B4B", "#9737FF", "#E101A1", "#1CB0F6", "#EE8B0B",
+  "linear-gradient(90deg, #0163E1 0%, #3C91FF 100%)",
+  "linear-gradient(180deg, #FF4B4B 0%, #FF8585 100%)",
+  "linear-gradient(90deg, #9737FF 0%, #AF64FF 100%)",
+  "linear-gradient(180deg, #E101A1 0%, #FF45CA 100%)",
+  "linear-gradient(180deg, #17ACF2 0%, #47C4FF 100%)",
+  "linear-gradient(180deg, #E18001 0%, #FFAC40 100%)"
+];
+
+const Row = ({ setCurrentGroup }) => {
   const cityEn = useGetCityParams();
 
-  const handleSlideChange = (swiper) => {
-    const newGroupIndex = Math.floor(swiper.activeIndex / 5);
-    setCurrentGroup(newGroupIndex);
-  };
+  const handleSlideChange = useCallback(
+    (swiper) => setCurrentGroup(Math.floor(swiper.activeIndex / categories.length)),
+    [setCurrentGroup]
+  );
 
   return (
     <Flex>
@@ -152,35 +43,23 @@ const Row: React.FC<{ setCurrentGroup: (groupIndex: number) => void }> = ({ setC
         spaceBetween={5}
         slidesPerView={5}
         slidesPerGroup={5}
-        loop={false}
-        pagination={{ clickable: true }}
         onSlideChange={handleSlideChange}
         navigation
         modules={[Navigation]}
       >
-        {MixGroups.map(({ background, Groups }, groupIndex) =>
-          Groups.map(({ imageNames, text }, index) => (
-            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width:65 }}>
+        {backgrounds.map((background, groupIndex) =>
+          categories.map(({ image, text }, index) => (
+            <SwiperSlide key={`${groupIndex}-${index}`} style={{ width: 65 }}>
               <Link href={`/city/${cityEn}/catalog/menu/mebel`}>
-                <Flex vertical align="center" justify="center" gap={5}>
-                  <Flex justify="center" align="center"
-                    style={{ background, position: "relative", width: 65, height: 65, borderRadius: "10px" }}
+                <Flex vertical align="center" gap={5}>
+                  <Flex
+                    justify="center"
+                    align="center"
+                    style={{ background, width: 65, height: 65, borderRadius: 10,position:"relative" }}
                   >
-                    <Image
-                      src={`/TestPic/${imageNames}`}
-                      alt={imageNames}
-                      fill
-                      priority
-                    />
+                    <Image src={`/TestPic/${image}`} alt={text} fill priority />
                   </Flex>
-                  <Text style={{
-                    fontWeight: "400",
-                    fontSize: "12px",
-                    lineHeight: "100%",
-                    textAlign: "center"
-                  }}>
-                    {text}
-                  </Text>
+                  <Text style={{ fontSize: 12, textAlign: "center" }}>{text}</Text>
                 </Flex>
               </Link>
             </SwiperSlide>
@@ -191,7 +70,7 @@ const Row: React.FC<{ setCurrentGroup: (groupIndex: number) => void }> = ({ setC
   );
 };
 
-const TabletCategory: React.FC = () => {
+const TabletCategory = () => {
   const [currentGroup, setCurrentGroup] = useState(0);
 
   return (
