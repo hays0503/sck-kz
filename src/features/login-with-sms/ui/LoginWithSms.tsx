@@ -1,5 +1,5 @@
 "use client";
-import { Button, Flex, Form, Input, message, Typography } from "antd";
+import { Button, Flex, Input, message, Typography } from "antd";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
@@ -18,7 +18,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const [messageApi, contextHolder] = message.useMessage();
   const [numberString, setNumberString] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [text, setText] = useState<string>("");
   const { smsIdentifier, setPhone, back } = useSendSms();
   const [, setAccessToken] = useLocalStorage("accessToken", { token: "" });
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
@@ -29,8 +28,11 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const city = useGetCityParams();
   const router = useRouter();
 
+
+  useEffect(() => { refOtp.current?.focus(); }, [smsIdentifier]);
+
   useEffect(() => {
-    refOtp.current?.focus();
+
     if ('OTPCredential' in window) {
       const ac = new AbortController();
       navigator.credentials
@@ -155,11 +157,9 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             variant="filled"
             size="large"
             length={4}
-            type="tel"
+            type="number"
             {...sharedProps} />
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
-
-          <Text>{JSON.stringify(text)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
       )}
