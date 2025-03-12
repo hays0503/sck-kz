@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Typography, Flex } from "antd";
 import Image from "next/image";
@@ -29,13 +29,9 @@ const backgrounds = [
   "linear-gradient(180deg, #E18001 0%, #FFAC40 100%)"
 ];
 
-const Row = ({ setCurrentGroup }) => {
+const Row = () => {
   const cityEn = useGetCityParams();
 
-  const handleSlideChange = useCallback(
-    (swiper) => setCurrentGroup(Math.floor(swiper.activeIndex / categories.length)),
-    [setCurrentGroup]
-  );
 
   return (
     <Flex>
@@ -43,7 +39,6 @@ const Row = ({ setCurrentGroup }) => {
         spaceBetween={5}
         slidesPerView={5}
         slidesPerGroup={5}
-        onSlideChange={handleSlideChange}
         navigation
         modules={[Navigation]}
       >
@@ -71,11 +66,10 @@ const Row = ({ setCurrentGroup }) => {
 };
 
 const TabletCategory = () => {
-  const [currentGroup, setCurrentGroup] = useState(0);
 
   return (
     <Flex vertical gap={10}>
-      <Row setCurrentGroup={setCurrentGroup} />
+      <Row/>
     </Flex>
   );
 };
