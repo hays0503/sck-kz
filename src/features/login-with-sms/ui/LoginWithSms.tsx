@@ -29,86 +29,34 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const city = useGetCityParams();
   const router = useRouter();
 
-  // useEffect(()=>{
-  //   const check = async ()=>{
-  //     const code = await navigator.credentials.get({otp: {transport: ["sms"]}});
-  //     console.log("code:",code)
-  //   }
-  //   setInterval(check,100);
-  // },[])
-
-  function autoReadSMS(cb) {
-    console.log("autoReadSMS")
-    // used AbortController with setTimeout so that WebOTP API (Autoread sms) will get disabled after 1min
-     const signal = new AbortController();
-     setTimeout(() => {
-       signal.abort();
-     }, 1 * 60 * 1000);
-     async function main() {
-       if ('OTPCredential' in window) {
-          try {
-             if (navigator.credentials) {
-                try {
-                   await navigator.credentials
-                   .get({ abort: signal, otp:{ transport: ['sms']}})
-                   .then(content => {
-                     if (content && content.code) {
-                       cb(content.code);
-                     }
-                   })
-                   .catch(e => console.log(e));
-                } 
-                catch (e) {
-                  return;
-                }
-             }
-          } 
-          catch (err) {
-            console.log(err);
-          }
-        }
-     }
-     main();
+  async function autoReadSMS(cb) {
+    if (!("OTPCredential" in window)) {
+      console.log("WebOTP API не поддерживается в этом браузере.");
+      return;
     }
+    const ac = new AbortController();
+    try {
+      const content = await navigator.credentials.get({
+        otp: { transport: ["sms"] },
+        signal: ac.signal,
+      });
+      if (content?.code) {
+        cb(content.code);
+      }
+    } catch (e) {
+      console.error("Ошибка получения OTP:", e);
+    } finally {
+      ac.abort();
+    }
+  }
+
   useEffect(() => {
-      autoReadSMS(setCode)
-  }, [])
+    autoReadSMS(setCode);
+  }, []);
 
-  useEffect(() => { refOtp.current?.focus(); }, [smsIdentifier]);
-
-  // useEffect(() => {
-
-  //   // if ('OTPCredential' in window) {
-  //   //   const ac = new AbortController();
-  //   //   navigator.credentials
-  //   //     .get({
-  //   //       otp: { transport: ['sms'] },
-  //   //       signal: ac.signal,
-  //   //     })
-  //   //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   //     .then((otp: any) => {
-  //   //       console.log("Получил код:", otp?.code);
-  //   //       messageApi.open({
-  //   //         type: "success",
-  //   //         content: `Получил код: ${JSON.stringify(otp)}`,
-  //   //       })
-  //   //       messageApi.open({
-  //   //         type: "success",
-  //   //         content: `Получил код: ${otp?.code}`,
-  //   //       })
-  //   //       console.log(otp);
-  //   //       console.log(otp?.code);
-  //   //       setCode(otp?.code);
-  //   //       setText(JSON.stringify(otp));
-  //   //       console.log("Закончил");
-  //   //       ac.abort();
-  //   //     })
-  //   //     .catch((err) => {
-  //   //       ac.abort();
-  //   //       console.log(err);
-  //   //     });
-  //   // }
-  // }, []);
+  useEffect(() => {
+    refOtp.current?.focus();
+  }, [smsIdentifier]);
 
   const SendSmsTo = () => {
     if (numberString.replace(/\D/g, "").length === 10) {
@@ -124,7 +72,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           setRefreshToken({ token: response.data.refresh.token });
           setUserId({ user_id: response.data.access.user_id });
           if (callbackUrl) {
-            window.open(callbackUrl)
+            window.open(callbackUrl);
           }
           router.push(`/city/${city}/profile`);
         } else {
@@ -133,7 +81,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             content: t("error"),
           });
         }
-
       });
     }
   };
@@ -149,7 +96,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
     onChange,
   };
 
-
   return (
     <Flex
       style={{
@@ -161,77 +107,44 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
       align="center"
     >
       {contextHolder}
-      <Title style={{
-        fontWeight: "500",
-        fontSize: "16px",
-        lineHeight: "24px",
-        letterSpacing: "-0.6%",
-        textAlign: "center"
-      }}>{!smsIdentifier ? t("t-vvedite-nomer-telefona") : t('vvedite-kod-iz-sms')}
+      <Title
+        style={{
+          fontWeight: "500",
+          fontSize: "16px",
+          lineHeight: "24px",
+          letterSpacing: "-0.6%",
+          textAlign: "center",
+        }}
+      >
+        {!smsIdentifier ? t("t-vvedite-nomer-telefona") : t("vvedite-kod-iz-sms")}
       </Title>
-      {smsIdentifier && <Text style={{
-        color: "#8C8C8C",
-        fontSize: "14px",
-        fontWeight: "400",
-        lineHeight: "20px",
-        letterSpacing: "-0.6%",
-        textAlign: "center"
-      }}>{t('my-otpravili-kod-podtverzhdeniya-na-nomer')}</Text>}
-      {smsIdentifier && <Text style={{
-        color: "#4954F0",
-        fontSize: "14px",
-        fontWeight: "500",
-        lineHeight: "20px",
-        letterSpacing: "-0.6%",
-        textAlign: "center"
-      }}>+7{numberString}</Text>}
-      {!smsIdentifier ? (
-        <Flex
-          vertical={true}
-          gap={10}
+      {smsIdentifier && (
+        <Text
           style={{
-            width: "100%",
+            color: "#8C8C8C",
+            fontSize: "14px",
+            fontWeight: "400",
+            lineHeight: "20px",
+            letterSpacing: "-0.6%",
+            textAlign: "center",
           }}
         >
-          <InputNumberPhoneKz
-            numberString={numberString}
-            setNumberString={setNumberString}
-          />
-          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px" }} onClick={SendSmsTo}>{t("poluchit-sms-kod")}</Button>
-        </Flex>
-      ) : (
-        <Flex
-          vertical={true}
-          gap={20}
-          align="center"
-          justify="center"
+          {t("my-otpravili-kod-podtverzhdeniya-na-nomer")}
+        </Text>
+      )}
+      {smsIdentifier && (
+        <Text
           style={{
-            width: "100%"
-          } as CSSProperties}
+            color: "#4954F0",
+            fontSize: "14px",
+            fontWeight: "500",
+            lineHeight: "20px",
+            letterSpacing: "-0.6%",
+            textAlign: "center",
+          }}
         >
-          {/* <Input.OTP
-            value=""
-            ref={refOtp}
-            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-            variant="filled"
-            size="large"
-            length={4}
-            type="number"
-            {...sharedProps} /> */}
-          <input
-            autoComplete="one-time-code"
-            ref={refOtp}
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            type="text"
-            inputMode="numeric"
-            required
-            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-          />
-          <Text>{text}</Text>
-          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
-          <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
-        </Flex>
+          +7{numberString}
+        </Text>
       )}
     </Flex>
   );
