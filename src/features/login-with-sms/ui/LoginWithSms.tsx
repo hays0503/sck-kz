@@ -29,42 +29,86 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const city = useGetCityParams();
   const router = useRouter();
 
+  // useEffect(()=>{
+  //   const check = async ()=>{
+  //     const code = await navigator.credentials.get({otp: {transport: ["sms"]}});
+  //     console.log("code:",code)
+  //   }
+  //   setInterval(check,100);
+  // },[])
+
+  function autoReadSMS(cb) {
+    console.log("autoReadSMS")
+    // used AbortController with setTimeout so that WebOTP API (Autoread sms) will get disabled after 1min
+     const signal = new AbortController();
+     setTimeout(() => {
+       signal.abort();
+     }, 1 * 60 * 1000);
+     async function main() {
+       if ('OTPCredential' in window) {
+          try {
+             if (navigator.credentials) {
+                try {
+                   await navigator.credentials
+                   .get({ abort: signal, otp:{ transport: ['sms']}})
+                   .then(content => {
+                     if (content && content.code) {
+                       cb(content.code);
+                     }
+                   })
+                   .catch(e => console.log(e));
+                } 
+                catch (e) {
+                  return;
+                }
+             }
+          } 
+          catch (err) {
+            console.log(err);
+          }
+        }
+     }
+     main();
+    }
+  useEffect(() => {
+      autoReadSMS(setCode)
+  }, [])
 
   useEffect(() => { refOtp.current?.focus(); }, [smsIdentifier]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if ('OTPCredential' in window) {
-      const ac = new AbortController();
-      navigator.credentials
-        .get({
-          otp: { transport: ['sms'] },
-          signal: ac.signal,
-        })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .then((otp: any) => {
-          console.log("Получил код:", otp?.code);
-          messageApi.open({
-            type: "success",
-            content: `Получил код: ${JSON.stringify(otp)}`,
-          })
-          messageApi.open({
-            type: "success",
-            content: `Получил код: ${otp?.code}`,
-          })
-          console.log(otp);
-          console.log(otp?.code);
-          setCode(otp?.code);
-          setText(JSON.stringify(otp));
-          console.log("Закончил");
-          ac.abort();
-        })
-        .catch((err) => {
-          ac.abort();
-          console.log(err);
-        });
-    }
-  }, []);
+  //   // if ('OTPCredential' in window) {
+  //   //   const ac = new AbortController();
+  //   //   navigator.credentials
+  //   //     .get({
+  //   //       otp: { transport: ['sms'] },
+  //   //       signal: ac.signal,
+  //   //     })
+  //   //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   //     .then((otp: any) => {
+  //   //       console.log("Получил код:", otp?.code);
+  //   //       messageApi.open({
+  //   //         type: "success",
+  //   //         content: `Получил код: ${JSON.stringify(otp)}`,
+  //   //       })
+  //   //       messageApi.open({
+  //   //         type: "success",
+  //   //         content: `Получил код: ${otp?.code}`,
+  //   //       })
+  //   //       console.log(otp);
+  //   //       console.log(otp?.code);
+  //   //       setCode(otp?.code);
+  //   //       setText(JSON.stringify(otp));
+  //   //       console.log("Закончил");
+  //   //       ac.abort();
+  //   //     })
+  //   //     .catch((err) => {
+  //   //       ac.abort();
+  //   //       console.log(err);
+  //   //     });
+  //   // }
+  // }, []);
 
   const SendSmsTo = () => {
     if (numberString.replace(/\D/g, "").length === 10) {
@@ -174,7 +218,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             length={4}
             type="number"
             {...sharedProps} /> */}
-            <input
+          <input
             autoComplete="one-time-code"
             ref={refOtp}
             value={code}
@@ -183,8 +227,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             inputMode="numeric"
             required
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-            />
-            <Text>{text}</Text>
+          />
+          <Text>{text}</Text>
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
