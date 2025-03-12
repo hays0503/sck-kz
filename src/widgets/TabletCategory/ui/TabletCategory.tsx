@@ -98,7 +98,7 @@ const Row = () => {
 
   const Inner: React.FC<SlideProps> = (props) => {
     const { size, background, src, text, href } = props
-    return <SwiperSlide style={{}}>
+    return <>
       <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
         <Flex
           vertical
@@ -107,14 +107,15 @@ const Row = () => {
             height: size,
             background: background,
             borderRadius: 10,
+            marginLeft:"10px"
           }}
           justify="start"
           align="center"
         >
-          <Image 
-            src={src} alt={text} priority width={size-27} height={size-27}
+          <Image
+            src={src} alt={text} priority width={size - 27} height={size - 27}
             style={{
-              objectFit:"scale-down"
+              objectFit: "scale-down"
             }}
           />
           <Text style={{
@@ -131,30 +132,30 @@ const Row = () => {
           </Text>
         </Flex>
       </Link>
-    </SwiperSlide>
+    </>
   }
 
   const Outer: React.FC<SlideProps> = (props) => {
     const { size, background, src, text, href } = props
-    return <SwiperSlide style={{ width: size }}>
+    return <>
       <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
         <Flex vertical align="center" gap={5}>
           <Flex
             justify="center"
             align="center"
-            style={{ background: background, width: size, height: size, borderRadius: 10, position: "relative"}}
+            style={{ background: background, width: size, height: size, borderRadius: 10, position: "relative" }}
           >
             <Image src={src} alt={text} fill priority style={{ objectFit: 'scale-down' }} />
           </Flex>
           <Text style={{ fontSize: 12, textAlign: "center" }}>{text}</Text>
         </Flex>
       </Link>
-    </SwiperSlide>
+    </>
   }
 
 
   return (
-    <Flex>
+    <Flex style={{ width: "100%" }} justify="center">
       <Swiper
         spaceBetween={5}
         slidesPerView={4}
@@ -175,7 +176,7 @@ const Row = () => {
             const key = `${groupIndex}-${index}`;
 
             return (
-              <SwiperSlide key={key}>
+              <SwiperSlide key={key} style={{ width: "80px" }}>
                 {inner ? <Inner {...PropsForSlide} size={80} /> : <Outer {...PropsForSlide} size={75} />}
               </SwiperSlide>
             );
