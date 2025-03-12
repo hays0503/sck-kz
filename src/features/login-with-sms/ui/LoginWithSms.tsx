@@ -148,6 +148,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           } as CSSProperties}
         >
           <Input.OTP
+            autocomplete=one-time-code
             ref={refOtp}
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
             variant="filled"
