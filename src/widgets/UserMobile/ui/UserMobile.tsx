@@ -11,7 +11,7 @@ import type {
   UploadFile, UploadProps
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 // type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
@@ -44,24 +44,24 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string, refetch:
   };
 
   return <Flex style={{ width: "100%", height: "100%" }} justify="center" align="center">
-            <ImgCrop cropShape="rect" rotationSlider={false}>
-              <Upload
-                name="file"
-                maxCount={1}
-                action="/auth_api/v1/user/avatar"
-                headers={{
-                  "accept": "application/json",
-                  Authorization: `Bearer ${accessToken}`
-                }}
-                listType="picture-circle"
-                fileList={fileList}
-                onChange={onChange}
-                showUploadList={false}
-              >
-                <Image width={80} height={80} alt="avatar" src={`${avatar_path}/?time=${Date.now()}`} style={{ borderRadius: "50%" }} />
-              </Upload>
-          </ImgCrop>
-        </Flex>
+    <ImgCrop cropShape="rect" rotationSlider={false}>
+      <Upload
+        name="file"
+        maxCount={1}
+        action="/auth_api/v1/user/avatar"
+        headers={{
+          "accept": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }}
+        listType="picture-circle"
+        fileList={fileList}
+        onChange={onChange}
+        showUploadList={false}
+      >
+        <Image width={80} height={80} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
+      </Upload>
+    </ImgCrop>
+  </Flex>
 }
 
 
@@ -71,6 +71,13 @@ export default function UserMobile() {
   const { isAnonymous, info, reFetchUserInfo } = useUser();
   const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
   const isGuest = isAnonymous;
+  const [img, setImg] = useState<string>("/sck-user.svg");
+
+  useEffect(() => {
+    const isDefault: boolean = Boolean(String(info?.avatar_path ?? "avatar_default.png") == "avatar_default.png")
+    if (isDefault) setImg("/sck-user.svg");
+    if (!isDefault) setImg(`${info?.avatar_path}/?time=${Date.now()}`);
+  }, [info]);
 
 
   const enterGuest = () => {
@@ -98,21 +105,16 @@ export default function UserMobile() {
 
   };
 
-
-
   return <Flex vertical={true} gap={10} align="center" justify="center" style={{ width: "100%", padding: "5px" }}>
 
-    {
-      info?.avatar_path
-      && <ImageUpload avatar_path={info.avatar_path} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo} />
-    }
+    <ImageUpload avatar_path={img} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo} />
 
     {info && <Form {...formProps} >
       <Form.Item name="username" label={t('name')} initialValue={info?.username}>
-        <Input />
+        <Input placeholder="Укажите логин" />
       </Form.Item>
       <Form.Item name="email" label={t('email')} initialValue={info?.email}>
-        <Input />
+        <Input placeholder="Укажите свой email" />
       </Form.Item>
       <Button type="primary" htmlType="submit" style={{ width: "100%", height: "40px" }}>
         <Text style={{ color: "#ffff" }}>{t('save')}</Text>

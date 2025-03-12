@@ -6,7 +6,7 @@ import IconLikeIOS from "@/shared/ui/IconLikeIOS/IconLikeIOS";
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { CSSProperties } from "react";
+import { CSSProperties, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 interface Level1Props {
@@ -18,6 +18,7 @@ const { Text, Title } = Typography;
 
 const Level1: React.FC<Level1Props> = (props) => {
   const currentCity = useGetCityParams();
+  const [img,setImg] = useState<string>("/sck-user.svg");
   const { infoUser } = props;
 
   const isGuest = props.IsAnonymous;
@@ -37,8 +38,13 @@ const Level1: React.FC<Level1Props> = (props) => {
     </Flex>
   );
 
-  const isDefault: boolean = infoUser?.avatar_path == "avatar_default.png";
-  const photoProfile: string = isDefault ? "/sck-user.svg" : infoUser?.avatar_path ?? "/sck-user.svg";
+  useEffect(() => {
+    const isDefault: boolean = Boolean(String(infoUser?.avatar_path ?? "avatar_default.png") == "avatar_default.png")
+    if (isDefault) setImg("/sck-user.svg");
+    if (!isDefault) setImg(`${infoUser?.avatar_path}/?time=${Date.now()}`);
+  }, [infoUser]);
+
+
   const styleImg: CSSProperties = {
     borderRadius: `50%`
   } as CSSProperties;
@@ -70,10 +76,12 @@ const Level1: React.FC<Level1Props> = (props) => {
           style={{ width: "95%" }}
           justify="space-between"
         >
-          <Flex gap={10}>
-            <Image priority={true} src={`${photoProfile}/?time=${Date.now()}`} alt="user" width={66} height={66} style={styleImg} />
-            {isGuest ? <GuestUser /> : <AuthUser />}
-          </Flex>
+          <Suspense>
+            <Flex gap={10}>
+              <Image priority={true} src={img} alt="user" width={66} height={66} style={styleImg} unoptimized />
+              {isGuest ? <GuestUser /> : <AuthUser />}
+            </Flex>
+          </Suspense>
           <Link prefetch={true} href={isGuest ? `/city/${currentCity}/login` : `/city/${currentCity}/user`}>
             <Button
               shape="circle"
@@ -90,7 +98,7 @@ const Level1: React.FC<Level1Props> = (props) => {
                       <IconLikeIOS ionicons src="log-in-outline" color="green" size={28} />
                     </motion.div>
                   ) : (
-                    <IconLikeIOS ionicons src="create-outline" color="green" size={28}/>
+                    <IconLikeIOS ionicons src="create-outline" color="green" size={28} />
                   )}
                 </>
               }

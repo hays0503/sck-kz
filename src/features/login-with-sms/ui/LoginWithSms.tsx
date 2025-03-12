@@ -1,6 +1,6 @@
 "use client";
 import { Button, Flex, Input, message, Typography } from "antd";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
 import type { GetProps } from "antd";
@@ -10,6 +10,7 @@ import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { InputNumberPhoneKz } from "@/shared/ui";
 import "./LoginWithSms.css";
+import { OTPRef } from "antd/es/input/OTP";
 const { Title, Text, Link } = Typography;
 type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -22,9 +23,31 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
   const [, setUserId] = useLocalStorage("user_id", { user_id: "" });
   const t = useTranslations("LoginWithSms");
+  const refOtp = useRef<OTPRef>(null);
 
   const city = useGetCityParams();
   const router = useRouter();
+
+  useEffect(() => {
+    if ('OTPCredential' in window) {
+      const ac = new AbortController();
+      navigator.credentials
+        .get({
+          otp: { transport: ['sms'] },
+          signal: ac.signal,
+        } as CredentialRequestOptions)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then((otp: any) => {
+          alert(otp?.code);
+          setCode(otp?.code);                    
+          ac.abort();
+        })
+        .catch((err) => {
+          ac.abort();
+          console.error(err);
+        });
+    }
+  }, []);
 
   const SendSmsTo = () => {
     if (numberString.replace(/\D/g, "").length === 10) {
@@ -35,8 +58,6 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const SendCodeInSms = () => {
     if (smsIdentifier) {
       getSmsAuthToken(code, smsIdentifier).then((response) => {
-
-        debugger;
         if (response.statusCode === 201) {
           setAccessToken({ token: response.data.access.token });
           setRefreshToken({ token: response.data.refresh.token });
@@ -58,6 +79,9 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
 
   const onChange: OTPProps["onChange"] = (text) => {
     setCode(text);
+    if (text.length === 4) {
+      if(refOtp.current) refOtp.current.blur();
+    }
   };
 
   const sharedProps: OTPProps = {
@@ -124,12 +148,14 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%"
           } as CSSProperties}
         >
-          <Input.OTP style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-           variant="filled"
-           size="large"
-           length={4}
-           type="tel"
-           {...sharedProps} />
+          <Input.OTP
+            ref={refOtp}
+            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
+            variant="filled"
+            size="large"
+            length={4}
+            type="tel"
+            {...sharedProps} />
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
 
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
