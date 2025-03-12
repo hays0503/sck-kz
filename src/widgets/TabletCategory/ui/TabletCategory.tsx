@@ -12,11 +12,11 @@ import { Navigation } from "swiper/modules";
 const { Text } = Typography;
 
 const categories = [
-  { image: "fire.png", text: "Акции" },
-  { image: "TV.png", text: "ТВ, Аудио, Видео" },
-  { image: "sofa.png", text: "Мебель" },
-  { image: "friger.png", text: "Бытовая техника" },
-  { image: "accessories.png", text: "Аксессуары" }
+  { image: "fire.png", text: "Акции",href:'main' },
+  { image: "TV.png", text: "ТВ, Аудио, Видео",href:'tv-audio-video' },
+  { image: "sofa.png", text: "Мебель",href:'mebel' },
+  { image: "friger.png", text: "Бытовая техника",href:'bytovaya-tehnika' },
+  { image: "accessories.png", text: "Аксессуары",href:'main' }
 ];
 
 const backgrounds = [
@@ -48,9 +48,9 @@ const Row = ({ setCurrentGroup }) => {
         modules={[Navigation]}
       >
         {backgrounds.map((background, groupIndex) =>
-          categories.map(({ image, text }, index) => (
+          categories.map(({ image, text,href }, index) => (
             <SwiperSlide key={`${groupIndex}-${index}`} style={{ width: 65 }}>
-              <Link href={`/city/${cityEn}/catalog/menu/mebel`}>
+              <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
                 <Flex vertical align="center" gap={5}>
                   <Flex
                     justify="center"
