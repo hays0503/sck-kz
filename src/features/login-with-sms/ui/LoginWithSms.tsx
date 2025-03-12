@@ -157,8 +157,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             variant="filled"
             size="large"
             length={4}
-            type="text"
-
+            type="tel"
             aria-autocomplete="both"
 
             {...sharedProps} />
