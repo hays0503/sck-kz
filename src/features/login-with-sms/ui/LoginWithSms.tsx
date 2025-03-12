@@ -30,6 +30,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const router = useRouter();
 
   useEffect(() => {
+    refOtp.current?.focus();
     if ('OTPCredential' in window) {
       const ac = new AbortController();
       navigator.credentials
@@ -149,17 +150,15 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%"
           } as CSSProperties}
         >
-          <Form>
-            <Input.OTP
-
-              ref={refOtp}
-              style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-              variant="filled"
-              size="large"
-              length={4}
-              type="tel"
-              {...sharedProps} />
-            {/* <input 
+          <Input.OTP
+            ref={refOtp}
+            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
+            variant="filled"
+            size="large"
+            length={4}
+            type="tel"
+            {...sharedProps} />
+          {/* <input 
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -168,8 +167,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             pattern="[0-9]{4}"
             inputMode="numeric"
             /> */}
-            <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
-          </Form>
+          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
+
           <Text>{JSON.stringify(text)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
