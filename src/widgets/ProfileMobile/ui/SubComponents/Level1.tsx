@@ -78,7 +78,7 @@ const Level1: React.FC<Level1Props> = (props) => {
         >
           <Suspense>
             <Flex gap={10}>
-              <Image priority={true} src={img} alt="user" width={66} height={66} style={styleImg} unoptimized />
+              <Image priority={true} src={img} alt="user" width={66} height={66} style={styleImg}/>
               {isGuest ? <GuestUser /> : <AuthUser />}
             </Flex>
           </Suspense>

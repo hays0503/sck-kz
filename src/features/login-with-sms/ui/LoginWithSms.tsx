@@ -30,25 +30,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
 
   useEffect(()=>{refOtp?.current?.focus();},[smsIdentifier])
 
-  // useEffect(() => {
-  //   if ('OTPCredential' in window) {
-  //     const ac = new AbortController();
-  //     navigator.credentials
-  //       .get({
-  //         otp: { transport: ['sms'] },
-  //         signal: ac.signal,
-  //       } as CredentialRequestOptions)
-  //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //       .then((otp: any) => {
-  //         setCode(otp?.code);                    
-  //         ac.abort();
-  //       })
-  //       .catch((err) => {
-  //         ac.abort();
-  //         console.error(err);
-  //       });
-  //   }
-  // }, []);
+  
+
 
   const SendSmsTo = () => {
     if (numberString.replace(/\D/g, "").length === 10) {
