@@ -1,5 +1,5 @@
 "use client";
-import { Button, Flex, Input, message, Typography } from "antd";
+import { Button, Flex, Form, Input, message, Typography } from "antd";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useSendSms } from "../model";
 import { getSmsAuthToken } from "../api";
@@ -38,9 +38,9 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           signal: ac.signal,
         } as CredentialRequestOptions)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .then((otp: any) => {          
+        .then((otp: any) => {
           // setCode(otp.code);
-          setText(JSON.stringify(otp));                    
+          setText(JSON.stringify(otp));
           ac.abort();
         })
         .catch((err) => {
@@ -81,7 +81,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const onChange: OTPProps["onChange"] = (text) => {
     setCode(text);
     if (text.length === 4) {
-      if(refOtp.current) refOtp.current.blur();
+      if (refOtp.current) refOtp.current.blur();
     }
   };
 
@@ -149,16 +149,17 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%"
           } as CSSProperties}
         >
-          {/* <Input.OTP
+          <Form>
+            <Input.OTP
 
-            ref={refOtp}
-            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
-            variant="filled"
-            size="large"
-            length={4}
-            type="tel"
-            {...sharedProps} /> */}
-            <input 
+              ref={refOtp}
+              style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
+              variant="filled"
+              size="large"
+              length={4}
+              type="tel"
+              {...sharedProps} />
+            {/* <input 
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -166,8 +167,9 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             autoComplete="one-time-code"
             pattern="[0-9]{4}"
             inputMode="numeric"
-            />
-          <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
+            /> */}
+            <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
+          </Form>
           <Text>{JSON.stringify(text)}</Text>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
