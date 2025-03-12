@@ -144,7 +144,7 @@ const Row = () => {
             align="center"
             style={{ background: background, width: size, height: size, borderRadius: 10, position: "relative"}}
           >
-            <Image src={src} alt={text} fill priority style={{ objectFit: 'none' }} />
+            <Image src={src} alt={text} fill priority style={{ objectFit: 'scale-down' }} />
           </Flex>
           <Text style={{ fontSize: 12, textAlign: "center" }}>{text}</Text>
         </Flex>
