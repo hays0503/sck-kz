@@ -108,12 +108,13 @@ const Row = () => {
               height: size,
               background: background,
               borderRadius: 10,
+              paddingTop:"5px"
             }}
-            justify="start"
+            justify="normal"
             align="center"
           >
             <Image
-              src={src} alt={text} priority width={size - 27} height={size - 27}
+              src={src} alt={text} priority width={size - 30} height={size - 30}
               style={{
                 objectFit: "scale-down"
               }}
