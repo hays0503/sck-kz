@@ -23,7 +23,8 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
   const [, setRefreshToken] = useLocalStorage("refreshToken", { token: "" });
   const [, setUserId] = useLocalStorage("user_id", { user_id: "" });
   const t = useTranslations("LoginWithSms");
-  const refOtp = useRef<OTPRef>(null);
+  const [text, setText] = useState<string>("");
+  const refOtp = useRef(null);
 
   const city = useGetCityParams();
   const router = useRouter();
@@ -43,6 +44,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((otp: any) => {
           setCode(otp.code);
+          setText(JSON.stringify(otp));
           ac.abort();
         })
         .catch((err) => {
@@ -151,14 +153,26 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
             width: "100%"
           } as CSSProperties}
         >
-          <Input.OTP
+          {/* <Input.OTP
+            value=""
             ref={refOtp}
             style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
             variant="filled"
             size="large"
             length={4}
             type="number"
-            {...sharedProps} />
+            {...sharedProps} /> */}
+            <input
+            autoComplete="one-time-code"
+            ref={refOtp}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            type="number"
+            inputMode="numeric"
+            pattern="[0-9]{4}"
+            style={{ width: "100%", "--ant-input-input-font-size": "14px" } as CSSProperties}
+            />
+            <Text>{text}</Text>
           <Button style={{ backgroundColor: "#4954F0", color: "#fff", height: "55px", width: "100%" }} onClick={SendCodeInSms}>{t('avtorizovatsya')}</Button>
           <Link underline onClick={back}>{t('vvesti-drugoi-nomer-telefona')}</Link>
         </Flex>
