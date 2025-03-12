@@ -125,7 +125,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
         letterSpacing: "-0.6%",
         textAlign: "center"
       }}>+7{numberString}</Text>}
-      {smsIdentifier ? (
+      {!smsIdentifier ? (
         <Flex
           vertical={true}
           gap={10}
