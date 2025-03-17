@@ -14,7 +14,7 @@ interface IProductDetailProps {
   slug: string;
 }
 
-const SendMessage: React.FC<{id:number}> = ({id}) => {
+const SendMessage: React.FC<{ id: number }> = ({ id }) => {
   const client_uuid = useReadLocalStorage<string>("uuid_id");
 
   useEffect(() => {
@@ -59,71 +59,71 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   return (
     <>
 
-    <SendMessage id={product.id}/>
+      <SendMessage id={product.id} />
 
-    <Flex
-      style={{ backgroundColor: "#EEEFF1" }}
-      vertical={true}
-      gap={10}
-      itemScope={true}
-      itemType="http://schema.org/Product">
+      <Flex
+        style={{ backgroundColor: "#EEEFF1" }}
+        vertical={true}
+        gap={10}
+        itemScope={true}
+        itemType="http://schema.org/Product">
 
-      <ProductDetailItem>
-        {/* Крошки */}
-        <ProductDetailBreadcrumb idCategoryProduct={product.categoryId} />
-      </ProductDetailItem>
-
-      <ProductDetailItem>
-        {/* Слайдер */}
-        <ProductDetailSwiper
-          images={product.img}
-          name={product.name[locale]}
-          width={300}
-          height={300}
-        />
-      </ProductDetailItem>
-
-      {product?.configuration && (
         <ProductDetailItem>
-          {/* Название товара и Конфигурация */}
-          <ProductDetailConfiguration nameProduct={product.name[locale] ?? product.slug} Configurations={product.configuration} />
+          {/* Крошки */}
+          <ProductDetailBreadcrumb idCategoryProduct={product.categoryId} />
         </ProductDetailItem>
-      )}
 
-      <ProductDetailItem>
-        {/* Остатки и Кнопка купить */}
-        <ProductDetailToOrder product={product} />
-      </ProductDetailItem>
-
-      <ProductDetailItem>
-        {/* Информация о товаре - название - цена - артикул - отзывы - каспи виджет/форте виджет */}
-        <ProductDetailPrice product={product} />
-      </ProductDetailItem>
-
-      <ProductDetailItem>
-        {/* Характеристики */}
-        <ProductDetailSpecification product={product} />
-      </ProductDetailItem>
-
-      {product?.desc && (
         <ProductDetailItem>
-          <ProductDetailDescription product={product} />
+          {/* Слайдер */}
+          <ProductDetailSwiper
+            images={product.img}
+            name={product.name[locale]}
+            width={300}
+            height={300}
+          />
         </ProductDetailItem>
-      )}
-      {/*
+
+        {product?.configuration && (
+          <ProductDetailItem>
+            {/* Название товара и Конфигурация */}
+            <ProductDetailConfiguration nameProduct={product.name[locale] ?? product.slug} Configurations={product.configuration} />
+          </ProductDetailItem>
+        )}
+
+        <ProductDetailItem>
+          {/* Остатки и Кнопка купить */}
+          <ProductDetailToOrder product={product} />
+        </ProductDetailItem>
+
+        <ProductDetailItem>
+          {/* Информация о товаре - название - цена - артикул - отзывы - каспи виджет/форте виджет */}
+          <ProductDetailPrice product={product} />
+        </ProductDetailItem>
+
+        <ProductDetailItem>
+          {/* Характеристики */}
+          <ProductDetailSpecification product={product} />
+        </ProductDetailItem>
+
+        {product?.desc && (
+          <ProductDetailItem>
+            <ProductDetailDescription product={product} />
+          </ProductDetailItem>
+        )}
+        {/*
       <ProductDetailItem>
         <ReviewsList productId={fetchProduct.id} />
       </ProductDetailItem>
 */}
-      {product?.relatedProducts && product?.relatedProducts.length > 0 && (
-        <ProductDetailItem>
-          <ProductDetailRelatedProduct
-            productsRelated={product?.relatedProducts}
-          />
-        </ProductDetailItem>
-      )}
+        {product?.relatedProducts && product?.relatedProducts.length > 0 && (
+          <ProductDetailItem>
+            <ProductDetailRelatedProduct
+              productsRelated={product?.relatedProducts}
+            />
+          </ProductDetailItem>
+        )}
 
-    </Flex>
+      </Flex>
     </>
   );
 };

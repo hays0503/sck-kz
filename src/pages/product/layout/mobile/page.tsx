@@ -46,11 +46,12 @@ const ProductPage: ProductPageComponent = async (props) => {
 
   const categoryName = findCategory(categoryAllData?.results, (category) => category.id === productCategoryId)?.name[locale] ?? "";
 
- 
+
   const fallback = {
     [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData.data
   }
 
+  console.log("fallback", fallback)
 
 
   return <DefaultPage fallback={fallback} categoryName={categoryName} slug={slug} />
@@ -61,7 +62,7 @@ const DefaultPage: React.FC<{ fallback: object, categoryName: string, slug: stri
   <ProvidersClient fallback={fallback}>
     <LayoutMain
       headerContent={
-        <HeaderText text={categoryName} SearchProduct={SearchProduct}/>
+        <HeaderText text={categoryName} SearchProduct={SearchProduct} />
       }
       content={<ProductDetail slug={slug} />}
       footerContent={<FooterMobile defaultKey="1" />}

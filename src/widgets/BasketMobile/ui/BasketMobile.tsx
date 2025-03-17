@@ -15,13 +15,13 @@ interface IBasketMobileProps {
   readonly basket_id: string;
 }
 
-const {Text} = Typography
+const { Text } = Typography
 
 const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
   const t = useTranslations("BasketMobile");
-  const { data: fetchBasket, error } = useGetBasketProductsSWR();
+  const { data: fetchBasket, error } = useGetBasketProductsSWR(basket_id);
   const accessToken = useReadLocalStorage<{ token: string }>("accessToken");
-  const pathname  = usePathname();
+  const pathname = usePathname();
   const city = useGetCityParams();
   const Empty = () => {
     return (
@@ -33,7 +33,7 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
   };
 
 
-  const ToOrder = ({accessToken}:{accessToken: string|undefined}) => {
+  const ToOrder = ({ accessToken }: { accessToken: string | undefined }) => {
     if (accessToken) {
       return (<Flex
         align="center"
@@ -50,7 +50,7 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
           {t('oformit-tovar')}
         </Link>
       </Flex>)
-    }else{
+    } else {
       return (<Flex
         align="center"
         justify="center">
@@ -68,14 +68,14 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
           alignItems: "center"
         }}>
           <ShoppingCartOutlined />
-          <Text style={{color: "white"}}>{t('avtorizuites-dlya-prodolzhenie-oformlenie')}</Text>
+          <Text style={{ color: "white" }}>{t('avtorizuites-dlya-prodolzhenie-oformlenie')}</Text>
           <ShoppingCartOutlined />
         </Link>
       </Flex>)
     }
   }
 
-  if(!fetchBasket) {
+  if (!fetchBasket) {
     return <Empty />
   }
 
@@ -84,7 +84,7 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
   }
 
   return (
-    <Flex justify="center" align="center" gap={10} style={{ width: "100%",paddingTop:"10px" }}>
+    <Flex justify="center" align="center" gap={10} style={{ width: "100%", paddingTop: "10px" }}>
       <Flex vertical={true} style={{ width: "95%" }} gap={10}>
         <ProductsInBasket Products={fetchBasket} />
         <BasketInfo />
