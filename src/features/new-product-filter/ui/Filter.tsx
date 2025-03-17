@@ -17,12 +17,12 @@ const Filter: React.FC<{ dropFilter: () => void, category: string, filterActive:
     useLayoutEffect(() => {
         const GetFilterData = async () => {
             const url = `/api-mapping/filter/?category=${category}`;
-            const data = await fetch(url).then((res) => res.json()).catch((error) => {api.error({message: error})});
-            const { result } = await data//.json();
+            const data = await fetch(url);
+            const { result } = await data.json();
             setDataSpecifications(result);
         }
         GetFilterData();
-    }, [category, api])
+    }, [category])
 
     useEffect(() => {
         if (tempFilterStorage.length !== 0) {
