@@ -23,7 +23,7 @@ interface ProductsCatalogProps {
 
 
 interface WrapperOnDefaultProps {
-  Slug: string,
+  slug: string,
 
   CurrentPage: number,
   SetCurrentPage: Dispatch<React.SetStateAction<number>>,
@@ -36,10 +36,10 @@ interface WrapperOnDefaultProps {
 }
 
 const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
-  const { Slug, SortOrder, CurrentPage } = params;
+  const { slug, SortOrder, CurrentPage } = params;
   const t = useTranslations("Status");
   const { data, isLoading, error } = useGetProductByCategorySWR({
-    category: Slug,
+    category: slug,
     city: useGetCityParams(),
     orderBy: SortOrder as "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price",
     page: CurrentPage
@@ -99,7 +99,7 @@ interface RenderProps extends WrapperOnDefaultProps {
 }
 
 const Render: React.FC<RenderProps> = ({
-  Slug, Products, ActiveFilterProductIds, SetActiveFilterProductIds, ProductsLen, CurrentPage, SetCurrentPage
+  slug, Products, ActiveFilterProductIds, SetActiveFilterProductIds, ProductsLen, CurrentPage, SetCurrentPage
 }) => {
   const router = useRouter();
   const t = useTranslations("Render");
@@ -123,8 +123,8 @@ const Render: React.FC<RenderProps> = ({
         </Flex>
       </>}
       {ProductsLen > 0 && <><Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
-        <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${Slug}`} />
-        <Filter dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }} category={Slug} filterActive={ActiveFilterProductIds} setFilterActive={SetActiveFilterProductIds} />
+        <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${slug}`} />
+        <Filter dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }} category={slug} filterActive={ActiveFilterProductIds} setFilterActive={SetActiveFilterProductIds} />
       </Flex>
         <Flex
           vertical={true}
@@ -155,7 +155,7 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params }) => {
   const renderMode = activeFilterProductIds.length <= 0;
 
   const renderParams: WrapperOnDefaultProps = {
-    Slug: slug,
+    slug: slug,
 
     CurrentPage: currentPage,
     SetCurrentPage: setCurrentPage,
