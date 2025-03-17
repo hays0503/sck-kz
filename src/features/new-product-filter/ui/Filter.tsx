@@ -16,6 +16,7 @@ const Filter: React.FC<{ dropFilter: () => void, category: string, filterActive:
 
     useLayoutEffect(() => {
         const GetFilterData = async () => {
+            debugger
             const url = `/api-mapping/filter/?category=${category}`;
             const data = await fetch(url);
             const { result } = await data.json();
