@@ -1,6 +1,6 @@
 "use server"
 
-import { UrlApiV1, UrlApiWithDomainV1, UrlRevalidateV1 } from "@/shared/constant/url";
+import { UrlApiV1, UrlApiWithDomainV1, UrlApiWithDomainV2, UrlRevalidateV1 } from "@/shared/constant/url";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
@@ -44,8 +44,9 @@ const OrderHistoryPage = async ({ params }: OrderPageProps) => {
 
     let fetchAccessToken = undefined;
     try{
+        const url = `${UrlApiWithDomainV2.getUser}/token/refresh`
         fetchAccessToken = await (
-            await fetch(`http://sck.kz:8999/auth_api/v1/token/refresh`, {
+            await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,7 +70,8 @@ const OrderHistoryPage = async ({ params }: OrderPageProps) => {
     
     let Orders = [];
     try{
-        const getHistory = await fetch('http://sck.kz:8777/basket_api/v1/order/by_access_t/', {
+        const url = `${UrlApiWithDomainV2.getOrder}/by_access_t`    
+        const getHistory = await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",

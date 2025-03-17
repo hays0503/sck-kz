@@ -1,4 +1,5 @@
 
+import { UrlApiWithDomainV2 } from "@/shared/constant/url";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -23,9 +24,9 @@ export async function POST(request: NextRequest) {
       user_id: userId,
       is_active: false,
     };
-    console.log(body);
+    const url = `${UrlApiWithDomainV2.getUser}wishlist/add_wishlist`;
     response = await fetch(
-      `http://185.100.67.246:9876/auth_api/v1/wishlist/add_wishlist`,
+      url,
       {
         method: "POST",
         headers: {

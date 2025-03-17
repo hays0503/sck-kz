@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import mapping from "./mapping/mapping";
+import { UrlApiWithDomainV2 } from "@/shared/constant/url";
 
 export async function GET(request: NextRequest) {
   const uuid = request.nextUrl.searchParams.get("uuid");
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  let url = `http://185.100.67.246:9876/auth_api/v1/wishlist/by_client_uuid_or_user_id`;
+  let url = `${UrlApiWithDomainV2.getUser}wishlist/by_client_uuid_or_user_id`;
 
   if (userId && uuid){
     url += `/?user_id=${userId}&client_uuid=${uuid}`;
