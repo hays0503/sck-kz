@@ -31,9 +31,9 @@ const nextConfig = {
     HOST_URL: process.env.HOST_URL,
     HOST_PORT: process.env.HOST_PORT,
     API_URL: process.env.API_URL,
-    API_PORT_V1: process.env.API_PORT_V1,
-    API_AUTH_PORT: process.env.API_AUTH_PORT,
-    API_BASKET_PORT: process.env.API_BASKET_PORT,
+    API_PORT_V1: process.env.API_PORT_V2,
+    API_AUTH_PORT_V2: process.env.API_AUTH_PORT_V2,
+    API_BASKET_PORT_V2: process.env.API_BASKET_PORT_V2,
 
     HYPERDX_API_KEY: process.env.HYPERDX_API_KEY,
     OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
