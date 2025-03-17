@@ -14,15 +14,87 @@ import { CSSProperties, useLayoutEffect, useState } from "react";
 
 const { Text, Title } = Typography;
 
-const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
-    const { data: fetchBasket, error } = useGetBasketProductsSWR(uuid);
+interface IOrderHistoryProps {
+    readonly isMobileDevice: boolean
+}
+
+const OrderHistory: React.FC<IOrderHistoryProps> = ({isMobileDevice}) => {
+    const RefreshToken = useReadLocalStorage<{ token: string | undefined }>("refreshToken",{
+        initializeWithValue: false
+    });
+    const [Orders, setOrders] = useState<TOrder[]>([] as TOrder[]);
+
+    const GetOrders = async (refreshToken: string) => {
+
+        let fetchAccessToken = undefined;
+        try {
+            fetchAccessToken = await (
+                await fetch(`/auth_api/v2/token/refresh`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        "Authorization": `Bearer ${refreshToken}`,
+                    },
+                    body: JSON.stringify({
+                        token: refreshToken,
+                    }),
+                })
+            );
+            if (fetchAccessToken.status !== 201) {
+                return JSON.stringify(fetchAccessToken.text)
+            }
+            fetchAccessToken = await fetchAccessToken.json();
+        }
+        catch (e) {
+            console.log("Не вышло запросить токен")
+            console.log(e)
+            return "Не вышло запросить токен"
+        }
+
+        try {
+            const getHistory = await fetch('/basket_api/v2/order/by_access_t/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "access-token": `${fetchAccessToken?.access?.token}`,
+                }
+            });
+            if (getHistory.status !== 200) {
+                return JSON.stringify(getHistory.text)
+            }
+            setOrders(await getHistory.json())
+
+        } catch (e) {
+            console.log("Не вышло запросить историю заказов")
+            console.log(e)
+            return "Не вышло запросить историю заказов"
+        }
+    }
+
+    useLayoutEffect(() => {
+        if (RefreshToken && RefreshToken?.token) {
+            GetOrders(RefreshToken.token);
+        }
+    }, [RefreshToken]);
+
+    if (!RefreshToken) {
+        return <Spin size="large" />
+    }
+
+    return <WrapperOrderHistoryDesktop Orders={Orders} isMobileDevice={isMobileDevice}/>
+}
+
+
+const WrapperBasketDesktop: React.FC<{ uuid: string}> = ({ uuid }) => {
+    const { data: fetchBasket, error, isLoading } = useGetBasketProductsSWR(uuid);
     const locale = useLocale();
     const cityEn = useGetCityParams();
     if (error) {
         return <Text>Ошибка</Text>;
     }
 
-    if (!fetchBasket) {
+    if (!fetchBasket || isLoading) {
         return <Spin />;
     }
 
@@ -74,7 +146,7 @@ const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
     </Flex>
 }
 
-const WrapperOrderHistoryDesktop: React.FC<{ Orders: TOrder[] }> = ({ Orders }) => {
+const WrapperOrderHistoryDesktop: React.FC<{ Orders: TOrder[],isMobileDevice?:boolean }> = ({ Orders,isMobileDevice }) => {
     const t = useTranslations("OrderHistoryMobile");
     const locale = useLocale();
     const [selectedOrder, setSelectedOrder] = useState<TOrder | null>(null);
@@ -199,8 +271,8 @@ const WrapperOrderHistoryDesktop: React.FC<{ Orders: TOrder[] }> = ({ Orders }) 
                     {`Создан: ${new Date(selectedOrder?.created_at ?? "").toLocaleString()}`}
                 </Text>
             </Flex>
-            <Flex style={{ width: "100%" }} gap={20}>
-                <Flex vertical style={{ width: "60%" }} gap={20}>
+            <Flex style={{ width: "100%" }} gap={20} vertical={isMobileDevice}>
+                <Flex vertical style={{ width:`${isMobileDevice ? "100%" : "60%"}`}} gap={20}>
 
                     <Flex style={{ width: "100%", borderRadius: "10px", border: "1px solid #f0f0f0" }}>
                         <Flex vertical style={{ width: "100%", padding: "20px" }} gap={10}>
@@ -252,7 +324,7 @@ const WrapperOrderHistoryDesktop: React.FC<{ Orders: TOrder[] }> = ({ Orders }) 
                     </Flex>
 
                 </Flex>
-                <Flex vertical style={{ width: "40%", height: "min-content", borderRadius: "10px", border: "1px solid #f0f0f0", padding: "20px" }}>
+                <Flex vertical style={{ width: `${isMobileDevice ? "100%" : "40%"}`, height: "min-content", borderRadius: "10px", border: "1px solid #f0f0f0", padding: "20px" }}>
                     <Title level={4}>{`Статус заказа`}</Title>
                     <Steps
                         initial={0}
@@ -281,69 +353,4 @@ const WrapperOrderHistoryDesktop: React.FC<{ Orders: TOrder[] }> = ({ Orders }) 
     return <RenderListOrder />
 };
 
-const OrderHistoryDesktop = () => {
-    const RefreshToken = useReadLocalStorage<{ token: string | undefined }>("refreshToken");
-    const [Orders, setOrders] = useState<TOrder[]>([] as TOrder[]);
-
-    const GetOrders = async (refreshToken: string) => {
-
-        let fetchAccessToken = undefined;
-        try {
-            fetchAccessToken = await (
-                await fetch(`/auth_api/v2/token/refresh`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        "Authorization": `Bearer ${refreshToken}`,
-                    },
-                    body: JSON.stringify({
-                        token: refreshToken,
-                    }),
-                })
-            );
-            if (fetchAccessToken.status !== 201) {
-                return JSON.stringify(fetchAccessToken.text)
-            }
-            fetchAccessToken = await fetchAccessToken.json();
-        }
-        catch (e) {
-            console.log("Не вышло запросить токен")
-            console.log(e)
-            return "Не вышло запросить токен"
-        }
-
-        try {
-            const getHistory = await fetch('/basket_api/v2/order/by_access_t/', {
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    "access-token": `${fetchAccessToken?.access?.token}`,
-                }
-            });
-            if (getHistory.status !== 200) {
-                return JSON.stringify(getHistory.text)
-            }
-            setOrders(await getHistory.json())
-
-        } catch (e) {
-            console.log("Не вышло запросить историю заказов")
-            console.log(e)
-            return "Не вышло запросить историю заказов"
-        }
-    }
-
-    useLayoutEffect(() => {
-        if (RefreshToken && RefreshToken?.token) {
-            GetOrders(RefreshToken.token);
-        }
-    }, [RefreshToken]);
-
-    if (!RefreshToken) {
-        return <Spin size="large" />
-    }
-
-    return <WrapperOrderHistoryDesktop Orders={Orders} />
-}
-
-export default OrderHistoryDesktop;
+export default OrderHistory;

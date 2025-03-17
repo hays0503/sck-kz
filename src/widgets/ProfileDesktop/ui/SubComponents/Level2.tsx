@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import IconLikeIOS from "@/shared/ui/IconLikeIOS/IconLikeIOS";
 import { Watermark } from "antd";
-import { OrderHistoryDesktop } from "@/widgets/OrderHistoryDesktop";
+import { OrderHistory } from "@/widgets/OrderHistory";
 import { orderByType } from "api-mapping/product/by_populates";
 import { FeaturedProductsListPagination } from "@/widgets/FeaturedProductsListPagination";
 import { Logout } from "@/features/logout";
@@ -100,7 +100,7 @@ const Level2: React.FC<Level2Props> = (props) => {
       <Flex vertical={true} gap={10} align="center" style={{ width: "100%" }}>
         <ElementList
           title={t("istoriya-zakazov")}
-          action={() => setContent(<><OrderHistoryDesktop /></>)}
+          action={() => setContent(<><OrderHistory isMobileDevice={false} /></>)}
           disabled={isGuest}
           icon={
             <IconLikeIOS

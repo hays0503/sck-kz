@@ -1,99 +1,35 @@
 "use server"
 
-import { UrlApiV1, UrlApiWithDomainV1, UrlApiWithDomainV2, UrlRevalidateV1 } from "@/shared/constant/url";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
-import { OrderHistoryMobile } from "@/widgets/OrderHistoryMobile";
+import { OrderHistory } from "@/widgets/OrderHistory";
 import { getTranslations } from "next-intl/server";
 
-interface OrderPageProps {
-    readonly params: {
-        locale: string;
-        city: string;
-        refreshToken: string;
-    }
-}
-  
-
-const OrderHistoryPage = async ({ params }: OrderPageProps) => {
-
-    const t = await getTranslations("OrderHistoryPage")
-
-    let fallback = {};
-
-    try{
-        const fetchCity = await (
-            await fetch(UrlApiWithDomainV1.getCity, {
-                ...UrlRevalidateV1.getCity,
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            })
-        ).json();
-        fallback = { [UrlApiV1.getCity]: fetchCity };
-    }catch(e) {
-        console.log("Не вышло запросить города")
-        console.log(e)
-        return "Не вышло запросить города"
-    }
+// interface OrderPageProps {
+//     readonly params: {
+//         locale: string;
+//         city: string;
+//         refreshToken: string;
+//     }
+// }
 
 
-    let fetchAccessToken = undefined;
-    try{
-        const url = `${UrlApiWithDomainV2.getUser}/token/refresh`
-        fetchAccessToken = await (
-            await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: JSON.stringify({
-                    token: (await params).refreshToken,
-                }),
-            })
-        );
-        if(fetchAccessToken.status !== 201) {
-            return JSON.stringify(fetchAccessToken.text)
-        }
-        fetchAccessToken = await fetchAccessToken.json();
-    }
-    catch(e) {
-        console.log("Не вышло запросить токен")
-        console.log(e)
-        return "Не вышло запросить токен"
-    }
-    
-    let Orders = [];
-    try{
-        const url = `${UrlApiWithDomainV2.getOrder}/by_access_t`    
-        const getHistory = await fetch(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    'access-token': fetchAccessToken.token,
-                }});
-        if(getHistory.status !== 200) {
-            return JSON.stringify(getHistory.text)
-        }
-        Orders = await getHistory.json();
+const OrderHistoryPage = async (
+    // { params }: OrderPageProps
+) => {
 
-    }catch(e) {
-        console.log("Не вышло запросить историю заказов")
-        console.log(e)
-        return "Не вышло запросить историю заказов"
-    }  
+    const fallback = {};
+    const t = await getTranslations("OrderHistoryPage");
 
     return (
         <ProvidersServer>
             <ProvidersClient fallback={fallback}>
                 <LayoutMain
                     headerContent={<HeaderText text={t('istoriya-zakazov')} />}
-                    content={<OrderHistoryMobile Orders={Orders} />}
+                    content={<OrderHistory isMobileDevice={true} />}
                     footerContent={<FooterMobile defaultKey="4" />}
                 />
             </ProvidersClient>
