@@ -1,8 +1,6 @@
 "use client";
 
-import { Button, Collapse, Flex,
-    //  Tag,
-      Typography } from "antd";
+import { Button, Collapse, Flex,Typography } from "antd";
 import FilterGroupCheckBox from "./FilterGroupCheckBox";
 import { Dispatch, useState } from "react";
 import { FilterType } from "./FilterValueCheckBox";
@@ -10,11 +8,13 @@ import type { CollapseProps } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 const { Title } = Typography
 
-const FilterGroup: React.FC<{
+interface FilterGroupProps {
     dropFilter: () => void,
     specificationDefault: FilterType[],
     filterActive: number[], setFilterActive: Dispatch<React.SetStateAction<number[]>>
-}> = ({ dropFilter,specificationDefault, filterActive, setFilterActive }) => {
+}
+
+const FilterGroup: React.FC<FilterGroupProps> = ({ dropFilter,specificationDefault, filterActive, setFilterActive }) => {
 
     const [
         // keyValue,

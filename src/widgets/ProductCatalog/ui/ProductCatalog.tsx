@@ -14,11 +14,14 @@ import { Dispatch, useState } from "react";
 import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
+import { FilterType } from "@/features/new-product-filter/ui/SubModule/FilterValueCheckBox";
 
 const { Text } = Typography;
 
 interface ProductsCatalogProps {
   params: { slug: string };
+  
+  filter:FilterType[]
 }
 
 
@@ -33,10 +36,12 @@ interface WrapperOnDefaultProps {
   SetActiveFilterProductIds: Dispatch<React.SetStateAction<number[]>>,
 
   SortOrder: string
+
+  filter: FilterType[]
 }
 
 const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
-  const { slug, SortOrder, CurrentPage } = params;
+  const { slug, SortOrder, CurrentPage} = params;
   const t = useTranslations("Status");
   const { data, isLoading, error } = useGetProductByCategorySWR({
     category: slug,
@@ -96,10 +101,19 @@ const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
 interface RenderProps extends WrapperOnDefaultProps {
   Products: MappedPopularProductType[],
   ProductsLen: number,
+  
+  filter: FilterType[]
 }
 
 const Render: React.FC<RenderProps> = ({
-  slug, Products, ActiveFilterProductIds, SetActiveFilterProductIds, ProductsLen, CurrentPage, SetCurrentPage
+  slug,
+  Products,
+  ActiveFilterProductIds,
+  SetActiveFilterProductIds,
+  ProductsLen,
+  CurrentPage,
+  SetCurrentPage,
+  filter
 }) => {
   const router = useRouter();
   const t = useTranslations("Render");
@@ -124,7 +138,11 @@ const Render: React.FC<RenderProps> = ({
       </>}
       {ProductsLen > 0 && <><Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
         <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${slug}`} />
-        <Filter dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }} category={slug} filterActive={ActiveFilterProductIds} setFilterActive={SetActiveFilterProductIds} />
+        <Filter
+          dataSpecifications={filter} 
+          dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }}
+          filterActive={ActiveFilterProductIds}
+          setFilterActive={SetActiveFilterProductIds} />
       </Flex>
         <Flex
           vertical={true}
@@ -144,7 +162,7 @@ const Render: React.FC<RenderProps> = ({
 }
 
 
-const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params }) => {
+const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
   const { slug } = params;
   const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [sortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
@@ -155,6 +173,8 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params }) => {
   const renderMode = activeFilterProductIds.length <= 0;
 
   const renderParams: WrapperOnDefaultProps = {
+    filter: filter,
+
     slug: slug,
 
     CurrentPage: currentPage,

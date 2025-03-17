@@ -18,6 +18,7 @@ import { getTranslations } from "next-intl/server";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { SearchProduct } from "@/features/search-products";
 import { CSSProperties } from "react";
+import { FilterType } from "@/features/new-product-filter/ui/SubModule/FilterValueCheckBox";
 
 type PageProps = {
   params: Promise<{
@@ -49,6 +50,11 @@ export default async function CatalogPage(props: PageProps) {
 
   const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
 
+  const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : "";
+  const urlFilter = `${process.env.HOST_URL}${host_port}/api-mapping/filter/?category=${(await params).slug}`;
+
+  const dataFilter = await fetch(urlFilter).then(res => res.json()) as { result:FilterType[] };
+
   const urlProductsByCategory = `/api-mapping/product/by_category/?category=${(await params).slug}&order=${order}&page=${page}&city=${(await params).city}`
 
   const urlCity = `/api-mapping/city`
@@ -76,7 +82,7 @@ export default async function CatalogPage(props: PageProps) {
             <Flex vertical={true} gap={20} style={{ 
               width: "100%", height: "100%", backgroundColor: "#fff",
               "--sck-columns-on-page": 2 } as CSSProperties}>
-              <ProductCatalog params={await params} />
+              <ProductCatalog params={await params} filter={dataFilter.result} />
             </Flex>
           }
 

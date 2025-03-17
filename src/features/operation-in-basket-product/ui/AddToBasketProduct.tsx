@@ -13,7 +13,6 @@ const { Text } = Typography;
 
 const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   const { data } = useGetBasketProductsSWR();
-  console.log(data, "data");
   const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
     if ('vibrate' in navigator) {
