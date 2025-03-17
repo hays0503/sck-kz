@@ -47,7 +47,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   }
 
   if (error) {
-    return <div>{t('oshibka')}</div>
+    return <div>{t('oshibka')} {JSON.stringify(error)}</div>
   }
 
   const product: MappedProductDetailType = ProductBySlug as MappedProductDetailType;
