@@ -1,13 +1,13 @@
-import defaultFetcher from "@/shared/tools/defaultFetcher";
-import { MappedCountType } from "api-mapping/basket/count/type/MappedCountType";
-import useSWR, { SWRResponse } from "swr";
+import defaultFetcher from '@/shared/tools/defaultFetcher';
+import { MappedCountType } from 'api-mapping/basket/v1/count/type/MappedCountType';
+import useSWR, { SWRResponse } from 'swr';
 
 const useGetBasketCountSWR = (
-  uuid: string | null
+  uuid: string | null,
 ): SWRResponse<{ results: MappedCountType }> => {
   const shouldFetch = Boolean(uuid); // Проверяем, нужен ли запрос
-  const url = shouldFetch ? `/api-mapping/basket/count/?uuid=${uuid}` : null;
-  const object = useSWR(url, (_url) => defaultFetcher(_url).catch(() => null));  
+  const url = shouldFetch ? `/api-mapping/basket/v2/count/?uuid=${uuid}` : null;
+  const object = useSWR(url, (_url) => defaultFetcher(_url).catch(() => null));
   return object;
 };
 

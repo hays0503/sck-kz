@@ -3,7 +3,7 @@
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Button, Flex, Typography } from "antd";
-import { MappedPopularProductType, orderByType } from "api-mapping/product/populates";
+import { MappedPopularProductType, orderByType } from "api-mapping/product/by_populates";
 import { Level1, Level2 } from "./SubComponent";
 import { FEATURED_PRODUCTS } from "@/shared/constant/featured-products";
 import { parseAsInteger, useQueryState } from "nuqs";
@@ -74,11 +74,11 @@ const RenderFeaturedProducts: React.FC<{ FeaturedProductsIds: number[], order: o
                 {ProductsLen > 0 && <Flex vertical style={{
                     ...style,
                     width: "100%",
-                    backgroundColor:"#f5f5f5",
+                    backgroundColor: "#f5f5f5",
                     borderRadius: "8px",
-                    height:"80dvh",
-                    overflowX:"hidden",
-                    overflowY:"scroll",
+                    height: "80dvh",
+                    overflowX: "hidden",
+                    overflowY: "scroll",
                     border: "0.33px solid  #D9D9D9",
                 } as CSSProperties}>
                     <Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">

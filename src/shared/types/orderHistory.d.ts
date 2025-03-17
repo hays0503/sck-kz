@@ -2,6 +2,7 @@ export interface TOrder {
     account_number: number
     delivery_address: string
     payment_type: string
+    payment_status: string
     delivery_type: string
     uuid_id: string
     order_status: string

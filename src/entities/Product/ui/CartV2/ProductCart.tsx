@@ -5,7 +5,7 @@ import { Level1, Level2, Level3 } from "./SubComponent";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import { useResizeObserver } from "@undefined/usehooks-ts";
 
 interface IProductCartProps {
@@ -20,7 +20,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
   const currentCity = useGetCityParams();
   const locale = useLocale();
   const refContainer = useRef<HTMLDivElement>(null);
-  
+
   const { width: CartWidth = 160 } = useResizeObserver({
     ref: refContainer,
     box: "border-box",
@@ -44,7 +44,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         // width: "calc(100dvw / var(--sck-columns-on-page) - 20px)",
       }}
     >
-      
+
       <Level1
         discount={Product.discount}
         addToFavoriteSlot={addToFavoriteSlot}
@@ -78,7 +78,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                 name={ProductName}
                 images={Product.img}
                 width={CartWidth}
-                height={CartWidth} 
+                height={CartWidth}
               />
             </Suspense>
           </Link>

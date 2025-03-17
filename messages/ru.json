@@ -136,7 +136,11 @@
   },
   "OrderMobile": {
     "loading": "Загрузка",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "order": "Оформление заказа",
+    "korzina": "Корзина",
+    "glavnuyu": "Главная",
+    "korzina-pusta": "Корзина пуста"
   },
   "Profile": {
     "profil": "Профиль",

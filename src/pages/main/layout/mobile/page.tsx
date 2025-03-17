@@ -43,7 +43,7 @@ export default async function HomePage(props: PageProps) {
 
   const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot();
 
-  const urlPopulates = `/api-mapping/product/populates?page=${page}&order=none_sort&city=${(await params).city}`
+  const urlPopulates = `/api-mapping/product/by_populates?page=${page}&order=none_sort&city=${(await params).city}`
   const urlCity = `/api-mapping/city`
   const urlCategoryRoot = `/api-mapping/category/root`
   const fallback = {

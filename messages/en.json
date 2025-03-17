@@ -127,7 +127,11 @@
   },
   "OrderMobile": {
     "loading": "Loading",
-    "error": "Error"
+    "error": "Error",
+    "order": "Ordering of the order",
+    "korzina": "Basket",
+    "glavnuyu": "Home",
+    "korzina-pusta": "The basket is empty"
   },
   "Profile": {
     "profil": "Profile",
@@ -302,5 +306,6 @@
     "g-shymkent-ul-koikeldi-batyra-18-2": "G. Shymkent, st. \nKoykeldi Batyr, 18/2",
     "dlya-predlozhenii-o-sotrudnichestve": "For proposals for cooperation",
     "po-voprosam": "On issues of advertising on various media and consideration of commercial offers. \nSpecialist in advertising SCK LLP (Essikey) - \"Sales Center of Kazakhstan\""
-  }
+  },
+  "korzina-pusta": "The basket is empty"
 }

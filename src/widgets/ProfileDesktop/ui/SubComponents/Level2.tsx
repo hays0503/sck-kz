@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import IconLikeIOS from "@/shared/ui/IconLikeIOS/IconLikeIOS";
 import { Watermark } from "antd";
 import { OrderHistoryDesktop } from "@/widgets/OrderHistoryDesktop";
-import { orderByType } from "api-mapping/product/populates";
+import { orderByType } from "api-mapping/product/by_populates";
 import { FeaturedProductsListPagination } from "@/widgets/FeaturedProductsListPagination";
 import { Logout } from "@/features/logout";
 
@@ -54,7 +54,7 @@ const ElementList: React.FC<{
               type: "error",
               content: t("vy-ne-avtorizovany"),
             });
-          }else{
+          } else {
             props.action();
           }
         }}
@@ -100,7 +100,7 @@ const Level2: React.FC<Level2Props> = (props) => {
       <Flex vertical={true} gap={10} align="center" style={{ width: "100%" }}>
         <ElementList
           title={t("istoriya-zakazov")}
-          action={() => setContent(<><OrderHistoryDesktop/></>)}
+          action={() => setContent(<><OrderHistoryDesktop /></>)}
           disabled={isGuest}
           icon={
             <IconLikeIOS
@@ -113,8 +113,8 @@ const Level2: React.FC<Level2Props> = (props) => {
         <ElementList
           title={t("izbrannye-tovary")}
           action={() => setContent(<FeaturedProductsListPagination order={order} page={page} style={{
-                      "--sck-columns-on-page": "3"
-                    } as CSSProperties}/>)}
+            "--sck-columns-on-page": "3"
+          } as CSSProperties} />)}
           disabled={false}
           icon={
             <IconLikeIOS
@@ -168,7 +168,7 @@ const Level2: React.FC<Level2Props> = (props) => {
 
         <ElementList
           title={t('vykhod')}
-          action={() => setContent(<Logout/>)}
+          action={() => setContent(<Logout />)}
           disabled={isGuest}
           color="red"
           icon={

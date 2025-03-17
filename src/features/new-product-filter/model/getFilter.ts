@@ -36,8 +36,8 @@ class GetFilterCategory {
   // Получаем список продуктов из категории
   async getProductIdsByCategory(slugCategory: string): Promise<number[]> {
 
-    const urlProductsByCategory = `${UrlApiWithDomainV2.getProductsByCategory}${slugCategory}/?limit=9999999999`;
-    // const urlProductsByCategory = `/api-mapping/filter/?category=${slugCategory}`;
+    const urlProductsByCategory = `${UrlApiWithDomainV2.getProducts}category/${slugCategory}/?limit=9999999999`;
+
     let responseProductsByCategory: Response;
     
     try {
@@ -66,7 +66,6 @@ class GetFilterCategory {
           throw new Error("Запрашиваемы данные являются пустым массивом ");
         }
         const productIds = data.map((product) => product.id);
-        console.log("productIds =>", productIds);
         return productIds;
       } catch (error) {
         console.error("Ошибка при получении id продуктов", error);
@@ -94,8 +93,7 @@ class GetFilterCategory {
     let allSpecs: ProductSpecsType[] = [];
   
     for (const batch of batches) {
-      const url = `${UrlApiWithDomainV1.getProductSpecificationsById}configurations/${batch.join(",")}/`;
-  
+      const url = `${UrlApiWithDomainV1.getProductSpecifications}configurations/${batch.join(",")}/`;
       try {
         const response = await Promise.race([
           fetch(url, {

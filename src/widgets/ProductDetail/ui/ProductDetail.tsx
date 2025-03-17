@@ -18,7 +18,7 @@ const SendMessage: React.FC<{id:number}> = ({id}) => {
   const client_uuid = useReadLocalStorage<string>("uuid_id");
 
   useEffect(() => {
-    fetch("/auth_api/v1/viewed/add_viewed", {
+    fetch("/auth_api/v2/viewed/add_viewed", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
         <ReviewsList productId={fetchProduct.id} />
       </ProductDetailItem>
 */}
-      {product?.relatedProducts.length > 0 && (
+      {product?.relatedProducts && product?.relatedProducts.length > 0 && (
         <ProductDetailItem>
           <ProductDetailRelatedProduct
             productsRelated={product?.relatedProducts}

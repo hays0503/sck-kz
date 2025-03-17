@@ -9,7 +9,7 @@ type responseType = {
 
 async function getProductBySlug(slug:string): Promise<responseType> {
 
-    const url  = `${UrlApiWithDomainV2.getProductsBySlug}${slug}`;
+    const url  = `${UrlApiWithDomainV2.getProducts}details/${slug}`;
     console.log("url", url);
     const response = await fetch(url, {
         // next: { revalidate: 60 }, // Данные кешируются на 60 секунд

@@ -1,5 +1,5 @@
 import { Flex, Typography } from "antd";
-import { MappedBasketItemType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketItemType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import Image from "next/image";
 import { CSSProperties, JSX } from "react";
 import style from "./BasketMobile.module.css";

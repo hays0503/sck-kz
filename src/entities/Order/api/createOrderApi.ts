@@ -1,5 +1,5 @@
 
-import { UrlApiV1 } from "@/shared/constant/url";
+import { UrlApiV2 } from "@/shared/constant/url";
 import { IOrderCreate } from "@/shared/types/order";
 
 
@@ -15,7 +15,7 @@ const createOrderApi = async (
   order: IOrderCreate
 ): Promise<CreateOrderApiResponse> => {
   try {
-    const response = await fetch(UrlApiV1.getOrderApi, {
+    const response = await fetch(UrlApiV2.getOrder, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

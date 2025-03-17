@@ -10,6 +10,7 @@ import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { usePathname } from "next/navigation";
 import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
+import Image from "next/image";
 
 interface IBasketDesktopProps {
   readonly basket_id: string;
@@ -25,9 +26,12 @@ const BasketDesktop: React.FC<IBasketDesktopProps> = ({ basket_id }) => {
   const city = useGetCityParams();
   const Empty = () => {
     return (
-      <Flex justify="center" align="center" vertical={true}>
-        <Typography.Title level={3}>{t("korzina-pusta")}</Typography.Title>
-        <Link href={`/city/${city}/main`} prefetch={true}>{t("na-glavnuyu")}</Link>
+      <Flex justify="center" align="center" vertical={true} style={{ minHeight: "500px", width: "100%" }}>
+        <Flex justify="space-around" align="center" vertical={true} style={{ width: "350px", minHeight: "350px", background: "#ffff", borderRadius: "10px" }}>
+          <Typography.Title level={2}>{t("korzina-pusta")}</Typography.Title>          
+          <Image src="/cart.svg" alt="cart" width={100} height={100} style={{filter: "invert(1)"}}/>
+          <Link href={`/city/${city}/main`} prefetch={true}>{t("na-glavnuyu")}</Link>
+        </Flex>
       </Flex>
     );
   };

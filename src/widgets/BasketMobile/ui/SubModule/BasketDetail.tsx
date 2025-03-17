@@ -1,7 +1,7 @@
 
 import beautifulCost from "@/shared/tools/beautifulCost";
 import { Divider, Flex, Typography } from "antd";
-import { MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import { useTranslations } from "next-intl";
 
 const { Text, Title } = Typography;
@@ -35,7 +35,7 @@ const BasketDetail: React.FC<IBasketDetailProps> = ({ Products }) => {
   const Discount = () => {
     return (
       <>
-        {deltaPrice!==0 && (
+        {deltaPrice !== 0 && (
           <Flex align="center" justify="space-between" style={{ width: "95%" }}>
             <Text
               style={{

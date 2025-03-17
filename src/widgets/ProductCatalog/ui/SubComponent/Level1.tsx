@@ -2,7 +2,7 @@ import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import { Flex, Spin } from "antd";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import { CSSProperties, memo, Suspense, useCallback, useMemo } from "react";
 
 interface Level1Props {
@@ -35,7 +35,7 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
   const renderAddToCart = useCallback(
     (prod_id: number) => (
       <Suspense fallback={fallback}>
-        <AddToBasketProduct prod_id={prod_id}/>
+        <AddToBasketProduct prod_id={prod_id} />
       </Suspense>
     ),
     [fallback]
@@ -43,7 +43,7 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
 
   const gridStyle: CSSProperties = {
     width: "100%",
-    display:"grid",
+    display: "grid",
     gridTemplateColumns: "repeat(var(--sck-columns-on-page), 1fr)",
     gridGap: "10px"
   }
@@ -51,13 +51,13 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
   return (
     <div style={gridStyle}>
       {Products?.map((item, index) => <ProductCart
-            key={index}
-            Product={item}
-            addToCartSlot={renderAddToCart(item.id)}
-            addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
-            />
-          )}</div>
-      );
+        key={index}
+        Product={item}
+        addToCartSlot={renderAddToCart(item.id)}
+        addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
+      />
+      )}</div>
+  );
 });
 
 export default Level1;

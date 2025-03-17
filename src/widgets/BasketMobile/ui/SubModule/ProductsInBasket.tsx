@@ -4,7 +4,7 @@ import { useState } from "react";
 import style from "./BasketMobile.module.css";
 import type { CheckboxOptionType, CheckboxProps } from "antd";
 import RowInBasket from "./RowInBasket";
-import { MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import { DecButton, IncButton } from "@/features/operation-in-basket-product";
 import useBasketDelete from "@/features/operation-in-basket-product/model/useBasketDelete";
 

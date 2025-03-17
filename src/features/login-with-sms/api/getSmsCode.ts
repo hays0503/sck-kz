@@ -6,7 +6,7 @@ export type GetSmsCodeResponse = {
 export type GetSmsCode = (number_phone: string) => Promise<GetSmsCodeResponse>;
 
 const getSmsCode: GetSmsCode = async(number_phone) => {
-  return await fetch("/auth_api/v1/auth_phone/login/phone", {
+  return await fetch("/auth_api/v2/auth_phone/login/phone", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

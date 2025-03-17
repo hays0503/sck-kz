@@ -9,7 +9,7 @@ export type GetUserInfo = (
 ) => Promise<{ statusCode: number; data: ResponseUserInfo | null }>;
 
 const getUserInfo: GetUserInfo = async (token) => {
-  const response = await fetch("/auth_api/v1/user/info", {
+  const response = await fetch("/auth_api/v2/user/info/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

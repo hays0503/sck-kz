@@ -1,7 +1,7 @@
 
 import beautifulCost from "@/shared/tools/beautifulCost";
 import { Divider, Flex, Typography } from "antd";
-import { MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -12,7 +12,7 @@ interface IBasketDetailProps {
   readonly ToOrder: React.ReactNode
 }
 
-const BasketDetail: React.FC<IBasketDetailProps> = ({ Products,ToOrder }) => {
+const BasketDetail: React.FC<IBasketDetailProps> = ({ Products, ToOrder }) => {
   const t = useTranslations("BasketDetail");
 
   const allPrice = Products.items.reduce((acc, item) => {

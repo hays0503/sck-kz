@@ -4,7 +4,7 @@ import { useState } from "react";
 import style from "./BasketDesktop.module.css";
 import type { CheckboxOptionType, CheckboxProps } from "antd";
 import RowInBasket from "./RowInBasket";
-import { MappedBasketType } from "api-mapping/basket/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import { DecButton, IncButton } from "@/features/operation-in-basket-product";
 import useBasketDelete from "@/features/operation-in-basket-product/model/useBasketDelete";
 
@@ -51,10 +51,10 @@ const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
       <Flex
         align="baseline"
         justify="space-between"
-        style={{ 
+        style={{
           width: "100%", backgroundColor: "inherit",
           border: "0.33px solid #d9d9d9", borderRadius: "8px", padding: "24px"
-         }}
+        }}
       >
         <Checkbox
           onChange={onChangeAllChange}
@@ -75,10 +75,10 @@ const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
 
       <Flex
         vertical={true}
-        style={{ 
+        style={{
           width: "100%", backgroundColor: "inherit",
           border: "0.33px solid #d9d9d9", borderRadius: "8px", padding: "24px"
-         }}
+        }}
       >
         <CheckboxGroup
           options={GroupOptions}

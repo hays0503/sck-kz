@@ -14,7 +14,7 @@ export type GetRefreshToken = (
 ) => Promise<{ statusCode: number; data: ResponseRefreshToken | null }>;
 
 const getRefreshToken: GetRefreshToken = async (refreshToken) => {
-  const response = await fetch("/auth_api/v1/token/refresh", {
+  const response = await fetch("/auth_api/v2/token/refresh/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

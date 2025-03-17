@@ -52,7 +52,7 @@ const OrderHistoryPage = async ({ params }: OrderPageProps) => {
                     Accept: "application/json",
                 },
                 body: JSON.stringify({
-                    token: params.refreshToken,
+                    token: (await params).refreshToken,
                 }),
             })
         );

@@ -1,70 +1,62 @@
-
-export const ApiUrl = process.env.API_URL
-const ApiPort = `:${process.env.API_PORT}`
-const ApiAuthPort = `:${process.env.API_AUTH_PORT}`
-const ApiBasketPort = `:${process.env.API_BASKET_PORT}`
+export const ApiUrl = process.env.API_URL;
+// const ApiPortV1 = `:${process.env.API_PORT_V1}`;
+// const ApiAuthPortV1 = `:${process.env.API_AUTH_PORT_V1}`;
+// const ApiBasketPortV1 = `:${process.env.API_BASKET_PORT_V1}`;
+// const ApiAuthPortV2 = `:${process.env.API_AUTH_PORT_V2}`;
+// const ApiBasketPortV2 = `:${process.env.API_BASKET_PORT_V2}`;
 
 const UrlApiV1 = {
-  //Запрос всех городов
-  getCity: `/api/v1/citys/`,
+  getCity: `/api/v1/cities/`,
   getCategory: `/api/v1/category/`,
-  getPopulatesId: `/api/v1/populates/`,
+  
   getProducts: `/api/v1/products/`,
-  getProductSpecificationsById: `/api/v1/specif/`,
-  getProductReviewsById: `/api/v1/reviews/filter_by_prod/`,
-  getDescription: `/api/v1/descrip/`,
+  getPopulates: `/api/v1/populates/`,
+  getProductSpecifications: `/api/v1/specif/`,
+  getProductReviews: `/api/v1/reviews/`,
+  getDescription: `/api/v1/description/`,
 
-  getBasketApi: `/basket_api/v1/bascket`,
-  getOrderApi: `/basket_api/v1/order`,
+  getBasket: `/basket_api/v1/basket/`,
+  getOrder: `/basket_api/v1/order/`,
 
-  getUserInfoApi: `/auth_api/v1/user/info`,
-  getUserRefreshTokenApi: `/auth_api/v1/token/refresh`,
-
-  getUserUrlGoogle: `/auth_api/v1/auth_user/login/google`,
-  getUserAuthGoogle: `/auth_api/v1/auth_user/auth/google`,
-
-  getUserSmsUrl: `/auth_api/v1/auth_user/login/phone`,
-  getUserSmsAuth: `/auth_api/v1/auth_user/auth/phone`,
+  getUser: `/auth_api/v1/`
 };
 
 const UrlApiV2 = {
-    getProducts: `/api/v2/products_v2/`,
-    getProductsPopulates: `/api/v2/products_v2/popular_set/`,
-    getProductsByCategory: `/api/v2/products_v2/category/`,
-    getProductsByIds:`/api/v2/products_v2/filter_by_ids/`,
-    getProductsBySlug:`/api/v2/products_v2/details/`
-}
+  ...UrlApiV1,
+  getProducts: `/api/v2/products/`, 
+  getPopulates: `/api/v2/populates/`,
+
+  getBasket: `/basket_api/v2/basket/`,
+  getOrder: `/basket_api/v2/order/`,
+
+  getUser: `/auth_api/v2/`,
+};
 
 const UrlApiWithDomainV1 = {
-  getCity: `${ApiUrl}${ApiPort}${UrlApiV1.getCity}`,
-  getCategory: `${ApiUrl}${ApiPort}${UrlApiV1.getCategory}`,
-  getPopulatesId: `${ApiUrl}${ApiPort}${UrlApiV1.getPopulatesId}`,
-  getProducts: `${ApiUrl}${ApiPort}${UrlApiV1.getProducts}`,
-  getProductSpecificationsById: `${ApiUrl}${ApiPort}${UrlApiV1.getProductSpecificationsById}`,
-  getProductReviewsById: `${ApiUrl}${ApiPort}${UrlApiV1.getProductReviewsById}`,
-  getDescription: `${ApiUrl}${ApiPort}${UrlApiV1.getDescription}`,
+  getCity: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/citys/`, // Опечатка
+  getCategory: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/category/`,
+  getPopulates: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/populates/`,
+  getProducts: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/products/`,
+  getProductReviews: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/reviews/`,
+  getProductSpecifications: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/specif/`,
+  getProductDescription: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/descrip/`, // Опечатка
 
-  getBasketApi: `${ApiUrl}${ApiBasketPort}${UrlApiV1.getBasketApi}`,
-  getOrderApi: `${ApiUrl}${ApiBasketPort}${UrlApiV1.getOrderApi}`,
+  getBasket: `${process.env.API_URL}:${process.env.API_BASKET_PORT_V1}/basket_api/v1/bascket/`, // Опечатка
+  getOrder: `${process.env.API_URL}:${process.env.API_BASKET_PORT_V1}/basket_api/v1/order/`,
 
-  getUserInfoApi: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserInfoApi}`,
-
-  getUserUrlGoogle: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserUrlGoogle}`,
-  getUserAuthGoogle: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserAuthGoogle}`,
-
-  getUserSmsUrl: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserSmsUrl}`,
-  getUserSmsAuth: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserSmsAuth}`,
-
-  getUserRefreshTokenApi: `${ApiUrl}${ApiAuthPort}${UrlApiV1.getUserRefreshTokenApi}`,
+  getUser: `${process.env.API_URL}:${process.env.API_AUTH_PORT_V1}/auth_api/v1/`,
 };
 
 const UrlApiWithDomainV2 = {
-  getProducts: `${ApiUrl}${ApiPort}${UrlApiV2.getProducts}`,
-  getProductsPopulates: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsPopulates}`,
-  getProductsByCategory: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsByCategory}`,
-  getProductsByIds: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsByIds}`,
-  getProductsBySlug: `${ApiUrl}${ApiPort}${UrlApiV2.getProductsBySlug}`,
-}
+  ...UrlApiWithDomainV1,
+  getProducts: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v2/products_v2/`,
+  getPopulates: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v2/products_v2/popular_set/`,
+
+  getBasket: `${process.env.API_URL}:${process.env.API_BASKET_PORT_V2}/basket_api/v1/bascket/`, // Опечатка
+  getOrder: `${process.env.API_URL}:${process.env.API_BASKET_PORT_V2}/basket_api/v1/order/`,
+
+  getUser: `${process.env.API_URL}:${process.env.API_AUTH_PORT_V2}/auth_api/v1/`,
+};
 
 const revalidateDefault = 60;
 
@@ -81,9 +73,9 @@ const UrlRevalidateV1 = {
       revalidate: revalidateDefault,
     },
   },
-  getPopulatesId: {
+  getPopulates: {
     next: {
-      tags: [UrlApiV1.getPopulatesId],
+      tags: [UrlApiV1.getPopulates],
       revalidate: revalidateDefault,
     },
   },
@@ -92,31 +84,20 @@ const UrlRevalidateV1 = {
       tags: [UrlApiV1.getProducts],
       revalidate: revalidateDefault,
     },
-  },
-  getProductSpecificationsById: {
-    next: {
-      tags: [UrlApiV1.getProductSpecificationsById],
-      revalidate: revalidateDefault,
-    },
-  },
-  getProductReviewsById: {
-    next: {
-      tags: [UrlApiV1.getProductReviewsById],
-      revalidate: revalidateDefault,
-    },
-  },
+  }
 };
 
 const UrlRevalidateV2 = {
+  ...UrlRevalidateV1,
   getProducts: {
     next: {
       tags: [UrlApiV2.getProducts],
       revalidate: revalidateDefault,
     },
   },
-  getProductsPopulates: {
+  getPopulates: {
     next: {
-      tags: [UrlApiV2.getProductsPopulates],
+      tags: [UrlApiV2.getPopulates],
       revalidate: revalidateDefault,
     },
   },

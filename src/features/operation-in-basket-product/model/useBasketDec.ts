@@ -19,13 +19,13 @@ const useBasketDec: useBasketAddHook = ({ prod_id }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const cityEn = useGetCityParams();
   const action = useCallback(async () => {
-    const url = `/api-mapping/basket/dec-product?uuid=${uuid}&prod_id=${prod_id}&city=${cityEn}`;
+    const url = `/api-mapping/basket/v2/dec-product?uuid=${uuid}&prod_id=${prod_id}&city=${cityEn}`;
     const response = await fetch(url, {
       method: "POST",
     });
     if (response.ok) {
-      mutate(`/api-mapping/basket/count/?uuid=${uuid}`);
-      mutate(`/api-mapping/basket/get-products/?uuid=${uuid}&city=${cityEn}`);
+      mutate(`/api-mapping/basket/v2/count/?uuid=${uuid}`);
+      mutate(`/api-mapping/basket/v2/get-products/?uuid=${uuid}&city=${cityEn}`);
       messageApi.open({
         type: "success",
         content: t('tovar-udalyon-iz-korziny')

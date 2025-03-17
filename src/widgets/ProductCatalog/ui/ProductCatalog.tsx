@@ -11,7 +11,7 @@ import { SortingProducts } from "@/features/sorting-products";
 import { Filter } from "@/features/new-product-filter";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
 import { Dispatch, useState } from "react";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
 
@@ -130,7 +130,7 @@ const Render: React.FC<RenderProps> = ({
           vertical={true}
           align="center"
           justify="space-evenly"
-          gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent",padding:"5px" }}>
+          gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent", padding: "5px" }}>
 
           <Level1 Products={Products} />
           {

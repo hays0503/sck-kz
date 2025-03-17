@@ -10,7 +10,7 @@ import { Level1, Level2 } from "./SubComponent";
 import { SortingProducts } from "@/features/sorting-products";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
 import { Dispatch, memo, useRef, useState } from "react";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
 import FilterDesktop from "@/features/new-product-filter/ui/FilterDesktop";
@@ -103,13 +103,12 @@ interface RenderProps extends WrapperOnDefaultProps {
 // eslint-disable-next-line react/display-name
 const Render: React.FC<RenderProps> = memo(({
   Slug, Products, ActiveFilterProductIds, SetActiveFilterProductIds, ProductsLen, CurrentPage, SetCurrentPage
-}) => 
-{
+}) => {
   const router = useRouter();
   const t = useTranslations("Render");
   const cityEn = useGetCityParams();
   const catalogRef = useRef<HTMLDivElement>(null);
-    
+
   const { height: catalogHeight = 500 } = useResizeObserver({
     ref: catalogRef,
     box: "border-box",
@@ -187,8 +186,6 @@ const ProductCatalogDesktop: React.FC<ProductsCatalogProps> = ({ params }) => {
 
     SortOrder: sortOrder
   }
-
-  console.log("activeFilterProductIds=>",activeFilterProductIds)
 
   return <>{renderMode ? <WrapperOnDefault {...renderParams} /> : <WrapperOnFilter {...renderParams} />}</>
 };

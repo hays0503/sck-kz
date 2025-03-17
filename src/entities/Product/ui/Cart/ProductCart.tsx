@@ -5,7 +5,7 @@ import { Level1, Level2, Level3 } from "./SubComponent";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 
 
 interface IProductCartProps {
@@ -56,8 +56,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
           }}>
             <Suspense fallback={
               <Flex justify="center" align="center" style={{
-                width: CartWidth-30,
-                height: CartWidth-30
+                width: CartWidth - 30,
+                height: CartWidth - 30
               }}>
                 <Spin />
               </Flex>
@@ -65,8 +65,8 @@ const ProductCart: React.FC<IProductCartProps> = (props) => {
               <ProductCartSwiper
                 name={ProductName}
                 images={Product.img}
-                width={CartWidth-30}
-                height={CartWidth-30} //Квадрат высота равна ширине
+                width={CartWidth - 30}
+                height={CartWidth - 30} //Квадрат высота равна ширине
               />
             </Suspense>
           </Link>

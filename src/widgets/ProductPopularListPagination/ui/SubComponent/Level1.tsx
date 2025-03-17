@@ -2,7 +2,7 @@ import { ProductCart } from "@/entities/Product/ui/CartV2";
 import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
 import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import { Flex, Spin } from "antd";
-import { MappedPopularProductType } from "api-mapping/product/populates";
+import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import { CSSProperties, Suspense } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +23,7 @@ interface Level1Props {
 }
 
 // Первый уровень карты (карточки товаров)
-const Level1: React.FC<Level1Props> = ({ Products}) => {
+const Level1: React.FC<Level1Props> = ({ Products }) => {
 
   const ButtonStyle: CSSProperties = {
     width: "100%",
@@ -35,7 +35,7 @@ const Level1: React.FC<Level1Props> = ({ Products}) => {
 
   const gridStyle: CSSProperties = {
     width: "100%",
-    display:"grid",
+    display: "grid",
     gridTemplateColumns: "repeat(var(--sck-columns-on-page), 1fr)",
     gridGap: "10px"
   }

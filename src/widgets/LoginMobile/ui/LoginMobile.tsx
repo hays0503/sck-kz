@@ -9,7 +9,12 @@ import { CSSProperties } from "react"
 
 const { Text } = Typography
 
-const LoginMobile: React.FC<{ urlCallback?: string }> = ({ urlCallback }) => {
+interface LoginMobileProps{
+    urlCallback?: string
+    style?: CSSProperties
+}
+
+const LoginMobile: React.FC<LoginMobileProps> = ({ urlCallback,style }) => {
     const t = useTranslations("LoginPage");
     const TextStyle = {
         fontSize: "14px",
@@ -25,7 +30,7 @@ const LoginMobile: React.FC<{ urlCallback?: string }> = ({ urlCallback }) => {
             gap={35}
             justify="center"
             align="center"
-            style={{ width: "100%", height: "100%", padding: "25px" }}
+            style={{ width: "100%", height: "100%", padding: "25px",...style }}
         >            
             <LogoSCK size="large" />
             <Flex
