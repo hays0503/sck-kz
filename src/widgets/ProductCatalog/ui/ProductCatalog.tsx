@@ -10,7 +10,7 @@ import { Level1, Level2 } from "./SubComponent";
 import { SortingProducts } from "@/features/sorting-products";
 import { Filter } from "@/features/new-product-filter";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
-import { Dispatch, useState } from "react";
+import { Dispatch, memo, useState } from "react";
 import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
@@ -64,7 +64,7 @@ const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
     ProductsLen: data?.len ?? 0,
   }
 
-  return <Render {...renderProps} />
+  return <RenderMemo {...renderProps} />
 }
 
 interface WrapperOnFilter extends WrapperOnDefaultProps {
@@ -95,7 +95,7 @@ const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
     ProductsLen: data?.len ?? 0,
   }
 
-  return <Render {...renderProps} />
+  return <RenderMemo {...renderProps} />
 }
 
 interface RenderProps extends WrapperOnDefaultProps {
@@ -161,6 +161,10 @@ const Render: React.FC<RenderProps> = ({
   );
 }
 
+const WrapperOnDefaultMemo = memo(WrapperOnDefault)
+const WrapperOnFilterMemo = memo(WrapperOnFilter)
+const RenderMemo = memo(Render)
+
 
 const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
   const { slug } = params;
@@ -188,7 +192,7 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
 
   
 
-  return <>{renderMode ? <WrapperOnDefault {...renderParams} /> : <WrapperOnFilter {...renderParams} />}</>
+  return <>{renderMode ? <WrapperOnDefaultMemo {...renderParams} /> : <WrapperOnFilterMemo {...renderParams} />}</>
 };
 
 export default ProductCatalog;
