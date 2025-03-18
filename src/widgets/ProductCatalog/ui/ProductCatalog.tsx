@@ -10,7 +10,7 @@ import { Level1, Level2 } from "./SubComponent";
 import { SortingProducts } from "@/features/sorting-products";
 import { Filter } from "@/features/new-product-filter";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
-import { Dispatch, memo, useState } from "react";
+import { Dispatch, memo, useMemo, useState } from "react";
 import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
@@ -64,7 +64,7 @@ const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
     ProductsLen: data?.len ?? 0,
   }
 
-  return <RenderMemo {...renderProps} />
+  return <Render {...renderProps} />
 }
 
 interface WrapperOnFilter extends WrapperOnDefaultProps {
@@ -165,34 +165,27 @@ const WrapperOnDefaultMemo = memo(WrapperOnDefault)
 const WrapperOnFilterMemo = memo(WrapperOnFilter)
 const RenderMemo = memo(Render)
 
-
-const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
+const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params, filter }) => {
   const { slug } = params;
-  const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
+  const [currentPage, setCurrentPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const [sortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
 
+  const [activeFilterProductIds, setActiveFilterProductIds] = useState<number[]>([]);
 
-  const [activeFilterProductIds, setActiveFilterProductIds] = useState<number[]>([])
-
-  const renderMode = activeFilterProductIds.length <= 0;
+  const renderMode = useMemo(() => activeFilterProductIds.length === 0, [activeFilterProductIds]);
 
   const renderParams: WrapperOnDefaultProps = {
-    filter: filter,
-
-    slug: slug,
-
+    filter,
+    slug,
     CurrentPage: currentPage,
-    SetCurrentPage: setCurrentPage,
-
+    SetCurrentPage: setCurrentPage, // Теперь корректный тип
     ActiveFilterProductIds: activeFilterProductIds,
     SetActiveFilterProductIds: setActiveFilterProductIds,
+    SortOrder: sortOrder,
+  };
 
-    SortOrder: sortOrder
-  }
-
-  
-
-  return <>{renderMode ? <WrapperOnDefaultMemo {...renderParams} /> : <WrapperOnFilterMemo {...renderParams} />}</>
+  return renderMode ? <WrapperOnDefaultMemo {...renderParams} /> : <WrapperOnFilterMemo {...renderParams} />;
 };
+
 
 export default ProductCatalog;
