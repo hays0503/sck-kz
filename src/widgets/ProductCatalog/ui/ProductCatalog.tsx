@@ -1,11 +1,10 @@
 "use client";
 
 import { useGetProductByCategorySWR } from "@/entities/Product/model";
-import { PRODUCT } from "@/shared/constant/product";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { Level1, Level2 } from "./SubComponent";
+import { Level1 } from "./SubComponent";
 import { SortingProducts } from "@/features/sorting-products";
 import useGetProductByIdsSWR from "@/entities/Product/model/getProductByIdsSWR";
 import { memo } from "react";
@@ -65,15 +64,15 @@ const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
   return <Render {...renderProps} />
 }
 
-interface WrapperOnFilter extends WrapperOnDefaultProps {
-  ActiveFilterProductIds: number[]
-}
+// interface WrapperOnFilter extends WrapperOnDefaultProps {
+//   // ActiveFilterProductIds: number[]
+// }
 
-const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
-  const { SortOrder, CurrentPage, ActiveFilterProductIds } = params;
+const WrapperOnFilter: React.FC<WrapperOnDefaultProps> = (params) => {
+  const { SortOrder, CurrentPage } = params;
   const t = useTranslations("Status");
   const { data, isLoading, error } = useGetProductByIdsSWR({
-    ids: ActiveFilterProductIds,
+    ids: [],
     city: useGetCityParams(),
     orderBy: SortOrder as "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price",
     page: CurrentPage
@@ -109,7 +108,7 @@ const Render: React.FC<RenderProps> = ({
   // ActiveFilterProductIds,
   // SetActiveFilterProductIds,
   ProductsLen,
-  CurrentPage,
+  // CurrentPage,
   // SetCurrentPage,
   // filter
 }) => {
@@ -149,10 +148,10 @@ const Render: React.FC<RenderProps> = ({
           gap={10} style={{ width: "100%", height: "100%", backgroundColor: "transparent", padding: "5px" }}>
 
           <Level1 Products={Products} />
-          {
+          {/* {
             ProductsLen > PRODUCT.PRODUCT_PER_PAGE &&
             <Level2 pageSize={PRODUCT.PRODUCT_PER_PAGE} total={ProductsLen} current={CurrentPage} onChange={SetCurrentPage} />
-          }
+          } */}
         </Flex>
       </>}
     </>
