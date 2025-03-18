@@ -186,6 +186,8 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
     SortOrder: sortOrder
   }
 
+  console.count("ProductCatalog");
+
   return <>{renderMode ? <WrapperOnDefault {...renderParams} /> : <WrapperOnFilter {...renderParams} />}</>
 };
 
