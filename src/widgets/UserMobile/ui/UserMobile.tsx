@@ -19,7 +19,7 @@ const changeData = async (NewData: {
   "username": string,
   "email": string
 }, token: string) => {
-  const data = await fetch("/auth_api/v1/user/update", {
+  const data = await fetch("/auth_api/v2/user/update", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string, refetch:
       <Upload
         name="file"
         maxCount={1}
-        action="/auth_api/v1/user/avatar"
+        action="/auth_api/v2/user/avatar"
         headers={{
           "accept": "application/json",
           Authorization: `Bearer ${accessToken}`
