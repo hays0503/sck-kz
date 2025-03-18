@@ -65,6 +65,8 @@ export default async function CatalogPage(props: PageProps) {
     [urlCategoryRoot]: categoryRoot
   };
 
+  console.count("ProductCatalog");
+
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
