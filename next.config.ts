@@ -17,6 +17,9 @@ const nextConfig = {
         hostname: 'sck-kz',
       },
       {
+        hostname: 'sck.kz',
+      },
+      {
         hostname: '185.100.67.246',
       },
       {

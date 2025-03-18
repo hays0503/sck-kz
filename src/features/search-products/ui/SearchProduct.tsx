@@ -13,7 +13,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useLocale } from "next-intl";
 import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import Image from "next/image";
-const { Text,Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 
 
 export default function SearchProduct() {
@@ -49,32 +49,36 @@ export default function SearchProduct() {
 
           try {
             const products = await responseProducts.json();
-            const options = products?.results.map((product: MappedPopularProductType) => ({
-              value: product.slug,
-              label: <>
-                <Flex align="center" justify="space-between">
-                  <Flex align="center" justify="start" gap={10} style={{
-                    width: "70%"
-                  }}>
-                    <ImageAntd
-                      preview={false}
-                      src={product.img[0] ?? '/nofoto.jpg'}
-                      alt={product?.name[locale] ?? product.img[0]}
-                      width={100} height={100}
-                      loading="lazy"
-                      style={{ objectFit: "scale-down",aspectRatio: "1/1" }}
-                      placeholder={<Spin size={"small"}>
-                        <Image quality={5} width={100} height={100} src={product.img[0] ?? '/nofoto.jpg'} alt={product?.name[locale] ?? product.img[0]} />
-                      </Spin>}
-                    />
-                    <Paragraph ellipsis={{ rows: 1 }}>                    
-                      <Text >{product?.name[locale]}</Text>
-                    </Paragraph>
-                  </Flex>
-                  <Text>{beautifulCost(product?.price)}</Text>
-                </Flex>
-              </>
-            }))
+            const options = products?.results.map(
+              (product: MappedPopularProductType) => {
+                const img = product?.img?.[0].replace("http://185.100.67.246:8888", "https://sck.kz") ?? '/nofoto.jpg'
+                return {
+                  value: product.slug,
+                  label: <>
+                    <Flex align="center" justify="space-between">
+                      <Flex align="center" justify="start" gap={10} style={{
+                        width: "70%"
+                      }}>
+                        <ImageAntd
+                          preview={false}
+                          src={img}
+                          alt={product?.name[locale] ?? img}
+                          width={100} height={100}
+                          loading="lazy"
+                          style={{ objectFit: "scale-down", aspectRatio: "1/1" }}
+                          placeholder={<Spin size={"small"}>
+                            <Image quality={5} width={100} height={100} src={img} alt={product?.name[locale] ?? img} />
+                          </Spin>}
+                        />
+                        <Paragraph ellipsis={{ rows: 1 }}>
+                          <Text >{product?.name[locale]}</Text>
+                        </Paragraph>
+                      </Flex>
+                      <Text>{beautifulCost(product?.price)}</Text>
+                    </Flex>
+                  </>
+                }
+              })
             setOptions(options);
           } catch (error) {
             console.log("Произошла ошибка при поиске товара - при парсинге продуктов", error);
@@ -117,7 +121,7 @@ export default function SearchProduct() {
       prefix={<SearchOutlined style={{ color: "rgba(0, 0, 0, 0.25)" }} />}
       role="search"
       name="search"
-      
+
     />
   </AutoComplete>
 }

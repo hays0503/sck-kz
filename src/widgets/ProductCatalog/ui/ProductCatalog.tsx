@@ -20,8 +20,8 @@ const { Text } = Typography;
 
 interface ProductsCatalogProps {
   params: { slug: string };
-  
-  filter:FilterType[]
+
+  filter: FilterType[]
 }
 
 
@@ -42,7 +42,7 @@ interface WrapperOnDefaultProps {
 
 const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
 
-  const { slug, SortOrder, CurrentPage} = params;
+  const { slug, SortOrder, CurrentPage } = params;
   const t = useTranslations("Status");
   const cityEn = useGetCityParams()
   const { data, isLoading, error } = useGetProductByCategorySWR({
@@ -103,7 +103,7 @@ const WrapperOnFilter: React.FC<WrapperOnFilter> = (params) => {
 interface RenderProps extends WrapperOnDefaultProps {
   Products: MappedPopularProductType[],
   ProductsLen: number,
-  
+
   filter: FilterType[]
 }
 
@@ -133,7 +133,7 @@ const Render: React.FC<RenderProps> = ({
               {t('nazad')}
             </Button>
           </Flex>
-          <Flex style={{ width: "100%", height: "250px" }}>
+          <Flex justify="center" style={{ width: "100%", height: "250px" }}>
             <Image src="/logo.svg" alt="logo" height={250} width={250} />
           </Flex>
         </Flex>
@@ -141,7 +141,7 @@ const Render: React.FC<RenderProps> = ({
       {ProductsLen > 0 && <><Flex style={{ width: "100%", background: "#FFF" }} justify="space-between">
         <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${slug}`} />
         <Filter
-          dataSpecifications={filter} 
+          dataSpecifications={filter}
           dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }}
           filterActive={ActiveFilterProductIds}
           setFilterActive={SetActiveFilterProductIds} />
@@ -164,7 +164,7 @@ const Render: React.FC<RenderProps> = ({
 }
 
 
-const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params,filter }) => {
+const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params, filter }) => {
   const { slug } = params;
   const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [sortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
