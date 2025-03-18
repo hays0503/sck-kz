@@ -6,10 +6,7 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
 import { useTranslations } from "next-intl";
-import type {
-  // GetProp,
-  UploadFile, UploadProps
-} from 'antd';
+import type { UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useEffect, useState } from "react";
 import Image from "next/image";
