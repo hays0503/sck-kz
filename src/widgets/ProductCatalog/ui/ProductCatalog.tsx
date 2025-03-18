@@ -41,11 +41,13 @@ interface WrapperOnDefaultProps {
 }
 
 const WrapperOnDefault: React.FC<WrapperOnDefaultProps> = (params) => {
+
   const { slug, SortOrder, CurrentPage} = params;
   const t = useTranslations("Status");
+  const cityEn = useGetCityParams()
   const { data, isLoading, error } = useGetProductByCategorySWR({
     category: slug,
-    city: useGetCityParams(),
+    city: cityEn,
     orderBy: SortOrder as "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price",
     page: CurrentPage
   });
