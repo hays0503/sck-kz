@@ -184,6 +184,9 @@ const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params, filter }) => {
     SortOrder: sortOrder,
   };
 
+
+  console.log("renderMode", renderMode);
+
   return renderMode ? <WrapperOnDefaultMemo {...renderParams} /> : <WrapperOnFilterMemo {...renderParams} />;
 };
 
