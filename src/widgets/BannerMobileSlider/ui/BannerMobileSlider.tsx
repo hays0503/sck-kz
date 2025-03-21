@@ -34,7 +34,7 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
                 centeredSlides: false
             }
         },
-        navigation: true,
+        navigation: false,
         modules: [Autoplay, Navigation],
         lazy: "true"
     } as SwiperProps;

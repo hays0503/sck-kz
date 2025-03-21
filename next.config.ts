@@ -41,18 +41,6 @@ const nextConfig = {
     HYPERDX_API_KEY: process.env.HYPERDX_API_KEY,
     OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
   },
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  webpack: (
-    config: { ignoreWarnings: { module: RegExp }[] },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { isServer }: any,
-  ) => {
-    if (isServer) {
-      config.ignoreWarnings = [{ module: /opentelemetry/ }];
-    }
-    return config;
-  },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   experimental: {

@@ -1,6 +1,8 @@
 import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { Flex, Pagination, PaginationProps } from "antd";
+import { Flex, Pagination, PaginationProps, Typography } from "antd";
+
+const { Text } = Typography
 
 interface ILevel2Props {
   readonly pageSize: number;
@@ -21,28 +23,33 @@ const Level2: React.FC<ILevel2Props> = (props) => {
 
   const ItemRender: PaginationProps["itemRender"] = (page: number, type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next', element: React.ReactNode) => {
     if (type === 'page') {
-      return <Link href={`/city/${city}/main?page=${page}`}>{page}</Link>;
+      return <Link href={`/city/${city}/main?page=${page}`} style={{margin: "0 10px"}}>
+                <Text style={{ cursor: "pointer",fontSize: "14px" }}>
+                    {page}
+                </Text>
+              </Link>;
     } else {
       return element;
     }
   };
 
-    return (
-      <Flex justify="center" align="center" style={{ width: "100%" }}>
-        <Pagination
-          align="center"
-          pageSize={pageSize}
-          total={total}
-          current={current}
-          defaultPageSize={pageSize}
-          defaultCurrent={1}
-          responsive={true}
-          showSizeChanger={false}
-          onChange={onChangePage}
+  return (
+    <Flex justify="center" align="center" style={{ width: "100%",padding: "10px 0" }}>
+      <Pagination
+        align="center"
+        pageSize={pageSize}
+        total={total}
+        current={current}
+        defaultPageSize={pageSize}
+        defaultCurrent={1}
+        responsive={true}
+        showSizeChanger={false}
+        onChange={onChangePage}
         itemRender={ItemRender}
-        />
-      </Flex>
-    );
-  };
+        size="default"
+      />
+    </Flex>
+  );
+};
 
-  export default Level2;
+export default Level2;

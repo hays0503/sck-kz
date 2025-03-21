@@ -15,16 +15,22 @@ const Level1: React.FC<ILevel1Props> = (props) => {
     align="center"
     justify="space-between"
     wrap
-    style={{ 
+    style={{
       width: "100%",
-      height:0,
+      height: 0,
       flexDirection: "row-reverse",
-      zIndex:999
-      }}
+      zIndex: 999
+    }}
   >
     <>{addToFavoriteSlot}</>
-    {discount && <Tag color="#19B275" style={{
-      
+    {discount && <Tag style={{
+      backgroundColor:"red",
+      color:"white",
+      height:"30px",
+      width:"60px",
+      fontSize:"16px",
+      textAlign:"center",
+      alignContent:"center"
     }}>{`-${Math.round(Number(discount))}%`}</Tag>}
   </Flex>
 

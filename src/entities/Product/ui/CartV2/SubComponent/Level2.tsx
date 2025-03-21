@@ -4,7 +4,7 @@ import { Flex, Typography } from "antd";
 import { EllipsisConfig } from "antd/es/typography/Base";
 import { useTranslations } from "next-intl";
 import React from "react";
-const { Text,Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 
 interface ILevel2Props {
   NameProduct: string | undefined | null;
@@ -46,8 +46,8 @@ const Level2: React.FC<ILevel2Props> = (props) => {
   }
 
   const RatingAndReviews: React.FC = () => {
-    // if (!average_rating) return null
-    // if (average_rating < 0) return null
+    if (!average_rating) return null
+    if (average_rating < 0) return null
     return <>
       <Flex align="center" gap={5}>
         <ReturnRatingMeta />
@@ -91,52 +91,55 @@ const Level2: React.FC<ILevel2Props> = (props) => {
     <Flex
       vertical={true}
       gap={"0.1em"}
-      justify="flex-start"
+      align="flex-start"
+      justify="space-between"
       style={{
         width: "100%",
-        height:"100px",
-        padding:"5px"
+        height: "110px",
+        padding: "5px"
       }}
     >
+      <Flex vertical>
+        <div
+          itemProp="name"
+          style={{ width: "100%", height: "3em" }}
+        >
+          <Paragraph style={{
+            fontSize: "14px",
+            lineHeight: "18px",
+            fontWeight: "400",
+            letterSpacing: "-0.6px",
+            color: "#464646",
+          }}
+            ellipsis={{ tooltip: NameProduct, rows: 2 } as EllipsisConfig}>
+            {NameProduct ?? ""}
+          </Paragraph>
+        </div>
 
-      <div
-        itemProp="name"
-        style={{width: "100%",height:"3em"}}
-      >
-        <Paragraph style={{ 
-          fontSize: "12px",
-          lineHeight: "18px",
-          fontWeight: "400",
-          letterSpacing: "-0.6px",
-          color: "#464646",
-          }} 
-          ellipsis={{ tooltip: NameProduct, rows: 2} as EllipsisConfig}>
-          {NameProduct ?? ""}
-        </Paragraph>
-      </div>
 
+
+        {!discountPrice ? (
+          <Flex vertical={true} justify="flex-start" itemScope itemProp="offers" itemType="http://schema.org/Offer">
+            <ReturnPriceMeta />
+            <Text>{beautifulCost(price ?? 0)}</Text>
+          </Flex>
+        ) : (
+          <Flex vertical={true} justify="flex-start" itemScope itemProp="offers" itemType="http://schema.org/Offer">
+            <ReturnPriceMeta />
+            <Flex>
+              <Text strong style={{ color: "#FF3E4A" }}>{`${beautifulCost(
+                price ?? 0
+              )}`}</Text>
+            </Flex>
+            <Text delete disabled style={{ fontSize: "12px" }}>
+              {beautifulCost(discountPrice)}
+            </Text>
+          </Flex>
+        )}
+      </Flex>
       <Flex align="center" gap={5} style={{ height: 20 }}>
         <RatingAndReviews />
       </Flex>
-
-      {!discountPrice ? (
-        <Flex vertical={true} justify="flex-start" itemScope itemProp="offers" itemType="http://schema.org/Offer">
-          <ReturnPriceMeta />
-          <Text>{beautifulCost(price ?? 0)}</Text>
-        </Flex>
-      ) : (
-        <Flex vertical={true} justify="flex-start" itemScope itemProp="offers" itemType="http://schema.org/Offer">
-          <ReturnPriceMeta />
-          <Flex>
-            <Text strong style={{ color: "#FF3E4A" }}>{`${beautifulCost(
-              price ?? 0
-            )}`}</Text>
-          </Flex>
-          <Text delete disabled style={{ fontSize: "12px" }}>
-            {beautifulCost(discountPrice)}
-          </Text>
-        </Flex>
-      )}
     </Flex>
   );
 };

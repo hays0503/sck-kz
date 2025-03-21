@@ -24,8 +24,8 @@ export const Label: React.FC<BasketLabelProps> = (props) => {
         height: size,
         contain: "strict"
     }
-    return <Flex vertical={true} gap={5}>
-        <Flex align="center" justify="center" style={imageContainerStyle}>
+    return <Flex vertical={true} gap={5} id="basket-icon">
+        <Flex align="center" justify="center"  style={imageContainerStyle}>
             <svg
                 width={size}
                 height={size}

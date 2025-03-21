@@ -2,7 +2,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-cube";
 import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, EffectCube } from "swiper/modules";
+import { Pagination, EffectCube } from "swiper/modules";
 import Image from "next/image";
 
 interface IProductCartSwiperProps {
@@ -34,10 +34,8 @@ const RenderImages: React.FC<IRenderImagesProps> = (props) => {
       <link itemProp="image" href={src} />
       <Image
         placeholder="blur"
-        blurDataURL={src}
-        // loading="lazy"
+        blurDataURL={src}        
         priority={true}
-        // fetchPriority="low"
         src={src}
         alt={`${name}-no-image`}
         width={width}
@@ -54,7 +52,7 @@ const RenderImages: React.FC<IRenderImagesProps> = (props) => {
 const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
   const { images, paramsSwiper, name, width, height } = props;
   return (
-    <Swiper {...paramsSwiper} modules={[Pagination, Navigation, EffectCube]}>
+    <Swiper {...paramsSwiper} modules={[Pagination, EffectCube]}>
       {images.map((item, index) => (
         <SwiperSlide key={index}>
           <link itemProp="image" href={item} />
@@ -89,7 +87,7 @@ const ProductCartSwiper: React.FC<IProductCartSwiperProps> = (props) => {
     lazyPreloadPrevNext: 2,
     loop: true,
     pagination: true,
-    navigation: true,
+    navigation: false,
     effect: "cube",
     grabCursor: true,
     cubeEffect: {

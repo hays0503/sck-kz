@@ -62,7 +62,7 @@ const DefaultPage: React.FC<{ fallback: object, categoryName: string, slug: stri
   <ProvidersClient fallback={fallback}>
     <LayoutMain
       headerContent={
-        <HeaderText text={categoryName} SearchProduct={SearchProduct} />
+        <HeaderText text={categoryName} SearchProduct={SearchProduct} socialFunctionOff />
       }
       content={<ProductDetail slug={slug} />}
       footerContent={<FooterMobile defaultKey="1" />}
@@ -76,7 +76,7 @@ const ErrorPage: React.FC<{ fallback: object, content: JSX.Element, city: string
     <ProvidersClient fallback={fallback}>
       <LayoutMain
         headerContent={
-          <HeaderText text={"Увы товара нет"} />
+          <HeaderText text={"Увы товара нет"} socialFunctionOff/>
         }
         content={<Flex align="center" justify="center" style={{ width: "100%" }} gap={10} vertical>
           {content}

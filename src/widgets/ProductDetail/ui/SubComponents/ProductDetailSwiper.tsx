@@ -81,7 +81,7 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
   const paramsSwiper: SwiperProps = {
     loop: true,
     pagination: true,
-    navigation: true,
+    navigation: false,
     effect: "cube",
     grabCursor: true,
     cubeEffect: {

@@ -1,6 +1,6 @@
-import { useBasketAdd } from "@/features/operation-in-basket-product";
+import { AddToBasketProduct } from "@/features/operation-in-basket-product";
 import beautifulCost from "@/shared/tools/beautifulCost";
-import { Button, Flex, Typography } from "antd"
+import { Flex, Typography } from "antd"
 import { MappedProductDetailType } from "api-mapping/product/_type/productDetail"
 import { useTranslations } from "next-intl";
 import { CSSProperties } from "react";
@@ -14,16 +14,16 @@ const { Text } = Typography;
 
 const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
 
-    const tt =  useTranslations("ProductDetailToOrder");
-    const t = useTranslations("AddToBasketProduct");
+    const tt = useTranslations("ProductDetailToOrder");
+    // const t = useTranslations("AddToBasketProduct");
 
-    const [_addAction, msg] = useBasketAdd({ prod_id: props.product.id });
-    const addAction = async () => {
-        if ('vibrate' in navigator) {
-          navigator.vibrate([50, 30, 80, 30, 50]);
-        }
-        _addAction()
-      }; 
+    // const [_addAction, msg] = useBasketAdd({ prod_id: props.product.id });
+    // const addAction = async () => {
+    //     if ('vibrate' in navigator) {
+    //         navigator.vibrate([50, 30, 80, 30, 50]);
+    //     }
+    //     _addAction()
+    // };
     const { product } = props
 
     const price = product?.price
@@ -33,19 +33,19 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
     const StickFlex = {
         //  backgroundColor: "#FFFAAA",
 
-         width: "100%",
-         padding: "10px",
-         
-         position:"sticky",
-         top:'auto',
-         bottom:0
+        width: "100%",
+        padding: "10px",
+
+        position: "sticky",
+        top: 'auto',
+        bottom: 0
 
     } as CSSProperties
 
     return <Flex style={StickFlex} justify="space-between" align="center">
-        {msg}
+        {/* {msg} */}
         <Flex vertical={true} gap={10}>
-            <Text style={{ color:"#808185"}}>{`${tt("vnalichii")}`}</Text>
+            <Text style={{ color: "#808185" }}>{`${tt("vnalichii")}`}</Text>
             <Flex gap={10} align="center">
                 <Text strong>
                     {beautifulCost(price)}
@@ -56,7 +56,7 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
                     </Text>)}
             </Flex>
         </Flex>
-        <Button
+        {/* <Button
             onClick={addAction}
             shape="default"
             size="large"
@@ -73,7 +73,10 @@ const ProductDetailToOrder: React.FC<ProductDetailToOrderProps> = (props) => {
             >
                 {t('v-korzinu')}
             </Text>
-        </Button>
+        </Button> */}
+        <Flex style={{width: "35%" }}>
+            <AddToBasketProduct prod_id={product.id} />
+        </Flex>
     </Flex>
 }
 

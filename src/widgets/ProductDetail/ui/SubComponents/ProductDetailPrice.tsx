@@ -24,7 +24,19 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
     const price = product?.price ?? 0;
     const deltaPrice = price - (oldPrice ?? 0);
 
-    const DiscountComponent = () => <>{discount && <Tag color="#19B275" style={{ width: "fit-content" }}>{`${discount} %`}</Tag>}</>;
+    const DiscountComponent = () => <>{discount && <Tag style={{
+        backgroundColor:"red",
+        color:"white",
+        height:"30px",
+        // width:"60px",
+        width:"fit-content",
+        fontSize:"16px",
+        textAlign:"center",
+        alignContent:"center"
+      }}>
+            {`${discount} %`}
+            </Tag>}
+    </>;
 
     const NameProductComponent = () => <Text strong>{name}</Text>;
 

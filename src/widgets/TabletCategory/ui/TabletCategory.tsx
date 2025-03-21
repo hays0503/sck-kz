@@ -12,9 +12,9 @@ import { Navigation } from "swiper/modules";
 const { Text } = Typography;
 
 const categories = [
-  { image: "fire.png", text: "Акции", href: 'main' },
+  { image: "99.png", text: "Акции", href: 'main' },
   { image: "TV.png", text: "ТВ, Аудио, Видео", href: 'tv-audio-video' },
-  { image: "sofa.png", text: "Мебель", href: 'mebel' },
+  { image: "101.png", text: "Мебель", href: 'mebel' },
   { image: "friger.png", text: "Бытовая техника", href: 'bytovaya-tehnika' },
   // { image: "accessories.png", text: "Аксессуары",href:'main' }
 ];
@@ -147,7 +147,7 @@ const Row = () => {
             align="center"
             style={{ background: background, width: size, height: size, borderRadius: 10, position: "relative" }}
           >
-            <Image src={src} alt={text} fill priority style={{ objectFit: 'scale-down' }} />
+            <Image src={src} alt={text} fill priority style={{ objectFit: 'scale-down',padding:"5px" }} />
           </Flex>
           <Text style={{ fontSize: 12, textAlign: "center" }}>{text}</Text>
         </Flex>

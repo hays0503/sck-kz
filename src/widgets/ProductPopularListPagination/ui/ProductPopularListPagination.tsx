@@ -9,7 +9,7 @@ import { MappedPopularProductType } from "api-mapping/product/by_populates";
 import { POPULATES_PRODUCTS } from "@/shared/constant/populates";
 import { useTranslations } from "next-intl";
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 // interface ProductPopularListPaginationProps{
 
@@ -39,15 +39,14 @@ const ProductPopularListPagination: React.FC = () => {
   const PopulatesProductsLen: number = data?.len ?? 0;
 
   return (
-    <Flex vertical={true} gap={25} align="center" justify="space-evenly" style={{
+    <Flex vertical={true} gap={5} align="center" justify="space-evenly" style={{
       width: "100%",
       height: "100%",
       backgroundColor: "#FFF",
       padding: "5px"
     }}>
-      <Flex vertical align="start" justify="start" style={{ width: "100%" }}>
-        <Title level={5}>{tt('populyarnye')}</Title>
-        <Text style={{ color: "#808185" }}>{tt('uspey-kupit')}</Text>
+      <Flex vertical align="start" justify="center" style={{ width: "100%" }}>
+        <Title level={5} style={{ verticalAlign:"middle",margin:0}}>{tt('populyarnye')}</Title>
       </Flex>
       <Flex justify={"center"} align={"center"} style={{ width: "100%" }}>
         <Level1 Products={PopulatesProducts} />

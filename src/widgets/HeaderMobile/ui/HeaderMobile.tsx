@@ -31,7 +31,7 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
       <Flex
         justify="space-between"
         align="center"
-        style={{ width: "100%" }}
+        style={{ width: "100%",paddingLeft:"3px",paddingRight:"3px" }}
       >
         <SearchProduct/>
       </Flex>    

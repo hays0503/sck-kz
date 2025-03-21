@@ -9,6 +9,9 @@ import { MappedProductDetailType } from "api-mapping/product/_type/productDetail
 import ProductDetailRelatedProduct from "./SubComponents/ProductDetailRelatedProduct";
 import { useEffect } from "react";
 import { useReadLocalStorage } from "@undefined/usehooks-ts";
+import AddToFavoriteProduct from "@/features/add-to-favorite-product/ui/AddToFavoriteProduct";
+import { CopyUrlButton } from "@/features/copy-url-button";
+import { ShareButton } from "@/features/share-button";
 
 interface IProductDetailProps {
   slug: string;
@@ -75,12 +78,21 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
 
         <ProductDetailItem>
           {/* Слайдер */}
-          <ProductDetailSwiper
-            images={product.img}
-            name={product.name[locale]}
-            width={300}
-            height={300}
-          />
+          <Flex style={{ width: "100%", position: "relative" }} justify="center">
+            <Flex vertical justify="center" align="center" gap={10} style={{ position: "absolute", top: "10px", right: "10px", zIndex: 999 }}>
+              <CopyUrlButton />
+              <ShareButton />
+            </Flex>
+            <Flex vertical justify="center" align="center" gap={10} style={{ position: "absolute", top: "10px", left: "10px", zIndex: 999 }}>
+              <AddToFavoriteProduct prod_id={product.id} />
+            </Flex>
+            <ProductDetailSwiper
+              images={product.img}
+              name={product.name[locale]}
+              width={300}
+              height={300}
+            />
+          </Flex>
         </ProductDetailItem>
 
         {product?.configuration && (
