@@ -1,41 +1,72 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Typography, Flex } from "antd";
-import Image from "next/image";
-import "swiper/css";
-import { Link } from "@/i18n/routing";
-import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { Navigation } from "swiper/modules";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Typography, Flex } from 'antd';
+import Image from 'next/image';
+import 'swiper/css';
+import { Link } from '@/i18n/routing';
+import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
+import { Navigation } from 'swiper/modules';
 
 const { Text } = Typography;
 
 const categories = [
-  { image: "99.png", text: "Акции", href: 'main' },
-  { image: "TV.png", text: "ТВ, Аудио, Видео", href: 'tv-audio-video' },
-  { image: "101.png", text: "Мебель", href: 'mebel' },
-  { image: "friger.png", text: "Бытовая техника", href: 'bytovaya-tehnika' },
+  {
+    image: 'fire.png',
+    w: 44,
+    h: 44,
+    p: '-6px 0 0 0',
+    th: 'unset',
+    text: 'Акции',
+    href: 'main',
+  },
+  {
+    image: 'comp.png',
+    w: 50,
+    h: 30,
+    p: '0 0 0 5px',
+    th: 24,
+    text: 'ТВ, Аудио, Видео',
+    href: 'tv-audio-video',
+  },
+  {
+    image: 'sofa.png',
+    w: 51,
+    h: 30,
+    p: 'unset', //'5px 0 0 0',
+    th: 24,
+    text: 'Мебель',
+    href: 'mebel',
+  },
+  {
+    image: 'frige.png',
+    w: 30,
+    h: 30,
+    p: 'unset', //'5px 0 0 0',
+    th: 24,
+    text: 'Бытовая техника',
+    href: 'bytovaya-tehnika',
+  },
   // { image: "accessories.png", text: "Аксессуары",href:'main' }
 ];
 
 const palettes = [
-  "#0163E1", // 0
-  "#FF4B4B", // 1
-  "#9737FF", // 2
-  "#E101A1", // 3
-  "#1CB0F6", // 4
-  "#EE8B0B", // 5
-  "linear-gradient(90deg, #0163E1 0%, #3C91FF 100%)", // 6
-  "linear-gradient(180deg, #FF4B4B 0%, #FF8585 100%)", // 7
-  "linear-gradient(90deg, #9737FF 0%, #AF64FF 100%)", // 8
-  "linear-gradient(180deg, #E101A1 0%, #FF45CA 100%)", // 9
-  "linear-gradient(180deg, #17ACF2 0%, #47C4FF 100%)", // 10
-  "linear-gradient(180deg, #E18001 0%, #FFAC40 100%)" // 11
+  '#0163E1', // 0
+  '#FF4B4B', // 1
+  '#9737FF', // 2
+  '#E101A1', // 3
+  '#1CB0F6', // 4
+  '#EE8B0B', // 5
+  'linear-gradient(90deg, #0163E1 0%, #3C91FF 100%)', // 6
+  'linear-gradient(180deg, #FF4B4B 0%, #FF8585 100%)', // 7
+  'linear-gradient(90deg, #9737FF 0%, #AF64FF 100%)', // 8
+  'linear-gradient(180deg, #E101A1 0%, #FF45CA 100%)', // 9
+  'linear-gradient(180deg, #17ACF2 0%, #47C4FF 100%)', // 10
+  'linear-gradient(180deg, #E18001 0%, #FFAC40 100%)', // 11
 ];
 
 const mix = [
-
   { sets: [0, 3, 4, 1], inner: true },
   { sets: [0, 3, 4, 1], inner: false },
 
@@ -53,7 +84,6 @@ const mix = [
 
   { sets: [9, 10, 11, 8], inner: true },
   { sets: [9, 10, 11, 8], inner: false },
-
 
   { sets: [0, 0, 0, 0], inner: false },
   { sets: [0, 0, 0, 0], inner: true },
@@ -80,84 +110,128 @@ const mix = [
   { sets: [10, 10, 10, 10], inner: true },
   { sets: [11, 11, 11, 11], inner: false },
   { sets: [11, 11, 11, 11], inner: true },
-
-
-
-]
+];
 
 type SlideProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
-  size: number,
-  background: string
-  src: string,
-  text: string
-  href: string
-}
+  size: number;
+  background: string;
+  src: string;
+  text: string;
+  href: string;
+  w: number;
+  h: number;
+  p: string;
+  th: number | string;
+};
 
 const Row = () => {
   const cityEn = useGetCityParams();
 
   const Inner: React.FC<SlideProps> = (props) => {
-    const { size, background, src, text, href } = props
-    return <>
-      <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
-        <Flex vertical align="center" gap={5}>
-          <Flex
-            vertical
-            style={{
-              width: size,
-              height: size,
-              background: background,
-              borderRadius: 10,
-              paddingTop:"5px"
-            }}
-            justify="normal"
-            align="center"
-          >
-            <Image
-              src={src} alt={text} priority width={size - 30} height={size - 30}
+    const { size, background, src, text, href, w, h, p, th } = props;
+    return (
+      <>
+        <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
+          <Flex vertical align='center' justify='space-around' gap={5}>
+            <Flex
+              vertical
               style={{
-                objectFit: "scale-down"
+                width: size,
+                height: size,
+                background: background,
+                borderRadius: 10,
+                paddingTop: 10,
               }}
-            />
-            <Text style={{
-              fontSize: 10,
-              textAlign: "center",
-              alignSelf: "center",
-              color: "#fff",
-              fontWeight: 400,
-              lineHeight: "12px",
-              letterSpacing: "0px",
-              verticalAlign: "middle",
-            }}>
-              {text}
-            </Text>
+              gap={4}
+              justify='flex-start'
+              align='center'
+            >
+              <Image
+                src={src}
+                alt={text}
+                priority
+                width={w}
+                height={h}
+                style={{ margin: p }}
+              />
+              <Flex style={{ height: th }} align='center' justify='center'>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    textAlign: 'center',
+                    alignSelf: 'center',
+                    color: '#fff',
+                    fontWeight: 400,
+                    lineHeight: '12px',
+                    letterSpacing: '0px',
+                    verticalAlign: 'middle',
+                  }}
+                >
+                  {text}
+                </Text>
+              </Flex>
+            </Flex>
           </Flex>
-        </Flex>
-      </Link>
-    </>
-  }
+        </Link>
+      </>
+    );
+  };
 
   const Outer: React.FC<SlideProps> = (props) => {
-    const { size, background, src, text, href } = props
-    return <>
-      <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
-        <Flex vertical align="center" gap={5}>
-          <Flex
-            justify="center"
-            align="center"
-            style={{ background: background, width: size, height: size, borderRadius: 10, position: "relative" }}
-          >
-            <Image src={src} alt={text} fill priority style={{ objectFit: 'scale-down',padding:"5px" }} />
+    const { size, background, src, text, href, p } = props;
+    return (
+      <>
+        <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
+          <Flex vertical align='center' gap={5}>
+            <Flex
+              justify='center'
+              align='center'
+              style={{
+                background: background,
+                width: size,
+                height: size,
+                borderRadius: 10,
+              }}
+            >
+              <Flex
+                style={{
+                  width:"80%",
+                  height:"80%",
+                  position: 'relative',
+                }}
+              >
+                <Image
+                  src={src}
+                  alt={text}
+                  priority
+                  fill
+                  style={{ padding: p, objectFit: 'contain' }}
+                />
+              </Flex>
+            </Flex>
+            <Flex style={{ height: 12 }} align='center' justify='center'>
+              <Text
+                style={{
+                  fontSize: 10,
+                  textAlign: 'center',
+                  alignSelf: 'center',
+                  fontWeight: 400,
+                  lineHeight: '12px',
+                  letterSpacing: '0px',
+                  verticalAlign: 'middle',
+                }}
+              >
+                {text}
+              </Text>
+            </Flex>
           </Flex>
-          <Text style={{ fontSize: 12, textAlign: "center" }}>{text}</Text>
-        </Flex>
-      </Link>
-    </>
-  }
-
+        </Link>
+      </>
+    );
+  };
 
   return (
-    <Flex style={{ width: "100%" }} justify="center">
+    <Flex style={{ width: '100%' }} justify='center'>
       <Swiper
         spaceBetween={'1%'}
         slidesPerView={4}
@@ -166,34 +240,41 @@ const Row = () => {
         modules={[Navigation]}
         autoHeight
         centerInsufficientSlides
-      // slidesOffsetBefore={5}
-      // slidesOffsetAfter={5}
+        // slidesOffsetBefore={5}
+        // slidesOffsetAfter={5}
       >
         {mix.map(({ sets, inner }, groupIndex) =>
-          categories.map(({ image, text, href }, index) => {
+          categories.map(({ image, text, href, w, h, p, th }, index) => {
             const PropsForSlide = {
-              background: palettes[sets[index]] ?? "#000",
+              background: palettes[sets[index]] ?? '#000',
               src: `/TestPic/${image}`,
               text,
-              href
+              href,
+              w,
+              h,
+              p,
+              th,
             };
 
             const key = `${groupIndex}-${index}`;
 
             return (
-              <SwiperSlide key={key} style={{ width: "80px", margin: "0px" }}>
-                {inner ? <Inner {...PropsForSlide} size={75} /> : <Outer {...PropsForSlide} size={75} />}
+              <SwiperSlide key={key} style={{ width: '80px', margin: '0px' }}>
+                {inner ? (
+                  <Inner {...PropsForSlide} size={72} />
+                ) : (
+                  <Outer {...PropsForSlide} size={72} />
+                )}
               </SwiperSlide>
             );
-
-          }))}
+          }),
+        )}
       </Swiper>
     </Flex>
   );
 };
 
 const TabletCategory = () => {
-
   return (
     <Flex vertical gap={10}>
       <Row />

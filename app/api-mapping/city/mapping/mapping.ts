@@ -8,7 +8,7 @@ const mapping = (rawData: rawCity[]):{results:MappedCityType[]} => {
     const cities: MappedCityType[] = rawData.map((product: rawCity) => ({
         ru: getLocalizedName(product, 'RU'),
         en: getLocalizedName(product, 'EN'),
-        kk: getLocalizedName(product, 'KZ'),        
+        kk: getLocalizedName(product, 'KZ'),
     }));
 
     return {
