@@ -47,10 +47,10 @@ const ProductPage: ProductPageComponent = async (props) => {
 
     const cities: MappedCityType[] = await getCity();
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
+    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot(city);
 
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`
     const fallback = {
         [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData.data,
         [urlCity]: cities,

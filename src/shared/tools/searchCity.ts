@@ -10,8 +10,10 @@ const searchCity = (value: string, cities: MappedCityType[], locale: string) => 
     return [];
   }
 
+  const key = locale === 'en' ? 'en' : locale === 'kk' ? 'kk' : 'ru';
+
   const data =  cities.filter((city: MappedCityType) => {
-    const cityName = city[locale];
+    const cityName = city[key];
     return cityName?.toLowerCase().includes(value.toLowerCase()) ?? false;
   });
   return data;

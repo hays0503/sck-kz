@@ -41,7 +41,7 @@ const ProductPage: ProductPageComponent = async (props) => {
   // Извлекаем id категории к которой принадлежит товар
   const productCategoryId = (productData.data as MappedProductDetailType).categoryId;
 
-  const categoryAllData = await getCategoryAll();
+  const categoryAllData = await getCategoryAll(city);
 
 
   const categoryName = findCategory(categoryAllData?.results, (category) => category.id === productCategoryId)?.name[locale] ?? "";

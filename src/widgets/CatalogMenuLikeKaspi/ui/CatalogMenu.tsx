@@ -13,10 +13,12 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 const { Title } = Typography
 
 const CatalogMenu: React.FC<{ slugCategory: string }> = ({ slugCategory }) => {
-    const cityEn = useGetCityParams();
+
     const t = useTranslations("CatalogMenu");
 
-    const { data, isLoading, error } = useGetCategoryAllSWR();
+    const cityEn = useGetCityParams();
+
+    const { data, isLoading, error } = useGetCategoryAllSWR(cityEn);
 
     if (!data && isLoading) {
         return <div>{t('zagruzka')}</div>

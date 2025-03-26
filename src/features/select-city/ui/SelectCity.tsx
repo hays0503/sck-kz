@@ -75,7 +75,9 @@ const SelectCity = () => {
         }
     };
 
-    const CurrentCity: string = cities.results?.find((city: MappedCityType) => city['en'] === cityEn)?.[locale] ?? "Город не найден"; 
+    const key = locale === 'en' ? 'en' : locale === 'kk' ? 'kk' : 'ru';
+
+    const CurrentCity: string = cities.results?.find((city: MappedCityType) => city['en'] === cityEn)?.[key] ?? "Город не найден"; 
 
     return (
         <Flex style={style}>

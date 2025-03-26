@@ -19,7 +19,7 @@ const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategory
   const t = useTranslations("Status");
   const tt = useTranslations("Catalog");
   const ttt = useTranslations("ProductDetailBreadcrumb");
-  const { data, isLoading, error } = useGetCategoryAllSWR();
+  const { data, isLoading, error } = useGetCategoryAllSWR(city);
 
   const breadcrumbsItems: ItemType[] = useMemo(() => {
     if (!data || isLoading || error) {

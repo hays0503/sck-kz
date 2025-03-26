@@ -32,9 +32,9 @@ const CatalogMenuPage: React.FC<PageProps> = async ({params}) => {
 
     const {slug} = await params;
 
-    const urlAllCategory = `/api-mapping/category/all`;
-    const {results:allCategory} = await getCategoryAll();
-    const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot();
+    const urlAllCategory = `/api-mapping/category/all/?city=${(await params).city}`;
+    const {results:allCategory} = await getCategoryAll((await params).city);
+    const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot((await params).city);
   
     const fallback = {
       [urlAllCategory]:allCategory,

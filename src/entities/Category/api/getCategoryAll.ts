@@ -1,8 +1,8 @@
 import { MappedCategoryType } from "api-mapping/category/all/type";
 
-const getCategoryAll = async (): Promise<{results:MappedCategoryType[]}> => {
+const getCategoryAll = async (city:string): Promise<{results:MappedCategoryType[]}> => {
   const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : "";
-  const url = `${process.env.HOST_URL}${host_port}/api-mapping/category/all`;
+  const url = `${process.env.HOST_URL}${host_port}/api-mapping/category/all/?city=${city}`;
   const response = await fetch(url, {
     method: "GET",
     headers: {

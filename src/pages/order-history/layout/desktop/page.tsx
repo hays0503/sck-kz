@@ -18,14 +18,14 @@ import { FooterSCK } from "@/widgets/FooterSCK";
 import { OrderHistory } from "@/widgets/OrderHistory";
 
 
-export default async function OrderPage() {
+export default async function OrderPage({params}: { params: { city: string } }) {
 
     const cities: MappedCityType[] = await getCity();
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
+    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
 
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
     const fallback = {
         [urlCity]: cities,
         [urlCategoryRoot]: categoryRoot

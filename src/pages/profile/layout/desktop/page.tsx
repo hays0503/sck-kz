@@ -33,15 +33,15 @@ type ProfilePage = {
 export default async function ProfilePage(props: ProfilePage) {
 
 
-    const { searchParams } = await props;
+    const { searchParams, params } = await props;
     const { page, order } = searchParamsCache.parse(await searchParams);
 
     const cities: MappedCityType[] = await getCity();
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
+    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
 
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
     const fallback = {
         [urlCity]: cities,
         [urlCategoryRoot]: categoryRoot

@@ -1,11 +1,17 @@
 import { UrlApiWithDomainV1 } from "@/shared/constant/url";
 import { rawTypeCategory } from "../_type/rawTypeCategory";
+import CityEnToRu from "@/shared/constant/city";
 
 
 
-const getData = async (): Promise<rawTypeCategory[]|undefined> => {
-      const url = `${UrlApiWithDomainV1.getCategory}`;
+const getData = async (city?: string|undefined): Promise<rawTypeCategory[]|undefined> => {
+      let url = `${UrlApiWithDomainV1.getCategory}`;
     
+      if (city) {        
+        const cityRu: string = (CityEnToRu[city] as string) ?? 'Караганда';
+        url += `?city=${cityRu}`;
+      }
+
       const response = await fetch(url,{
         next: { revalidate: 60 }, // Данные кешируются на 60 секунд
       });

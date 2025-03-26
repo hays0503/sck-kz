@@ -6,6 +6,7 @@ const getLocalizedName = (city: rawCity, lang: string): string => city?.addition
 
 const mapping = (rawData: rawCity[]):{results:MappedCityType[]} => {
     const cities: MappedCityType[] = rawData.map((product: rawCity) => ({
+        disabled:product.total_products === 0,
         ru: getLocalizedName(product, 'RU'),
         en: getLocalizedName(product, 'EN'),
         kk: getLocalizedName(product, 'KZ'),

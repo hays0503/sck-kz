@@ -45,12 +45,12 @@ const CatalogPage: React.FC<PageProps> = async (props) => {
 
     const cities: MappedCityType[] = await getCity();
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
+    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
 
     const urlProductsByCategory = `/api-mapping/product/by_category/?category=${(await params).slug}&order=${order}&page=${page}&city=${(await params).city}`
 
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
     const fallback = {
         [urlProductsByCategory]: products,
         [urlCity]: cities,

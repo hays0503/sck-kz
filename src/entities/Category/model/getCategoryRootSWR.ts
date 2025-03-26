@@ -5,8 +5,8 @@ import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/typ
 import useSWR, { SWRResponse } from "swr";
 
 
-const useGetCategoryRootSWR = ():SWRResponse<{results:MappedCategoryWithoutChildrenType[]}> => {
-    const url = `/api-mapping/category/root`;
+const useGetCategoryRootSWR = (cityEn:string):SWRResponse<{results:MappedCategoryWithoutChildrenType[]}> => {
+    const url = `/api-mapping/category/root/?city=${cityEn}`;
     const object = useSWR(url, (_url) => defaultFetcher(_url));
     return object
 }

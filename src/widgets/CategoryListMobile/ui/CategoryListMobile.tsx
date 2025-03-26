@@ -11,8 +11,9 @@ import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 
 const CategoryListMobile: React.FC = () => {
     const t = useTranslations("Status")
-    const {data:categoryRoot,isLoading,error} = useGetCategoryRootSWR();
     const cityEn = useGetCityParams();
+    const {data:categoryRoot,isLoading,error} = useGetCategoryRootSWR(cityEn);
+
     const router = useRouter();
     const style:CSSProperties = {
         "--ant-segmented-item-selected-bg":"#3E54CF",

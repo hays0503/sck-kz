@@ -37,11 +37,11 @@ export default async function ContactPage(props: PageProps) {
 
   const cities: MappedCityType[] = await getCity();
 
-  const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot();
+  const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot((await params).city);
 
   const urlPopulates = `/api-mapping/product/by_populates?page=${page}&order=none_sort&city=${(await params).city}`
   const urlCity = `/api-mapping/city`
-  const urlCategoryRoot = `/api-mapping/category/root`
+  const urlCategoryRoot = `/api-mapping/category/root?city=${(await params).city}`
   const fallback = {
     [urlPopulates]: products,
     [urlCity]: cities,

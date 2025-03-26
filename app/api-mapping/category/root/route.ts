@@ -1,11 +1,33 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import mapping from "./mapping/mapping";
 import getData from "../_api/getData";
+import { STATUS_CODE } from "@/shared/constant/statusCode";
+import CityEnToRu from "@/shared/constant/city";
 
+export async function GET(request: NextRequest): Promise<Response> {
+  const cityEn = request.nextUrl.searchParams.get('city');
 
-export async function GET(): Promise<Response> {
+   // Пресутсвуют ли обязательные параметры
+   if (!cityEn) {
+    return NextResponse.json(
+      {
+        message: 'Некорректные параметры',
+      },
+      { status: STATUS_CODE.BAD_REQUEST },
+    );
+  }
+
+  if (!(cityEn in CityEnToRu)) {
+    return NextResponse.json(
+      {
+        message: 'Некорректные параметры города',
+      },
+      { status: STATUS_CODE.BAD_REQUEST },
+    );
+  }
+
     try {
-        const response = await getData();
+        const response = await getData(cityEn);
         if(!response) return NextResponse.json({
             message: "Ошибка в запросе категорий - категорий нет",
         }, { status: 500 });

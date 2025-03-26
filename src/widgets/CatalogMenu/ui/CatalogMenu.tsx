@@ -3,6 +3,7 @@ import useGetCategoryAllSWR from "@/entities/Category/model/getCategoryAllSWR";
 import findCategory from "@/shared/tools/findCategory";
 import { MappedCategoryType } from "api-mapping/category/all/type";
 import RowCategory from "./SubModule/RowCategory";
+import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 // import { useTranslations } from "next-intl";
 
 
@@ -18,7 +19,9 @@ const CatalogMenu: React.FC<{ slugCategory: string,v2flag?:boolean }> = ({ slugC
         width: "100%",
     };
 
-    const { data, isLoading, error } = useGetCategoryAllSWR();
+    const cityEn = useGetCityParams();
+
+    const { data, isLoading, error } = useGetCategoryAllSWR(cityEn);
 
     if (!data && isLoading) {
         return <div>Загрузка</div>

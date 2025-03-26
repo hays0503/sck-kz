@@ -307,5 +307,8 @@
     "dlya-predlozhenii-o-sotrudnichestve": "For proposals for cooperation",
     "po-voprosam": "On issues of advertising on various media and consideration of commercial offers. \nSpecialist in advertising SCK LLP (Essikey) - \"Sales Center of Kazakhstan\""
   },
-  "korzina-pusta": "The basket is empty"
+  "korzina-pusta": "The basket is empty",
+  "CityButton": {
+    "v-etom-gorode-zakonchilis-tovary": "The goods have ended in this city"
+  }
 }

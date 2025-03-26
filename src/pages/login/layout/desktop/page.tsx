@@ -31,10 +31,10 @@ const LoginPage: LoginPageType = async (params) => {
 
     const cities: MappedCityType[] = await getCity();
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot();
+    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
 
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
     const fallback = {
         [urlCity]: cities,
         [urlCategoryRoot]: categoryRoot

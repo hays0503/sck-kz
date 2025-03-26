@@ -236,7 +236,7 @@ const Row = () => {
         spaceBetween={'1%'}
         slidesPerView={4}
         slidesPerGroup={4}
-        navigation
+        // navigation
         modules={[Navigation]}
         autoHeight
         centerInsufficientSlides
