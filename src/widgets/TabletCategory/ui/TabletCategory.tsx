@@ -68,22 +68,22 @@ const palettes = [
 
 const mix = [
   { sets: [0, 3, 4, 1], inner: true },
-  { sets: [0, 3, 4, 1], inner: false },
+  // { sets: [0, 3, 4, 1], inner: false },
 
   { sets: [6, 9, 10, 7], inner: true },
-  { sets: [6, 9, 10, 7], inner: false },
+  // { sets: [6, 9, 10, 7], inner: false },
 
   { sets: [0, 1, 2, 3], inner: true },
-  { sets: [0, 1, 2, 3], inner: false },
+  // { sets: [0, 1, 2, 3], inner: false },
 
   { sets: [2, 3, 4, 5], inner: true },
-  { sets: [2, 3, 4, 5], inner: false },
+  // { sets: [2, 3, 4, 5], inner: false },
 
   { sets: [6, 7, 8, 9], inner: true },
-  { sets: [6, 7, 8, 9], inner: false },
+  // { sets: [6, 7, 8, 9], inner: false },
 
   { sets: [9, 10, 11, 8], inner: true },
-  { sets: [9, 10, 11, 8], inner: false },
+  // { sets: [9, 10, 11, 8], inner: false },
 
   // { sets: [0, 0, 0, 0], inner: false },
   // { sets: [0, 0, 0, 0], inner: true },
