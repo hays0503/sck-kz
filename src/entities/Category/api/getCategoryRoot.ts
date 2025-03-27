@@ -5,10 +5,11 @@ const getCategoryRoot = async (city:string): Promise<{results:MappedCategoryWith
   const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : "";
   const url = `${process.env.HOST_URL}${host_port}/api-mapping/category/root/?city=${city}`;
   const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+      method: 'GET',
+      next: { revalidate: 600 },
+      headers: {
+        'Content-Type': 'application/json',
+      },
   });
 
   if (!response.ok) {

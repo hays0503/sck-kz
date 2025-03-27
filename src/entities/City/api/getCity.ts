@@ -6,8 +6,9 @@ const getCity = async (): Promise<MappedCityType[]> => {
     const url = `${process.env.HOST_URL}${host_port}/api-mapping/city`;
     const response = await fetch(url, {
         method: 'GET',
+        next: { revalidate: 600 },
         headers: {
-            "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
     });
 

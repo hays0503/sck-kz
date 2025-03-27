@@ -13,7 +13,7 @@ import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { Flex } from "antd";
-import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
+import { unstable_cache } from "next/cache";
 
 interface CategoryMenuPageProps {
   readonly params: {
@@ -23,50 +23,50 @@ interface CategoryMenuPageProps {
   };
 }
 
+// Функция для статической генерации путей
 export async function generateStaticParams() {
   const allCategory = await getCategorySlugs();
-  if(allCategory) {
-    return allCategory.results.map((category: string) => ({
-      slug: category,
-    }));
-  }else{
-    return [];
-  }
+  return allCategory
+    ? allCategory.results.map((category: string) => ({ slug: category }))
+    : [];
 }
 
-async function CatalogMenuPage({params}: CategoryMenuPageProps) {
-  const {slug,locale} = await params;
+async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
+  const { slug, locale, city } = await params;
 
-  const urlAllCategory = `/api-mapping/category/all/?city=${(await params).city}`;
-  const {results:allCategory} = await getCategoryAll((await params).city);
-  const categoryRoot:{results:MappedCategoryWithoutChildrenType[]}|undefined = await getCategoryRoot((await params).city);
+  // Ключи для кэширования
+  const urlAllCategory = `/api-mapping/category/all/?city=${city}`;
+  const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`;
 
-  const fallback = {
-    [urlAllCategory]:allCategory,
-  }
+  // Оптимизированные вызовы API с кэшированием
+  const [allCategory, categoryRoot] = await Promise.all([
+    unstable_cache(() => getCategoryAll(city), [urlAllCategory], { revalidate: 600 })(),
+    unstable_cache(() => getCategoryRoot(city), [urlCategoryRoot], { revalidate: 600 })(),
+  ]);
 
-  const categoryFind = findCategory(allCategory, (category)=>category.slug===slug);
-
+  // Поиск категории по slug
+  const categoryFind = findCategory(allCategory.results, (category) => category.slug === slug);
   const headerText = categoryFind ? categoryFind.name[locale] : "Каталог";
 
+  // Фоллбек для клиента
+  const fallback = { [urlAllCategory]: allCategory };
 
   return (
     <ProvidersServer>
-       <ProvidersClient fallback={fallback}>
-         <LayoutMain
-          headerContent={<HeaderText text={headerText} SearchProduct={SearchProduct}/>}
-          content={<Flex vertical={true} gap={10} justify="center" align="center" style={{ width: "100%",marginTop:"10px" }}>
-            <BannerMobileSlider category={categoryRoot?.results || []} />
-            <CatalogMenu slugCategory={slug} />
+      <ProvidersClient fallback={fallback}>
+        <LayoutMain
+          headerContent={<HeaderText text={headerText} SearchProduct={SearchProduct} />}
+          content={
+            <Flex vertical gap={10} justify="center" align="center" style={{ width: "100%", marginTop: "10px" }}>
+              <BannerMobileSlider category={categoryRoot?.results || []} />
+              <CatalogMenu slugCategory={slug} />
             </Flex>
-            }
+          }
           footerContent={<FooterMobile defaultKey="2" />}
         />
       </ProvidersClient>
     </ProvidersServer>
   );
+}
 
-
-} 
-
-export default CatalogMenuPage
+export default CatalogMenuPage;

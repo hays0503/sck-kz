@@ -4,9 +4,10 @@ const getCategoryAll = async (city:string): Promise<{results:MappedCategoryType[
   const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : "";
   const url = `${process.env.HOST_URL}${host_port}/api-mapping/category/all/?city=${city}`;
   const response = await fetch(url, {
-    method: "GET",
+    method: 'GET',
+    next: { revalidate: 600 },
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 

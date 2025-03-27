@@ -29,12 +29,12 @@ const CategoryLink: React.FC<ICategoryLinkProps> = ({ Category }) => {
         height:"100%"
     }
 
-    return <Flex justify="center" align="center" style={{ width: "100%" }}>
+    return <Flex justify="center" align="center" style={{ width: "100%",height:"40px" }}>
         <Link
             href={`/city/${cityEn}/catalog/category-slug/${Category.slug}`}
             style={styleText}
         >
-            <Image src={Category.img[0]} width={16} height={16} alt={name} />
+            <Image src={Category.img[0]} width={32} height={32} alt={name} />
             <Text>{name}</Text>
         </Link>
     </Flex>

@@ -16,10 +16,11 @@ const CategoryListMobile: React.FC = () => {
 
     const router = useRouter();
     const style:CSSProperties = {
+        padding:"0px",
         "--ant-segmented-item-selected-bg":"#3E54CF",
         "--ant-segmented-item-selected-color":"#FFF",
         "--ant-segmented-track-bg":"transparent",
-        "height":32,
+        "height":"40px",
         "--ant-control-padding-horizontal": "6px",
       } as CSSProperties
 

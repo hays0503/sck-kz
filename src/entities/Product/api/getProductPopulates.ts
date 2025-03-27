@@ -53,6 +53,7 @@ const getProductPopulates = async ({
   const url = `${process.env.HOST_URL}${host_port}/api-mapping/product/by_populates?order=${orderBy}&city=${city}&page=${page}`;
   const response = await fetch(url, {
     method: 'GET',
+    next: { revalidate: 600 },
     headers: {
       'Content-Type': 'application/json',
     },

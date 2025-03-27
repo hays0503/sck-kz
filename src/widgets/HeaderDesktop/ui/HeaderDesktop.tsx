@@ -79,7 +79,7 @@ const HeaderDesktop: React.FC<IHeaderMobileProps> = ({
 
       </Flex>
 
-      <Flex style={{ width: "100%", padding: "5px", background: "linear-gradient(90deg,#ffc600,rgba(255, 255, 255, 0))" }}>
+      <Flex align="center" style={{ width: "100%",height:"45px", background: "linear-gradient(90deg,#ffc600,rgba(255, 255, 255, 0))" }}>
         <CategoryListMobile />
       </Flex>
 
