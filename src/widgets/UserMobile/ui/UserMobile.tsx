@@ -82,7 +82,7 @@ const ImageUpload: React.FC<{
 
       if (!response.ok) {
         messageApi.open({
-          type: 'Ошибка',
+          type: 'error',
           content: `Произошла ошибка при загрузке изображения ${response.status} ${response.text}`,
         });
       }else{
