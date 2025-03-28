@@ -1,92 +1,169 @@
-"use client";
+'use client';
 
-import { useUser } from "@/entities/User";
-import { Link } from "@/i18n/routing";
-import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
-import { Button, Flex, Form, FormProps, Input, Typography, Upload } from "antd";
-import { useTranslations } from "next-intl";
-import type { UploadFile, UploadProps } from 'antd';
-import ImgCrop from 'antd-img-crop';
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { CropperProps } from 'react-easy-crop';
+import { useUser } from '@/entities/User';
+import { Link } from '@/i18n/routing';
+import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
+import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import {
+  Button,
+  Flex,
+  Form,
+  FormProps,
+  Input,
+  Modal,
+  Typography,
+  Upload,
+} from 'antd';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
+import { Cropper, CropperRef } from 'react-mobile-cropper';
+import 'react-mobile-cropper/dist/style.css';
+
 // type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
-const changeData = async (NewData: {
-  "username": string,
-  "email": string
-}, token: string) => {
-  const data = await fetch("/auth_api/v2/user/update", {
-    method: "PATCH",
+const changeData = async (
+  NewData: {
+    username: string;
+    email: string;
+  },
+  token: string,
+) => {
+  const data = await fetch('/auth_api/v2/user/update', {
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(NewData)
-  })
-  console.log("Patch data", data);
+    body: JSON.stringify(NewData),
+  });
+  console.log('Patch data', data);
 };
+const ImageUpload: React.FC<{
+  avatar_path: string;
+  accessToken: string;
+  refetch: () => void;
+}> = ({ avatar_path, accessToken, refetch }) => {
+  const cropperRef = useRef<CropperRef>(null);
+  const [image, setImage] = useState<string | null>(avatar_path);
+  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const ImageUpload: React.FC<{ avatar_path: string, accessToken: string, refetch: () => void }> = ({ avatar_path, accessToken, refetch }) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const handleUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result && e.target.result !== image) {
+        setImage(e.target.result as string);
+        
+      }
+    };
+    reader.readAsDataURL(file);
+    setIsModalOpen(true);
+    return false;
+  };
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList, event }) => {
-    setFileList(newFileList);
-    if (event?.percent === 100) {
-      if (window) {
-        refetch();
-        // window.location.reload();
+  const handleCrop = () => {
+    if (cropperRef.current) {
+      const canvas = cropperRef.current.getCanvas();
+      if (canvas) {
+        const croppedDataUrl = canvas.toDataURL();
+        if (croppedDataUrl !== croppedImage) {
+          setCroppedImage(croppedDataUrl);
+          uploadCroppedImage(croppedDataUrl);
+          setIsModalOpen(false);
+        }
       }
     }
   };
 
-  return <Flex style={{ width: "100%", height: "100%" }} justify="center" align="center">
-    <ImgCrop cropShape="rect" rotationSlider={false} cropperProps={{
-      restrictPosition: true
-    } as CropperProps} >
-      <Upload
-        name="file"
-        maxCount={1}
-        action="/auth_api/v2/user/avatar"
-        headers={{
-          "accept": "application/json",
-          Authorization: `Bearer ${accessToken}`
-        }}
-        listType="picture-circle"
-        fileList={fileList}
-        onChange={onChange}
-        showUploadList={false}
-      >
-        <Image width={80} height={80} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
+  const uploadCroppedImage = async (dataUrl: string) => {
+    const blob = await (await fetch(dataUrl)).blob();
+    const formData = new FormData();
+    formData.append('file', blob, 'avatar.png');
+
+    try {
+      const response = await fetch('/auth_api/v2/user/avatar', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        refetch();
+      }
+    } catch (error) {
+      console.error('Upload failed', error);
+    }
+  };
+
+  return (
+    <>
+      <Upload beforeUpload={handleUpload} showUploadList={false}>
+        <Image
+          width={80}
+          height={80}
+          alt='avatar'
+          src={avatar_path}
+          style={{ borderRadius: '50%' }}
+        />
       </Upload>
-    </ImgCrop>
-  </Flex>
-}
+      <Modal
+        title='Редактировать изображение'
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+      >
+          <Cropper
+            ref={cropperRef}
+            src={image}
+            className='cropper'
+            style={{ width: '100%', height: 300 }}
+          />
+        <Button onClick={handleCrop} type='primary' style={{ marginTop: 10 }}>
+          Обрезать и загрузить
+        </Button>
+      </Modal>
+    </>
+  );
+};
 
 
 export default function UserMobile() {
   const cityEn = useGetCityParams();
-  const t = useTranslations("UserMobile");
+  const t = useTranslations('UserMobile');
   const { isAnonymous, info, reFetchUserInfo } = useUser();
-  const accessToken = useReadLocalStorage<{ token: string } | null>("accessToken");
+  const accessToken = useReadLocalStorage<{ token: string } | null>(
+    'accessToken',
+  );
   const isGuest = isAnonymous;
-  const [img, setImg] = useState<string>("/sck-user.svg");
+  const [img, setImg] = useState<string>('/sck-user.svg');
 
   useEffect(() => {
-    const isDefault: boolean = Boolean(String(info?.avatar_path ?? "avatar_default.png") == "avatar_default.png")
-    if (isDefault) setImg("/sck-user.svg");
+    const isDefault: boolean = Boolean(
+      String(info?.avatar_path ?? 'avatar_default.png') == 'avatar_default.png',
+    );
+    if (isDefault) setImg('/sck-user.svg');
     if (!isDefault) setImg(`${info?.avatar_path}/?time=${Date.now()}`);
   }, [info]);
 
-
   const enterGuest = () => {
-    return <Flex vertical={true} gap={5} align="center" style={{ width: "100%" }}>
-      <Flex gap={5} vertical align="center" justify="center" style={{ width: "100%" }}>
-        <Title level={4} >{t('gost')}</Title> <Link href={`/city/${cityEn}/login`}>{t('authorization')}</Link>
+    return (
+      <Flex vertical={true} gap={5} align='center' style={{ width: '100%' }}>
+        <Flex
+          gap={5}
+          vertical
+          align='center'
+          justify='center'
+          style={{ width: '100%' }}
+        >
+          <Title level={4}>{t('gost')}</Title>{' '}
+          <Link href={`/city/${cityEn}/login`}>{t('authorization')}</Link>
+        </Flex>
       </Flex>
-    </Flex>
-  }
+    );
+  };
 
   if (isGuest) {
     return enterGuest();
@@ -94,31 +171,51 @@ export default function UserMobile() {
 
   const formProps: FormProps = {
     name: t('profile'),
-    autoComplete: "on",
-    layout: "vertical",
-    style: { width: "100%" },
+    autoComplete: 'on',
+    layout: 'vertical',
+    style: { width: '100%' },
     onFinish: async (values) => {
       if (accessToken) {
         await changeData(values, accessToken.token);
       }
-    }
-
+    },
   };
 
-  return <Flex vertical={true} gap={10} align="center" justify="center" style={{ width: "100%", padding: "5px" }}>
+  return (
+    <Flex
+      vertical={true}
+      gap={10}
+      align='center'
+      justify='center'
+      style={{ width: '100%', padding: '5px' }}
+    >
+      <ImageUpload
+        avatar_path={img}
+        accessToken={accessToken?.token ?? ''}
+        refetch={reFetchUserInfo}
+      />
 
-    <ImageUpload avatar_path={img} accessToken={accessToken?.token ?? ""} refetch={reFetchUserInfo} />
-
-    {info && <Form {...formProps} >
-      <Form.Item name="username" label={t('name')} initialValue={info?.username}>
-        <Input placeholder="Укажите логин" />
-      </Form.Item>
-      <Form.Item name="email" label={t('email')} initialValue={info?.email}>
-        <Input placeholder="Укажите свой email" />
-      </Form.Item>
-      <Button type="primary" htmlType="submit" style={{ width: "100%", height: "40px" }}>
-        <Text style={{ color: "#ffff" }}>{t('save')}</Text>
-      </Button>
-    </Form>}
-  </Flex>;
+      {info && (
+        <Form {...formProps}>
+          <Form.Item
+            name='username'
+            label={t('name')}
+            initialValue={info?.username}
+          >
+            <Input placeholder='Укажите логин' />
+          </Form.Item>
+          <Form.Item name='email' label={t('email')} initialValue={info?.email}>
+            <Input placeholder='Укажите свой email' />
+          </Form.Item>
+          <Button
+            type='primary'
+            htmlType='submit'
+            style={{ width: '100%', height: '40px' }}
+          >
+            <Text style={{ color: '#ffff' }}>{t('save')}</Text>
+          </Button>
+        </Form>
+      )}
+    </Flex>
+  );
 }
