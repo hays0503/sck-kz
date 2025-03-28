@@ -107,6 +107,7 @@ const ImageUpload: React.FC<{
           <Image width={160} height={160} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
       </Upload>
       <Modal
+        style={{ width:"95dvw",height:"95dvh" }}
         title="Редактировать изображение"
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
