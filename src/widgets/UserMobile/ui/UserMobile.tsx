@@ -36,6 +36,7 @@ const ImageUpload: React.FC<{
   accessToken: string; 
   refetch: () => void; 
 }> = ({ avatar_path, accessToken, refetch }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const cropperRef = useRef<CropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
   // const [croppedImage, setCroppedImage] = useState<string | null>(null);
@@ -78,6 +79,18 @@ const ImageUpload: React.FC<{
         },
         body: formData,
       });
+
+      if (!response.ok) {
+        messageApi.open({
+          type: 'Ошибка',
+          content: `Произошла ошибка при загрузке изображения ${response.status} ${response.text}`,
+        });
+      }else{
+        messageApi.open({
+          type: 'success',
+          content: 'Изображение успешно загружено',
+        });
+      }
       
       if (response.ok) {
         refetch();
@@ -89,6 +102,7 @@ const ImageUpload: React.FC<{
 
   return (
     <>
+      {contextHolder}
       <Upload beforeUpload={handleUpload} showUploadList={false}>
           <Image width={160} height={160} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
       </Upload>
