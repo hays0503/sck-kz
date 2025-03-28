@@ -4,21 +4,12 @@ import { useUser } from '@/entities/User';
 import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import {
-  Button,
-  Flex,
-  Form,
-  FormProps,
-  Input,
-  Modal,
-  Typography,
-  Upload,
-} from 'antd';
+import { Button, Flex, Form, FormProps, Input, Modal, Typography, Upload } from 'antd';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { Cropper, CropperRef } from 'react-mobile-cropper';
-import 'react-mobile-cropper/dist/style.css';
+import { CircleStencil, Cropper, CropperRef } from 'react-mobile-cropper';
+import 'react-mobile-cropper/dist/style.css'
 
 // type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
@@ -39,26 +30,26 @@ const changeData = async (
   });
   console.log('Patch data', data);
 };
-const ImageUpload: React.FC<{
-  avatar_path: string;
-  accessToken: string;
-  refetch: () => void;
+
+const ImageUpload: React.FC<{ 
+  avatar_path: string; 
+  accessToken: string; 
+  refetch: () => void; 
 }> = ({ avatar_path, accessToken, refetch }) => {
   const cropperRef = useRef<CropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  // const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      if (e.target?.result && e.target.result !== image) {
+      if (e.target?.result) {
         setImage(e.target.result as string);
-        
+        setIsModalOpen(true);
       }
     };
     reader.readAsDataURL(file);
-    setIsModalOpen(true);
     return false;
   };
 
@@ -67,11 +58,9 @@ const ImageUpload: React.FC<{
       const canvas = cropperRef.current.getCanvas();
       if (canvas) {
         const croppedDataUrl = canvas.toDataURL();
-        if (croppedDataUrl !== croppedImage) {
-          setCroppedImage(croppedDataUrl);
-          uploadCroppedImage(croppedDataUrl);
-          setIsModalOpen(false);
-        }
+        // setCroppedImage(croppedDataUrl);
+        uploadCroppedImage(croppedDataUrl);
+        setIsModalOpen(false);
       }
     }
   };
@@ -80,7 +69,7 @@ const ImageUpload: React.FC<{
     const blob = await (await fetch(dataUrl)).blob();
     const formData = new FormData();
     formData.append('file', blob, 'avatar.png');
-
+    
     try {
       const response = await fetch('/auth_api/v2/user/avatar', {
         method: 'POST',
@@ -89,7 +78,7 @@ const ImageUpload: React.FC<{
         },
         body: formData,
       });
-
+      
       if (response.ok) {
         refetch();
       }
@@ -101,21 +90,16 @@ const ImageUpload: React.FC<{
   return (
     <>
       <Upload beforeUpload={handleUpload} showUploadList={false}>
-        <Image
-          width={80}
-          height={80}
-          alt='avatar'
-          src={avatar_path}
-          style={{ borderRadius: '50%' }}
-        />
+          <Image width={160} height={160} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
       </Upload>
       <Modal
-        title='Редактировать изображение'
+        title="Редактировать изображение"
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
           <Cropper
+            stencilComponent={CircleStencil}
             ref={cropperRef}
             src={image}
             className='cropper'
@@ -128,7 +112,6 @@ const ImageUpload: React.FC<{
     </>
   );
 };
-
 
 export default function UserMobile() {
   const cityEn = useGetCityParams();
