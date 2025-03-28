@@ -4,7 +4,7 @@ import { useUser } from '@/entities/User';
 import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import { Button, Flex, Form, FormProps, Input, Modal, Typography, Upload } from 'antd';
+import { Button, Flex, Form, FormProps, Input, message, Modal, Typography, Upload } from 'antd';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
