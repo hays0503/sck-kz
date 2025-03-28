@@ -10,6 +10,7 @@ import type { UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { CropperProps } from 'react-easy-crop';
 // type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
 const changeData = async (NewData: {
@@ -41,7 +42,9 @@ const ImageUpload: React.FC<{ avatar_path: string, accessToken: string, refetch:
   };
 
   return <Flex style={{ width: "100%", height: "100%" }} justify="center" align="center">
-    <ImgCrop cropShape="rect" rotationSlider={false}>
+    <ImgCrop cropShape="rect" rotationSlider={false} cropperProps={{
+      restrictPosition: true
+    } as CropperProps} >
       <Upload
         name="file"
         maxCount={1}
