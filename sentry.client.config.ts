@@ -14,6 +14,11 @@ Sentry.init({
       maskAllInputs: false,
       blockAllMedia: false,      
     }),
+    Sentry.replayCanvasIntegration({
+      // Enabling the following will ensure your canvas elements are not forced
+      // into `preserveDrawingBuffer`.
+      enableManualSnapshot: true,
+    })
   ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
