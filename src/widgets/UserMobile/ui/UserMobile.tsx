@@ -4,14 +4,23 @@ import { useUser } from '@/entities/User';
 import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import { Button, Flex, Form, FormProps, Input, message, Modal, Typography, Upload } from 'antd';
+import {
+  Button,
+  Flex,
+  Form,
+  FormProps,
+  Input,
+  message,
+  Modal,
+  Typography,
+  Upload,
+} from 'antd';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import { CircleStencil, Cropper, CropperRef } from 'react-mobile-cropper';
-import 'react-mobile-cropper/dist/style.css'
+import 'react-mobile-cropper/dist/style.css';
 
-// type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 const { Title, Text } = Typography;
 const changeData = async (
   NewData: {
@@ -31,15 +40,14 @@ const changeData = async (
   console.log('Patch data', data);
 };
 
-const ImageUpload: React.FC<{ 
-  avatar_path: string; 
-  accessToken: string; 
-  refetch: () => void; 
+const ImageUpload: React.FC<{
+  avatar_path: string;
+  accessToken: string;
+  refetch: () => void;
 }> = ({ avatar_path, accessToken, refetch }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const cropperRef = useRef<CropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
-  // const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUpload = (file: File) => {
@@ -57,9 +65,24 @@ const ImageUpload: React.FC<{
   const handleCrop = () => {
     if (cropperRef.current) {
       const canvas = cropperRef.current.getCanvas();
+
       if (canvas) {
-        const croppedDataUrl = canvas.toDataURL();
-        // setCroppedImage(croppedDataUrl);
+        // Масштабируем изображение, если оно больше 256x256
+        const maxSize = 256;
+        let { width, height } = canvas;
+        if (width > maxSize || height > maxSize) {
+          const scale = Math.min(maxSize / width, maxSize / height);
+          width = Math.floor(width * scale);
+          height = Math.floor(height * scale);
+        }
+        const resizedCanvas = document.createElement('canvas');
+        resizedCanvas.width = width;
+        resizedCanvas.height = height;
+        const ctx = resizedCanvas.getContext('2d');
+        ctx?.drawImage(canvas, 0, 0, width, height);
+        const croppedDataUrl = resizedCanvas.toDataURL('image/jpeg', 0.8);
+
+        // const croppedDataUrl = canvas.toDataURL();
         uploadCroppedImage(croppedDataUrl);
         setIsModalOpen(false);
       }
@@ -70,7 +93,7 @@ const ImageUpload: React.FC<{
     const blob = await (await fetch(dataUrl)).blob();
     const formData = new FormData();
     formData.append('file', blob, 'avatar.png');
-    
+
     try {
       const response = await fetch('/auth_api/v2/user/avatar', {
         method: 'POST',
@@ -81,17 +104,19 @@ const ImageUpload: React.FC<{
       });
 
       if (!response.ok) {
-        response.text().then((text) => messageApi.open({
-          type: 'error',
-          content: `Произошла ошибка при загрузке изображения ${response.status} ${text}`,
-        }));        
-      }else{
+        response.text().then((text) =>
+          messageApi.open({
+            type: 'error',
+            content: `Произошла ошибка при загрузке изображения ${response.status} ${text}`,
+          }),
+        );
+      } else {
         messageApi.open({
           type: 'success',
           content: 'Изображение успешно загружено',
         });
       }
-      
+
       if (response.ok) {
         refetch();
       }
@@ -104,22 +129,43 @@ const ImageUpload: React.FC<{
     <>
       {contextHolder}
       <Upload beforeUpload={handleUpload} showUploadList={false}>
-          <Image width={160} height={160} alt="avatar" src={avatar_path} style={{ borderRadius: "50%" }} />
+        <Image
+          width={160}
+          height={160}
+          alt='avatar'
+          src={avatar_path}
+          style={{ borderRadius: '50%' }}
+        />
       </Upload>
       <Modal
-        style={{ width:"95dvw",height:"95dvh" }}
-        title="Редактировать изображение"
+        style={{
+          width: '95dvw',
+          height: '95dvh',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+        title='Редактировать изображение'
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
-          <Cropper
-            stencilComponent={CircleStencil}
-            ref={cropperRef}
-            src={image}
-            className='cropper'
-            style={{ width: '100%', height: 300 }}
-          />
+        <Cropper
+          stencilProps={{
+            handlers: false,
+            lines: false,
+          }}
+          stencilComponent={CircleStencil}
+          ref={cropperRef}
+          src={image}
+          className='cropper'
+
+          style={{
+            width: '100%',
+            height: 300,
+          } as React.CSSProperties}
+        />
         <Button onClick={handleCrop} type='primary' style={{ marginTop: 10 }}>
           Обрезать и загрузить
         </Button>
