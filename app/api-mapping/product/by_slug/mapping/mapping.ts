@@ -16,8 +16,9 @@ import { rawResult } from 'api-mapping/product/by_populates/type/rawTypePopulate
 const mapping = async (
   rawData: rawProductsTypeV2,
   cityRu: string,
-  cityEn: string,
+  // cityEn: string,
 ): Promise<MappedProductDetailType> => {
+  
   const priceInfo = rawData?.stocks?.[cityRu] ?? {};
 
   const price = priceInfo?.price ?? 0;
@@ -86,16 +87,14 @@ const mapping = async (
 
   let relatedProducts = [] as MappedProductType[];
   if (
-    rawData?.related_products_url !== `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
+    rawData?.related_products_url !==
+    `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
   ) {
-    const urlRelatedProducts = `${rawData.related_products_url}&city=${cityEn}`;
+    const urlRelatedProducts = `${rawData.related_products_url}&city=${cityRu}/`;
     console.log('urlRelatedProducts=>', urlRelatedProducts);
     const relatedProductsFetch = await fetch(urlRelatedProducts).then(
       (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
     );
-    // .catch((e) => console.error(e));
-
-    console.log('relatedProductsFetch=>', relatedProductsFetch);
 
     if (relatedProductsFetch) {
       relatedProducts = mappingForMappedList(
@@ -106,6 +105,28 @@ const mapping = async (
     }
   }
 
+
+  let configurationProducts = [] as MappedProductType[];
+  if (
+    rawData?.configuration_url !==
+    `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
+  ) {
+    const urlConfigurationProducts = `${rawData.configuration_url}&city=${cityRu}`;
+    const configurationProductsFetch = await fetch(urlConfigurationProducts).then(
+      (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
+    );
+
+    if (configurationProductsFetch) {
+      configurationProducts = mappingForMappedList(
+        configurationProductsFetch.count,
+        configurationProductsFetch.results,
+        cityRu,
+      ).results;
+    }
+  }
+
+
+
   const MappedData = {
     ...mainData,
     article: rawData?.vendor_code,
@@ -115,7 +136,7 @@ const mapping = async (
     reviews: [],
     desc: desc,
     relatedProducts: relatedProducts,
-    configuration: [],
+    configuration: configurationProducts,
   } as MappedProductDetailType;
 
   // console.log("MappedData", MappedData);

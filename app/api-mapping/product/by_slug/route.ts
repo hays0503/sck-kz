@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
             const mappedData = await mapping(
               response.data as rawProductsTypeV2,
               cityRu as string,
-              city as string
+              // city as string
             );
             if (response) {
               return NextResponse.json(mappedData, {

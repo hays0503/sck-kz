@@ -11,7 +11,7 @@ import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSW
 
 const { Text } = Typography;
 
-const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
+const AddToBasketProduct: React.FC<{ prod_id: number,justify?:string }> = ({ prod_id,justify }) => {
   const { data } = useGetBasketProductsSWR();
   const [_addAction, msg] = useBasketAdd({ prod_id });
   const addAction = async () => {
@@ -26,10 +26,9 @@ const AddToBasketProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
       width: "100%",
       height: "40px",
       background: "inherit",
-      padding: "8px 16px",
       borderRadius: "4px"
     }
-    return <Flex gap={5} justify="space-between" align="center" style={ButtonStyle}>
+    return <Flex gap={5} justify={justify?justify:"space-between"} align="center" style={ButtonStyle}>
       <DecButton prod_id={prod_id} count={0} color="#4954f0" colorBg="#4954f01c" />
       <Text style={{ color: "#4954f0" }}>{Count}</Text>
       <IncButton prod_id={prod_id} color="#4954f0" colorBg="#4954f01c" />

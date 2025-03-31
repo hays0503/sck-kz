@@ -240,7 +240,9 @@
     "profile": "Profile",
     "name": "Login",
     "email": "Mail",
-    "phone": "Telephone"
+    "phone": "Telephone",
+    "ukazhite-svoi-email": "Indicate your email",
+    "gost": "The guest is not an authorizoan"
   },
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Selected goods were not found",
@@ -310,5 +312,10 @@
   "korzina-pusta": "The basket is empty",
   "CityButton": {
     "v-etom-gorode-zakonchilis-tovary": "The goods have ended in this city"
+  },
+  "ImageUpload": {
+    "obrezat-i-zagruzit": "Cut and load",
+    "zakryt": "Close",
+    "redaktirovat-izobrazhenie": "Edit the image"
   }
 }

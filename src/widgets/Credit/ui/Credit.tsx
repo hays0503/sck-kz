@@ -160,7 +160,7 @@ export default function Credit({
   const isSmsCodeValid = smsCode.length === 4;
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100px" }}>
+    <div style={{ position: "relative", width: "100%", height: "fit-content" }}>
       <div
         className="ks-widget"
         data-template="button"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser } from '@/entities/User';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
 import {
@@ -12,6 +12,7 @@ import {
   Input,
   message,
   Modal,
+  Space,
   Typography,
   Upload,
 } from 'antd';
@@ -49,6 +50,9 @@ const ImageUpload: React.FC<{
   const cropperRef = useRef<CropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const t = useTranslations('ImageUpload');
+  const route = useRouter();
+  const cityEn = useGetCityParams();
 
   const handleUpload = (file: File) => {
     const reader = new FileReader();
@@ -84,7 +88,8 @@ const ImageUpload: React.FC<{
 
         // const croppedDataUrl = canvas.toDataURL();
         uploadCroppedImage(croppedDataUrl);
-        setIsModalOpen(false);
+
+        
       }
     }
   };
@@ -115,6 +120,8 @@ const ImageUpload: React.FC<{
           type: 'success',
           content: 'Изображение успешно загружено',
         });
+        setIsModalOpen(false);
+        route.push(`/city/${cityEn}/profile`);
       }
 
       if (response.ok) {
@@ -146,7 +153,7 @@ const ImageUpload: React.FC<{
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
-        title='Редактировать изображение'
+        title={t('redaktirovat-izobrazhenie')}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
@@ -160,15 +167,21 @@ const ImageUpload: React.FC<{
           ref={cropperRef}
           src={image}
           className='cropper'
-
-          style={{
-            width: '100%',
-            height: 300,
-          } as React.CSSProperties}
+          style={
+            {
+              width: '100%',
+              height: 300,
+            } as React.CSSProperties
+          }
         />
-        <Button onClick={handleCrop} type='primary' style={{ marginTop: 10 }}>
-          Обрезать и загрузить
-        </Button>
+        <Space style={{ marginTop: 10 }}>
+          <Button onClick={handleCrop} type='primary' >
+            {t('obrezat-i-zagruzit')}
+          </Button>
+          <Button onClick={() => setIsModalOpen(false)} danger>
+            {t('zakryt')}
+          </Button>
+        </Space>
       </Modal>
     </>
   );
@@ -249,7 +262,7 @@ export default function UserMobile() {
             <Input placeholder='Укажите логин' />
           </Form.Item>
           <Form.Item name='email' label={t('email')} initialValue={info?.email}>
-            <Input placeholder='Укажите свой email' />
+            <Input placeholder={t('ukazhite-svoi-email')} />
           </Form.Item>
           <Button
             type='primary'

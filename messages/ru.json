@@ -249,7 +249,8 @@
     "profile": "Профиль",
     "name": "Логин",
     "email": "Почта",
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "ukazhite-svoi-email": "Укажите свой email"    
   },
   "adres": "Адрес",
   "izbrannye-tovary-ne-nai-deny": "Избранные товары не найдены",
@@ -335,5 +336,12 @@
   "v-etom-gorode-zakonchilis-tovary": "В этом городе закончились товары",
   "CityButton": {
     "v-etom-gorode-zakonchilis-tovary": "В этом городе закончились товары"
+  },
+  "ImageUpload": {
+    "obrezat-i-zagruzit": "Обрезать и загрузить",
+    "zakryt": "Закрыть",
+    "redaktirovat-izobrazhenie": "Редактировать изображение"
   }
+  
+  
 }

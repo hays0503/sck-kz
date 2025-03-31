@@ -240,7 +240,9 @@
     "profile": "Қырынан бейнелеу",
     "name": "Кіру",
     "email": "Почта",
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "ukazhite-svoi-email": "Электрондық поштаңызды көрсетіңіз",
+    "gost": "Қонақ авторизоан емес"
   },
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Таңдалған тауарлар табылмады",
@@ -310,5 +312,10 @@
   "korzina-pusta": "Себет бос",
   "CityButton": {
     "v-etom-gorode-zakonchilis-tovary": "Бұл қалада тауарлар аяқталды"
+  },
+  "ImageUpload": {
+    "obrezat-i-zagruzit": "Кесу және жүктеме",
+    "zakryt": "Жабу",
+    "redaktirovat-izobrazhenie": "Суретті өңдеңіз"
   }
 }

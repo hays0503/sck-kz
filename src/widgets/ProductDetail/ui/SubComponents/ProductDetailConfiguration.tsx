@@ -23,7 +23,7 @@ const ProductDetailConfiguration: React.FC<IProductDetailConfiguration> = (props
 
     >
         <Title level={5} itemProp="name">{nameProduct}</Title>
-          <Flex gap={10}>
+          <Flex gap={10} style={{overflowX:"scroll"}}>
             {Configurations.map((item:MappedProductType) => {
               return (
                 <Link

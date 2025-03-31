@@ -37,6 +37,7 @@ export async function GET(request: NextRequest): Promise<Response> {
   const cityRu: string = (CityEnToRu[cityEn] as string) ?? 'Караганда';
   const offset = PRODUCT.PRODUCT_PER_PAGE * (parseInt(page) - 1);
   const url = `${UrlApiWithDomainV2.getProducts}category/${category}/?ordering=${orderBy}&offset=${offset}&limit=${PRODUCT.PRODUCT_PER_PAGE}&city=${cityRu}`;
+  console.log('url', url);
   const response = await fetch(url, {
     next: { revalidate: 60 }, // Данные кешируются на 60 секунд
   });

@@ -23,7 +23,7 @@ const Heart: React.FC<{ isFavorite: boolean }> = ({ isFavorite }) => {
         damping: 20,
       }}
       width="25"
-      height="25"
+      height="32"
       viewBox="0 0 25 25"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -47,20 +47,20 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
   // const refButton = useRef<HTMLButtonElement>(null);
 
   if (isLoading) {
-    return <div style={{ width: "25px", height: "25px" }} />;
+    return <div style={{ width: "32px", height: "32px" }} />;
   }
 
   if (error) {
-    return <Flex style={{ width: "25px", height: "25px" }} justify="center" align="center">!</Flex>;
+    return <Flex style={{ width: "32px", height: "32px" }} justify="center" align="center">!</Flex>;
   }
 
   const isFavorite = data?.data.includes(prod_id)
   const action = isFavorite ? () => del(prod_id) : () => add(prod_id)
 
   return (
-    <Flex style={{ width: "50px", height: "50px", position: "relative", zIndex: 999 }} justify="center" align="center">
+    <Flex style={{ width: "32px", height: "32px", position: "relative", zIndex: 999 }} justify="center" align="center">
       {contextHolderAddMsg}
-      <div onClick={action} style={{ position: "absolute", width: "50px", height: "50px",padding:"10px" }}>
+      <div onClick={action} style={{ position: "absolute", width: "32px", height: "32px"}}>
         {contextHolderDelMsg}
         <Heart isFavorite={isFavorite} />
       </div>
