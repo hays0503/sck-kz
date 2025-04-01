@@ -94,7 +94,7 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
       <>
         {Boolean(review) && (
           <Flex gap={5} align='center' justify='center'>
-            <Text style={{ color: '#8C8C8C' }}>
+            <Text style={{ color: '#8C8C8C',width: 'max-content'}}>
               {`${review} ${t('reviews')}`}
             </Text>
           </Flex>

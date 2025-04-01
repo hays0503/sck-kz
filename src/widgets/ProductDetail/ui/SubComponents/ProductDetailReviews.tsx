@@ -68,7 +68,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
               <Text disabled>{t('iz5')}</Text>
               <Rate value={reviews.rating} style={{ fontSize: '16px' }} />
             </Flex>
-            <Flex gap={5}>
+            <Flex gap={5} align='center'>
               <Text
                 style={{ color: '#8C8C8C', fontSize: '12px', fontWeight: '400' }}
               >{`${t('opyblikovano')}:`}</Text>
