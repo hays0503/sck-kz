@@ -70,7 +70,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
             </Flex>
             <Flex gap={5}>
               <Text
-                style={{ color: '#8C8C8C' }}
+                style={{ color: '#8C8C8C', fontSize: '12px', fontWeight: '400' }}
               >{`${t('opyblikovano')}:`}</Text>
               <Text style={{ color: '#19b275' }}>{formattedDate}</Text>
             </Flex>
@@ -124,10 +124,10 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     return (
       <Flex gap={5} vertical>
         {contextHolder}
-        <Flex gap={5} align='center'>
+        <Flex gap={3} align='center'>
           <Text>{t('naskolko-vam-ponravilsya-tovar')}</Text>
           <Rate
-            style={{ fontSize: '16px' }}
+            style={{ fontSize: '10px' }}
             value={rating}
             onChange={setRating}
           />
