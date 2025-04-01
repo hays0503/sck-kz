@@ -317,5 +317,17 @@
     "obrezat-i-zagruzit": "Cut and load",
     "zakryt": "Close",
     "redaktirovat-izobrazhenie": "Edit the image"
+  },
+  "ProductDetailReviews": {
+    "otzyvy": "Reviews",
+    "u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym": "This product has no reviews yet. \nYou can leave it the first",
+    "ostavit-otzyv": "Set aside a review",
+    "iz5": "of 5",
+    "opyblikovano": "Published",
+    "otzyv-uspeshno-otpravlen": "The review is successfully sent",
+    "otzyv-ne-otpravlen": "The review was not sent",
+    "otpravit": "Send",
+    "otzyv": "Your review",
+    "naskolko-vam-ponravilsya-tovar": "How much you liked the product"
   }
 }

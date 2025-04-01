@@ -2,6 +2,7 @@ import { UrlApiWithDomainV1, UrlApiWithDomainV2 } from '@/shared/constant/url';
 import { MappedProductType } from 'api-mapping/product/_type';
 import {
   MappedProductDetailDescType,
+  MappedProductDetailReviewsType,
   MappedProductDetailSpecificationType,
   MappedProductDetailType,
 } from 'api-mapping/product/_type/productDetail';
@@ -12,13 +13,13 @@ import {
 } from 'api-mapping/product/_type/rawProductTypeV2';
 import { default as mappingForMappedList } from '../../_mapping/mapping';
 import { rawResult } from 'api-mapping/product/by_populates/type/rawTypePopulates';
+import { Reviews } from '@/shared/types/reviews';
 
 const mapping = async (
   rawData: rawProductsTypeV2,
   cityRu: string,
   // cityEn: string,
 ): Promise<MappedProductDetailType> => {
-  
   const priceInfo = rawData?.stocks?.[cityRu] ?? {};
 
   const price = priceInfo?.price ?? 0;
@@ -91,7 +92,6 @@ const mapping = async (
     `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
   ) {
     const urlRelatedProducts = `${rawData.related_products_url}&city=${cityRu}/`;
-    console.log('urlRelatedProducts=>', urlRelatedProducts);
     const relatedProductsFetch = await fetch(urlRelatedProducts).then(
       (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
     );
@@ -105,14 +105,15 @@ const mapping = async (
     }
   }
 
-
   let configurationProducts = [] as MappedProductType[];
   if (
     rawData?.configuration_url !==
     `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
   ) {
     const urlConfigurationProducts = `${rawData.configuration_url}&city=${cityRu}`;
-    const configurationProductsFetch = await fetch(urlConfigurationProducts).then(
+    const configurationProductsFetch = await fetch(
+      urlConfigurationProducts,
+    ).then(
       (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
     );
 
@@ -125,7 +126,20 @@ const mapping = async (
     }
   }
 
+  let reviewsProducts = [] as MappedProductDetailReviewsType[];
 
+  const urlReviewsProducts = `${rawData.reviews_url}`;
+  const configurationProductsFetch = await fetch(urlReviewsProducts).then(
+    (res) => res.json() as Promise<Reviews[] | []>,
+  );
+
+  if (configurationProductsFetch.length > 0) {
+    reviewsProducts = configurationProductsFetch.map((review) => ({
+      rating: review.rating,
+      review: review.review,
+      createdAt: new Date(),
+    } as MappedProductDetailReviewsType))
+  }
 
   const MappedData = {
     ...mainData,
@@ -133,7 +147,7 @@ const mapping = async (
     quantity: quantity,
     categoryId: rawData?.category?.id,
     specifications: specificationsProduct,
-    reviews: [],
+    reviews: reviewsProducts,
     desc: desc,
     relatedProducts: relatedProducts,
     configuration: configurationProducts,

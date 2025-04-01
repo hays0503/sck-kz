@@ -7,6 +7,7 @@ import {
   ProductDetailDescription,
   ProductDetailItem,
   ProductDetailPrice,
+  ProductDetailReviews,
   ProductDetailSpecification,
   ProductDetailSwiper,
   ProductDetailToOrder,
@@ -23,6 +24,7 @@ import { CopyUrlButton } from '@/features/copy-url-button';
 import { ShareButton } from '@/features/share-button';
 import { useRouter } from '@/i18n/routing';
 import { createPortal } from 'react-dom';
+
 
 interface IProductDetailProps {
   slug: string;
@@ -197,21 +199,21 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
         </ProductDetailItem>
 
         <PortalData />
-        
+
         <ProductDetailItem>
           {/* Информация о товаре - название - цена - артикул - отзывы - каспи виджет/форте виджет */}
           <ProductDetailPrice product={product} />
         </ProductDetailItem>
 
-        {product?.configuration && (
-          <ProductDetailItem>
-            {/* Название товара и Конфигурация */}
-            <ProductDetailConfiguration
-              nameProduct={product.name[locale] ?? product.slug}
-              Configurations={product.configuration}
-            />
-          </ProductDetailItem>
-        )}
+        {/* {product?.configuration && ( */}
+        <ProductDetailItem>
+          {/* Название товара и Конфигурация */}
+          <ProductDetailConfiguration
+            nameProduct={product.name[locale] ?? product.slug}
+            Configurations={product.configuration}
+          />
+        </ProductDetailItem>
+        {/* )} */}
 
         <ProductDetailItem>
           {/* Характеристики */}
@@ -223,11 +225,11 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             <ProductDetailDescription product={product} />
           </ProductDetailItem>
         )}
-        {/*
+
       <ProductDetailItem>
-        <ReviewsList productId={fetchProduct.id} />
+        <ProductDetailReviews product={product} />
       </ProductDetailItem>
-*/}
+
         {product?.relatedProducts && product?.relatedProducts.length > 0 && (
           <ProductDetailItem>
             <ProductDetailRelatedProduct
@@ -235,6 +237,8 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             />
           </ProductDetailItem>
         )}
+
+
       </Flex>
     </>
   );

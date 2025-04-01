@@ -317,5 +317,17 @@
     "obrezat-i-zagruzit": "Кесу және жүктеме",
     "zakryt": "Жабу",
     "redaktirovat-izobrazhenie": "Суретті өңдеңіз"
+  },
+  "ProductDetailReviews": {
+    "otzyvy": "Пікірлер",
+    "u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym": "Бұл өнімде әлі шолулар жоқ. Сіз оны бірінші болып қалдыруға болады",
+    "ostavit-otzyv": "Шолуды қойыңыз",
+    "iz5": "5-тен",
+    "opyblikovano": "Шығарылған",
+    "otzyv-uspeshno-otpravlen": "Шолу сәтті жіберілді",
+    "otzyv-ne-otpravlen": "Шолу жіберілмеді",
+    "otpravit": "Жіберу",
+    "otzyv": "Сіздің шолуыңыз",
+    "naskolko-vam-ponravilsya-tovar": "Сізге қанша ұнады"
   }
 }

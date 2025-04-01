@@ -6,6 +6,7 @@ import ProductDetailToOrder from "./ProductDetailToOrder";
 import ProductDetailSpecification from "./ProductDetailSpecification";
 import ProductDetailDescription from "./ProductDetailDescription";
 import ProductDetailPrice from "./ProductDetailPrice";
+import ProductDetailReviews from "./ProductDetailReviews";
 // import ProductDetailRelatedProduct from "./ProductDetailRelatedProduct"
 export {
     // ProductDetailRelatedProduct,
@@ -17,4 +18,5 @@ export {
   ProductDetailConfiguration,
   ProductDetailToOrder,
   ProductDetailSpecification,
+  ProductDetailReviews
 };
