@@ -18,8 +18,22 @@ import {
 } from 'antd';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
-import { CircleStencil, Cropper, CropperRef } from 'react-mobile-cropper';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { CircleStencil,
+  //  Cropper, CropperRef
+   } from 'react-mobile-cropper';
+import { FixedCropper, FixedCropperRef,
+  //  ImageRestriction 
+  } from 'react-advanced-cropper';
+
+
 import 'react-mobile-cropper/dist/style.css';
 
 const { Title, Text } = Typography;
@@ -41,20 +55,21 @@ const changeData = async (
   console.log('Patch data', data);
 };
 
+
 const ImageUpload: React.FC<{
   avatar_path: string;
   accessToken: string;
   refetch: () => void;
-}> = ({ avatar_path, accessToken, refetch }) => {
+}> = memo(({ avatar_path, accessToken, refetch }) => {
   const [messageApi, contextHolder] = message.useMessage();
-  const cropperRef = useRef<CropperRef>(null);
+  const cropperRef = useRef<FixedCropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const t = useTranslations('ImageUpload');
   const route = useRouter();
   const cityEn = useGetCityParams();
 
-  const handleUpload = (file: File) => {
+  const handleUpload = useCallback((file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target?.result) {
@@ -64,14 +79,54 @@ const ImageUpload: React.FC<{
     };
     reader.readAsDataURL(file);
     return false;
-  };
+  }, []);
 
-  const handleCrop = () => {
+  const uploadCroppedImage = useCallback(
+    async (dataUrl: string) => {
+      const blob = await (await fetch(dataUrl)).blob();
+      const formData = new FormData();
+      formData.append('file', blob, 'avatar.png');
+
+      try {
+        const response = await fetch('/auth_api/v2/user/avatar', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          response.text().then((text) =>
+            messageApi.open({
+              type: 'error',
+              content: `Произошла ошибка при загрузке изображения ${response.status} ${text}`,
+            }),
+          );
+        } else {
+          messageApi.open({
+            type: 'success',
+            content: 'Изображение успешно загружено',
+          });
+          setIsModalOpen(false);
+          route.push(`/city/${cityEn}/profile`);
+        }
+
+        if (response.ok) {
+          refetch();
+        }
+      } catch (error) {
+        console.error('Upload failed', error);
+      }
+    },
+    [route, cityEn, accessToken, refetch, messageApi],
+  );
+
+  const handleCrop = useCallback(() => {
     if (cropperRef.current) {
       const canvas = cropperRef.current.getCanvas();
 
       if (canvas) {
-        // Масштабируем изображение, если оно больше 256x256
         const maxSize = 256;
         let { width, height } = canvas;
         if (width > maxSize || height > maxSize) {
@@ -86,51 +141,10 @@ const ImageUpload: React.FC<{
         ctx?.drawImage(canvas, 0, 0, width, height);
         const croppedDataUrl = resizedCanvas.toDataURL('image/jpeg', 0.8);
 
-        // const croppedDataUrl = canvas.toDataURL();
         uploadCroppedImage(croppedDataUrl);
-
-        
       }
     }
-  };
-
-  const uploadCroppedImage = async (dataUrl: string) => {
-    const blob = await (await fetch(dataUrl)).blob();
-    const formData = new FormData();
-    formData.append('file', blob, 'avatar.png');
-
-    try {
-      const response = await fetch('/auth_api/v2/user/avatar', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        response.text().then((text) =>
-          messageApi.open({
-            type: 'error',
-            content: `Произошла ошибка при загрузке изображения ${response.status} ${text}`,
-          }),
-        );
-      } else {
-        messageApi.open({
-          type: 'success',
-          content: 'Изображение успешно загружено',
-        });
-        setIsModalOpen(false);
-        route.push(`/city/${cityEn}/profile`);
-      }
-
-      if (response.ok) {
-        refetch();
-      }
-    } catch (error) {
-      console.error('Upload failed', error);
-    }
-  };
+  }, [uploadCroppedImage]);
 
   return (
     <>
@@ -158,24 +172,28 @@ const ImageUpload: React.FC<{
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
-        <Cropper
+        <FixedCropper
+          stencilSize={{
+            width:256,
+            height:256
+          }}        
           stencilProps={{
             handlers: false,
             lines: false,
+            rotate: false,
           }}
           stencilComponent={CircleStencil}
           ref={cropperRef}
+          // ref={cropperRef}
           src={image}
           className='cropper'
-          style={
-            {
-              width: '100%',
-              height: 300,
-            } as React.CSSProperties
-          }
+          style={{
+            width: '100%',
+            height: 300,
+          } as React.CSSProperties}
         />
         <Space style={{ marginTop: 10 }}>
-          <Button onClick={handleCrop} type='primary' >
+          <Button onClick={handleCrop} type='primary'>
             {t('obrezat-i-zagruzit')}
           </Button>
           <Button onClick={() => setIsModalOpen(false)} danger>
@@ -185,7 +203,8 @@ const ImageUpload: React.FC<{
       </Modal>
     </>
   );
-};
+});
+ImageUpload.displayName = 'ImageUpload';
 
 export default function UserMobile() {
   const cityEn = useGetCityParams();
@@ -205,7 +224,7 @@ export default function UserMobile() {
     if (!isDefault) setImg(`${info?.avatar_path}/?time=${Date.now()}`);
   }, [info]);
 
-  const enterGuest = () => {
+  const EnterGuest = useMemo(() => {
     return (
       <Flex vertical={true} gap={5} align='center' style={{ width: '100%' }}>
         <Flex
@@ -220,23 +239,26 @@ export default function UserMobile() {
         </Flex>
       </Flex>
     );
-  };
+  }, [t, cityEn]);
+
+  const formProps = useMemo<FormProps>(
+    () => ({
+      name: t('profile'),
+      autoComplete: 'on',
+      layout: 'vertical',
+      style: { width: '100%' },
+      onFinish: async (values) => {
+        if (accessToken) {
+          await changeData(values, accessToken.token);
+        }
+      },
+    }),
+    [t, accessToken],
+  );
 
   if (isGuest) {
-    return enterGuest();
+    return EnterGuest;
   }
-
-  const formProps: FormProps = {
-    name: t('profile'),
-    autoComplete: 'on',
-    layout: 'vertical',
-    style: { width: '100%' },
-    onFinish: async (values) => {
-      if (accessToken) {
-        await changeData(values, accessToken.token);
-      }
-    },
-  };
 
   return (
     <Flex
