@@ -79,7 +79,8 @@
   },
   "ProductDetail": {
     "artikul": "Article",
-    "reviews": "Review(s)"
+    "reviews": "Review(s)",
+    "smotret-vse-otzivy": "All reviews"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Your phone",
@@ -330,5 +331,8 @@
     "otzyv": "Your review",
     "naskolko-vam-ponravilsya-tovar": "How much you liked the product",
     "otpravka": "Sending ..."
+  },
+  "ProductDetailConfiguration": {
+    "varianty-ispolneniya": "Options for execution"
   }
 }

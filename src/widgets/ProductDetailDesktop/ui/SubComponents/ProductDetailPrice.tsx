@@ -18,7 +18,7 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
     const t = useTranslations("ProductDetail");
     const locale = useLocale();
     const discount = product?.discount ?? null;
-    const name = product?.name[locale] ?? `Название товара не заданно на текущем языке - ${locale}`;
+    const name = product?.name?.[locale] ?? `Название товара не заданно на текущем языке - ${locale}`;
     const article = product?.article ?? "Артикул не задан";
     const rating = product?.rating
     const review = product?.reviews?.length;

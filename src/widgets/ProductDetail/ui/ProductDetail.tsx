@@ -7,6 +7,7 @@ import {
   ProductDetailDescription,
   ProductDetailItem,
   ProductDetailPrice,
+  ProductDetailRating,
   ProductDetailReviews,
   ProductDetailSpecification,
   ProductDetailSwiper,
@@ -24,7 +25,6 @@ import { CopyUrlButton } from '@/features/copy-url-button';
 import { ShareButton } from '@/features/share-button';
 import { useRouter } from '@/i18n/routing';
 import { createPortal } from 'react-dom';
-
 
 interface IProductDetailProps {
   slug: string;
@@ -191,7 +191,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             </Flex>
             <ProductDetailSwiper
               images={product.img}
-              name={product.name[locale]}
+              name={product?.name?.[locale]}
               width={sliderSize?.width ?? 300}
               height={sliderSize?.height ?? 300}
             />
@@ -201,18 +201,28 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
         <PortalData />
 
         <ProductDetailItem>
+          {/* Название товара и Конфигурация */}
+          <ProductDetailConfiguration
+            nameProduct={product?.name?.[locale] ?? product.slug}
+            Configurations={product.configuration}
+            img={product.img}
+            discount={product.discount}
+          />
+        </ProductDetailItem>
+
+        <ProductDetailItem>
           {/* Информация о товаре - название - цена - артикул - отзывы - каспи виджет/форте виджет */}
           <ProductDetailPrice product={product} />
         </ProductDetailItem>
 
+        {product?.rating && (
+          <ProductDetailItem>
+            <ProductDetailRating product={product} />
+          </ProductDetailItem>
+        )}
+
         {/* {product?.configuration && ( */}
-        <ProductDetailItem>
-          {/* Название товара и Конфигурация */}
-          <ProductDetailConfiguration
-            nameProduct={product.name[locale] ?? product.slug}
-            Configurations={product.configuration}
-          />
-        </ProductDetailItem>
+
         {/* )} */}
 
         <ProductDetailItem>
@@ -226,9 +236,9 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </ProductDetailItem>
         )}
 
-      <ProductDetailItem>
-        <ProductDetailReviews product={product} />
-      </ProductDetailItem>
+        <ProductDetailItem>
+          <ProductDetailReviews product={product} />
+        </ProductDetailItem>
 
         {product?.relatedProducts && product?.relatedProducts.length > 0 && (
           <ProductDetailItem>
@@ -237,8 +247,6 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             />
           </ProductDetailItem>
         )}
-
-
       </Flex>
     </>
   );

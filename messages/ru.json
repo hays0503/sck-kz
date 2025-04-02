@@ -88,7 +88,8 @@
   },
   "ProductDetail": {
     "artikul": "Артикул",
-    "reviews": "Отзыв(ов)"
+    "reviews": "Отзыв(ов)",
+    "smotret-vse-otzivy": "Все отзывы"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Ваш телефон",
@@ -357,5 +358,9 @@
     "otpravka": "Отправка..."
   },
   "u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym": "У этого товара еще нет отзывов. Вы можете оставить его первым",
-  "naskolko-vam-ponravilsya-tovar": "Насколько вам понравился товар"
+  "naskolko-vam-ponravilsya-tovar": "Насколько вам понравился товар",
+  "varianty-ispolneniya": "Варианты исполнения",
+  "ProductDetailConfiguration": {
+    "varianty-ispolneniya": "Варианты исполнения"
+  }
 }

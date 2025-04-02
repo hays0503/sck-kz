@@ -30,8 +30,8 @@ export default async function rewritesUrl() {
 
     // ревью (обзоры)
     {
-      source: `${UrlApiV1.getProductReviews}:patch*`,
-      destination: `${UrlApiWithDomainV1.getProductReviews}:patch*`,
+      source: `${UrlApiV1.getProductReviews}`,
+      destination: `${UrlApiWithDomainV1.getProductReviews}`,
     },
 
     //Спецификации на товар

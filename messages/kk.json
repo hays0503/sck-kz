@@ -79,7 +79,8 @@
   },
   "ProductDetail": {
     "artikul": "Мақала",
-    "reviews": "Пікір(лер)"
+    "reviews": "Пікір(лер)",
+    "smotret-vse-otzivy": "Барлық шолулар"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Сіздің телефоныңыз",
@@ -330,5 +331,8 @@
     "otzyv": "Сіздің шолуыңыз",
     "naskolko-vam-ponravilsya-tovar": "Сізге қанша ұнады",
     "otpravka": "Жіберу ..."
+  },
+  "ProductDetailConfiguration": {
+    "varianty-ispolneniya": "Орындаудың нұсқалары"
   }
 }

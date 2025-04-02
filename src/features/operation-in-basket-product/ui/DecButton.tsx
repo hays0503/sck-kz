@@ -1,23 +1,27 @@
-import { Button } from "antd";
-import { CSSProperties } from "react";
+import { Button, Modal } from "antd";
+import { CSSProperties, useState } from "react";
 import { useBasketDec } from "../model";
 
-interface DecButtonProps { 
-  prod_id: number,
-  count: number,
-  colorBg?: string,
-  color?: string 
-  border?:string
-  
+interface DecButtonProps {
+  prod_id: number;
+  count: number;
+  colorBg?: string;
+  color?: string;
+  border?: string;
 }
 
-
-const DecButton: React.FC<DecButtonProps> = (
-  { prod_id, count, colorBg = "#F5F5F5", color = "gray",border="none" }) => {
-
+const DecButton: React.FC<DecButtonProps> = ({
+  prod_id,
+  count,
+  colorBg = "#F5F5F5",
+  color = "gray",
+  border = "none",
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [_delProduct, msg] = useBasketDec({ prod_id });
 
   const styleButtonDeleted: CSSProperties = {
-    backgroundColor: `${count == 1 ? "#fef2f2" : colorBg}`,
+    backgroundColor: `${count === 1 ? "#fef2f2" : colorBg}`,
     color: color,
     width: "32px",
     height: "32px",
@@ -25,7 +29,7 @@ const DecButton: React.FC<DecButtonProps> = (
   };
 
   const delIcon =
-    count == 1 ? (
+    count === 1 ? (
       <svg
         width="20"
         height="20"
@@ -59,21 +63,49 @@ const DecButton: React.FC<DecButtonProps> = (
       </svg>
     );
 
-  const [_delProduct, msg] = useBasketDec({ prod_id });
-  const delProduct = async () => {
-    if ('vibrate' in navigator) {
+  const handleOk = async () => {
+    setIsModalOpen(false);
+    if ("vibrate" in navigator) {
       navigator.vibrate([50, 30, 80, 30, 50]);
     }
-    _delProduct()
+    _delProduct();
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const deleteAction = () => {
+    if ("vibrate" in navigator) {
+      navigator.vibrate([50, 30, 80, 30, 50]);
+    }
+    _delProduct();
+  };
+
+  const onClick = () => {
+    if (count !== 1) {
+      deleteAction();
+    }else{
+      setIsModalOpen(true);
+    }
   }
+
   return (
-    <>{msg}
-    <Button
-    onClick={delProduct}
-    style={styleButtonDeleted}
-    icon={delIcon} /></>
-  )
+    <>
+      {msg}
+      <Button onClick={onClick} style={styleButtonDeleted} icon={delIcon} />
+      <Modal
+        title="Удаление товара"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Удалить"
+        cancelText="Отмена"
+      >
+        <p>Вы уверены, что хотите удалить этот товар?</p>
+      </Modal>
+    </>
+  );
 };
 
-export default DecButton
-
+export default DecButton;

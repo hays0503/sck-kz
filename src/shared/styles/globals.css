@@ -1,5 +1,6 @@
 html body{
     overflow: hidden;
+    scroll-behavior: smooth !important;
     /* -webkit-overflow-scrolling: touch; */
 }
 

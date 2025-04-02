@@ -2,9 +2,7 @@ import { Button, Descriptions, DescriptionsProps, Flex, Typography } from "antd"
 import { MappedProductDetailType } from "api-mapping/product/_type/productDetail";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-
-
-
+import './ProductDetailSpecification.scss'
 
 interface IProductDetailDescriptionsProps {
     readonly product: MappedProductDetailType;
@@ -24,8 +22,8 @@ const ProductDetailSpecification: React.FC<IProductDetailDescriptionsProps> = (p
 
     const specification: DescriptionsProps["items"] = product.specifications.map((specification) => {
         return {
-            label: <span itemProp="name">{specification.name[locale]}</span>,
-            children: <span itemProp="value">{specification.value[locale]}</span>
+            label: <span itemProp="name" style={{width:"45dvw"}}>{specification.name[locale]}</span>,
+            children: <span itemProp="value" style={{width:"auto"}}>{specification.value[locale]}</span>
         }
     });
 
@@ -47,7 +45,7 @@ const ProductDetailSpecification: React.FC<IProductDetailDescriptionsProps> = (p
             title={t("kharakteristiki")}
             items={expandedSpecification ? specification : specificationHide}
             column={1}
-            style={{ justifyContent: "flex-end" }}
+            style={{"--ant-descriptions-item-padding-bottom": "5px"} as React.CSSProperties}
           />
           {specificationCount > 4 && (
             <Button onClick={() => setExpandedSpecification((prev) => !prev)}>

@@ -79,7 +79,7 @@ const ProductDetailDesktop: React.FC<IProductDetailProps> = (props) => {
             <Flex justify="center" style={{ width: "50%" }}>
             <ProductDetailSwiper
               images={product.img}
-              name={product.name[locale]}
+              name={product?.name?.[locale]}
               width={350}
               height={400}
             />

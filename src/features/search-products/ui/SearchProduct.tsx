@@ -62,16 +62,16 @@ export default function SearchProduct() {
                         <ImageAntd
                           preview={false}
                           src={img}
-                          alt={product?.name[locale] ?? img}
+                          alt={product?.name?.[locale] ?? img}
                           width={100} height={100}
                           loading="lazy"
                           style={{ objectFit: "scale-down", aspectRatio: "1/1" }}
                           placeholder={<Spin size={"small"}>
-                            <Image quality={5} width={100} height={100} src={img} alt={product?.name[locale] ?? img} />
+                            <Image quality={5} width={100} height={100} src={img} alt={product?.name?.[locale] ?? img} />
                           </Spin>}
                         />
                         <Paragraph ellipsis={{ rows: 1 }}>
-                          <Text >{product?.name[locale]}</Text>
+                          <Text >{product?.name?.[locale]}</Text>
                         </Paragraph>
                       </Flex>
                       <Text>{beautifulCost(product?.price)}</Text>

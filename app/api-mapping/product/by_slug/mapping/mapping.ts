@@ -13,7 +13,24 @@ import {
 } from 'api-mapping/product/_type/rawProductTypeV2';
 import { default as mappingForMappedList } from '../../_mapping/mapping';
 import { rawResult } from 'api-mapping/product/by_populates/type/rawTypePopulates';
-import { Reviews } from '@/shared/types/reviews';
+
+
+const Placeholder = (text: string,placeholder: string,info:string): string => {
+  if(!text)
+    return placeholder+` Смотри:(${info})`
+  if(text == 'null')
+    return placeholder+` Смотри:(${info})`
+  if(text == 'undefined')
+    return placeholder+` Смотри:(${info})`
+  if(text == 'NaN')
+    return placeholder+` Смотри:(${info})`
+  if(text == 'Infinity')
+    return placeholder+` Смотри:(${info})`
+  if(text == '')
+    return placeholder+` Смотри:(${info})`
+
+  return text
+}
 
 const mapping = async (
   rawData: rawProductsTypeV2,
@@ -35,9 +52,9 @@ const mapping = async (
     id: rawData?.id,
     slug: rawData?.slug,
     name: {
-      ru: rawData?.name_product ?? '',
-      en: rawData?.additional_data?.EN ?? '',
-      kk: rawData?.additional_data?.KZ ?? '',
+      ru: Placeholder(rawData?.name_product,'Перевод не установлен ru',"Название на русском"),
+      en: Placeholder(rawData?.additional_data?.EN,'Перевод не установлен en',"Название на английском"),
+      kk: Placeholder(rawData?.additional_data?.KZ,'Перевод не установлен kz',"Название на казахском"),
     },
     img: rawData?.images.map((image) => image.image),
     rating: rawData?.avg_rating,
@@ -48,14 +65,14 @@ const mapping = async (
   const specificationsProduct: MappedProductDetailSpecificationType[] | [] =
     rawData?.specifications?.map((specification: rawSpecificationV2) => ({
       name: {
-        ru: specification?.name_specification?.name_specification ?? '',
-        en: specification?.name_specification?.additional_data.EN ?? '',
-        kk: specification?.name_specification?.additional_data.KZ ?? '',
+        ru: Placeholder(specification?.name_specification?.name_specification,'Перевод не установлен ru',`Название спецификации id:${specification?.name_specification?.id}`),
+        en: Placeholder(specification?.name_specification?.additional_data.EN,'Перевод не установлен en',`Название спецификации id:${specification?.name_specification?.id}`),
+        kk: Placeholder(specification?.name_specification?.additional_data.KZ ,'Перевод не установлен kz',`Название спецификации id:${specification?.name_specification?.id}`),
       },
       value: {
-        ru: specification?.value_specification?.value_specification ?? '',
-        en: specification?.value_specification?.additional_data?.EN ?? '',
-        kk: specification?.value_specification?.additional_data?.KZ ?? '',
+        ru: Placeholder(specification?.value_specification?.value_specification,'Перевод не установлен ru',`Значение спецификации id:${specification?.value_specification?.id}`),
+        en: Placeholder(specification?.value_specification?.additional_data?.EN,'Перевод не установлен en',`Значение спецификации id:${specification?.value_specification?.id}`),
+        kk: Placeholder(specification?.value_specification?.additional_data?.KZ,'Перевод не установлен kz', `Значение спецификации id:${specification?.value_specification?.id}`),
       },
     })) ?? [];
 
@@ -79,9 +96,9 @@ const mapping = async (
 
     desc = {
       name: {
-        ru: descFetch?.body_description ?? '',
-        en: descFetch?.additional_data_to_desc?.EN ?? '',
-        kk: descFetch?.additional_data_to_desc?.KZ ?? '',
+        ru: Placeholder(descFetch?.body_description,'Перевод не установлен ru',"Описание на русском"),
+        en: Placeholder(descFetch?.additional_data_to_desc?.EN,'Перевод не установлен en',"Описание на английском"),
+        kk: Placeholder(descFetch?.additional_data_to_desc?.KZ,'Перевод не установлен kz',"Описание на казахском"),
       },
     };
   }
@@ -128,16 +145,16 @@ const mapping = async (
 
   let reviewsProducts = [] as MappedProductDetailReviewsType[];
 
-  const urlReviewsProducts = `${rawData.reviews_url}`;
-  const configurationProductsFetch = await fetch(urlReviewsProducts).then(
-    (res) => res.json() as Promise<Reviews[] | []>,
-  );
+  // const urlReviewsProducts = `${rawData.reviews_url}`;
+  // const configurationProductsFetch = await fetch(urlReviewsProducts).then(
+  //   (res) => res.json() as Promise<Reviews[] | []>,
+  // );
 
-  if (configurationProductsFetch.length > 0) {
-    reviewsProducts = configurationProductsFetch.map((review) => ({
+  if (rawData?.reviews.length > 0) {
+    reviewsProducts = rawData?.reviews.map((review) => ({
       rating: review.rating,
       review: review.review,
-      createdAt: new Date(),
+      createdAt: review.created_at,
     } as MappedProductDetailReviewsType))
   }
 

@@ -1,12 +1,20 @@
 import { UrlApiV1 } from '@/shared/constant/url';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
 import { Button, Flex, Input, message, Rate, Typography } from 'antd';
+import { TextAreaRef } from 'antd/es/input/TextArea';
 import {
   MappedProductDetailReviewsType,
   MappedProductDetailType,
 } from 'api-mapping/product/_type/productDetail';
 import { useTranslations } from 'next-intl';
-import { CSSProperties, memo, useCallback, useMemo, useState } from 'react';
+import {
+  CSSProperties,
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 interface ProductDetailReviewsProps {
   readonly product: MappedProductDetailType;
@@ -19,9 +27,9 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 }) => {
   const [toggle, setToggle] = useState(false);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
+  const [expandedDescription, setExpandedDescription] = useState(false);
 
   const { reviews } = product;
   const t = useTranslations('ProductDetailReviews');
@@ -84,9 +92,10 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   Review.displayName = 'Review';
 
   const SendReviewComponent = () => {
+    const refInput = useRef<TextAreaRef>(null);
     const Send = useCallback(() => {
       messageApi.loading(t('otpravka'), 2);
-      const urlReviewSend = `${UrlApiV1.getProducts}reviews/`;
+      const urlReviewSend = `${UrlApiV1.getProductReviews}`;
       fetch(urlReviewSend, {
         method: 'POST',
         headers: {
@@ -96,7 +105,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
           jwt_token: accessToken?.token,
           product: product?.id,
           rating: rating,
-          review: comment,
+          review: refInput.current?.resizableTextArea?.textArea?.value,
         }),
       }).then((response) => {
         if (response.ok) {
@@ -129,12 +138,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
             onChange={setRating}
           />
         </Flex>
-        <Input.TextArea
-          rows={4}
-          placeholder={t('otzyv')}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
+        <Input.TextArea rows={4} placeholder={t('otzyv')} ref={refInput} />
         <Button type='primary' onClick={Send}>
           {t('otpravit')}
         </Button>
@@ -143,12 +147,47 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   };
 
   const ReviewsList = memo(() => {
+    const t = useTranslations('ProductDetailDescription');
+    const One = () => {
+      return (
+        <Flex vertical style={{ width: '100%' }} gap={10}>
+          <Review reviews={reviews[0]} />
+          <Button
+            onClick={() => {
+              setExpandedDescription(!expandedDescription);
+            }}
+          >
+            <Text style={{ color: '#4954F0' }} itemProp='description'>
+              {expandedDescription ? t('svernut') : t('smotret-vse-opisanie')}
+            </Text>
+          </Button>
+        </Flex>
+      );
+    };
+
+    const All = () => {
+      return (
+        <Flex vertical style={{ width: '100%' }} gap={10}>
+          <Button
+            onClick={() => {
+              setExpandedDescription(!expandedDescription);
+            }}
+          >
+            <Text style={{ color: '#4954F0' }} itemProp='description'>
+              {expandedDescription ? t('svernut') : t('smotret-vse-opisanie')}
+            </Text>
+          </Button>
+          {reviews.map((review, index) => (
+            <Review key={index} reviews={review} />
+          ))}
+        </Flex>
+      );
+    };
+
     return (
-      <Flex vertical style={{ width: '100%' }}>
+      <Flex vertical style={{ width: '100%' }} gap={10}>
         <SendReviewComponent />
-        {reviews.map((review, index) => (
-          <Review key={index} reviews={review} />
-        ))}
+        {expandedDescription ? <All /> : <One />}
       </Flex>
     );
   });
@@ -165,7 +204,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   NoComments.displayName = 'NoComments';
 
   return (
-    <Flex vertical style={{ width: '100%', padding: '5px' }} gap={10}>
+    <Flex vertical style={{ width: '100%', padding: '5px' }} gap={10} id="review">
       <Text style={styleHeader}>{t('otzyvy')}</Text>
       {reviews.length === 0 ? <NoComments /> : <ReviewsList />}
     </Flex>

@@ -50,11 +50,13 @@ const RenderImages: React.FC<IRenderImagesProps> = (props) => {
 };
 
 const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
-  const { images, paramsSwiper, name, width, height } = props;
+  const { images, paramsSwiper, name,
+    //  width, height
+  } = props;
   return (
     <Swiper {...paramsSwiper} modules={[Pagination, EffectCube]}>
       {images.map((item, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} style={{position:"relative"}}>
           <link itemProp="image" href={item} />
           <Image
             placeholder="blur"
@@ -64,13 +66,14 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
             // fetchPriority="low"
             src={item}
             alt={`${name}-slide-${index}`}
-            width={width}
-            height={height}
+            // width={width}
+            // height={height}
+            fill
             style={{
-              objectFit: "scale-down",
-              objectPosition: "center",
-              width: "100%",
-              height: "inherit",
+              objectFit: "cover",
+            //   objectPosition: "center",
+            //   width: "100%",
+            //   height: "auto",
             }}
           />
         </SwiperSlide>

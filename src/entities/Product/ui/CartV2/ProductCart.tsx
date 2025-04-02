@@ -51,7 +51,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
             prefetch={true}
             style={{
               width: CartWidth,
-              height: CartWidth,
+              height: CartWidth+50,
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
@@ -64,7 +64,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                   align="center"
                   style={{
                     width: CartWidth,
-                    height: CartWidth,
+                    height: CartWidth+50,
                   }}
                 >
                   <Spin />
@@ -75,7 +75,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                 name={ProductName}
                 images={Product.img}
                 width={CartWidth}
-                height={CartWidth}
+                height={CartWidth+50}
               />
             </Suspense>
           </Link>

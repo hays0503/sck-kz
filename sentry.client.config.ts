@@ -10,6 +10,10 @@ Sentry.init({
   // Add optional integrations for additional features
   integrations: [
     Sentry.replayIntegration({
+      networkCaptureBodies:true,
+      networkDetailAllowUrls: [/.*/],
+      networkRequestHeaders: ['X-Custom-Header'],
+      networkResponseHeaders: ['X-Custom-Header'],
       maskAllText: false,
       maskAllInputs: false,
       blockAllMedia: false,      
