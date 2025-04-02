@@ -85,6 +85,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
   const SendReviewComponent = () => {
     const Send = useCallback(() => {
+      messageApi.loading(t('otpravka'), 500);
       const urlReviewSend = `${UrlApiV1.getProducts}reviews/`;
       fetch(urlReviewSend, {
         method: 'POST',

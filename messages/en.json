@@ -328,6 +328,7 @@
     "otzyv-ne-otpravlen": "The review was not sent",
     "otpravit": "Send",
     "otzyv": "Your review",
-    "naskolko-vam-ponravilsya-tovar": "How much you liked the product"
+    "naskolko-vam-ponravilsya-tovar": "How much you liked the product",
+    "otpravka": "Sending ..."
   }
 }
