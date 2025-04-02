@@ -85,7 +85,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
   const SendReviewComponent = () => {
     const Send = useCallback(() => {
-      messageApi.loading(t('otpravka'), 500);
+      messageApi.loading(t('otpravka'), 2);
       const urlReviewSend = `${UrlApiV1.getProducts}reviews/`;
       fetch(urlReviewSend, {
         method: 'POST',
@@ -101,11 +101,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
       }).then((response) => {
         if (response.ok) {
           setToggle(false);
-          messageApi.success(t('otzyv-uspeshno-otpravlen'), 3000);
+          messageApi.success(t('otzyv-uspeshno-otpravlen'), 3);
         } else {
-          messageApi.error(t('otzyv-ne-otpravlen'), 3000);
-          messageApi.error(response.statusText, 3000);
-          messageApi.error(response.status, 3000);
+          messageApi.error(t('otzyv-ne-otpravlen'), 10);
+          messageApi.error(response.statusText, 10);
+          messageApi.error(response.status, 10);
         }
       });
     }, []);
