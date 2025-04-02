@@ -17,7 +17,12 @@ const { Text } = Typography;
 const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   product,
 }) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);  
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
+
   const { reviews } = product;
   const t = useTranslations('ProductDetailReviews');
   const styleHeader = useMemo(
@@ -77,11 +82,8 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   Review.displayName = 'Review';
 
   const SendReviewComponent = () => {
-    const [messageApi, contextHolder] = message.useMessage();
-    const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
 
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('');
+
 
     
     const Send = useCallback(() => {
