@@ -2,8 +2,10 @@ import { withSentryConfig } from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
 import rewritesUrl from './rewritesUrl';
 import { NextConfig } from 'next';
+import { sentryWebpackPlugin } from "@sentry/webpack-plugin";
 
 const withNextIntl = createNextIntlPlugin();
+
 
 /** @type {import('next').NextConfig} */
 
@@ -12,7 +14,15 @@ const nextConfig:NextConfig = {
   optimization: {
     minimize: false,
   },
-  
+  devtool: "source-map", // Source map generation must be turned on
+  plugins: [
+    sentryWebpackPlugin({
+      org: "sergey-tc",
+      project: "javascript-nextjs",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+  ],
+
   trailingSlash: true,
   // staticPageGenerationTimeout: 1000,
   images: {
