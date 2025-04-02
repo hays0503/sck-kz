@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   webpack: (
     config
   ) => {
-    config.optimization.minimize = false;
-    config.compress = false;
+    // config.optimization.minimize = false;
+    // config.compress = false;
     config.devtool = 'source-map';
     config.plugins.push(
       sentryWebpackPlugin({
