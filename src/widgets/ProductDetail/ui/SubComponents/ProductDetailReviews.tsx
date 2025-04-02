@@ -17,6 +17,7 @@ const { Text } = Typography;
 const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   product,
 }) => {
+  const [toggle, setToggle] = useState(false);
   const { reviews } = product;
   const t = useTranslations('ProductDetailReviews');
   const styleHeader = useMemo(
@@ -42,14 +43,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     [],
   );
 
-  const NoComments = memo(() => (
-    <Flex vertical style={{ width: '100%' }} gap={10}>
-      <Text style={styleText}>
-        {t('u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym')}
-      </Text>
-    </Flex>
-  ));
-  NoComments.displayName = 'NoComments';
+
 
   const Review = memo(
     ({ reviews }: { reviews: MappedProductDetailReviewsType }) => {
@@ -85,7 +79,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   const SendReviewComponent = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
-    const [toggle, setToggle] = useState(false);
+
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
 
@@ -106,9 +100,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
       }).then((response) => {
         if (response.ok) {
           setToggle(false);
-          messageApi.success(t('otzyv-uspeshno-otpravlen'));
+          messageApi.success(t('otzyv-uspeshno-otpravlen'),3000);
         } else {
-          messageApi.error(t('otzyv-ne-otpravlen'));
+          messageApi.error(t('otzyv-ne-otpravlen'),3000);
+          messageApi.error(response.statusText,3000);
+          messageApi.error(response.status,3000);
         }
       });
     }, [accessToken?.token, comment, messageApi, rating]);
@@ -156,6 +152,16 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     );
   });
   ReviewsList.displayName = 'ReviewsList';
+
+  const NoComments = memo(() => (
+    <Flex vertical style={{ width: '100%' }} gap={10}>
+      <SendReviewComponent />
+      <Text style={styleText}>
+        {t('u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym')}
+      </Text>
+    </Flex>
+  ));
+  NoComments.displayName = 'NoComments';
 
   return (
     <Flex vertical style={{ width: '100%', padding: '5px' }} gap={10}>
