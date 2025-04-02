@@ -18,7 +18,7 @@ const nextConfig:NextConfig = {
   plugins: [
     sentryWebpackPlugin({
       org: "sergey-tc",
-      project: "javascript-nextjs",
+      project: "sck-next",
       authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
