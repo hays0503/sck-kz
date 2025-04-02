@@ -2,26 +2,28 @@ import { withSentryConfig } from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
 import rewritesUrl from './rewritesUrl';
 import { NextConfig } from 'next';
-import { sentryWebpackPlugin } from "@sentry/webpack-plugin";
+import { sentryWebpackPlugin } from '@sentry/webpack-plugin';
 
 const withNextIntl = createNextIntlPlugin();
 
-
 /** @type {import('next').NextConfig} */
 
-const nextConfig:NextConfig = {
-  compress:false,
-  optimization: {
-    minimize: false,
+const nextConfig: NextConfig = {
+  webpack: (
+    config
+  ) => {
+    config.optimization.minimize = false;
+    config.compress = false;
+    config.devtool = 'source-map';
+    config.plugins.push(
+      sentryWebpackPlugin({
+        org: 'sergey-tc',
+        project: 'sck-next',
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      }),
+    );
+    return config;
   },
-  devtool: "source-map", // Source map generation must be turned on
-  plugins: [
-    sentryWebpackPlugin({
-      org: "sergey-tc",
-      project: "sck-next",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-    }),
-  ],
 
   trailingSlash: true,
   // staticPageGenerationTimeout: 1000,
