@@ -8,6 +8,11 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 
 const nextConfig:NextConfig = {
+  compress:false,
+  optimization: {
+    minimize: false,
+  },
+  
   trailingSlash: true,
   // staticPageGenerationTimeout: 1000,
   images: {
