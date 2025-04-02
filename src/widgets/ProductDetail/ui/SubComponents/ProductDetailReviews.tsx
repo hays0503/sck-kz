@@ -17,7 +17,7 @@ const { Text } = Typography;
 const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   product,
 }) => {
-  const [toggle, setToggle] = useState(false);  
+  const [toggle, setToggle] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
@@ -48,8 +48,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     [],
   );
 
-
-
   const Review = memo(
     ({ reviews }: { reviews: MappedProductDetailReviewsType }) => {
       const date = new Date(reviews.createdAt);
@@ -69,7 +67,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
             </Flex>
             <Flex gap={5} align='center'>
               <Text
-                style={{ color: '#8C8C8C', fontSize: '12px', fontWeight: '400' }}
+                style={{
+                  color: '#8C8C8C',
+                  fontSize: '12px',
+                  fontWeight: '400',
+                }}
               >{`${t('opyblikovano')}:`}</Text>
               <Text style={{ color: '#19b275' }}>{formattedDate}</Text>
             </Flex>
@@ -82,10 +84,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   Review.displayName = 'Review';
 
   const SendReviewComponent = () => {
-
-
-
-    
     const Send = useCallback(() => {
       const urlReviewSend = `${UrlApiV1.getProducts}reviews/`;
       fetch(urlReviewSend, {
@@ -95,21 +93,21 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
         },
         body: JSON.stringify({
           jwt_token: accessToken?.token,
-          product: product.id,
+          product: product?.id,
           rating: rating,
           review: comment,
         }),
       }).then((response) => {
         if (response.ok) {
           setToggle(false);
-          messageApi.success(t('otzyv-uspeshno-otpravlen'),3000);
+          messageApi.success(t('otzyv-uspeshno-otpravlen'), 3000);
         } else {
-          messageApi.error(t('otzyv-ne-otpravlen'),3000);
-          messageApi.error(response.statusText,3000);
-          messageApi.error(response.status,3000);
+          messageApi.error(t('otzyv-ne-otpravlen'), 3000);
+          messageApi.error(response.statusText, 3000);
+          messageApi.error(response.status, 3000);
         }
       });
-    }, [accessToken?.token, comment, messageApi, rating]);
+    }, []);
 
     if (!toggle) {
       return (
