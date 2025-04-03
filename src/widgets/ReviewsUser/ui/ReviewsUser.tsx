@@ -7,10 +7,9 @@ import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Reviews } from '@/shared/types/reviews';
 import { Divider, Flex, Typography } from 'antd';
-import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
-import { CSSProperties, use, useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 
 const { Text } = Typography;
 interface IReviewsUserProps {
