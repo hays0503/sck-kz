@@ -7,9 +7,9 @@ import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Reviews } from '@/shared/types/reviews';
 import { Divider, Flex, Typography } from 'antd';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { CSSProperties, useMemo } from 'react';
+import { CSSProperties, use, useMemo } from 'react';
 
 const { Text } = Typography;
 interface IReviewsUserProps {
@@ -23,6 +23,8 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
     isLoading,
     error,
   } = useGetReviewsByUserIdSWR(user_id);
+
+  const t = useTranslations();
 
   const locale = useLocale();
 
