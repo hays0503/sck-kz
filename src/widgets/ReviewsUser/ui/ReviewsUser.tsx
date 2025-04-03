@@ -9,7 +9,7 @@ import { Reviews } from '@/shared/types/reviews';
 import { Divider, Flex, Typography } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { CSSProperties, use, useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 
 const { Text } = Typography;
 interface IReviewsUserProps {
