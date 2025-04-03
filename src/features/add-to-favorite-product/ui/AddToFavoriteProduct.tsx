@@ -54,7 +54,7 @@ const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
     return <Flex style={{ width: "32px", height: "32px" }} justify="center" align="center">!</Flex>;
   }
 
-  const isFavorite = data?.data.includes(prod_id)
+  const isFavorite = data?.data?.includes(prod_id)
   const action = isFavorite ? () => del(prod_id) : () => add(prod_id)
 
   return (
