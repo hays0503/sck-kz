@@ -72,8 +72,6 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
     const img = product?.img?.[0] ?? '/nofoto.jpg';
     const name = product?.name?.[locale];
 
-
-
     return (
       <>
         {productData?.results && (
@@ -123,8 +121,22 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
     );
   };
 
-  if(ReviewsData?.data?.length==0){
-    return <Text style={{ fontWeight: ' 500', fontSize: '18px', lineHeight: '26px', letterSpacing: '-0.6%', verticalAlign: 'bottom' }}>{t('pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv')}</Text>
+  if (ReviewsData?.data?.length == 0) {
+    return (
+      <Flex style={{ width: '100%', padding: '10px' }} justify='center' align='center'>
+        <Text
+          style={{
+            fontWeight: ' 500',
+            fontSize: '18px',
+            lineHeight: '26px',
+            letterSpacing: '-0.6%',
+            verticalAlign: 'bottom',
+          }}
+        >
+          {t('pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv')}
+        </Text>
+      </Flex>
+    );
   }
 
   return (
