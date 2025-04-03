@@ -72,6 +72,8 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
     const img = product?.img?.[0] ?? '/nofoto.jpg';
     const name = product?.name?.[locale];
 
+
+
     return (
       <>
         {productData?.results && (
@@ -120,6 +122,10 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
       </>
     );
   };
+
+  if(ReviewsData?.data?.length==0){
+    return <Text style={{ fontWeight: ' 500', fontSize: '18px', lineHeight: '26px', letterSpacing: '-0.6%', verticalAlign: 'bottom' }}>{t('pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv')}</Text>
+  }
 
   return (
     <Flex vertical>

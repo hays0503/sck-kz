@@ -334,5 +334,6 @@
   },
   "ProductDetailConfiguration": {
     "varianty-ispolneniya": "Options for execution"
-  }
+  },
+  "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "It looks like you haven't had a review yet"
 }
