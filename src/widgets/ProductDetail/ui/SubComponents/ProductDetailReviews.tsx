@@ -1,20 +1,9 @@
-import { UrlApiV1 } from '@/shared/constant/url';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import { Button, Flex, Input, message, Rate, Typography } from 'antd';
-import { TextAreaRef } from 'antd/es/input/TextArea';
-import {
-  MappedProductDetailReviewsType,
-  MappedProductDetailType,
-} from 'api-mapping/product/_type/productDetail';
+import Review from '@/entities/Reviews/ui/Review';
+import { SendReviewComponent } from '@/features/add-reviews-to-product';
+import { Button, Flex, Typography } from 'antd';
+import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import { useTranslations } from 'next-intl';
-import {
-  CSSProperties,
-  memo,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { CSSProperties, memo, useMemo, useState } from 'react';
 
 interface ProductDetailReviewsProps {
   readonly product: MappedProductDetailType;
@@ -26,9 +15,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   product,
 }) => {
   const [toggle, setToggle] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [messageApi, contextHolder] = message.useMessage();
-  const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
   const [expandedDescription, setExpandedDescription] = useState(false);
 
   const { reviews } = product;
@@ -55,96 +41,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
       }) as CSSProperties,
     [],
   );
-
-  const Review = memo(
-    ({ reviews }: { reviews: MappedProductDetailReviewsType }) => {
-      const date = new Date(reviews.createdAt);
-      const year = date.toLocaleString('default', { year: 'numeric' });
-      const month = date.toLocaleString('default', { month: '2-digit' });
-      const day = date.toLocaleString('default', { day: '2-digit' });
-      const formattedDate = year + '.' + month + '.' + day;
-      return (
-        <Flex vertical style={{ width: '100%', padding: '5px' }}>
-          <Flex justify='space-between' style={{ width: '100%' }}>
-            <Flex gap={5} align='center'>
-              <Text strong style={{ fontSize: '16px' }}>
-                {reviews.rating}
-              </Text>
-              <Text disabled>{t('iz5')}</Text>
-              <Rate value={reviews.rating} style={{ fontSize: '16px' }} />
-            </Flex>
-            <Flex gap={5} align='center'>
-              <Text
-                style={{
-                  color: '#8C8C8C',
-                  fontSize: '12px',
-                  fontWeight: '400',
-                }}
-              >{`${t('opyblikovano')}:`}</Text>
-              <Text style={{ color: '#19b275' }}>{formattedDate}</Text>
-            </Flex>
-          </Flex>
-          <Text style={styleText}>{reviews.review}</Text>
-        </Flex>
-      );
-    },
-  );
-  Review.displayName = 'Review';
-
-  const SendReviewComponent = () => {
-    const refInput = useRef<TextAreaRef>(null);
-    const Send = useCallback(() => {
-      messageApi.loading(t('otpravka'), 2);
-      const urlReviewSend = `${UrlApiV1.getProductReviews}`;
-      fetch(urlReviewSend, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          jwt_token: accessToken?.token,
-          product: product?.id,
-          rating: rating,
-          review: refInput.current?.resizableTextArea?.textArea?.value,
-        }),
-      }).then((response) => {
-        if (response.ok) {
-          setToggle(false);
-          messageApi.success(t('otzyv-uspeshno-otpravlen'), 3);
-        } else {
-          messageApi.error(t('otzyv-ne-otpravlen'), 10);
-          messageApi.error(response.statusText, 10);
-          messageApi.error(response.status, 10);
-        }
-      });
-    }, []);
-
-    if (!toggle) {
-      return (
-        <Button type='primary' onClick={() => setToggle(true)}>
-          {t('ostavit-otzyv')}
-        </Button>
-      );
-    }
-
-    return (
-      <Flex gap={5} vertical>
-        {contextHolder}
-        <Flex gap={3} align='center'>
-          <Text>{t('naskolko-vam-ponravilsya-tovar')}</Text>
-          <Rate
-            style={{ fontSize: '10px' }}
-            value={rating}
-            onChange={setRating}
-          />
-        </Flex>
-        <Input.TextArea rows={4} placeholder={t('otzyv')} ref={refInput} />
-        <Button type='primary' onClick={Send}>
-          {t('otpravit')}
-        </Button>
-      </Flex>
-    );
-  };
 
   const ReviewsList = memo(() => {
     const t = useTranslations('ProductDetailDescription');
@@ -186,7 +82,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
     return (
       <Flex vertical style={{ width: '100%' }} gap={10}>
-        <SendReviewComponent />
         {expandedDescription ? <All /> : <One />}
       </Flex>
     );
@@ -195,7 +90,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
   const NoComments = memo(() => (
     <Flex vertical style={{ width: '100%' }} gap={10}>
-      <SendReviewComponent />
       <Text style={styleText}>
         {t('u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym')}
       </Text>
@@ -204,8 +98,18 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   NoComments.displayName = 'NoComments';
 
   return (
-    <Flex vertical style={{ width: '100%', padding: '5px' }} gap={10} id="review">
+    <Flex
+      vertical
+      style={{ width: '100%', padding: '5px' }}
+      gap={10}
+      id='review'
+    >
       <Text style={styleHeader}>{t('otzyvy')}</Text>
+      <SendReviewComponent
+        product={product}
+        toggle={toggle}
+        setToggle={setToggle}
+      />
       {reviews.length === 0 ? <NoComments /> : <ReviewsList />}
     </Flex>
   );

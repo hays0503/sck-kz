@@ -14,8 +14,6 @@ const useGetProductByIdsSWR = ({
   orderBy: "avg_rating" | "-avg_rating" | "stocks__price" | "-stocks__price";
   page: number;
 }): SWRResponse<getProductResult> => {
-  console.log("useGetProductByIdsSWR")
-  console.count("useGetProductByIdsSWR = >>")
   const url = `/api-mapping/product/by_ids/?ids=${ids}&order=${orderBy}&city=${city}&page=${page}`;
 
   const object = useSWR(url, (_url) => defaultFetcher(_url, {

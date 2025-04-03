@@ -16,7 +16,7 @@ const ProfileMobile: React.FC = () => {
       <Suspense>
         <Level1 infoUser={info} IsAnonymous={isAnonymous} />
       </Suspense>
-      <Level2 infoUser={info} IsAnonymous={isAnonymous} />
+      <Level2 infoUser={info}  IsAnonymous={isAnonymous} />
       <Level3 />
     </Flex>
   );
