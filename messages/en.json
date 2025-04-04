@@ -20,7 +20,8 @@
   "Status": {
     "zagruzka": "Loading",
     "oshibka": "Error",
-    "net-dannykh": "No data"
+    "net-dannykh": "No data",
+    "sales": "Stock"
   },
   "AddToBasketProduct": {
     "v-korzinu": "Add to cart"
@@ -67,7 +68,7 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Return to home",
     "kak-vy-zdes-ochutilis": "How did you end up here?",
-    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!"
+    "tovar-udalen": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!"
   },
   "Error": {
     "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",

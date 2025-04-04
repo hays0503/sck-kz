@@ -20,7 +20,8 @@
   "Status": {
     "zagruzka": "Жүктелуде",
     "oshibka": "Қате",
-    "net-dannykh": "Деректер жоқ"
+    "net-dannykh": "Деректер жоқ",
+    "sales": "Акциялар"
   },
   "AddToBasketProduct": {
     "v-korzinu": "Себетке қосу"
@@ -67,7 +68,7 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Үйге оралу",
     "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?",
-    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!"
+    "tovar-udalen": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!"
   },
   "Error": {
     "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",

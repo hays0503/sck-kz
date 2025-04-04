@@ -22,10 +22,10 @@ const ProductDetailSpecification: React.FC<IProductDetailDescriptionsProps> = (p
 
     const [expandedSpecification, setExpandedSpecification] = useState(false);
 
-    const specification: DescriptionsProps["items"] = product.specifications.map((specification) => {
+    const specification: DescriptionsProps["items"] = product?.specifications?.map((specification) => {
         return {
-            label: <span itemProp="name">{specification.name[locale]}</span>,
-            children: <span itemProp="value">{specification.value[locale]}</span>
+            label: <span itemProp="name">{specification?.name?.[locale]}</span>,
+            children: <span itemProp="value">{specification?.value?.[locale]}</span>
         }
     });
 

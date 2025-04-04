@@ -20,10 +20,10 @@ const ProductDetailSpecification: React.FC<IProductDetailDescriptionsProps> = (p
 
     const [expandedSpecification, setExpandedSpecification] = useState(false);
 
-    const specification: DescriptionsProps["items"] = product.specifications.map((specification) => {
+    const specification: DescriptionsProps["items"] = product?.specifications?.map((specification) => {
         return {
-            label: <span itemProp="name" style={{width:"45dvw"}}>{specification.name[locale]}</span>,
-            children: <span itemProp="value" style={{width:"auto"}}>{specification.value[locale]}</span>
+            label: <span itemProp="name" style={{width:"45dvw"}}>{specification?.name?.[locale]}</span>,
+            children: <span itemProp="value" style={{width:"auto"}}>{specification?.value?.[locale]}</span>
         }
     });
 

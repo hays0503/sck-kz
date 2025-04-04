@@ -1,22 +1,22 @@
-import { SearchParams } from "nuqs";
-import { searchParamsCache } from "./searchParams";
-import { ProvidersServer } from "@/shared/providers/providersServer";
-import { ProvidersClient } from "@/shared/providers/providersClient";
-import { LayoutMain } from "@/widgets/LayoutMain";
-import { Flex } from "antd";
-import { ProductPopularListPagination } from "@/widgets/ProductPopularListPagination";
-import getProductPopulates from "@/entities/Product/api/getProductPopulates";
-import { HeaderMobile } from "@/widgets/HeaderMobile";
-import { SelectCity } from "@/features/select-city";
-import { ChangeLanguage } from "@/features/change-language";
-import getCity from "@/entities/City/api/getCity";
-import { SearchProduct } from "@/features/search-products";
-import { FooterMobile } from "@/widgets/FooterMobile";
-import { getCategoryRoot } from "@/entities/Category";
-import { TabletCategory } from "@/widgets/TabletCategory/ui";
-import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
-import { CSSProperties } from "react";
-import { unstable_cache } from "next/cache";
+import { SearchParams } from 'nuqs';
+import { searchParamsCache } from './searchParams';
+import { ProvidersServer } from '@/shared/providers/providersServer';
+import { ProvidersClient } from '@/shared/providers/providersClient';
+import { LayoutMain } from '@/widgets/LayoutMain';
+import { Flex } from 'antd';
+import { ProductPopularListPagination } from '@/widgets/ProductPopularListPagination';
+import getProductPopulates from '@/entities/Product/api/getProductPopulates';
+import { HeaderMobile } from '@/widgets/HeaderMobile';
+import { SelectCity } from '@/features/select-city';
+import { ChangeLanguage } from '@/features/change-language';
+import getCity from '@/entities/City/api/getCity';
+import { SearchProduct } from '@/features/search-products';
+import { FooterMobile } from '@/widgets/FooterMobile';
+import { getCategoryRoot } from '@/entities/Category';
+import { TabletCategory } from '@/widgets/TabletCategory/ui';
+import { BannerMobileSlider } from '@/widgets/BannerMobileSlider';
+import { CSSProperties } from 'react';
+import { unstable_cache } from 'next/cache';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -35,11 +35,21 @@ export default async function HomePage({ params, searchParams }: PageProps) {
   const urlCity = `/api-mapping/city`;
   const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`;
 
+  const revalidateTime = { revalidate: 300 };
+
   // Запросы с кэшированием
   const [productsData, citiesData, categoryRootData] = await Promise.all([
-    unstable_cache(() => getProductPopulates({ city, orderBy: "none_sort", page }), [urlPopulates], { revalidate: 300 })(),
-    unstable_cache(() => getCity(), [urlCity], { revalidate: 300 })(),
-    unstable_cache(() => getCategoryRoot(city), [urlCategoryRoot], { revalidate: 300 })(),
+    unstable_cache(
+      () => getProductPopulates({ city, orderBy: 'none_sort', page }),
+      [urlPopulates],
+      revalidateTime,
+    )(),
+    unstable_cache(() => getCity(), [urlCity], revalidateTime)(),
+    unstable_cache(
+      () => getCategoryRoot(city),
+      [urlCategoryRoot],
+      revalidateTime,
+    )(),
   ]);
 
   const fallback = {
@@ -53,15 +63,41 @@ export default async function HomePage({ params, searchParams }: PageProps) {
       <ProvidersClient fallback={fallback}>
         <LayoutMain
           headerContent={
-            <HeaderMobile SelectCity={SelectCity} ChangeLanguage={ChangeLanguage} SearchProduct={SearchProduct} />
+            <HeaderMobile
+              SelectCity={SelectCity}
+              ChangeLanguage={ChangeLanguage}
+              SearchProduct={SearchProduct}
+            />
           }
           content={
-            <Flex vertical gap={5} style={{ "--sck-columns-on-page": 2 } as CSSProperties}>
-              <div style={{ width: "100%", height: "3px", backgroundColor: "#eeeff1" }} />
+            <Flex
+              vertical
+              gap={5}
+              style={{ '--sck-columns-on-page': 2 } as CSSProperties}
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: '3px',
+                  backgroundColor: '#eeeff1',
+                }}
+              />
               <BannerMobileSlider category={categoryRootData?.results ?? []} />
-              <div style={{ width: "100%", height: "3px", backgroundColor: "#eeeff1" }} />
+              <div
+                style={{
+                  width: '100%',
+                  height: '3px',
+                  backgroundColor: '#eeeff1',
+                }}
+              />
               <TabletCategory />
-              <div style={{ width: "100%", height: "3px", backgroundColor: "#eeeff1" }} />
+              <div
+                style={{
+                  width: '100%',
+                  height: '3px',
+                  backgroundColor: '#eeeff1',
+                }}
+              />
               <ProductPopularListPagination />
             </Flex>
           }

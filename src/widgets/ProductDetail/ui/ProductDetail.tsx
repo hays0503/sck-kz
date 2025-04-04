@@ -6,6 +6,7 @@ import {
   ProductDetailConfiguration,
   ProductDetailDescription,
   ProductDetailItem,
+  ProductDetailPopular,
   ProductDetailPrice,
   ProductDetailRating,
   ProductDetailReviews,
@@ -60,6 +61,8 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
     isLoading,
     error,
   } = useGetProductBySlugSWR(slug, cityEn);
+
+
 
   const refSliderContainer = useRef<HTMLDivElement>(null);
   const sliderSize = useResizeObserver({
@@ -247,6 +250,10 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             />
           </ProductDetailItem>
         )}
+
+        <ProductDetailItem>
+          <ProductDetailPopular />
+        </ProductDetailItem>
       </Flex>
     </>
   );

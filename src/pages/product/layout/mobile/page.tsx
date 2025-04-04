@@ -1,5 +1,5 @@
 import getProductBySlug from '@/entities/Product/api/getProductBySlug';
-// import { SearchProduct } from "@/features/search-products";
+import getProductPopulates from '@/entities/Product/api/getProductPopulates';
 import { Link } from '@/i18n/routing';
 import { STATUS_CODE } from '@/shared/constant/statusCode';
 import { ProvidersClient } from '@/shared/providers/providersClient';
@@ -10,6 +10,7 @@ import { LayoutMain } from '@/widgets/LayoutMain';
 import { ProductDetail } from '@/widgets/ProductDetail';
 import { Flex } from 'antd';
 import { getTranslations } from 'next-intl/server';
+import { unstable_cache } from 'next/cache';
 
 import React, { JSX } from 'react';
 
@@ -24,66 +25,56 @@ interface IProductPageProps {
 type ProductPageComponent = (props: IProductPageProps) => Promise<JSX.Element>;
 
 const ProductPage: ProductPageComponent = async (props) => {
-  const { 
-    // locale,
-     slug, city } = await props.params;
+  const { slug, city } = await props.params;
+
+  const revalidateTime = { revalidate: 300 };
+
   const t = await getTranslations('NotFound');
 
-  const productData = await getProductBySlug({ slug, city });
-  if (productData.statusCode !== STATUS_CODE.OK)
-    return (
-      <ErrorPage
-        fallback={{}}
-        content={
-          <h4>
-            {t(
-              'tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov',
-            )}
-          </h4>
-        }
-        city={city}
-      />
-    );
+  const [productSlug, productPopulates] = await Promise.all([
+    unstable_cache(
+      () => getProductBySlug({ slug, city }),
+      [slug, city],
+      revalidateTime,
+    )(),
+    unstable_cache(
+      () => getProductPopulates({ city, orderBy: 'none_sort', page: 1 }),
+      [city],
+      revalidateTime,
+    )(),
+  ]);
 
-  // Извлекаем id категории к которой принадлежит товар
-  // const productCategoryId = (productData.data as MappedProductDetailType)
-  //   .categoryId;
-
-  // const categoryAllData = await getCategoryAll(city);
-
-  // const categoryName =
-  //   findCategory(
-  //     categoryAllData?.results,
-  //     (category) => category.id === productCategoryId,
-  //   )?.name[locale] ?? '';
+  // Ключи для кэширования
+  const urlSlug = `/api-mapping/product/by_slug/?slug=${slug}&city=${city}`;
+  const urlPopulates = `/api-mapping/product/by_populates?page=${1}&order=none_sort&city=${city}`;
 
   const fallback = {
-    [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]:
-      productData.data,
+    [urlSlug]: productSlug.data,
+    [urlPopulates]: productPopulates,
   };
 
   console.log('fallback', fallback);
 
+  if (productSlug.statusCode !== STATUS_CODE.OK) {
+    const contentText = t('tovar-udalen');
+    return (
+      <ErrorPage fallback={{}} content={<h4>{contentText}</h4>} city={city} />
+    );
+  }
+
   return (
-    <DefaultPage fallback={fallback} slug={slug} />
+    <Flex vertical style={{ width: '100%' }}>
+      <DefaultPage fallback={fallback} slug={slug} />
+    </Flex>
   );
 };
 
-const Empty = () => <div></div>;
-
-{
-  /* <HeaderText text={categoryName} SearchProduct={SearchProduct} socialFunctionOff /> */
-}
+const Empty = () => <></>;
 
 const DefaultPage: React.FC<{
   fallback: object;
-  // categoryName: string,
   slug: string;
-}> = ({
-  fallback,
-  // categoryName,
-  slug,
-}) => (
+}> = ({ fallback, slug }) => (
   <ProvidersServer>
     <ProvidersClient fallback={fallback}>
       <LayoutMain

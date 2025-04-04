@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev-debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "build-no-sentry": "cross-env DISABLE_SENTRY=true next build",
     "start": "next start",
     "lint": "next lint",
     "upload": "npx @hyperdx/cli upload-sourcemaps --serviceKey `44d170a5-31f3-4807-b19b-53ac1b2b8e2c` --path .next"

@@ -29,7 +29,8 @@
   "Status": {
     "zagruzka": "Загрузка",
     "oshibka": "Ошибка",
-    "net-dannykh": "Нет данных"
+    "net-dannykh": "Нет данных",
+    "sales": "Акции"
   },
   "AddToBasketProduct": {
     "v-korzinu": "В корзину"
@@ -76,7 +77,7 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Вернуться на главную",
     "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
-    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
+    "tovar-udalen": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
   },
   "Error": {
     "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
