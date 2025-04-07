@@ -6,7 +6,6 @@ import { Button, Flex } from "antd";
 // import { TextTruncate } from "../TextTruncate";
 import { CSSProperties } from "react";
 interface IHeaderTextProps {
-  readonly text: string;
   readonly SearchProduct?: React.FC;
   readonly socialFunctionOff?: boolean
 }
@@ -14,7 +13,6 @@ interface IHeaderTextProps {
 const HeaderText: React.FC<IHeaderTextProps> = (props) => {
   const router = useRouter();
   const {
-    // text,
     SearchProduct,
     socialFunctionOff
   } = props;
@@ -62,27 +60,7 @@ const HeaderText: React.FC<IHeaderTextProps> = (props) => {
             </svg>
           </Button>
         </Flex>
-        {/* <Flex
-        align="center"
-        justify="center"
-        style={{ width: "50%",height: "100%",
-        // background:"red" 
-        }}
-      >
-          <TextTruncate text={text} style={{
-            fontSize: "18px",
-            lineHeight: "20px",
-            fontWeight: "600",
-            letterSpacing: "-0.6%",
-            color: "#000000",
-            textAlign: "center",
-            width: "100%",
-            height: "50%",
-            // background:"green"
-          }}/>
-      </Flex> */}
         {SearchProduct && <SearchProduct />}
-
         {!socialFunctionOff && <Flex gap={10} align="center" justify="center" style={{ width: "25%", height: "100%", padding: "0 10px" }} >
           <CopyUrlButton />
           <ShareButton />

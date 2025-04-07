@@ -5,22 +5,15 @@ import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { ProfileMobile } from "@/widgets/ProfileMobile";
-import { getTranslations } from "next-intl/server";
 
 const ProfilePage = async (
-//   {
-//   params,
-// }: {
-//   params: { locale: string; city: string };
-// }
+
 ) => {
-  const fallback = {};
-  const t = await getTranslations("Profile");
   return (
     <ProvidersServer>
-      <ProvidersClient fallback={fallback}>
+      <ProvidersClient fallback={{}}>
         <LayoutMain
-          headerContent={<HeaderText text={t('profil')}/>}
+          headerContent={<HeaderText />}
           content={<ProfileMobile/>}
           footerContent={<FooterMobile defaultKey="4"/>}
         />

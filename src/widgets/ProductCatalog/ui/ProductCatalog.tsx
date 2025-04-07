@@ -19,9 +19,10 @@ import { FilterType } from "@/features/new-product-filter/ui/SubModule/FilterVal
 const { Text } = Typography;
 
 interface ProductsCatalogProps {
-  params: { slug: string };
+  readonly params: { slug: string };
 
-  filter: FilterType[]
+  readonly filter: FilterType[]
+  readonly productIds?: number[]|null
 }
 
 
@@ -164,13 +165,13 @@ const Render: React.FC<RenderProps> = ({
 }
 
 
-const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params, filter }) => {
+const ProductCatalog: React.FC<ProductsCatalogProps> = ({ params, filter, productIds }) => {
   const { slug } = params;
   const [currentPage, setCurrentPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const [sortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
 
 
-  const [activeFilterProductIds, setActiveFilterProductIds] = useState<number[]>([])
+  const [activeFilterProductIds, setActiveFilterProductIds] = useState<number[]>(productIds??[])
 
   const renderMode = activeFilterProductIds.length <= 0;
 

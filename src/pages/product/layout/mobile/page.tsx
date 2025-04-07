@@ -102,7 +102,7 @@ const ErrorPage: React.FC<{
       <ProvidersClient fallback={fallback}>
         <LayoutMain
           headerContent={
-            <HeaderText text={'Увы товара нет'} socialFunctionOff />
+            <HeaderText socialFunctionOff />
           }
           content={
             <Flex

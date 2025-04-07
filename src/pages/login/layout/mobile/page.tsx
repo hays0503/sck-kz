@@ -5,7 +5,6 @@ import { HeaderText } from "@/shared/ui";
 
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { LoginMobile } from "@/widgets/LoginMobile/ui";
-import { getTranslations } from "next-intl/server";
 
 const LoginPage = async ({
   params,
@@ -16,13 +15,11 @@ const LoginPage = async ({
 
   const urlCallback = params?.link && `/${params?.link.join("/")}`;
 
-  const t = await getTranslations("LoginPage");
-
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
         <LayoutMain
-          headerContent={<HeaderText text={t("login")} />}
+          headerContent={<HeaderText />}
           content={<LoginMobile urlCallback={urlCallback} />}
           footerContent={<></>}
         />

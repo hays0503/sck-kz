@@ -6,10 +6,6 @@ import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { OrderMobile } from "@/widgets/OrderMobile/ui";
-import { getTranslations } from "next-intl/server";
-
-
-
 
 interface OrderPageProps {
     readonly params: {
@@ -24,13 +20,11 @@ async function OrderPage({params}: OrderPageProps) {
 
     const {basket_id} = await params;
 
-    const t = await getTranslations("OrderPage")
-
     return (
         <ProvidersServer>
         <ProvidersClient fallback={{}}>
             <LayoutMain
-            headerContent={<HeaderText text={t("placing-an-order")} />}
+            headerContent={<HeaderText />}
             content={<OrderMobile basket_id={basket_id}/>}
             footerContent={<FooterMobile defaultKey="3" />}
             />

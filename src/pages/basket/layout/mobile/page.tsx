@@ -8,8 +8,6 @@ import { BasketMobile } from "@/widgets/BasketMobile";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { MappedCityType } from "api-mapping/city";
-import { getTranslations } from 'next-intl/server';
-
 
 interface BasketPageProps {
   readonly params: {
@@ -31,14 +29,11 @@ async function BasketPage({ params }: BasketPageProps) {
     [urlCity]: cities,
   }
 
-
-  const t = await getTranslations("BasketPage")
-
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback} >
         <LayoutMain
-          headerContent={<HeaderText text={t('korzina')} />}
+          headerContent={<HeaderText />}
           content={<BasketMobile basket_id={basket_id} />}
           footerContent={<FooterMobile defaultKey="3" />}
         />

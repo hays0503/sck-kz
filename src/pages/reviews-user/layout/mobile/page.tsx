@@ -6,7 +6,6 @@ import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import ReviewsUser from "@/widgets/ReviewsUser/ui/ReviewsUser";
-import { getTranslations } from "next-intl/server";
 
 
 interface IReviewsUserPage {
@@ -28,13 +27,11 @@ const ReviewsUserPage = async ({params}: IReviewsUserPage) => {
     [urlReviews]: userReviews
   };
 
-  const t = await getTranslations("Profile");
-
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
         <LayoutMain
-          headerContent={<HeaderText text={t('dannye-polzovatelya')}/>}
+          headerContent={<HeaderText />}
           content={<ReviewsUser user_id={user_id}/>}
           footerContent={<FooterMobile defaultKey="4"/>}
         />

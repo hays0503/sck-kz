@@ -6,29 +6,15 @@ import { HeaderText } from "@/shared/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { OrderHistory } from "@/widgets/OrderHistory";
-import { getTranslations } from "next-intl/server";
 
-// interface OrderPageProps {
-//     readonly params: {
-//         locale: string;
-//         city: string;
-//         refreshToken: string;
-//     }
-// }
-
-
-const OrderHistoryPage = async (
-    // { params }: OrderPageProps
-) => {
+const OrderHistoryPage = async () => {
 
     const fallback = {};
-    const t = await getTranslations("OrderHistoryPage");
-
     return (
         <ProvidersServer>
             <ProvidersClient fallback={fallback}>
                 <LayoutMain
-                    headerContent={<HeaderText text={t('istoriya-zakazov')} />}
+                    headerContent={<HeaderText />}
                     content={<OrderHistory isMobileDevice={true} />}
                     footerContent={<FooterMobile defaultKey="4" />}
                 />

@@ -6,7 +6,6 @@ import getCategorySlugs from "@/entities/Category/api/getCategorySlugs";
 import { SearchProduct } from "@/features/search-products";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { ProvidersServer } from "@/shared/providers/providersServer";
-import findCategory from "@/shared/tools/findCategory";
 import { HeaderText } from "@/shared/ui";
 import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
 import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
@@ -32,7 +31,7 @@ export async function generateStaticParams() {
 }
 
 async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
-  const { slug, locale, city } = await params;
+  const { slug, city } = await params;
 
   // Ключи для кэширования
   const urlAllCategory = `/api-mapping/category/all/?city=${city}`;
@@ -44,9 +43,6 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
     unstable_cache(() => getCategoryRoot(city), [urlCategoryRoot], { revalidate: 600 })(),
   ]);
 
-  // Поиск категории по slug
-  const categoryFind = findCategory(allCategory.results, (category) => category.slug === slug);
-  const headerText = categoryFind ? categoryFind.name[locale] : "Каталог";
 
   // Фоллбек для клиента
   const fallback = { [urlAllCategory]: allCategory };
@@ -55,7 +51,7 @@ async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
         <LayoutMain
-          headerContent={<HeaderText text={headerText} SearchProduct={SearchProduct} />}
+          headerContent={<HeaderText SearchProduct={SearchProduct} />}
           content={
             <Flex vertical gap={10} justify="center" align="center" style={{ width: "100%", marginTop: "10px" }}>
               <BannerMobileSlider category={categoryRoot?.results || []} />

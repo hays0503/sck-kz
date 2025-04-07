@@ -364,5 +364,7 @@
   "ProductDetailConfiguration": {
     "varianty-ispolneniya": "Варианты исполнения"
   },
-  "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Похоже вы еще не успели оставить отзыв"
+  "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Похоже вы еще не успели оставить отзыв",
+  "nichego-ne-nai-deno": "Ничего не найдено",
+  "smotret-vse": "Смотреть все"
 }
