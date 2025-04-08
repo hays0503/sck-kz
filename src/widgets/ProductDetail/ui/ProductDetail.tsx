@@ -19,7 +19,7 @@ import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useReadLocalStorage, useResizeObserver } from '@undefined/usehooks-ts';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { CopyUrlButton } from '@/features/copy-url-button';
@@ -62,13 +62,13 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
     error,
   } = useGetProductBySlugSWR(slug, cityEn);
 
-
-
   const refSliderContainer = useRef<HTMLDivElement>(null);
   const sliderSize = useResizeObserver({
     ref: refSliderContainer,
     box: 'content-box',
   });
+
+  const [enableButtonBuy, setEnableButtonBuy] = useState(true);
 
   if (!ProductBySlug && isLoading) {
     return <div>{t('zagruzka')}</div>;
@@ -117,9 +117,13 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   return (
     <>
       <SendMessage id={product.id} />
-      {/* {`width:${sliderSize.width} height:${sliderSize.height}`} */}
       <Flex
-        style={{ backgroundColor: '#EEEFF1' }}
+        style={
+          {
+            backgroundColor: '#EEEFF1',
+            '--sck-columns-on-page': 2,
+          } as CSSProperties
+        }
         vertical={true}
         gap={10}
         itemScope={true}
@@ -201,7 +205,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </Flex>
         </ProductDetailItem>
 
-        <PortalData />
+        {enableButtonBuy && <PortalData />}
 
         <ProductDetailItem>
           {/* Название товара и Конфигурация */}
@@ -243,15 +247,15 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           <ProductDetailReviews product={product} />
         </ProductDetailItem>
 
-        {product?.relatedProducts && product?.relatedProducts.length > 0 && (
-          <ProductDetailItem>
+        {product?.relatedProducts && (
+          <ProductDetailItem callbackIntersecting={setEnableButtonBuy}>
             <ProductDetailRelatedProduct
               productsRelated={product?.relatedProducts}
             />
           </ProductDetailItem>
         )}
 
-        <ProductDetailItem>
+        <ProductDetailItem callbackIntersecting={setEnableButtonBuy}>
           <ProductDetailPopular />
         </ProductDetailItem>
       </Flex>

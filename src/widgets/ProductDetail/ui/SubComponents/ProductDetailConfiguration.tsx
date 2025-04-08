@@ -11,7 +11,7 @@ const { Title } = Typography;
 
 interface IProductDetailConfiguration {
   readonly nameProduct: string;
-  readonly Configurations: MappedProductType[];
+  readonly Configurations: MappedProductType[]|[]|null;
   readonly img: string[];
   readonly discount: string | null;
 }
@@ -29,7 +29,7 @@ const ProductDetailConfiguration: React.FC<IProductDetailConfiguration> = (
       <Title level={3} itemProp='name'>
         {nameProduct}
       </Title>
-      {Configurations?.length > 0 && (
+      {Configurations && Configurations?.length > 0 && (
         <Flex vertical>
           <Title
             level={5}

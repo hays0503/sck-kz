@@ -30,7 +30,8 @@
     "zagruzka": "Загрузка",
     "oshibka": "Ошибка",
     "net-dannykh": "Нет данных",
-    "sales": "Акции"
+    "sales": "Акции",
+    "populyarnye": "Популярное"
   },
   "AddToBasketProduct": {
     "v-korzinu": "В корзину"

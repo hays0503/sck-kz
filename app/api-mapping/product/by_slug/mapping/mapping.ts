@@ -92,7 +92,6 @@ const mapping = async (
     const descFetch = await fetch(url).then(
       (res) => res.json() as Promise<descType>,
     );
-    // .catch((e) => console.error(e));
 
     desc = {
       name: {
@@ -103,17 +102,16 @@ const mapping = async (
     };
   }
 
-  let relatedProducts = [] as MappedProductType[];
+  let relatedProducts:MappedProductType[]|null = null;
   if (
-    rawData?.related_products_url !==
-    `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
+    rawData?.related_products_url !== `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
   ) {
-    const urlRelatedProducts = `${rawData.related_products_url}&city=${cityRu}/`;
+    const urlRelatedProducts = `${rawData.related_products_url}&city=${cityRu}`;
     const relatedProductsFetch = await fetch(urlRelatedProducts).then(
       (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
     );
 
-    if (relatedProductsFetch) {
+    if ( relatedProductsFetch && relatedProductsFetch.count > 0) {
       relatedProducts = mappingForMappedList(
         relatedProductsFetch.count,
         relatedProductsFetch.results,
@@ -122,7 +120,7 @@ const mapping = async (
     }
   }
 
-  let configurationProducts = [] as MappedProductType[];
+  let configurationProducts:MappedProductType[]|null = null;
   if (
     rawData?.configuration_url !==
     `${UrlApiWithDomainV2.getProducts}/filter_by_ids/?ids=`
@@ -134,7 +132,7 @@ const mapping = async (
       (res) => res.json() as Promise<{ count: number; results: rawResult[] }>,
     );
 
-    if (configurationProductsFetch) {
+    if (configurationProductsFetch && configurationProductsFetch.count > 0) {
       configurationProducts = mappingForMappedList(
         configurationProductsFetch.count,
         configurationProductsFetch.results,
@@ -144,11 +142,6 @@ const mapping = async (
   }
 
   let reviewsProducts = [] as MappedProductDetailReviewsType[];
-
-  // const urlReviewsProducts = `${rawData.reviews_url}`;
-  // const configurationProductsFetch = await fetch(urlReviewsProducts).then(
-  //   (res) => res.json() as Promise<Reviews[] | []>,
-  // );
 
   if (rawData?.reviews.length > 0) {
     reviewsProducts = rawData?.reviews.map((review) => ({
@@ -169,8 +162,6 @@ const mapping = async (
     relatedProducts: relatedProducts,
     configuration: configurationProducts,
   } as MappedProductDetailType;
-
-  // console.log("MappedData", MappedData);
 
   return MappedData;
 };

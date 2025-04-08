@@ -21,7 +21,8 @@
     "zagruzka": "Loading",
     "oshibka": "Error",
     "net-dannykh": "No data",
-    "sales": "Stock"
+    "sales": "Stock",
+    "populyarnye": "Popular"
   },
   "AddToBasketProduct": {
     "v-korzinu": "Add to cart"

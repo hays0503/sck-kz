@@ -5,8 +5,7 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
-import { memo } from 'react';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { CSSProperties, memo } from 'react';
 
 const { Text } = Typography;
 
@@ -36,13 +35,6 @@ const ProductDetailPopular = memo(() => {
     );
   }
 
-  const SwiperProps: SwiperProps = {
-    slidesPerView: 'auto',
-    spaceBetween: '10',
-    loop: true,
-    navigation: false,
-    style: { width: '100%',height:'fit-content' },
-  };
   const products = ProductPopulates?.results;
 
   const textStyle = {
@@ -52,20 +44,26 @@ const ProductDetailPopular = memo(() => {
     letterSpacing: '-1.3%',
   };
 
+  const gridStyle: CSSProperties = {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
+    gridGap: '10px',
+  };
+
   return (
     <Flex vertical style={{ width: '100%', padding: '10px' }} gap={5}>
-      <Text style={textStyle}>{t('sales')}</Text>
-      <Swiper {...SwiperProps}>
-        {products?.map((item, index) => (
-          <SwiperSlide key={index} style={{ width: '38%' }}>
-            <ProductCart
-              Product={item}
-              addToCartSlot={<AddToBasketProduct prod_id={item.id} />}
-              addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <Text style={textStyle}>{t('populyarnye')}</Text>
+      <div style={gridStyle}>
+          {products?.map((item, index) => (
+              <ProductCart
+                key={index}
+                Product={item}
+                addToCartSlot={<AddToBasketProduct prod_id={item.id} />}
+                addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
+              />
+          ))}
+      </div>
     </Flex>
   );
 });
