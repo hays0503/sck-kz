@@ -2,11 +2,9 @@
 
 import { Button, Flex } from 'antd';
 import {
-  // ProductDetailBreadcrumb,
   ProductDetailConfiguration,
   ProductDetailDescription,
   ProductDetailItem,
-  ProductDetailPopular,
   ProductDetailPrice,
   ProductDetailRating,
   ProductDetailReviews,
@@ -19,13 +17,14 @@ import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { useReadLocalStorage, useResizeObserver } from '@undefined/usehooks-ts';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { CopyUrlButton } from '@/features/copy-url-button';
 import { ShareButton } from '@/features/share-button';
 import { useRouter } from '@/i18n/routing';
 import { createPortal } from 'react-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface IProductDetailProps {
   slug: string;
@@ -50,7 +49,52 @@ const SendMessage: React.FC<{ id: number }> = ({ id }) => {
   return <></>;
 };
 
+
+const PortalData: React.FC<{ product: MappedProductDetailType; enableButtonBuy: boolean }> = memo(({ product, enableButtonBuy }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!mounted) return null;
+  if (!document) return null;
+
+  return mounted
+    ? createPortal(
+        <AnimatePresence initial={false}>
+          {enableButtonBuy && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              transition={{ ease: "easeOut"}}
+              key='box'
+              style={{
+                position:'absolute',
+                zIndex: 999,
+                width: '100%',
+                border: '1px solid #f5f5f5',
+                borderRadius: '4px 4px 0% 0%',
+                boxShadow: '0px 0px 10px -1px rgba(0,0,0,0.45)',
+                backgroundColor: '#fff',
+                bottom: "75px"
+              }}
+            >
+                {/* Остатки и Кнопка купить */}
+                <ProductDetailToOrder product={product} />
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.getElementById('footerContent')!,
+      )
+    : null;
+});
+PortalData.displayName = 'PortalData';
+
 const ProductDetail: React.FC<IProductDetailProps> = (props) => {
+  console.count('ProductDetail');
   const { slug } = props;
   const router = useRouter();
   const locale = useLocale();
@@ -85,34 +129,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
   const product: MappedProductDetailType =
     ProductBySlug as MappedProductDetailType;
 
-  const PortalData = () => {
-    const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-      setMounted(true);
-      return () => setMounted(false);
-    }, []);
-
-    if (!mounted) return null;
-    if (!document) return null;
-
-    return mounted
-      ? createPortal(
-          <Flex
-            style={{
-              width: '100%',
-              border: '1px solid #f5f5f5',
-              borderRadius: '4px 4px 0% 0%',
-              boxShadow: '0px 0px 10px -1px rgba(0,0,0,0.45)',
-            }}
-          >
-            {/* Остатки и Кнопка купить */}
-            <ProductDetailToOrder product={product} />
-          </Flex>,
-          document.getElementById('footerContent')!,
-        )
-      : null;
-  };
 
   return (
     <>
@@ -205,7 +222,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </Flex>
         </ProductDetailItem>
 
-        {enableButtonBuy && <PortalData />}
+        <PortalData product={product} enableButtonBuy={enableButtonBuy}/>
 
         <ProductDetailItem>
           {/* Название товара и Конфигурация */}
@@ -255,9 +272,9 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </ProductDetailItem>
         )}
 
-        <ProductDetailItem callbackIntersecting={setEnableButtonBuy}>
+        {/* <ProductDetailItem callbackIntersecting={setEnableButtonBuy}>
           <ProductDetailPopular />
-        </ProductDetailItem>
+        </ProductDetailItem> */}
       </Flex>
     </>
   );

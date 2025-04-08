@@ -47,7 +47,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     const One = () => {
       return (
         <Flex vertical style={{ width: '100%' }} gap={10}>
-          <Review reviews={reviews[0]} />
+          {reviews && reviews.length > 0 && <Review reviews={reviews[0]} />}
           <Button
             onClick={() => {
               setExpandedDescription(!expandedDescription);
@@ -62,6 +62,9 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     };
 
     const All = () => {
+      if(!reviews) return <NoComments />
+      if (reviews.length === 0) return <NoComments />;
+      
       return (
         <Flex vertical style={{ width: '100%' }} gap={10}>
           <Button
@@ -110,7 +113,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
         toggle={toggle}
         setToggle={setToggle}
       />
-      {reviews.length === 0 ? <NoComments /> : <ReviewsList />}
+      {reviews && reviews.length === 0 ? <NoComments /> : <ReviewsList />}
     </Flex>
   );
 };

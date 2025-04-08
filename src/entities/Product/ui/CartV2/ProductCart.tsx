@@ -12,11 +12,12 @@ interface IProductCartProps {
   readonly Product: MappedPopularProductType;
   readonly addToCartSlot: JSX.Element;
   readonly addToFavoriteSlot: JSX.Element;
+  prefetch?: boolean
 }
 
 // eslint-disable-next-line react/display-name
 const ProductCart: React.FC<IProductCartProps> = memo((props) => {
-  const { Product, addToCartSlot, addToFavoriteSlot } = props;
+  const { Product, addToCartSlot, addToFavoriteSlot, prefetch } = props;
   const currentCity = useGetCityParams();
   const locale = useLocale();
   const refContainer = useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         Swiper={
           <Link
             href={`/city/${currentCity}/product/${props.Product.slug}`}
-            prefetch={true}
+            prefetch={prefetch??true}
             style={{
               width: CartWidth,
               height: CartWidth+50,
@@ -81,7 +82,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
           </Link>
         }
       />
-      <Link href={`/city/${currentCity}/product/${props.Product.slug}`} style={{ width: "100%" }} prefetch={true}>
+      <Link href={`/city/${currentCity}/product/${props.Product.slug}`} style={{ width: "100%" }} prefetch={prefetch}>
         <Level2
           NameProduct={ProductName}
           average_rating={Product?.rating}

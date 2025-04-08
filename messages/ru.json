@@ -198,7 +198,9 @@
     "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "Нажимая кнопку «‎Получить SMS-код», я подтверждаю, что ознакомлен и согласен с условиями политики конфиденциальности"
   },
   "ProductDetailRelatedProduct": {
-    "rekomenduemye-tovary": "Рекомендуемые товары"
+    "rekomenduemye-tovary": "Рекомендуемые товары",
+    "soputstvuyushie-tovara": "Сопутствующие товары",
+    "vam-mozhhet-prigoditsya": "Вам может пригодится"
   },
   "SearchProduct": {
     "placeholder-search": "Искать"
@@ -367,5 +369,6 @@
   },
   "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Похоже вы еще не успели оставить отзыв",
   "nichego-ne-nai-deno": "Ничего не найдено",
-  "smotret-vse": "Смотреть все"
+  "smotret-vse": "Смотреть все",
+  "soputstvuyushie-tovara": "Сопутствующие товара"
 }

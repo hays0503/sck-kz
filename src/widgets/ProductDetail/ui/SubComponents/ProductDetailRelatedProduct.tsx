@@ -31,10 +31,13 @@ const ProductDetailRelatedProduct: React.FC<
       style={{ width: '100%', padding: '10px' }}
       justify='flex-start'
     >
-      <Title level={5}>{t('rekomenduemye-tovary')}</Title>
+      <Title level={5} style={{
+        color: '#00000073',
+      }}>{t('vam-mozhhet-prigoditsya')}</Title>
       <div style={gridStyle}>
           {productsRelated.map((product, index) => (
               <ProductCart
+                prefetch={false}
                 key={index}
                 Product={product}
                 addToCartSlot={<AddToBasketProduct prod_id={product.id} />}

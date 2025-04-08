@@ -195,7 +195,9 @@
     "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "By pressing the “Get SMS Code” button, I confirm that I am familiar with and agree with the conditions of privacy policy"
   },
   "ProductDetailRelatedProduct": {
-    "rekomenduemye-tovary": "Recommended goods"
+    "rekomenduemye-tovary": "Recommended goods",
+    "soputstvuyushie-tovara": "Related goods",
+    "vam-mozhhet-prigoditsya": "You can come in handy"
   },
   "MainLabel": {
     "glavnaya": "Home"

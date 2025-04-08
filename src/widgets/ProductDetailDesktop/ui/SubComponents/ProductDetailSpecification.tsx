@@ -22,6 +22,14 @@ const ProductDetailSpecification: React.FC<IProductDetailDescriptionsProps> = (p
 
     const [expandedSpecification, setExpandedSpecification] = useState(false);
 
+    
+  if (!product?.specifications) return null;
+
+  if (!product?.specifications?.length) {
+    return null;
+  }
+
+
     const specification: DescriptionsProps["items"] = product?.specifications?.map((specification) => {
         return {
             label: <span itemProp="name">{specification?.name?.[locale]}</span>,
