@@ -34,7 +34,7 @@ const Review = memo(
               {reviews.rating}
             </Text>
             <Text disabled>{t('iz5')}</Text>
-            <Rate value={reviews.rating} style={{ fontSize: '16px' }} />
+            <Rate value={reviews.rating} style={{ fontSize: '16px', color: '#FFA600' }} />
           </Flex>
           <Flex gap={5} align='center'>
             <Text

@@ -49,8 +49,10 @@ const SendMessage: React.FC<{ id: number }> = ({ id }) => {
   return <></>;
 };
 
-
-const PortalData: React.FC<{ product: MappedProductDetailType; enableButtonBuy: boolean }> = memo(({ product, enableButtonBuy }) => {
+const PortalData: React.FC<{
+  product: MappedProductDetailType;
+  enableButtonBuy: boolean;
+}> = memo(({ product, enableButtonBuy }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -61,6 +63,26 @@ const PortalData: React.FC<{ product: MappedProductDetailType; enableButtonBuy: 
   if (!mounted) return null;
   if (!document) return null;
 
+  const inFlow =
+    product?.relatedProducts && product?.relatedProducts?.length > 0;
+  const inFlowStyle = {
+    position: 'absolute',
+    zIndex: 999,
+    bottom: '75px',
+    width: '100%',
+    border: '1px solid #f5f5f5',
+    borderRadius: '4px 4px 0% 0%',
+    boxShadow: '0px 0px 10px -1px rgba(0,0,0,0.45)',
+    backgroundColor: '#fff',
+  } as CSSProperties;
+  const defaultStyle = {
+    width: '100%',
+    border: '1px solid #f5f5f5',
+    borderRadius: '4px 4px 0% 0%',
+    boxShadow: '0px 0px 10px -1px rgba(0,0,0,0.45)',
+    backgroundColor: '#fff',
+  } as CSSProperties;
+
   return mounted
     ? createPortal(
         <AnimatePresence initial={false}>
@@ -69,21 +91,12 @@ const PortalData: React.FC<{ product: MappedProductDetailType; enableButtonBuy: 
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
-              transition={{ ease: "easeOut"}}
+              transition={{ ease: 'easeOut', duration: 0.5 }}
               key='box'
-              style={{
-                position:'absolute',
-                zIndex: 999,
-                width: '100%',
-                border: '1px solid #f5f5f5',
-                borderRadius: '4px 4px 0% 0%',
-                boxShadow: '0px 0px 10px -1px rgba(0,0,0,0.45)',
-                backgroundColor: '#fff',
-                bottom: "75px"
-              }}
+              style={inFlow ? inFlowStyle : defaultStyle}
             >
-                {/* Остатки и Кнопка купить */}
-                <ProductDetailToOrder product={product} />
+              {/* Остатки и Кнопка купить */}
+              <ProductDetailToOrder product={product} />
             </motion.div>
           )}
         </AnimatePresence>,
@@ -94,7 +107,6 @@ const PortalData: React.FC<{ product: MappedProductDetailType; enableButtonBuy: 
 PortalData.displayName = 'PortalData';
 
 const ProductDetail: React.FC<IProductDetailProps> = (props) => {
-  console.count('ProductDetail');
   const { slug } = props;
   const router = useRouter();
   const locale = useLocale();
@@ -128,8 +140,6 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
 
   const product: MappedProductDetailType =
     ProductBySlug as MappedProductDetailType;
-
-
 
   return (
     <>
@@ -222,7 +232,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </Flex>
         </ProductDetailItem>
 
-        <PortalData product={product} enableButtonBuy={enableButtonBuy}/>
+        <PortalData product={product} enableButtonBuy={enableButtonBuy} />
 
         <ProductDetailItem>
           {/* Название товара и Конфигурация */}

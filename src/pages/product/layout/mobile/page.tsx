@@ -81,7 +81,7 @@ const DefaultPage: React.FC<{
         headerContent={<Empty />}
         content={<ProductDetail slug={slug} />}
         footerContent={
-          <Flex vertical style={{ width: '100%',position:'relative' }}>
+          <Flex vertical style={{ width: '100%' }}>
             <div id='footerContent' />
             <FooterMobile defaultKey='1' />
           </Flex>

@@ -1,12 +1,12 @@
 import { UrlApiV1 } from '@/shared/constant/url';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import { Button, Flex, Input, message, Rate,Typography } from 'antd';
+import { Button, Flex, Input, message, Rate, Typography } from 'antd';
 import { TextAreaRef } from 'antd/es/input/TextArea';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import { useTranslations } from 'next-intl';
 import { useCallback, useRef, useState } from 'react';
 
-const { Text } = Typography
+const { Text, Paragraph } = Typography;
 
 interface ISendReviewComponent {
   readonly product: MappedProductDetailType;
@@ -20,7 +20,7 @@ const SendReviewComponent: React.FC<ISendReviewComponent> = ({
   setToggle,
 }) => {
   const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
   const t = useTranslations('ProductDetailReviews');
   const [messageApi, contextHolder] = message.useMessage();
   const refInput = useRef<TextAreaRef>(null);
@@ -50,9 +50,20 @@ const SendReviewComponent: React.FC<ISendReviewComponent> = ({
     });
   }, []);
 
+  const styleButton = {
+    backgroundColor: '#4954f0',
+    width: '100%',
+    height: '40px',
+    padding: '11px 16px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '4px',
+    color: '#fff',
+  };
+
   if (!toggle) {
     return (
-      <Button type='primary' onClick={() => setToggle(true)}>
+      <Button style={styleButton} onClick={() => setToggle(true)}>
         {t('ostavit-otzyv')}
       </Button>
     );
@@ -61,16 +72,19 @@ const SendReviewComponent: React.FC<ISendReviewComponent> = ({
   return (
     <Flex gap={5} vertical>
       {contextHolder}
-      <Flex gap={3} align='center'>
-        <Text>{t('naskolko-vam-ponravilsya-tovar')}</Text>
+      <Flex vertical align='center' justify='center'>
+        <Paragraph style={{ textAlign: 'center',verticalAlign: 'middle', width: '100%',height:"auto",margin:"1px" }}>
+          <Text disabled style={{textAlign:"center",verticalAlign: 'middle'}}>{t('naskolko-vam-ponravilsya-tovar')}:</Text>
+        </Paragraph>
         <Rate
-          style={{ fontSize: '10px' }}
+          defaultValue={5}
+          style={{ fontSize: '28px',color:"#FFA600" }}
           value={rating}
           onChange={setRating}
         />
       </Flex>
       <Input.TextArea rows={4} placeholder={t('otzyv')} ref={refInput} />
-      <Button type='primary' onClick={Send}>
+      <Button style={styleButton} onClick={Send}>
         {t('otpravit')}
       </Button>
     </Flex>
