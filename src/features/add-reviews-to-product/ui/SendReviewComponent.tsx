@@ -48,7 +48,7 @@ const SendReviewComponent: React.FC<ISendReviewComponent> = ({
         messageApi.error(response.status, 10);
       }
     });
-  }, []);
+  }, [accessToken?.token, messageApi, product?.id, rating, setToggle, t]);
 
   const styleButton = {
     backgroundColor: '#4954f0',

@@ -143,9 +143,10 @@ const Render: React.FC<RenderProps> = ({
         <SortingProducts url={`/city/${cityEn}/catalog/category-slug/${slug}`} />
         <Filter
           dataSpecifications={filter}
-          dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1) }}
+          dropFilter={() => { SetActiveFilterProductIds([]); SetCurrentPage(1); } }
           filterActive={ActiveFilterProductIds}
-          setFilterActive={SetActiveFilterProductIds} />
+          setFilterActive={SetActiveFilterProductIds} 
+          SetCurrentPage={SetCurrentPage} />
       </Flex>
         <Flex
           vertical={true}

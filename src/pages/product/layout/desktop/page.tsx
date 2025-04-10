@@ -51,8 +51,9 @@ const ProductPage: ProductPageComponent = async (props) => {
 
     const urlCity = `/api-mapping/city`
     const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`
+    const urlProduct = `/api-mapping/product/by_slug/?slug=${slug}&city=${city}`
     const fallback = {
-        [`/api-mapping/product/by_slug/?slug=${slug}&city=${city}`]: productData.data,
+        [urlProduct]: productData.data,
         [urlCity]: cities,
         [urlCategoryRoot]: categoryRoot
     };

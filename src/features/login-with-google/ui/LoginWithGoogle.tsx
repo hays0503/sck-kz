@@ -24,7 +24,7 @@ export default function LoginWithGoogle({ callbackUrl }: { callbackUrl: string |
       locale,
       city
     })
-  }, [])
+  }, [callbackUrl, city, locale, setCallbackUrl, setParameter])
   return (
     <Flex style={{padding:"10px",backgroundColor:'#9292921A'}}>
       {url ? (

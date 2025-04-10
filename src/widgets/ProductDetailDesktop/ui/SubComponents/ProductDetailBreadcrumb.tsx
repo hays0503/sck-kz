@@ -54,7 +54,7 @@ const ProductDetailBreadcrumb: React.FC<IProductBreadcrumbProps> = ({ idCategory
         title: name
       }
     ];
-  }, [data, isLoading, error, city, ttt, tt, idCategoryProduct, localeActive]);
+  }, [data, isLoading, error, city, ttt, tt, name, idCategoryProduct, localeActive]);
 
   if (!data || isLoading) {
     return <div>{t("zagruzka")}</div>;

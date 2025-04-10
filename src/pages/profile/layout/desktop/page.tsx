@@ -1,9 +1,7 @@
 "use server"
 
-import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
 import { getCategoryRoot } from "@/entities/Category";
 import getCity from "@/entities/City/api/getCity";
-import { MappedCityType } from "api-mapping/city";
 import { ProvidersServer } from "@/shared/providers/providersServer";
 import { ProvidersClient } from "@/shared/providers/providersClient";
 import { LayoutMainDesktop } from "@/widgets/LayoutMainDesktop";
@@ -19,13 +17,16 @@ import { FooterSCK } from "@/widgets/FooterSCK";
 import { ProfileDesktop } from "@/widgets/ProfileDesktop";
 import { searchParamsCache } from "./searchParams";
 import { SearchParams } from "nuqs";
+import { unstable_cache } from "next/cache";
+import getReviewsByUserId from "@/entities/Reviews/api/getReviewsByUserId";
 
 
 type ProfilePage = {
     params: Promise<{
-      slug: string;
-      locale: string;
-      city: string;
+      readonly slug: string;
+      readonly locale: string;
+      readonly city: string;
+      readonly user_id: string|undefined|null;
     }>;
     searchParams: Promise<SearchParams>;
   };
@@ -34,19 +35,27 @@ export default async function ProfilePage(props: ProfilePage) {
 
 
     const { searchParams, params } = await props;
+    const { city, user_id } = await params;
     const { page, order } = searchParamsCache.parse(await searchParams);
 
-    const cities: MappedCityType[] = await getCity();
-
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
-
     const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
+    const urlReviews = `/api-mapping/reviews/by_user/?user_id=${user_id}`
+    const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`
+  
+    const revTime = { revalidate: 600 };
+  
+    const [cities,categoryRoot,userReviews] = await Promise.all([
+      unstable_cache(getCity,[],revTime)(),
+      unstable_cache(()=>getCategoryRoot(city),[city],revTime)(),
+      unstable_cache(()=>getReviewsByUserId(user_id),[urlReviews],revTime)(),
+    ])
+  
+  
     const fallback = {
-        [urlCity]: cities,
-        [urlCategoryRoot]: categoryRoot
+      [urlReviews]: userReviews,
+      [urlCategoryRoot]: categoryRoot,
+      [urlCity]: cities
     };
-
     return (
         <ProvidersServer>
             <ProvidersClient fallback={fallback}>

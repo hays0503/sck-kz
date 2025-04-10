@@ -7,15 +7,17 @@ import { CSSProperties, memo, useMemo, useState } from 'react';
 
 interface ProductDetailReviewsProps {
   readonly product: MappedProductDetailType;
+  readonly expanded: boolean;
+  readonly setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const { Text } = Typography;
 
 const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
-  product,
+  product,expanded, setExpanded
 }) => {
   const [toggle, setToggle] = useState(false);
-  const [expandedDescription, setExpandedDescription] = useState(false);
+
 
   const { reviews } = product;
   const t = useTranslations('ProductDetailReviews');
@@ -50,11 +52,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
           {reviews && reviews.length > 0 && <Review reviews={reviews[0]} />}
           <Button
             onClick={() => {
-              setExpandedDescription(!expandedDescription);
+              setExpanded(!expanded);
             }}
           >
             <Text style={{ color: '#4954F0' }} itemProp='description'>
-              {expandedDescription ? t('svernut') : t('smotret-vse-opisanie')}
+              {expanded ? t('svernut') : t('smotret-vse-opisanie')}
             </Text>
           </Button>
         </Flex>
@@ -82,9 +84,9 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
           closeIcon={null}
           mask={true}
           maskClosable={true}
-          onCancel={() => setExpandedDescription(!expandedDescription)}
-          onClose={() => setExpandedDescription(!expandedDescription)}
-          open={expandedDescription}
+          onCancel={() => setExpanded(!expanded)}
+          onClose={() => setExpanded(!expanded)}
+          open={expanded}
           styles={{ body: { width: '100%', top: '0', padding: '0' }}}
         >
           <Flex vertical gap={10}>
@@ -112,11 +114,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
             <Button
               style={styleButton}
               onClick={() => {
-                setExpandedDescription(!expandedDescription);
+                setExpanded(!expanded);
               }}
             >
               <Text style={{ color: '#4954F0' }} itemProp='description'>
-                {expandedDescription ? t('svernut') : t('smotret-vse-opisanie')}
+                {expanded ? t('svernut') : t('smotret-vse-opisanie')}
               </Text>
             </Button>
           </Flex>
@@ -126,7 +128,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
     return (
       <Flex vertical style={{ width: '100%' }} gap={10}>
-        {expandedDescription ? <All /> : <One />}
+        {expanded ? <All /> : <One />}
       </Flex>
     );
   });

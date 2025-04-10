@@ -1,0 +1,11 @@
+.dots::after {
+  content:'';
+  background-image: linear-gradient(
+    90deg,
+    #d3d4dd 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 5px 1px;
+}

@@ -69,7 +69,9 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Return to home",
     "kak-vy-zdes-ochutilis": "How did you end up here?",
-    "tovar-udalen": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!"
+    "tovar-udalen": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!",
+    "po-zaprosu": "According to your request",
+    "netchego-ne-naydeno": "Nothing is found"
   },
   "Error": {
     "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",
@@ -105,8 +107,9 @@
   "ProductDetailSpecification": {
     "kharakteristiki": "Characteristics",
     "svernut-kharakteristiki": "Collapse characteristics",
-    "smotret-vse-kharakteristiki": "View all specifications",
-    "kh-otsutstvuyut": "No characteristics"
+    "smotret-vse-kharakteristiki": "Characteristics",
+    "kh-otsutstvuyut": "No characteristics",
+    "kharakteristiki-i-opisanie": "Characteristics and description"
   },
   "ProductDetailDescription": {
     "opisanie": "Description",

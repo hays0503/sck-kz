@@ -60,7 +60,8 @@ const ImageUpload: React.FC<{
   avatar_path: string;
   accessToken: string;
   refetch: () => void;
-}> = memo(({ avatar_path, accessToken, refetch }) => {
+  user_id: string;
+}> = memo(({ avatar_path, accessToken, refetch, user_id }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const cropperRef = useRef<FixedCropperRef>(null);
   const [image, setImage] = useState<string | null>(avatar_path);
@@ -109,7 +110,7 @@ const ImageUpload: React.FC<{
             content: 'Изображение успешно загружено',
           });
           setIsModalOpen(false);
-          route.push(`/city/${cityEn}/profile`);
+          route.push(`/city/${cityEn}/profile/${user_id}`);
         }
 
         if (response.ok) {
@@ -119,7 +120,7 @@ const ImageUpload: React.FC<{
         console.error('Upload failed', error);
       }
     },
-    [route, cityEn, accessToken, refetch, messageApi],
+    [route, cityEn, accessToken, refetch, messageApi, user_id],
   );
 
   const handleCrop = useCallback(() => {
@@ -210,7 +211,7 @@ export default function UserMobile() {
   const cityEn = useGetCityParams();
   const t = useTranslations('UserMobile');
   const { isAnonymous, info, reFetchUserInfo } = useUser();
-  const accessToken = useReadLocalStorage<{ token: string } | null>(
+  const accessToken = useReadLocalStorage<{ token: string,user_id: string } | null>(
     'accessToken',
   );
   const isGuest = isAnonymous;
@@ -272,6 +273,7 @@ export default function UserMobile() {
         avatar_path={img}
         accessToken={accessToken?.token ?? ''}
         refetch={reFetchUserInfo}
+        user_id={accessToken?.user_id ?? ''}
       />
 
       {info && (

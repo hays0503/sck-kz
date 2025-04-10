@@ -69,7 +69,9 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Үйге оралу",
     "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?",
-    "tovar-udalen": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!"
+    "tovar-udalen": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!",
+    "po-zaprosu": "Сіздің сұранысыңызға сәйкес",
+    "netchego-ne-naydeno": "Ештеңе табылмады"
   },
   "Error": {
     "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",
@@ -105,8 +107,9 @@
   "ProductDetailSpecification": {
     "kharakteristiki": "Сипаттамалары",
     "svernut-kharakteristiki": "Жыйрату сипаттамалары",
-    "smotret-vse-kharakteristiki": "Барлық сипаттамаларды қараңыз",
-    "kh-otsutstvuyut": "Сипаттамалары жоқ"
+    "smotret-vse-kharakteristiki": "Сипаттамасы",
+    "kh-otsutstvuyut": "Сипаттамалары жоқ",
+    "kharakteristiki-i-opisanie": "Сипаттамасы және сипаттамасы"
   },
   "ProductDetailDescription": {
     "opisanie": "Сипаттама",

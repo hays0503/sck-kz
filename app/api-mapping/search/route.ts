@@ -25,11 +25,21 @@ export async function GET(request: NextRequest): Promise<Response> {
     console.log("Ошибка при запросе id продуктов из категорий");
   }
 
+  console.log("productIds", productIds);
+
   let SpecificationsInfo;
   try {
     if (productIds?.length > 0) {
       SpecificationsInfo = await classRunner.getRawSpecsByProductIdsAndParse(
         productIds
+      );
+    }else{
+      return NextResponse.json(
+        {
+          result: {filterData:[], productIds:[]},
+          message: "Продукты не найдены",
+        },
+        { status: 404 }
       );
     }
   } catch {
@@ -45,7 +55,8 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   return NextResponse.json(
     {
-      message: "Ошибка в запросе категорий",
+      result: {filterData:null, productIds:null},
+      message: "Ошибка при поиске",
     },
     { status: 500 }
   );

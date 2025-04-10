@@ -21,6 +21,7 @@ import getCity from "@/entities/City/api/getCity";
 import { MappedCityType } from "api-mapping/city";
 import { ProductCatalogDesktop } from "@/widgets/ProductCatalogDesktop";
 import { CSSProperties } from "react";
+import { FilterType } from "@/features/new-product-filter/ui/SubModule/FilterValueCheckBox";
 
 type PageProps = {
     params: Promise<{
@@ -49,6 +50,13 @@ const CatalogPage: React.FC<PageProps> = async (props) => {
 
     const urlProductsByCategory = `/api-mapping/product/by_category/?category=${(await params).slug}&order=${order}&page=${page}&city=${(await params).city}`
 
+    const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : '';
+    const urlFilter = `${process.env.HOST_URL}${host_port}/api-mapping/filter/?category=${(await params).slug}`;
+    const dataFilter = (await fetch(urlFilter).then((res) => res.json())) as {
+        result: FilterType[];
+    };
+
+
     const urlCity = `/api-mapping/city`
     const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
     const fallback = {
@@ -75,7 +83,7 @@ const CatalogPage: React.FC<PageProps> = async (props) => {
                         backgroundColor: "#fff",
                         "--sck-columns-on-page": 6
                     } as CSSProperties}>
-                        <ProductCatalogDesktop params={await params} />
+                        <ProductCatalogDesktop params={await params} filter={dataFilter.result}/>
                         
                     </Flex>}
                     footerContent={<FooterSCK />}

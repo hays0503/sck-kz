@@ -70,7 +70,7 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
             // height={height}
             fill
             style={{
-              objectFit: "cover",
+              objectFit: "contain",
             //   objectPosition: "center",
             //   width: "100%",
             //   height: "auto",

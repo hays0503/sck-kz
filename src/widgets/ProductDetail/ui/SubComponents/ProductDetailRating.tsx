@@ -1,15 +1,16 @@
-import { Link } from '@/i18n/routing';
 import { Button, Flex, Typography } from 'antd';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import { useTranslations } from 'next-intl';
 
 interface IProductDetailRatingProps {
   readonly product: MappedProductDetailType;
+  readonly setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const { Text } = Typography;
 
 const ProductDetailRating: React.FC<IProductDetailRatingProps> = (props) => {
+  const { setExpanded } = props;
   const { rating } = props?.product;
 
   const review = props?.product?.reviews?.length;
@@ -74,11 +75,9 @@ const ProductDetailRating: React.FC<IProductDetailRatingProps> = (props) => {
         <ReviewInfoProductComponent />
       </Flex>
       <Flex>
-        <Link href={'#review'} scroll={true} style={{scrollBehavior: 'smooth'}}>
-          <Button>
+          <Button onClick={() => setExpanded(true)}>
             <Text style={{ color: '#4954F0' }}>{t('smotret-vse-otzivy')}</Text>
           </Button>
-        </Link>
       </Flex>
     </Flex>
   );

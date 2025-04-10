@@ -78,7 +78,9 @@
   "NotFound": {
     "vernutsya-na-glavnuyu": "Вернуться на главную",
     "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
-    "tovar-udalen": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!"
+    "tovar-udalen": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!",
+    "po-zaprosu": "По вашему запросу",
+    "netchego-ne-naydeno": "нечего не найдено"
   },
   "Error": {
     "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
@@ -114,8 +116,9 @@
   "ProductDetailSpecification": {
     "kharakteristiki": "Характеристики",
     "svernut-kharakteristiki": "Свернуть характеристики",
-    "smotret-vse-kharakteristiki": "Смотреть все характеристики",
-    "kh-otsutstvuyut": "Характеристик нет"
+    "smotret-vse-kharakteristiki": "Характеристики",
+    "kh-otsutstvuyut": "Характеристик нет",
+    "kharakteristiki-i-opisanie": "Характеристики и описание"
   },
   "ProductDetailDescription": {
     "opisanie": "Описание",
@@ -370,5 +373,6 @@
   "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Похоже вы еще не успели оставить отзыв",
   "nichego-ne-nai-deno": "Ничего не найдено",
   "smotret-vse": "Смотреть все",
-  "soputstvuyushie-tovara": "Сопутствующие товара"
+  "soputstvuyushie-tovara": "Сопутствующие товара",
+  "kharakteristiki-i-opisanie": "Характеристики и описание"
 }

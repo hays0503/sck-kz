@@ -49,7 +49,7 @@ export default function LoginWithSms({ callbackUrl }: { callbackUrl: string | un
           if (callbackUrl) {
             window.open(callbackUrl)
           }
-          router.push(`/city/${city}/profile`);
+          router.push(`/city/${city}/profile/${response.data.access.user_id}`);
         } else {
           messageApi.open({
             type: "error",

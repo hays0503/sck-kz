@@ -3,6 +3,7 @@
 import { useUser } from "@/entities/User";
 import { useRouter } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
+import { useReadLocalStorage } from "@undefined/usehooks-ts";
 import { Button, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -14,11 +15,12 @@ const UserCabinet: React.FC = () => {
   const { isAnonymous } = useUser();
   const cityEn = useGetCityParams()
   const route = useRouter();
+  const accessToken = useReadLocalStorage<{ user_id: string|undefined|null }>('accessToken');
   const onClick = () => {
     if (isAnonymous) {
       route.push(`/city/${cityEn}/login`);
     } else {
-      route.push(`/city/${cityEn}/profile`);
+      route.push(`/city/${cityEn}/profile/${accessToken?.user_id}`);
     }
   }
   return (

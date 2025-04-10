@@ -7,6 +7,7 @@ import beautifulCost from '@/shared/tools/beautifulCost';
 import {
   AutoComplete,
   AutoCompleteProps,
+  Button,
   Flex,
   Image as ImageAntd,
   Input,
@@ -20,7 +21,8 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import Image from 'next/image';
-const { Text, Paragraph } = Typography;
+import { TextTruncate } from '@/shared/ui';
+const { Text } = Typography;
 
 export default function SearchProduct() {
   const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
@@ -75,42 +77,46 @@ export default function SearchProduct() {
                   label: (
                     <>
                       <Flex align='center' justify='space-between'>
+                        <ImageAntd
+                          preview={false}
+                          src={img}
+                          alt={product?.name?.[locale] ?? img}
+                          width={100}
+                          height={100}
+                          loading='lazy'
+                          style={{
+                            objectFit: 'scale-down',
+                            aspectRatio: '1/1',
+                          }}
+                          placeholder={
+                            <Spin size={'small'}>
+                              <Image
+                                quality={5}
+                                width={100}
+                                height={100}
+                                src={img}
+                                alt={product?.name?.[locale] ?? img}
+                              />
+                            </Spin>
+                          }
+                        />
                         <Flex
                           align='center'
-                          justify='start'
-                          gap={10}
+                          wrap
                           style={{
+                            minWidth: '200px',
                             width: '70%',
+                            height: '100px',
                           }}
                         >
-                          <ImageAntd
-                            preview={false}
-                            src={img}
-                            alt={product?.name?.[locale] ?? img}
-                            width={100}
-                            height={100}
-                            loading='lazy'
-                            style={{
-                              objectFit: 'scale-down',
-                              aspectRatio: '1/1',
-                            }}
-                            placeholder={
-                              <Spin size={'small'}>
-                                <Image
-                                  quality={5}
-                                  width={100}
-                                  height={100}
-                                  src={img}
-                                  alt={product?.name?.[locale] ?? img}
-                                />
-                              </Spin>
-                            }
+                          <TextTruncate
+                            text={product?.name?.[locale] ?? 'Название нет'}
+                            style={{ width: '100%', height: '100px' }}
                           />
-                          <Paragraph ellipsis={{ rows: 1 }}>
-                            <Text>{product?.name?.[locale]}</Text>
-                          </Paragraph>
                         </Flex>
-                        <Text>{beautifulCost(product?.price)}</Text>
+                        <Flex style={{ width: '20%' }}>
+                          <Text>{beautifulCost(product?.price)}</Text>
+                        </Flex>
                       </Flex>
                     </>
                   ),
@@ -157,48 +163,77 @@ export default function SearchProduct() {
         router.push(`/city/${cityEn}/product/${value}`);
       }}
       dropdownStyle={{
-        width: '100%',
-        position: 'absolute',
-        left: 0,
+        minWidth: '50dvw',
       }}
       notFoundContent={
         <>{text !== '' && <Text>{t('nichego-ne-nai-deno')}</Text>}</>
       }
       dropdownRender={(menu) => (
-        <Flex vertical style={{ width: '100%' }}>
-          {menu}
-          {options && options?.length > 0 && (
-            <Link
-              href={`/city/${cityEn}/search/${text}`}
-              style={{
-                background: ' #4954f0',
-                borderRadius: '4px',
-                padding: '5px',
-                cursor: 'pointer',
-                display:"flex",
-                gap:"5px",
-                justifyContent:"center",
-                alignContent:"center",
-              }}
-            >
-              <SearchOutlined style={{ color: '#ffffff',fontSize:"16px" }}/>
-              <Text style={{ color: '#ffffff' }}>{t('smotret-vse')}</Text>
-            </Link>
+        <>
+          {text !== '' && (
+            <Flex vertical style={{ width: '100%' }}>
+              {menu}
+              {options && options?.length > 0 && (
+                <Link
+                  href={`/city/${cityEn}/search/${text}`}
+                  style={{
+                    background: ' #4954f0',
+                    borderRadius: '4px',
+                    padding: '5px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    gap: '5px',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                  }}
+                >
+                  <SearchOutlined
+                    style={{ color: '#ffffff', fontSize: '16px' }}
+                  />
+                  <Text style={{ color: '#ffffff' }}>{t('smotret-vse')}</Text>
+                </Link>
+              )}
+            </Flex>
           )}
-        </Flex>
+        </>
       )}
     >
-      <Input
-        placeholder={'Поиск'}
+      <Flex
+        align='center'
         style={{
-          height: '40px',
+          borderRadius: '4px',
+          height: '44px',
           backgroundColor: 'transparent',
           border: '1px solid rgb(142, 142, 142)',
         }}
-        prefix={<SearchOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
-        role='search'
-        name='search'
-      />
+      >
+        <Input
+          placeholder={'Поиск'}
+          // role='search'
+          // name='search'
+          style={{
+            height: 'inherit',
+            backgroundColor: 'transparent',
+            border: 'none',
+          }}
+        />
+        <Button
+          type='text'
+          style={{
+            borderRadius: '0 4px 4px 0',
+            width: '50px',
+            height: 'inherit',
+            backgroundColor: '#4954f0',
+          }}
+          onClick={() => {
+            if (text) {
+              router.push(`/city/${cityEn}/search/${text}`);
+            }
+          }}
+        >
+          <SearchOutlined style={{ color: '#ffffff', fontSize: '22px' }} />
+        </Button>
+      </Flex>
     </AutoComplete>
   );
 }

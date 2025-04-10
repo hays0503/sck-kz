@@ -41,7 +41,7 @@ const useRemoveToRemoteFavorite = (): [React.ReactNode, (product_id: number) => 
             })
         }
 
-    },[messageApi, t, uuid]);
+    },[messageApi, t, user_id?.user_id, uuid]);
 
     return [
         contextHolder,

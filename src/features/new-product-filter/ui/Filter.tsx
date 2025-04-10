@@ -12,9 +12,10 @@ interface FilterProps {
     dataSpecifications: FilterType[]
     filterActive: number[]
     setFilterActive: Dispatch<React.SetStateAction<number[]>>
+    SetCurrentPage: Dispatch<React.SetStateAction<number>>;
 }
 
-const Filter: React.FC<FilterProps> = ({ dropFilter, dataSpecifications, filterActive, setFilterActive }) => {
+const Filter: React.FC<FilterProps> = ({ dropFilter, dataSpecifications, filterActive, setFilterActive, SetCurrentPage }) => {
     const t = useTranslations("Filter")
     const [tempFilterStorage, setTempFilterStorage] = useState<number[]>([]);
     const [api, contextHolder] = notification.useNotification();
@@ -27,6 +28,7 @@ const Filter: React.FC<FilterProps> = ({ dropFilter, dataSpecifications, filterA
                 btn: <Button style={{ width: "calc(85vw - calc(var(--ant-margin-lg) * 2))", height: "30px", backgroundColor: '#4954F0', borderRadius: "10px" }}
                     onClick={() => {
                         setFilterActive(tempFilterStorage)
+                        SetCurrentPage(1)
                     }}
                 >
                     <Text style={{ color: "#fff" }}>{t('pokazat-vybrannye-tovary')}</Text>
@@ -40,7 +42,7 @@ const Filter: React.FC<FilterProps> = ({ dropFilter, dataSpecifications, filterA
 
             });
         }
-    }, [api, filterActive.length, setFilterActive, t, tempFilterStorage, tempFilterStorage.length])
+    }, [SetCurrentPage, api, filterActive.length, setFilterActive, t, tempFilterStorage, tempFilterStorage.length])
 
 
     // if (!dataSpecifications)

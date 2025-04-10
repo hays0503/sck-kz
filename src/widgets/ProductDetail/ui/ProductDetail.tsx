@@ -126,6 +126,8 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
 
   const [enableButtonBuy, setEnableButtonBuy] = useState(true);
 
+  const [expanded, setExpanded] = useState(false);
+
   if (!ProductBySlug && isLoading) {
     return <div>{t('zagruzka')}</div>;
   }
@@ -251,7 +253,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
 
         {product?.rating && (
           <ProductDetailItem>
-            <ProductDetailRating product={product} />
+            <ProductDetailRating product={product} setExpanded={setExpanded}/>
           </ProductDetailItem>
         )}
 
@@ -271,7 +273,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
         )}
 
         <ProductDetailItem>
-          <ProductDetailReviews product={product} />
+          <ProductDetailReviews product={product} expanded={expanded} setExpanded={setExpanded} />
         </ProductDetailItem>
 
         {product?.relatedProducts && (

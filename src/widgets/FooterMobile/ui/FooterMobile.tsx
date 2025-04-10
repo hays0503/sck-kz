@@ -10,6 +10,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   const currentCity = useGetCityParams();
   const [current, setCurrent] = useState<string>(defaultKey ?? "1");
   const uuid: string | null = useReadLocalStorage<string>("uuid_id")
+  const accessToken = useReadLocalStorage<{user_id: string}>("accessToken");
   const router = useRouter();
   const sizeConstant = "32px";
   const items: TabsProps["items"] = [
@@ -86,7 +87,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
             router.push(`/city/${currentCity}/basket/${uuid}`)
           }
           if (key === "4") {
-            router.push(`/city/${currentCity}/profile`)
+            router.push(`/city/${currentCity}/profile/${accessToken?.user_id}`)
           }
         }}
       />

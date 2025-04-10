@@ -10,7 +10,7 @@ const useGetProductsIdsByFavoriteSWR = () => {
     if (!uuid) {
       setUuid(uuidv4());
     }
-  }, []);
+  }, [setUuid, uuid]);
   const user_id = useReadLocalStorage<{ user_id: string }>("user_id");
   const url = `/api-mapping/featured-products/get-product/?uuid=${uuid}&user_id=${
     user_id?.user_id ?? ""
