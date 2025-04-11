@@ -40,6 +40,11 @@ const mapping = (data: rawBasketType): MappedBasketType => {
           oldPrice: oldPrice,
           reviews: item.prod.reviews_count,
           discount: discount,
+          brand: {
+            ru: 'SCK',
+            en: 'SCK',
+            kk: 'SCK',
+          },
         },
       };
     },

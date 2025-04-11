@@ -46,6 +46,11 @@ const mapping = async (data: rawBasketType): Promise<MappedBasketType> => {
           oldPrice: oldPrice,
           reviews: item.reviews_count,
           discount: discount,
+          brand: {
+            ru: "SCK",
+            en: "SCK",
+            kk: "SCK",
+          },
         },
       };
     },

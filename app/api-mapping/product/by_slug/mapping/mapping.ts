@@ -161,6 +161,11 @@ const mapping = async (
     desc: desc,
     relatedProducts: relatedProducts,
     configuration: configurationProducts,
+    brand:{
+      ru: Placeholder(rawData?.brand?.name_brand,'Перевод не установлен ru',`Бренд id:${rawData?.brand?.id}`),
+      en: Placeholder(rawData?.brand?.additional_data?.EN,'Перевод не установлен en',`Бренд id:${rawData?.brand?.id}`),
+      kk: Placeholder(rawData?.brand?.additional_data?.KZ,'Перевод не установлен kz', `Бренд id:${rawData?.brand?.id}`),
+    }
   } as MappedProductDetailType;
 
   return MappedData;
