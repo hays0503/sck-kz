@@ -85,7 +85,7 @@ const BasketDetail: React.FC<IBasketDetailProps> = ({ Products, ToOrder }) => {
         >
           {`${Products.items.length} ${t("tovarov-na-summu")}`}
         </Text>
-        <Text>{allDiscountString}</Text>
+        <Text>{allPriceString}</Text>
       </Flex>
       <Discount />
       <Divider />
@@ -101,7 +101,7 @@ const BasketDetail: React.FC<IBasketDetailProps> = ({ Products, ToOrder }) => {
         >
           {`${t("total")}:`}
         </Text>
-        <Text>{allPriceString}</Text>
+        <Text>{allDiscountString}</Text>
       </Flex>
       {ToOrder}
     </Flex>

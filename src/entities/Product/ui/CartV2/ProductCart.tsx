@@ -22,7 +22,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
   const locale = useLocale();
   const refContainer = useRef<HTMLDivElement>(null);
 
-  const { width: CartWidth = 160 } = useResizeObserver({
+  const { width: CartWidth = 170 } = useResizeObserver({
     ref: refContainer,
     box: "border-box",
   });
@@ -30,6 +30,8 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
   const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
 
   const ProductCartSwiper = lazy(() => import("./SubComponent").then((module) => ({ default: module.ProductCartSwiper })));
+
+  const CartHeight = CartWidth+70
 
   return (
     <Flex
@@ -40,7 +42,6 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
       justify="space-between"
       itemScope
       itemType="http://schema.org/Product"
-      gap={10}
     >
 
       <Level1
@@ -52,7 +53,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
             prefetch={prefetch??true}
             style={{
               width: CartWidth,
-              height: CartWidth+50,
+              height: CartHeight,
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
@@ -65,7 +66,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                   align="center"
                   style={{
                     width: CartWidth,
-                    height: CartWidth+50,
+                    height: CartHeight,
                   }}
                 >
                   <Spin />
@@ -76,7 +77,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                 name={ProductName}
                 images={Product.img}
                 width={CartWidth}
-                height={CartWidth+50}
+                height={CartHeight}
               />
             </Suspense>
           </Link>
@@ -89,6 +90,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
           reviews_count={Product?.reviews}
           price={Product?.price}
           discountPrice={Product?.oldPrice}
+          Brand={Product?.brand?.[locale]??"SCK"}
         />
       </Link>
       <Level3 addToCartSlot={addToCartSlot} />

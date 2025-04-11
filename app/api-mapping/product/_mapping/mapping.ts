@@ -2,7 +2,7 @@ import { MappedProductType } from 'api-mapping/product/_type';
 import { MappedPopularProductType } from '../by_populates/type';
 import { rawImage, rawResult } from '../by_populates/type/rawTypePopulates';
 
-const getLocalizedName = (product: rawResult, lang: string): string | null =>
+const getLocalizedName = (product: rawResult|{ additional_data: Record<string, string>}, lang: string): string | null =>
   product?.additional_data?.[lang] != ''
     ? product?.additional_data?.[lang]
     : null;
@@ -30,6 +30,11 @@ const mapping = (
         : null,
     reviews: product?.reviews_count,
     discount: product?.discount?.amount ?? null,
+    brand: {
+      ru: product?.brand?.name_brand ?? null,
+      en: getLocalizedName(product?.brand, 'EN'),
+      kk: getLocalizedName(product?.brand, 'KZ'),
+    }
   }));
 
   return {

@@ -8,4 +8,5 @@ export interface MappedProductType {
     oldPrice: number|null;
     reviews: number;
     discount: string|null;
+    brand: Record<string, string|null>;
 }

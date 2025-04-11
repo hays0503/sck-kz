@@ -12,7 +12,8 @@
     "selectCity": "Қаланы таңдаңыз"
   },
   "Product": {
-    "otzyvov": "Пікірлер"
+    "otzyvov": "Пікірлер",
+    "net-ocenok": "Бағаланбайды"
   },
   "ProfileLabel": {
     "profil": "Профиль"

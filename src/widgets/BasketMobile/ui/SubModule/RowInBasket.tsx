@@ -24,6 +24,35 @@ const RowInBasket: React.FC<IProductsInBasketProps> = (
     color: discountPrice ? "red" : "black",
   };
 
+  const DiscountPriceWidget = () => (
+    <Flex gap={10} align='baseline' justify='left'>
+      {discountPrice && (
+        <Flex>
+          <span className={style.priceProduct} style={stylePrice}>
+            {beautifulCost(discountPrice)}
+          </span>
+        </Flex>
+      )}
+      <Flex>
+        <span className={style.discountProduct}>
+          {beautifulCost(priceString)}
+        </span>
+      </Flex>
+    </Flex>
+  );
+
+  const PriceWidget = () => (
+    <Flex gap={10} align='baseline' justify='left'>
+      <Flex>
+        <span className={style.priceProduct} style={stylePrice}>
+          {beautifulCost(priceString)}
+        </span>
+      </Flex>
+    </Flex>
+  );
+
+  const Price = discountPrice ? <DiscountPriceWidget /> : <PriceWidget />;
+
 
   return (
     <Flex gap={10} style={{ width: "100%" }}>
@@ -47,19 +76,7 @@ const RowInBasket: React.FC<IProductsInBasketProps> = (
         <Text className={style.headerProduct}>
           {name}
         </Text>
-        <Flex gap={10} align="baseline" justify="left">
-          <Flex>
-            <span className={style.priceProduct} style={stylePrice}>
-              {beautifulCost(priceString)}
-            </span>
-          </Flex>
-
-          {discountPrice && (
-            <Flex>
-              <span className={style.discountProduct}>{beautifulCost(discountPrice)}</span>
-            </Flex>
-          )}
-        </Flex>
+        {Price}
         <Flex gap={10} align="center" justify="right">
           {IncBasketSlot}
           {/* <DecBasketSlot count={count} prod_id={Product.id} token={token}/> */}

@@ -11,7 +11,8 @@
     "pozhaluista-vernites-pozdnee": "Пожалуйста, вернитесь позднее."
   },
   "Product": {
-    "otzyvov": "Отзывов"
+    "otzyvov": "Отзывов",
+    "net-ocenok": "Нет оценок"
   },
   "SelectCity": {
     "vybor-goroda": "Выбор города",
@@ -374,5 +375,6 @@
   "nichego-ne-nai-deno": "Ничего не найдено",
   "smotret-vse": "Смотреть все",
   "soputstvuyushie-tovara": "Сопутствующие товара",
-  "kharakteristiki-i-opisanie": "Характеристики и описание"
+  "kharakteristiki-i-opisanie": "Характеристики и описание",
+  "net-ocenok": "Нет оценок"
 }

@@ -26,7 +26,7 @@ const AddToBasketProduct: React.FC<{ prod_id: number,justify?:string }> = ({ pro
       width: "100%",
       height: "40px",
       background: "inherit",
-      borderRadius: "4px"
+      borderRadius: "12px"
     }
     return <Flex gap={5} justify={justify?justify:"space-between"} align="center" style={ButtonStyle}>
       <DecButton prod_id={prod_id} count={0} color="#4954f0" colorBg="#4954f01c" />
@@ -49,7 +49,7 @@ const AddToBasketProduct: React.FC<{ prod_id: number,justify?:string }> = ({ pro
           padding: "8px 16px", //
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: "4px",
+          borderRadius: "12px",
         }}
       >
         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">

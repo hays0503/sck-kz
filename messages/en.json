@@ -12,7 +12,8 @@
     "selectCity": "Select city"
   },
   "Product": {
-    "otzyvov": "Reviews"
+    "otzyvov": "Reviews",
+    "net-ocenok": "No assessments"
   },
   "ProfileLabel": {
     "profil": "Profile"
