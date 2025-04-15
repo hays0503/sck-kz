@@ -85,7 +85,8 @@
   "ProductDetail": {
     "artikul": "Article",
     "reviews": "Review(s)",
-    "smotret-vse-otzivy": "All reviews"
+    "smotret-vse-otzivy": "All reviews",
+    "no-reviews": "No assessments"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Your phone",
@@ -351,5 +352,9 @@
     "zagruzka": "Loading goods",
     "k-nachalu-spiska": "By the beginning of the list",
     "error": "There was an error when plugging"
-  }
+  },
+  "sessiya-istekla": "The session has expired",
+  "pozhaluista-povtorite-avtorizaciyu": "Please repeat the authorization.",
+  "pereiti-k-avtorizacii": "Go to authorization",
+  "napomnit-pozhe": "Remind you later"
 }

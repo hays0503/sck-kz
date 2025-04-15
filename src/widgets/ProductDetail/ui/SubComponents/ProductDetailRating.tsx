@@ -47,13 +47,20 @@ const ProductDetailRating: React.FC<IProductDetailRatingProps> = (props) => {
   const ReviewInfoProductComponent = () => {
     return (
       <>
-        {Boolean(review) && (
+        {Boolean(review) ? (
           <Flex gap={5} align='center' justify='center'>
             <Text style={{ color: '#8C8C8C', width: 'max-content' }}>
               {`${review} ${t('reviews')}`}
             </Text>
           </Flex>
+        ) : (
+          <Flex gap={5} align='center' justify='center'>
+            <Text style={{ color: '#8C8C8C', width: 'max-content' }}>
+              {t('no-reviews')}
+            </Text>
+          </Flex>
         )}
+
       </>
     );
   };
@@ -75,9 +82,9 @@ const ProductDetailRating: React.FC<IProductDetailRatingProps> = (props) => {
         <ReviewInfoProductComponent />
       </Flex>
       <Flex>
-          <Button onClick={() => setExpanded(true)}>
-            <Text style={{ color: '#4954F0' }}>{t('smotret-vse-otzivy')}</Text>
-          </Button>
+        <Button onClick={() => setExpanded(true)}>
+          <Text style={{ color: '#4954F0' }}>{t('smotret-vse-otzivy')}</Text>
+        </Button>
       </Flex>
     </Flex>
   );

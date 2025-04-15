@@ -49,8 +49,8 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
     const t = useTranslations('ProductDetailDescription');
 
     const All = () => {
-      if (!reviews) return <NoComments />;
-      if (reviews.length === 0) return <NoComments />;
+      // if (!reviews) return <NoComments />;
+      // if (reviews.length === 0) return <NoComments />;
 
       const styleButton = {
         width: '100%',
@@ -72,9 +72,13 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
           onCancel={() => setExpanded(!expanded)}
           onClose={() => setExpanded(!expanded)}
           open={expanded}
-          styles={{ body: { width: '100%', top: '0', padding: '0' } }}
+          styles={{ 
+            content:{ width: '100%', top: '0', padding: '0' },
+            body: { width: '100%', top: '0', padding: '0' } 
+          }}
         >
-          <Flex vertical gap={10}>
+          <Flex vertical gap={10} style={{padding: '5px'}}>
+            {reviews && reviews.length === 0 && <NoComments />}
             <Flex
               vertical
               style={{
@@ -87,7 +91,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
               }}
               gap={10}
             >
-              {reviews.map((review, index) => (
+              {reviews && reviews.map((review, index) => (
                 <Review key={index} reviews={review} />
               ))}
             </Flex>

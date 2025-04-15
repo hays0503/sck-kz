@@ -29,14 +29,14 @@ const Review = memo(
     return (
       <Flex vertical style={{ width: '100%', padding: '5px' }}>
         <Flex justify='space-between' style={{ width: '100%' }}>
-          <Flex gap={5} align='center'>
+          <Flex gap={5} align='center' wrap style={{ width: '50%' }}>
             <Text strong style={{ fontSize: '16px' }}>
               {reviews.rating}
             </Text>
             <Text disabled>{t('iz5')}</Text>
             <Rate value={reviews.rating} style={{ fontSize: '16px', color: '#FFA600' }} />
           </Flex>
-          <Flex gap={5} align='center'>
+          <Flex gap={5} align='center' justify='center' wrap style={{ width: '50%' }}>
             <Text
               style={{
                 color: '#8C8C8C',

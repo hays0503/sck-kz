@@ -85,7 +85,8 @@
   "ProductDetail": {
     "artikul": "Мақала",
     "reviews": "Пікір(лер)",
-    "smotret-vse-otzivy": "Барлық шолулар"
+    "smotret-vse-otzivy": "Барлық шолулар",
+    "no-reviews": "Бағаланбайды"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Сіздің телефоныңыз",
@@ -351,5 +352,9 @@
     "zagruzka": "Жүк тиеу",
     "k-nachalu-spiska": "Тізімнің басында",
     "error": "Қосылғанда қате пайда болды"
-  }
+  },
+  "sessiya-istekla": "Сессия аяқталды",
+  "pozhaluista-povtorite-avtorizaciyu": "Авторизацияны қайталаңыз.",
+  "pereiti-k-avtorizacii": "Авторизацияға барыңыз",
+  "napomnit-pozhe": "Кейінірек еске түсіріңіз"
 }

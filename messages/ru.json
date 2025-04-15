@@ -94,7 +94,8 @@
   "ProductDetail": {
     "artikul": "Артикул",
     "reviews": "Отзыв(ов)",
-    "smotret-vse-otzivy": "Все отзывы"
+    "smotret-vse-otzivy": "Все отзывы",
+    "no-reviews": "Нет оценок"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Ваш телефон",
@@ -384,5 +385,9 @@
     "k-nachalu-spiska": "К началу списка",
     "error": "Случилась ошибка при загррузки"
   },
-  "k-nachalu-spiska": "К началу списка"
+  "k-nachalu-spiska": "К началу списка",
+  "sessiya-istekla": "Сессия истекла",
+  "pozhaluista-povtorite-avtorizaciyu": "Пожалуйста, повторите авторизацию.",
+  "pereiti-k-avtorizacii": "Перейти к авторизации",
+  "napomnit-pozhe": "Напомнить позже"
 }
