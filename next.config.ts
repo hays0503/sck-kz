@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
 
     HYPERDX_API_KEY: process.env.HYPERDX_API_KEY,
     OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+    DISABLE_SENTRY: process.env.DISABLE_SENTRY,
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
@@ -86,7 +87,7 @@ const nextConfig: NextConfig = {
 // Оборачиваем Sentry только если не отключён
 const finalConfig = isSentryDisabled
   ? withNextIntl({
-      webpack: (config,{ isServer }) => {
+      webpack: (config, { isServer }) => {
         if (isSentryDisabled) {
           config.plugins = config.plugins.filter(
             (plugin: { constructor: { name: string } }) =>
