@@ -5,6 +5,8 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 interface ProductDetailItemProps {
   callbackIntersecting?: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
+  color?: string;
+  gap?: number;
 }
 
 const ProductDetailItem: React.FC<ProductDetailItemProps> = (props) => {
@@ -13,9 +15,11 @@ const ProductDetailItem: React.FC<ProductDetailItemProps> = (props) => {
   });
   useEffect(() => {
     if (props.callbackIntersecting) {
-      props.callbackIntersecting(!isIntersecting);
+      props.callbackIntersecting(isIntersecting);
     }
   }, [isIntersecting, props]);
+
+  
 
   return (
     <Flex
@@ -23,9 +27,10 @@ const ProductDetailItem: React.FC<ProductDetailItemProps> = (props) => {
       vertical={true}
       align='center'
       justify='center'
+      gap={props.gap}
       style={{
         width: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: `${props?.color?props.color:'#fff'}`,
       }}
     >
       {props.children}

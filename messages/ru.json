@@ -376,5 +376,9 @@
   "smotret-vse": "Смотреть все",
   "soputstvuyushie-tovara": "Сопутствующие товара",
   "kharakteristiki-i-opisanie": "Характеристики и описание",
-  "net-ocenok": "Нет оценок"
+  "net-ocenok": "Нет оценок",
+  "smotrite-takzhe": "Смотрите также",
+  "ProductDetailAnotherProduct": {
+    "smotrite-takzhe": "Смотрите также"
+  }
 }

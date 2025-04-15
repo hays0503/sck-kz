@@ -1,10 +1,13 @@
-html body{
-    overflow: hidden;
-    scroll-behavior: smooth !important;
-    /* -webkit-overflow-scrolling: touch; */
+html body {
+  overflow: hidden;
+  scroll-behavior: smooth !important;
+  /* -webkit-overflow-scrolling: touch; */
 }
 
+.sck-var {
+  --sck-columns-on-page: 2;
+}
 
-.sck-var{
-    --sck-columns-on-page: 2;
+* {
+  scroll-behavior: smooth;
 }

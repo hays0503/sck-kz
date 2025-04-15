@@ -1,7 +1,7 @@
 "use client";
-import { Flex, Spin } from "antd";
-import { JSX, lazy, Suspense, useRef, memo } from "react";
-import { Level1, Level2, Level3 } from "./SubComponent";
+import { Flex } from "antd";
+import { JSX, useRef, memo } from "react";
+import { Level1, Level2, Level3, ProductCartSwiper } from "./SubComponent";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
@@ -29,7 +29,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
 
   const ProductName = Product.name?.[locale] ? Product?.name?.[locale] : Product.name?.['ru'];
 
-  const ProductCartSwiper = lazy(() => import("./SubComponent").then((module) => ({ default: module.ProductCartSwiper })));
+  // const ProductCartSwiper = lazy(() => import("./SubComponent").then((module) => ({ default: module.ProductCartSwiper })));
 
   const CartHeight = CartWidth+70
 
@@ -59,7 +59,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
               alignItems: "center"
             }}
           >
-            <Suspense
+            {/* <Suspense
               fallback={
                 <Flex
                   justify="center"
@@ -72,14 +72,14 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
                   <Spin />
                 </Flex>
               }
-            >
+            > */}
               <ProductCartSwiper
                 name={ProductName}
                 images={Product.img}
                 width={CartWidth}
                 height={CartHeight}
               />
-            </Suspense>
+            {/* </Suspense> */}
           </Link>
         }
       />

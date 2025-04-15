@@ -156,6 +156,7 @@ const mapping = async (
     article: rawData?.vendor_code,
     quantity: quantity,
     categoryId: rawData?.category?.id,
+    categorySlug: rawData?.category?.slug,
     specifications: specificationsProduct,
     reviews: reviewsProducts,
     desc: desc,

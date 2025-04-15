@@ -9,6 +9,7 @@ import ProductDetailPrice from './ProductDetailPrice';
 import ProductDetailReviews from './ProductDetailReviews';
 import ProductDetailRating from './ProductDetailRating';
 import ProductDetailPopular from './ProductDetailPopular';
+import ProductDetailAnotherProduct from './ProductDetailAnotherProduct';
 // import ProductDetailRelatedProduct from "./ProductDetailRelatedProduct"
 export {
   // ProductDetailRelatedProduct,
@@ -23,4 +24,5 @@ export {
   ProductDetailReviews,
   ProductDetailRating,
   ProductDetailPopular,
+  ProductDetailAnotherProduct,
 };

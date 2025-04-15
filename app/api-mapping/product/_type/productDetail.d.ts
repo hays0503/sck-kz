@@ -19,7 +19,7 @@ export interface MappedProductDetailType extends MappedProductType {
   readonly article: string;
   readonly quantity: number;
   readonly categoryId: number;
-
+  readonly categorySlug: string;
   readonly specifications: MappedProductDetailSpecificationType[] | [] | null;
   readonly reviews: MappedProductDetailReviewsType[] | [] | null;
   readonly desc: MappedProductDetailDescType | null;

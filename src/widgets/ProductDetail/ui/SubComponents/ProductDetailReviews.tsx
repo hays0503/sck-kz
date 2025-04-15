@@ -14,23 +14,24 @@ interface ProductDetailReviewsProps {
 const { Text } = Typography;
 
 const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
-  product,expanded, setExpanded
+  product,
+  expanded,
+  setExpanded,
 }) => {
   const [toggle, setToggle] = useState(false);
 
-
   const { reviews } = product;
   const t = useTranslations('ProductDetailReviews');
-  const styleHeader = useMemo(
-    () =>
-      ({
-        fontWeight: '500',
-        fontSize: '18px',
-        lineHeight: '26px',
-        letterSpacing: '-1.3%',
-      }) as CSSProperties,
-    [],
-  );
+  // const styleHeader = useMemo(
+  //   () =>
+  //     ({
+  //       fontWeight: '500',
+  //       fontSize: '18px',
+  //       lineHeight: '26px',
+  //       letterSpacing: '-1.3%',
+  //     }) as CSSProperties,
+  //   [],
+  // );
   const styleText = useMemo(
     () =>
       ({
@@ -46,22 +47,6 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
   const ReviewsList = memo(() => {
     const t = useTranslations('ProductDetailDescription');
-    const One = () => {
-      return (
-        <Flex vertical style={{ width: '100%' }} gap={10}>
-          {reviews && reviews.length > 0 && <Review reviews={reviews[0]} />}
-          <Button
-            onClick={() => {
-              setExpanded(!expanded);
-            }}
-          >
-            <Text style={{ color: '#4954F0' }} itemProp='description'>
-              {expanded ? t('svernut') : t('smotret-vse-opisanie')}
-            </Text>
-          </Button>
-        </Flex>
-      );
-    };
 
     const All = () => {
       if (!reviews) return <NoComments />;
@@ -87,7 +72,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
           onCancel={() => setExpanded(!expanded)}
           onClose={() => setExpanded(!expanded)}
           open={expanded}
-          styles={{ body: { width: '100%', top: '0', padding: '0' }}}
+          styles={{ body: { width: '100%', top: '0', padding: '0' } }}
         >
           <Flex vertical gap={10}>
             <Flex
@@ -128,7 +113,7 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
 
     return (
       <Flex vertical style={{ width: '100%' }} gap={10}>
-        {expanded ? <All /> : <One />}
+        <All />
       </Flex>
     );
   });
@@ -146,17 +131,11 @@ const ProductDetailReviews: React.FC<ProductDetailReviewsProps> = ({
   return (
     <Flex
       vertical
-      style={{ width: '100%', padding: '5px' }}
+      style={{ width: '100%'}}
       gap={10}
       id='review'
     >
-      <Text style={styleHeader}>{t('otzyvy')}</Text>
-      <SendReviewComponent
-        product={product}
-        toggle={toggle}
-        setToggle={setToggle}
-      />
-      {reviews && reviews.length === 0 ? <NoComments /> : <ReviewsList />}
+      <ReviewsList />
     </Flex>
   );
 };
