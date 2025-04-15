@@ -19,39 +19,40 @@ import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFav
 import { useIntersectionObserver } from '@undefined/usehooks-ts';
 import { Link } from '@/i18n/routing';
 import { motion } from 'framer-motion';
+// import { PRODUCT } from '@/shared/constant/product';
 const { Text } = Typography;
 
 interface IProductDetailAnotherProductProps {
   readonly product: MappedProductDetailType;
 }
 
+const gridStyle = {
+  width: '100%',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridGap: '10px',
+} as CSSProperties;
+
 const PageObserved: React.FC<{
   Products: MappedPopularProductType[];
   callbackIntersecting: () => void;
-}> = ({ Products, callbackIntersecting }) => {
+  isValidating: boolean;
+}> = ({ Products, callbackIntersecting, isValidating }) => {
   const running = useRef(false);
-  const { isIntersecting, ref } = useIntersectionObserver({
-    threshold: 0.1,
-  });
-  useEffect(() => {
-    if (!running.current) {
-      if (isIntersecting) {
-        running.current = true;
-        callbackIntersecting();
-      }
-    }
-  }, [callbackIntersecting, isIntersecting]);
+  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.1 });
 
-  const gridStyle = useMemo(
-    () =>
-      ({
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gridGap: '10px',
-      }) as CSSProperties,
-    [],
-  );
+  useEffect(() => {
+    if (!running.current && isIntersecting) {
+      running.current = true;
+      callbackIntersecting();
+    }
+  }, [isIntersecting, callbackIntersecting]);
+
+  useEffect(() => {
+    if (!isValidating) {
+      running.current = false;
+    }
+  }, [isValidating]);
 
   return (
     <div style={gridStyle} ref={ref}>
@@ -103,25 +104,46 @@ const ProductDetailAnotherProduct: React.FC<
   );
 
   const getPage = useCallback(
-    (page: number): string | null => {
+    (
+      page: number,
+      // prev: { len: number; results: MappedPopularProductType[] },
+    ): string | null => {
+      // if (prev) {
+      //   const count = prev.len;
+      //   const loaded = count * PRODUCT.PRODUCT_PER_PAGE;
+      //   console.log({ page, prev });
+      //   if (loaded > count) {
+      //     return null;
+      //   }
+      // }
       return `/api-mapping/product/by_category/?category=${product.categorySlug}&order=none_sort&page=${page}&city=${cityEn}`;
     },
     [cityEn, product.categorySlug],
   );
 
-  const { data, setSize, isLoading,isValidating, error } = useSWRInfinite(
-    getPage,
-    defaultFetcher,
-    {
-      // persistSize: false,
-      initialSize: 1,
-      parallel: true,
-    },
-  );
+  const { data, setSize, isLoading, isValidating, error } = useSWRInfinite<{
+    len: number;
+    results: MappedPopularProductType[];
+  }>(getPage, defaultFetcher, {
+    persistSize: false,
+    initialSize: 1,
+    parallel: true,
+    revalidateFirstPage: false,
+  });
 
   const handleIntersection = useCallback(() => {
-    setSize((prev) => prev + 1);
-  }, [setSize]);
+    if (data) {
+      const count = data[0].len;
+      const loaded = data.reduce((acc, item) => acc + item.results.length, 0);
+      if (loaded >= count) {
+        // console.log('all data is loaded ', { count, loaded });
+        return;
+      } else {
+        // console.log('load more data', { count, loaded });
+        setSize((prev) => prev + 1);
+      }
+    }
+  }, [data, setSize]);
 
   if (isLoading) {
     return (
@@ -149,35 +171,22 @@ const ProductDetailAnotherProduct: React.FC<
     );
   }
 
+  // console.log(data);
+
   return (
     <ListWrapper>
       <Text id='start-list' style={styleText}>
         {t('smotrite-takzhe')}
       </Text>
-      <span
-        style={{
-          position: 'absolute',
-          top: '50%',
-          bottom: '50%',
-          transform: '-50% , -50%',
-        }}
-      >
-        {isLoading}
-      </span>
       {data?.map((d, index) => {
         return d?.results?.length > 0 ? (
           <PageObservedMemo
             key={index}
             Products={d.results}
+            isValidating={isValidating}
             callbackIntersecting={handleIntersection}
           />
-        ) : (
-          <Flex key={index} vertical justify='center' align='center'>
-            <Link href={'#start-list'}>
-              <Text style={styleText}>{t('k-nachalu-spiska')}</Text>
-            </Link>
-          </Flex>
-        );
+        ) : null;
       })}
       {isValidating && (
         <motion.div
@@ -190,6 +199,11 @@ const ProductDetailAnotherProduct: React.FC<
           </Flex>
         </motion.div>
       )}
+      <Flex vertical justify='center' align='center'>
+        <Link href={'#start-list'}>
+          <Text style={styleText}>{t('k-nachalu-spiska')}</Text>
+        </Link>
+      </Flex>
     </ListWrapper>
   );
 };
