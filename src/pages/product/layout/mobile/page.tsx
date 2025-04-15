@@ -1,3 +1,4 @@
+import getProductByCategory from '@/entities/Product/api/getProductByCategory';
 import getProductBySlug from '@/entities/Product/api/getProductBySlug';
 import getProductPopulates from '@/entities/Product/api/getProductPopulates';
 import { Link } from '@/i18n/routing';
@@ -9,6 +10,7 @@ import { FooterMobile } from '@/widgets/FooterMobile';
 import { LayoutMain } from '@/widgets/LayoutMain';
 import { ProductDetail } from '@/widgets/ProductDetail';
 import { Flex } from 'antd';
+import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import { getTranslations } from 'next-intl/server';
 import { unstable_cache } from 'next/cache';
 
@@ -48,10 +50,33 @@ const ProductPage: ProductPageComponent = async (props) => {
   const urlSlug = `/api-mapping/product/by_slug/?slug=${slug}&city=${city}`;
   const urlPopulates = `/api-mapping/product/by_populates?page=${1}&order=none_sort&city=${city}`;
 
-  const fallback = {
+  let fallback = {
     [urlSlug]: productSlug.data,
     [urlPopulates]: productPopulates,
   };
+
+  if (productSlug?.data !== null) {
+    const categorySlug = (productSlug.data as MappedProductDetailType)
+      .categorySlug;
+    const urlProductMore = `/api-mapping/product/by_category/?category=${categorySlug}&order=none_sort&page=${1}&city=${city}`;
+
+    const productMore = await unstable_cache(
+      () =>
+        getProductByCategory({
+          slug: categorySlug,
+          city,
+          orderBy: 'none_sort',
+          page: 1,
+        }),
+      [city],
+      revalidateTime,
+    )();
+
+    fallback = {
+      ...fallback,
+      [urlProductMore]: productMore,
+    };
+  }
 
   console.log('fallback', fallback);
 
@@ -101,9 +126,7 @@ const ErrorPage: React.FC<{
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
         <LayoutMain
-          headerContent={
-            <HeaderText socialFunctionOff />
-          }
+          headerContent={<HeaderText socialFunctionOff />}
           content={
             <Flex
               align='center'

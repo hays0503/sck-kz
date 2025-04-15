@@ -39,6 +39,7 @@ const RenderImages: React.FC<IRenderImagesProps> = (props) => {
         src={src}
         alt={`${name}-no-image`}
         width={width}
+        quality={50}
         height={height}
         style={{
           objectFit: 'scale-down',
@@ -67,8 +68,10 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
             blurDataURL={item}
             priority={true}
             src={item}
+            quality={50}
             alt={`${name}-slide-${index}`}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{
               zIndex: 2,
               objectFit: 'contain',
@@ -79,6 +82,8 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
             blurDataURL={item}
             priority={true}
             src={item}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={50}
             alt={`${name}-slide-${index}`}
             fill
             style={{

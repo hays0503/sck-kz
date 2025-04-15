@@ -3,7 +3,7 @@ import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 interface getProductByCategoryProps {
   slug: string;
   city: string;
-  orderBy: 'avg_rating' | '-avg_rating' | 'stocks__price' | '-stocks__price';
+  orderBy: 'avg_rating' | '-avg_rating' | 'stocks__price' | '-stocks__price' | 'none_sort';
   page: number;
 }
 
@@ -21,7 +21,7 @@ const getProductByCategory = async ({
   // Поверка на корректность orderBy
   const isCorrectOrderBy =
     !orderBy ||
-    ['avg_rating', '-avg_rating', 'stocks__price', '-stocks__price'].includes(
+    ['avg_rating', '-avg_rating', 'stocks__price', '-stocks__price', 'none_sort'].includes(
       orderBy,
     );
 

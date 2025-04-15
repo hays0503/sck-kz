@@ -1,10 +1,10 @@
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-cube";
-import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, EffectCube } from "swiper/modules";
-import { Image } from "antd";
-import type { ImagePreviewType } from "rc-image";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cube';
+import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation, EffectCube } from 'swiper/modules';
+import { Image } from 'antd';
+import type { ImagePreviewType } from 'rc-image';
 
 interface IProductCartSwiperProps {
   name: string | undefined | null;
@@ -25,25 +25,26 @@ interface IRenderSwiperProps {
   name: string | undefined | null;
   width: number;
   height: number;
-
 }
 
 const RenderImages: React.FC<IRenderImagesProps> = (props) => {
-  const { name, width, height } = props
+  const { name, width, height } = props;
   return (
     <>
-      <link itemProp="image" href={"/nofoto.jpg"} />
+      <link itemProp='image' href={'/nofoto.jpg'} />
       <Image
-        src="/nofoto.jpg"
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+        src='/nofoto.jpg'
         alt={`${name}-no-image`}
         width={width}
         height={height}
         style={{
-          objectFit: "scale-down",
+          objectFit: 'scale-down',
           width: width,
           height: height,
         }}
-      /></>
+      />
+    </>
   );
 };
 
@@ -53,20 +54,23 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
     <Swiper {...paramsSwiper} modules={[Pagination, Navigation, EffectCube]}>
       {images.map((item, index) => (
         <SwiperSlide key={index}>
-          <link itemProp="image" href={item} />
+          <link itemProp='image' href={item} />
           <Image
-            preview={{
-              mask: null
-            } as ImagePreviewType}
-            src={item.replace("http://185.100.67.246:8888", "https://sck.kz")}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            preview={
+              {
+                mask: null,
+              } as ImagePreviewType
+            }
+            src={item.replace('http://185.100.67.246:8888', 'https://sck.kz')}
             alt={`${name}-slide-${index}`}
             width={width}
             height={height}
             style={{
-              objectFit: "scale-down",
-              objectPosition: "center",
-              width: "100%",
-              height: "inherit",
+              objectFit: 'scale-down',
+              objectPosition: 'center',
+              width: '100%',
+              height: 'inherit',
             }}
           />
         </SwiperSlide>
@@ -82,7 +86,7 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
     loop: true,
     pagination: true,
     navigation: false,
-    effect: "cube",
+    effect: 'cube',
     grabCursor: true,
     cubeEffect: {
       shadow: false,
@@ -94,9 +98,15 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
   };
 
   return (
-    <div style={{ width: width, height: height, overflow: "hidden" }}>
+    <div style={{ width: width, height: height, overflow: 'hidden' }}>
       {images?.length > 0 ? (
-        <RenderSwiper images={images} paramsSwiper={paramsSwiper} name={name} width={width} height={height} />
+        <RenderSwiper
+          images={images}
+          paramsSwiper={paramsSwiper}
+          name={name}
+          width={width}
+          height={height}
+        />
       ) : (
         <RenderImages width={width} height={height} name={name} />
       )}

@@ -379,6 +379,10 @@
   "net-ocenok": "Нет оценок",
   "smotrite-takzhe": "Смотрите также",
   "ProductDetailAnotherProduct": {
-    "smotrite-takzhe": "Смотрите также"
-  }
+    "smotrite-takzhe": "Смотрите также",
+    "zagruzka": "Загрузка товаров",
+    "k-nachalu-spiska": "К началу списка",
+    "error": "Случилась ошибка при загррузки"
+  },
+  "k-nachalu-spiska": "К началу списка"
 }

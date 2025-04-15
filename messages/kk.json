@@ -347,6 +347,9 @@
   "nichego-ne-nai-deno": "Ештеңе табылмады",
   "smotret-vse": "Бәрін қараңыз",
   "ProductDetailAnotherProduct": {
-    "smotrite-takzhe": "Сондай-ақ қараңыз"
+    "smotrite-takzhe": "Сондай-ақ қараңыз",
+    "zagruzka": "Жүк тиеу",
+    "k-nachalu-spiska": "Тізімнің басында",
+    "error": "Қосылғанда қате пайда болды"
   }
 }

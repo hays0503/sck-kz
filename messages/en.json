@@ -347,6 +347,9 @@
   "nichego-ne-nai-deno": "Nothing was found",
   "smotret-vse": "Watch everything",
   "ProductDetailAnotherProduct": {
-    "smotrite-takzhe": "See also"
+    "smotrite-takzhe": "See also",
+    "zagruzka": "Loading goods",
+    "k-nachalu-spiska": "By the beginning of the list",
+    "error": "There was an error when plugging"
   }
 }
