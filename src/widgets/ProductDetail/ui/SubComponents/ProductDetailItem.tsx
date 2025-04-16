@@ -1,6 +1,6 @@
 import { useIntersectionObserver } from '@undefined/usehooks-ts';
 import { Flex } from 'antd';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ProductDetailItemProps {
   callbackIntersecting?: Dispatch<SetStateAction<boolean>>;
@@ -10,14 +10,17 @@ interface ProductDetailItemProps {
 }
 
 const ProductDetailItem: React.FC<ProductDetailItemProps> = (props) => {
-  const { isIntersecting, ref } = useIntersectionObserver({
+  const { 
+    // isIntersecting,
+     ref } = useIntersectionObserver({
     threshold: 0.5,
+    onChange:props.callbackIntersecting
   });
-  useEffect(() => {
-    if (props.callbackIntersecting) {
-      props.callbackIntersecting(isIntersecting);
-    }
-  }, [isIntersecting, props]);
+  // useEffect(() => {
+  //   if (props.callbackIntersecting) {
+  //     props.callbackIntersecting(isIntersecting);
+  //   }
+  // }, [isIntersecting, props]);
 
   
 
@@ -30,6 +33,7 @@ const ProductDetailItem: React.FC<ProductDetailItemProps> = (props) => {
       gap={props.gap}
       style={{
         width: '100%',
+        height:"auto",
         backgroundColor: `${props?.color?props.color:'#fff'}`,
       }}
     >

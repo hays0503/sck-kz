@@ -7,6 +7,7 @@ import { NextResponse } from 'next/server';
 import { PRODUCT } from '@/shared/constant/product';
 import { checkOrderByType } from '../by_populates';
 import mapping from '../_mapping/mapping';
+import { rawResult } from '../by_populates/type/rawTypePopulates';
 
 export async function GET(request: NextRequest): Promise<Response> {
   const ids = request.nextUrl.searchParams.get('ids');
@@ -38,14 +39,32 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   const cityRu: string = (CityEnToRu[cityEn] as string) ?? 'Караганда';
   const offset = PRODUCT.PRODUCT_PER_PAGE * (parseInt(page) - 1);
-  const url = `${UrlApiWithDomainV2.getProducts}filter_by_ids/?ordering=${orderBy}&offset=${offset}&limit=${PRODUCT.PRODUCT_PER_PAGE}&city=${cityRu}&ids=${ids}`;
+  let url = `${UrlApiWithDomainV2.getProducts}filter_by_ids/?offset=${offset}&limit=${PRODUCT.PRODUCT_PER_PAGE}&city=${cityRu}&ids=${ids}`;
+
+  if (orderBy !== 'none_sort') {
+    url = `${url}&ordering=${orderBy}`;
+  }
 
   const response = await fetch(url, {
     next: { revalidate: 60 }, // Данные кешируются на 60 секунд
   });
 
   if (response.ok) {
-    const data = await response.json();
+    let data = (await response.json()) as {
+      count: number;
+      results: rawResult[];
+    };
+
+    if (orderBy == 'none_sort') {
+      const idsNumber: number[] = ids.split(',').map((i) => Number(i));
+      data = {
+        count: data.count,
+        results: idsNumber
+          .map((i) => data.results.find((a) => a.id == i))
+          .filter((a) => a !== undefined),
+      };
+    }
+
     const mappedData = mapping(data.count, data.results, cityRu);
     // Установите заголовки для клиентского кеширования
     const headers = new Headers();

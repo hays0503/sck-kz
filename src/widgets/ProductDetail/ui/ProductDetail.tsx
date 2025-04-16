@@ -252,32 +252,29 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           </ProductDetailItem>
 
           {/* {product?.rating && ( */}
-            <ProductDetailItem>
-              <ProductDetailRating
-                product={product}
-                setExpanded={setExpanded}
-              />
-            </ProductDetailItem>
-          {/* )} */}
-
           <ProductDetailItem>
-            {/* Характеристики */}
-            <ProductDetailSpecification product={product} />
+            <ProductDetailRating product={product} setExpanded={setExpanded} />
           </ProductDetailItem>
-
-          {product?.desc && (
-            <ProductDetailItem>
-              <ProductDetailDescription product={product} />
-            </ProductDetailItem>
-          )}
-
-          <ProductDetailReviews
-            product={product}
-            expanded={expanded}
-            setExpanded={setExpanded}
-          />
-
+          {/* )} */}
         </ProductDetailItem>
+
+        <ProductDetailItem>
+          {/* Характеристики */}
+          <ProductDetailSpecification product={product} />
+        </ProductDetailItem>
+
+        {product?.desc && (
+          <ProductDetailItem>
+            <ProductDetailDescription product={product} />
+          </ProductDetailItem>
+        )}
+
+        <ProductDetailReviews
+          product={product}
+          expanded={expanded}
+          setExpanded={setExpanded}
+        />
+
         <Flex vertical gap={10}>
           {product?.relatedProducts && (
             <ProductDetailItem>

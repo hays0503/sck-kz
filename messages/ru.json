@@ -321,7 +321,8 @@
     "svyazhites-s-nami": "Свяжитесь с нами!",
     "polzovatelskoe-soglashenie": "Пользовательское соглашение",
     "politika-konfidencialnosti": "Политика конфиденциальности",
-    "sck-essikei-zona-unikalnykh-cen": "SCK (ЭсСиКей) Зона Уникальных Цен"
+    "sck-essikei-zona-unikalnykh-cen": "SCK (ЭсСиКей) Зона Уникальных Цен",
+    "yuridicheskaya-informaciya": "Юридическая информация"
   },
   "HeaderDesktop": {
     "dostavka": "Доставка",
@@ -393,5 +394,6 @@
   "LastViewedList": {
     "vi-smotreli": "Вы смотрели",
     "oshibka": "Случилась ошибка"
-  }
+  },
+  "yuridicheskaya-informaciya": "Юридическая информация"
 }

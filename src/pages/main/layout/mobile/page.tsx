@@ -17,6 +17,7 @@ import { TabletCategory } from '@/widgets/TabletCategory/ui';
 import { BannerMobileSlider } from '@/widgets/BannerMobileSlider';
 import { CSSProperties } from 'react';
 import { unstable_cache } from 'next/cache';
+import { MobileFooterMenu } from '@/widgets/MobileFooterMenu';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -99,6 +100,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 }}
               />
               <ProductPopularListPagination />
+              <MobileFooterMenu/>
             </Flex>
           }
           footerContent={<FooterMobile />}

@@ -46,9 +46,10 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
       },
     });
 
-    const dataIds = ((await responseData.json()) as ILastViewedProduct[]).map(
-      (item) => item.product_id,
-    ).reverse();
+    const dataIds = ((await responseData.json()) as ILastViewedProduct[])
+    .reverse()
+    .map((item: ILastViewedProduct) => item.product_id);
+    console.log({dataIds,aaaa:Array.from(new Set(dataIds))});
     setLastViewedProductIds(Array.from(new Set(dataIds)));
   }, [uuid]);
 
