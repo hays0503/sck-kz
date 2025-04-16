@@ -389,5 +389,9 @@
   "sessiya-istekla": "Сессия истекла",
   "pozhaluista-povtorite-avtorizaciyu": "Пожалуйста, повторите авторизацию.",
   "pereiti-k-avtorizacii": "Перейти к авторизации",
-  "napomnit-pozhe": "Напомнить позже"
+  "napomnit-pozhe": "Напомнить позже",
+  "LastViewedList": {
+    "vi-smotreli": "Вы смотрели",
+    "oshibka": "Случилась ошибка"
+  }
 }

@@ -1,159 +1,138 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-cube';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectCube } from 'swiper/modules';
 import Image from 'next/image';
+import { memo } from 'react';
 
-interface IProductCartSwiperProps {
-  name: string | undefined | null;
+interface ProductCartSwiperProps {
+  readonly name?: string | null;
+  readonly images: string[];
+  readonly width: number;
+  readonly height: number;
+  readonly oneImage: boolean;
+}
+
+interface RenderImageProps {
+  readonly src: string;
+  readonly alt: string;
+  readonly style?: React.CSSProperties;
+}
+
+const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
+  <>
+    <link itemProp='image' href={src} />
+    <Image
+      placeholder='blur'
+      blurDataURL={src}
+      priority
+      src={src}
+      alt={alt}
+      fill
+      quality={50}
+      style={{
+        zIndex: 2,
+        objectFit: 'contain',
+      }}
+    />
+    {/* Blurred background image */}
+    <Image
+      placeholder='blur'
+      blurDataURL={src}
+      priority
+      quality={50}
+      src={src}
+      alt={`${alt} ${src}`}
+      fill
+      style={{
+        zIndex: 1,
+        position: 'absolute',
+        filter: 'blur(5px) brightness(90%)',
+        objectFit: 'cover',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      }}
+    />
+  </>
+));
+RenderImage.displayName = 'RenderImage';
+
+const RenderSwiper: React.FC<{
   images: string[];
-  width: number;
-  height: number;
-}
-
-interface IRenderImagesProps {
-  width: number;
-  height: number;
-  name: string | undefined | null;
-  src: string;
-}
-
-interface IRenderSwiperProps {
-  images: string[];
-  paramsSwiper: SwiperProps;
-  name: string | undefined | null;
-  width: number;
-  height: number;
-}
-
-const RenderImages: React.FC<IRenderImagesProps> = (props) => {
-  const { name, width, height, src } = props;
-  return (
-    <>
-      <link itemProp='image' href={src} />
-      <Image
-        placeholder='blur'
-        blurDataURL={src}
-        priority={true}
-        src={src}
-        alt={`${name}-no-image`}
-        width={width}
-        quality={50}
-        height={height}
-        style={{
-          objectFit: 'scale-down',
-          width: width,
-          height: height,
-        }}
-      />
-    </>
-  );
-};
-
-const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
-  const {
-    images,
-    paramsSwiper,
-    name,
-    //  width, height
-  } = props;
-  return (
-    <Swiper {...paramsSwiper} modules={[Pagination, EffectCube]}>
-      {images.map((item, index) => (
-        <SwiperSlide key={index} style={{ position: 'relative' }}>
-          <link itemProp='image' href={item} />
-          <Image
-            placeholder='blur'
-            blurDataURL={item}
-            priority={true}
-            src={item}
-            quality={50}
-            alt={`${name}-slide-${index}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{
-              zIndex: 2,
-              objectFit: 'contain',
-            }}
-          />
-          <Image
-            placeholder='blur'
-            blurDataURL={item}
-            priority={true}
-            src={item}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={50}
-            alt={`${name}-slide-${index}`}
-            fill
-            style={{
-              zIndex: 1,
-              filter: 'blur(5px)',
-              objectFit: 'fill',
-            }}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
-};
-
-const ProductCartSwiper: React.FC<IProductCartSwiperProps> = (props) => {
-  const { images, width, height, name } = props;
-
-  const paramsSwiper: SwiperProps = {
-    lazy: 'true',
-    lazyPreloadPrevNext: 2,
-    loop: true,
-    pagination: true,
-    navigation: false,
-    effect: 'cube',
-    grabCursor: true,
-    cubeEffect: {
+  name?: string | null;
+}> = memo(({ images, name }) => (
+  <Swiper
+    modules={[Pagination, EffectCube]}
+    loop
+    grabCursor
+    effect='cube'
+    pagination
+    lazyPreloadPrevNext={2}
+    cubeEffect={{
       shadow: false,
       slideShadows: true,
       shadowOffset: 20,
       shadowScale: 0.94,
-    },
-    style: { width: width, height: height },
-  } as SwiperProps;
+    }}
+    style={{ width: '100%', height: '100%' }}
+  >
+    {images.map((src, index) => (
+      <SwiperSlide key={index} style={{ position: 'relative' }}>
+        {/* Foreground image */}
+        <RenderImage
+          src={src}
+          alt={`${name}-slide-${index}`}
+        />
+
+        {/* Blurred background image */}
+        <RenderImage
+          src={src}
+          alt={`${name}-background-${index}`}
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+));
+RenderSwiper.displayName = 'RenderSwiper';
+
+const ProductCartSwiper: React.FC<ProductCartSwiperProps> = ({
+  images,
+  width,
+  height,
+  name,
+  oneImage,
+}) => {
+  const containerStyle: React.CSSProperties = {
+    width,
+    height,
+    overflow: 'hidden',
+    borderRadius: 12,
+    position: 'relative',
+  };
+
+  const altName = name ?? 'product';
+
+  const hasImages = images.length > 0;
+
+  const isMultiple = Boolean(!oneImage) ?? images.length > 1;
+  const mainSrc = hasImages ? images[0] : '/nofoto.jpg';
 
   return (
-    <div
-      style={{
-        width: width,
-        height: height,
-        overflow: 'hidden',
-        borderRadius: '12px',
-      }}
-    >
-      {images?.length > 0 ? (
-        images?.length > 1 ? (
-          <RenderSwiper
-            images={images}
-            paramsSwiper={paramsSwiper}
-            name={name}
-            width={width}
-            height={height}
-          />
-        ) : (
-          <RenderImages
-            width={width}
-            height={height}
-            name={name}
-            src={images[0]}
-          />
-        )
+    <div style={containerStyle}>
+      {isMultiple ? (
+        <RenderSwiper images={images} name={altName} />
       ) : (
-        <RenderImages
-          width={width}
-          height={height}
-          name={name}
-          src={'/nofoto.jpg'}
+        <RenderImage
+          src={mainSrc}
+          alt={`${altName}-image`}
         />
       )}
     </div>
   );
 };
 
-export default ProductCartSwiper;
+export default memo(ProductCartSwiper);

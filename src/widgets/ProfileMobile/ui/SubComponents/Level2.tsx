@@ -1,85 +1,17 @@
-import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { UserInfo } from '@/shared/types/user';
-import { Flex, message, Typography } from 'antd';
+import { Flex } from 'antd';
 import { useTranslations } from 'next-intl';
-import React from 'react';
+import React, { lazy } from 'react';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+
 import IconLikeIOS from '@/shared/ui/IconLikeIOS/IconLikeIOS';
 import { Watermark } from 'antd';
+import ElementList from './ElementList';
 
-const { Title } = Typography;
-
-const ElementList: React.FC<{
-  title: string;
-  href: string;
-  disabled?: boolean;
-  color?: string;
-  icon?: React.ReactNode;
-}> = (props) => {
-  const t = useTranslations('ProfileMobile');
-  const { title, href, disabled, color, icon } = props;
-  const [messageApi, contextHolder] = message.useMessage();
-
-  return (
-    <>
-      {contextHolder}
-      <motion.div
-        whileTap={
-          !disabled
-            ? {
-                y: 4, // Более заметный сдвиг вниз
-                boxShadow: 'inset 0px 4px 6px rgba(0, 0, 0, 0.15)', // Вдавливание
-              }
-            : {}
-        }
-        transition={{ type: 'spring', stiffness: 280, damping: 18 }} // Упругое движение
-        style={{
-          width: '100%',
-          backgroundColor: disabled ? '#f0f0f0' : '#fff',
-          border: '1px solid #d7d7d7',
-          // boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.12)", // Базовая тень
-          padding: '12px',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-          borderRadius: '10px',
-          transition: 'background-color 0.2s ease',
-        }}
-        onClick={() => {
-          if (disabled) {
-            messageApi.open({
-              type: 'error',
-              content: t('vy-ne-avtorizovany'),
-            });
-          }
-        }}
-      >
-        <Link
-          href={disabled ? '#' : href}
-          prefetch={true}
-          style={{ width: '100%' }}
-        >
-          <Flex
-            align='center'
-            justify='space-between'
-            style={{ width: '100%' }}
-          >
-            <Flex align='center' justify='space-between' gap={10}>
-              {icon}
-              <Title level={5} style={{ color }}>
-                {title}
-              </Title>
-            </Flex>
-            <Flex align='center' justify='center'>
-              <Image src={'/arrow.svg'} alt='arrow' width={36} height={36} />
-            </Flex>
-          </Flex>
-        </Link>
-      </motion.div>
-    </>
-  );
-};
+const LastViewedList = lazy(() =>
+  import('./LastViewedList').then((module) => ({ default: module.default })),
+);
 
 interface Level2Props {
   readonly IsAnonymous: boolean | undefined;
@@ -88,7 +20,10 @@ interface Level2Props {
 
 const Level2: React.FC<Level2Props> = (props) => {
   const isGuest = props.IsAnonymous;
-  const accessToken = useReadLocalStorage<{ user_id: string|undefined|null }>('accessToken');
+  const uuid_id = useReadLocalStorage<string | undefined | null>('uuid_id');
+  const accessToken = useReadLocalStorage<{
+    user_id: string | undefined | null;
+  }>('accessToken');
 
   const currentCity = useGetCityParams();
   const t = useTranslations('Level2');
@@ -140,7 +75,6 @@ const Level2: React.FC<Level2Props> = (props) => {
           icon={<IconLikeIOS ionicons src='settings-outline' color='#37bd2b' />}
         />
       </Watermark>
-
       <ElementList
         title={t('vykhod')}
         href={`/city/${currentCity}/logout`}
@@ -148,6 +82,8 @@ const Level2: React.FC<Level2Props> = (props) => {
         color='red'
         icon={<IconLikeIOS ionicons src='log-out-outline' color='purple' />}
       />
+
+      {uuid_id && <LastViewedList uuid={uuid_id} />}
     </Flex>
   );
 };

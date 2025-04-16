@@ -356,5 +356,9 @@
   "sessiya-istekla": "Сессия аяқталды",
   "pozhaluista-povtorite-avtorizaciyu": "Авторизацияны қайталаңыз.",
   "pereiti-k-avtorizacii": "Авторизацияға барыңыз",
-  "napomnit-pozhe": "Кейінірек еске түсіріңіз"
+  "napomnit-pozhe": "Кейінірек еске түсіріңіз",
+  "LastViewedList": {
+    "vi-smotreli": "Сен көрдің",
+    "oshibka": "Қате болды"
+  }
 }

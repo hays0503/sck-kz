@@ -356,5 +356,9 @@
   "sessiya-istekla": "The session has expired",
   "pozhaluista-povtorite-avtorizaciyu": "Please repeat the authorization.",
   "pereiti-k-avtorizacii": "Go to authorization",
-  "napomnit-pozhe": "Remind you later"
+  "napomnit-pozhe": "Remind you later",
+  "LastViewedList": {
+    "vi-smotreli": "You watched",
+    "oshibka": "A mistake happened"
+  }
 }

@@ -73,7 +73,7 @@ export function ProvidersClient({
       setRemindLater(false); 
       setIsModalVisible(true);
     }
-  }, [remindLater, remindTime]);
+  }, [remindLater, remindTime, setRemindLater]);
 
   useEffect(() => {
     if (AccessToken?.expires_at && AccessToken?.issued_at) {
