@@ -233,9 +233,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
               />
             </Flex>
           </ProductDetailItem>
-
           <PortalData product={product} enableButtonBuy={enableButtonBuy} />
-
           <ProductDetailItem>
             {/* Название товара и Конфигурация */}
             <ProductDetailConfiguration
@@ -245,35 +243,30 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
               discount={product.discount}
             />
           </ProductDetailItem>
-
           <ProductDetailItem>
             {/* Информация о товаре - название - цена - артикул - отзывы - каспи виджет/форте виджет */}
             <ProductDetailPrice product={product} />
           </ProductDetailItem>
-
           {/* {product?.rating && ( */}
           <ProductDetailItem>
             <ProductDetailRating product={product} setExpanded={setExpanded} />
           </ProductDetailItem>
           {/* )} */}
-        </ProductDetailItem>
-
-        <ProductDetailItem>
-          {/* Характеристики */}
-          <ProductDetailSpecification product={product} />
-        </ProductDetailItem>
-
-        {product?.desc && (
           <ProductDetailItem>
-            <ProductDetailDescription product={product} />
+            {/* Характеристики */}
+            <ProductDetailSpecification product={product} />
           </ProductDetailItem>
-        )}
-
-        <ProductDetailReviews
-          product={product}
-          expanded={expanded}
-          setExpanded={setExpanded}
-        />
+          {product?.desc && (
+            <ProductDetailItem>
+              <ProductDetailDescription product={product} />
+            </ProductDetailItem>
+          )}
+          <ProductDetailReviews
+            product={product}
+            expanded={expanded}
+            setExpanded={setExpanded}
+          />{' '}
+        </ProductDetailItem>
 
         <Flex vertical gap={10}>
           {product?.relatedProducts && (

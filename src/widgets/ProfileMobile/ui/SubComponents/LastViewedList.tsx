@@ -6,7 +6,7 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Skeleton, Spin, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect,useState } from 'react';
 
 const { Text, Title } = Typography;
 
@@ -46,15 +46,20 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
       },
     });
 
-    const dataIds = ((await responseData.json()) as ILastViewedProduct[])
-    .reverse()
-    .map((item: ILastViewedProduct) => item.product_id);
-    console.log({dataIds,aaaa:Array.from(new Set(dataIds))});
-    setLastViewedProductIds(Array.from(new Set(dataIds)));
+    return (await responseData.json()) as ILastViewedProduct[];
   }, [uuid]);
 
   useEffect(() => {
-    callbackGetLastViewed();
+    callbackGetLastViewed().then((data) => {
+      const dataIds = data
+        .reverse()
+        .map((item: ILastViewedProduct) => item.product_id);
+
+      const uniqDataIds = Array
+      .from(new Set(dataIds))
+      .slice(0, 8);
+      setLastViewedProductIds(uniqDataIds);
+    });
   }, [callbackGetLastViewed]);
 
   const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -90,13 +95,15 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
     <Wrapper>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
         {data?.results.map((product) => (
-          <ProductCart
-            oneImage
-            key={product.id}
-            Product={product}
-            addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
-            addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-          />
+          <Flex vertical key={product.id}>
+            <ProductCart
+              oneImage
+              key={product.id}
+              Product={product}
+              addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
+              addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
+            />
+          </Flex>
         ))}
       </Flex>
     </Wrapper>
