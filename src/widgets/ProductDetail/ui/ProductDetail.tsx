@@ -265,7 +265,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
             product={product}
             expanded={expanded}
             setExpanded={setExpanded}
-          />{' '}
+          />
         </ProductDetailItem>
 
         <Flex vertical gap={10}>

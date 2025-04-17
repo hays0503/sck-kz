@@ -25,6 +25,7 @@ interface ILastViewedProduct {
 const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
   const t = useTranslations('LastViewedList');
   const cityEn = useGetCityParams();
+  const [a, setA] = useState<number[]>();
   const [lastViewedProductIds, setLastViewedProductIds] = useState<number[]>(
     [],
   );
@@ -54,6 +55,8 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
       const dataIds = data
         .reverse()
         .map((item: ILastViewedProduct) => item.product_id);
+
+      setA(dataIds);
 
       const uniqDataIds = Array
       .from(new Set(dataIds))
@@ -93,6 +96,12 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
 
   return (
     <Wrapper>
+      <Flex vertical>
+      <span>{`https://sck.kz/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`}</span>
+      <span>{`JSON.stringify(a): `}{JSON.stringify(a)}</span>
+      <span>{`JSON.stringify(lastViewedProductIds): `}{JSON.stringify(lastViewedProductIds)}</span>      
+      <span>{`JSON.stringify(data): `}{JSON.stringify(data)}</span>
+      </Flex>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
         {data?.results.map((product) => (
           <Flex vertical key={product.id}>
