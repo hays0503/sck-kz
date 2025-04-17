@@ -45,7 +45,7 @@ const SendMessage: React.FC<{ id: number }> = ({ id }) => {
       body: JSON.stringify({
         product_id: id,
         client_uuid: client_uuid,
-        user_id
+        user_id: user_id?.user_id,
       }),
     });
   }, [client_uuid, id, user_id]);

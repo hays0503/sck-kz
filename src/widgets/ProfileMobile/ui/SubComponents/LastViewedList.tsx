@@ -6,7 +6,8 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Skeleton, Spin, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
-import { memo, useCallback, useEffect,useState } from 'react';
+import Link from 'next/link';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 const { Text, Title } = Typography;
 
@@ -39,8 +40,8 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 
   const callbackGetLastViewed = useCallback(async () => {
     let dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
-    if(user_id){
-      dataGetLastViewedUrl += `&user_id=${user_id}`
+    if (user_id) {
+      dataGetLastViewedUrl += `&user_id=${user_id}`;
     }
     const responseData = await fetch(dataGetLastViewedUrl, {
       method: 'GET',
@@ -61,9 +62,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 
       setA(dataIds);
 
-      const uniqDataIds = Array
-      .from(new Set(dataIds))
-      .slice(0, 8);
+      const uniqDataIds = Array.from(new Set(dataIds)).slice(0, 8);
       setLastViewedProductIds(uniqDataIds);
     });
   }, [callbackGetLastViewed]);
@@ -97,22 +96,41 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
     </Wrapper>;
   }
 
-  let dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
-  if(user_id){
-    dataGetLastViewedUrl += `&user_id=${user_id}`
+  let dataGetLastViewedUrl = `http://185.100.67.246:9876/auth_api/v1/viewed/by_client_uuid_or_user_id/?client_uuid=${uuid}`;
+  if (user_id) {
+    dataGetLastViewedUrl += `&user_id=${user_id}`;
   }
 
   return (
     <Wrapper>
-      <Flex vertical gap={15}>
-      <span>{dataGetLastViewedUrl}</span>
-      <span>{`JSON.stringify(a): `}{JSON.stringify(a)}</span>
-      <span>{`JSON.stringify(lastViewedProductIds): `}{JSON.stringify(lastViewedProductIds)}</span>      
-      <span>{`JSON.stringify(data): `}{JSON.stringify(data?.results.map((item) => item.id))}</span>
+      <Flex vertical gap={50}>
+        <Link
+          href={dataGetLastViewedUrl}
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{ overflowY: 'scroll' }}
+          title={dataGetLastViewedUrl}
+        >
+          {dataGetLastViewedUrl}
+        </Link>
+        <span style={{ overflowY: 'scroll' }}>
+          {`JSON.stringify(a): `}
+          {JSON.stringify(a)}
+        </span>
+        <span style={{ overflowY: 'scroll' }}>
+          {`JSON.stringify(lastViewedProductIds): `}
+          {JSON.stringify(lastViewedProductIds)}
+        </span>
+        <span style={{ overflowY: 'scroll' }}>
+          {`JSON.stringify(data): `}
+          {JSON.stringify(data?.results.map((item) => item.id))}
+        </span>
       </Flex>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
         {data?.results.map((product) => (
           <Flex vertical key={product.id}>
+            {product.id}
+
             <ProductCart
               oneImage
               key={product.id}
