@@ -1,4 +1,5 @@
-import { MappedBasketType } from 'api-mapping/basket/v1/get-products/type/MappedBasketType';
+import { MappedBasketType } from "../../get-products/type/MappedBasketType";
+
 
 const delProduct = (
   basket: MappedBasketType,

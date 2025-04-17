@@ -43,7 +43,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         { status: 500 }
       );
     }
-    const mappedData = await mapping(response);
+    const mappedData = await mapping(response, cityEn);
     const newBasket = delProduct(mappedData, parseIds);
     const deserializationToRawBasketData = deserializationToRawBasket(
       newBasket,

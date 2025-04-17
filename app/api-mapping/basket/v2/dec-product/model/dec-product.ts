@@ -1,7 +1,4 @@
-import {
-  MappedBasketItemType,
-  MappedBasketType,
-} from 'api-mapping/basket/v1/get-products/type/MappedBasketType';
+import { MappedBasketItemType, MappedBasketType } from "../../get-products/type/MappedBasketType";
 
 const decProduct = (
   basket: MappedBasketType,

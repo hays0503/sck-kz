@@ -40,7 +40,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         { status: 500 }
       );
     }
-    const mappedData = await mapping(response);
+    const mappedData = await mapping(response, cityEn);
     const newBasket = decProduct(mappedData, parseInt(prodId as string));
     const deserializationToRawBasketData = deserializationToRawBasket(
       newBasket,

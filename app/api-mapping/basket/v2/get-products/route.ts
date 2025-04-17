@@ -1,5 +1,3 @@
-
-
 import { NextRequest, NextResponse } from "next/server";
 import getDataByUuid from "../_api/getDataByUuid";
 import mapping from "./mapper/mapper";
@@ -29,7 +27,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         if (!response) {
             return NextResponse.json(null, { status: 200 });
         }
-        const mappedData = await mapping(response);
+        const mappedData = await mapping(response,cityEn);
         return NextResponse.json(mappedData, { status: 200 });
     } catch {
         return NextResponse.json({

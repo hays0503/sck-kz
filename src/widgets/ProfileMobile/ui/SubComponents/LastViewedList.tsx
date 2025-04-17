@@ -6,7 +6,6 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Skeleton, Spin, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { memo, useCallback, useEffect, useState } from 'react';
 
 const { Text, Title } = Typography;
@@ -27,7 +26,7 @@ interface ILastViewedProduct {
 const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   const t = useTranslations('LastViewedList');
   const cityEn = useGetCityParams();
-  const [a, setA] = useState<number[]>();
+  const [, setA] = useState<number[]>();
   const [lastViewedProductIds, setLastViewedProductIds] = useState<number[]>(
     [],
   );
@@ -96,45 +95,11 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
     </Wrapper>;
   }
 
-  let dataGetLastViewedUrl = `http://185.100.67.246:9876/auth_api/v1/viewed/by_client_uuid_or_user_id/?client_uuid=${uuid}`;
-  if (user_id) {
-    dataGetLastViewedUrl += `&user_id=${user_id}`;
-  }
-
   return (
-    <Wrapper>
-      <Flex vertical gap={50}>
-        <Link
-          href={dataGetLastViewedUrl}
-          target='_blank'
-          rel='noopener noreferrer'
-          style={{ overflowY: 'scroll' }}
-          title={dataGetLastViewedUrl}
-        >
-          {dataGetLastViewedUrl}
-        </Link>
-        <span style={{ overflowY: 'scroll' }}>
-          {`Перевёрнутый массив на клиенте /auth_api/v1/viewed/by_client_uuid_or_user_id: `}
-          <span style={{ color: 'red' }}>{JSON.stringify(a)}</span>
-        </span>
-        <span style={{ overflowY: 'scroll' }}>
-          {`Обрезанный массив до 8: `}
-          <span style={{ color: 'red' }}>
-            {JSON.stringify(lastViewedProductIds)}
-          </span>
-        </span>
-        <span style={{ overflowY: 'scroll' }}>
-          {`Ids запрошенные у маппера через api nextjs => /api/v2/products_v2/filter_by_ids : `}
-          <span style={{ color: 'red' }}>
-            {JSON.stringify(data?.results.map((item) => item.id))}
-          </span>
-        </span>
-      </Flex>
+    <Wrapper>      
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
         {data?.results.map((product) => (
           <Flex vertical key={product.id}>
-            {product.id}
-
             <ProductCart
               oneImage
               key={product.id}

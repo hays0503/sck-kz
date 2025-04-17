@@ -203,13 +203,12 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
                 }}
               >
                 <Button
-                  type='text'
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: 0,
-                    padding: 0,
+                    padding: '0 5px',
                   }}
                   onClick={() => router.back()}
                 >

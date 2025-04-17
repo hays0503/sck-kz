@@ -1,7 +1,7 @@
 
 import beautifulCost from "@/shared/tools/beautifulCost";
 import { Divider, Flex, Typography } from "antd";
-import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v2/get-products/type/MappedBasketType";
 import { useTranslations } from "next-intl";
 
 const { Text, Title } = Typography;

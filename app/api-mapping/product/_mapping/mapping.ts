@@ -2,7 +2,7 @@ import { MappedProductType } from 'api-mapping/product/_type';
 import { MappedPopularProductType } from '../by_populates/type';
 import { rawImage, rawResult } from '../by_populates/type/rawTypePopulates';
 
-const getLocalizedName = (product: rawResult|{ additional_data: Record<string, string>}, lang: string): string | null =>
+export const getLocalizedName = (product: rawResult|{ additional_data: Record<string, string>}, lang: string): string | null =>
   product?.additional_data?.[lang] != ''
     ? product?.additional_data?.[lang]
     : null;

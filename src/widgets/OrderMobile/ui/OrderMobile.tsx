@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import beautifulCost from "@/shared/tools/beautifulCost";
 import { CreateOrder } from "@/features/create-order";
 import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
-import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
+import { MappedBasketType } from "api-mapping/basket/v2/get-products/type/MappedBasketType";
 
 const { Title } = Typography
 

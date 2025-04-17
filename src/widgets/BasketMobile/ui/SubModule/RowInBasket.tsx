@@ -1,27 +1,33 @@
-import { Flex, Typography } from "antd";
-import { MappedBasketItemType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
-import Image from "next/image";
-import { CSSProperties, JSX } from "react";
-import style from "./BasketMobile.module.css";
-import beautifulCost from "@/shared/tools/beautifulCost";
+import { Flex, Typography } from 'antd';
+import Image from 'next/image';
+import { CSSProperties, JSX } from 'react';
+import style from './BasketMobile.module.css';
+import beautifulCost from '@/shared/tools/beautifulCost';
+import { useLocale } from 'next-intl';
+import { MappedBasketItemType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
 
 const { Text } = Typography;
 
 interface IProductsInBasketProps {
-  readonly BasketItem: MappedBasketItemType
-  readonly IncBasketSlot: JSX.Element
-  readonly DecBasketSlot: JSX.Element
+  readonly BasketItem: MappedBasketItemType;
+  readonly IncBasketSlot: JSX.Element;
+  readonly DecBasketSlot: JSX.Element;
+  readonly AddToFavoriteSlot: JSX.Element;
 }
 
-const RowInBasket: React.FC<IProductsInBasketProps> = (
-  { BasketItem, IncBasketSlot, DecBasketSlot }
-) => {
+const RowInBasket: React.FC<IProductsInBasketProps> = ({
+  BasketItem,
+  IncBasketSlot,
+  DecBasketSlot,
+  AddToFavoriteSlot,
+}) => {
   const { prod, count } = BasketItem;
-  const name = prod.name["ru"] ?? "Название продукта";
+  const locale = useLocale();
+  const name = prod.name[locale] ?? 'Название продукта';
   const priceString = prod.price;
   const discountPrice = prod.oldPrice;
   const stylePrice: CSSProperties = {
-    color: discountPrice ? "red" : "black",
+    color: discountPrice ? 'red' : 'black',
   };
 
   const DiscountPriceWidget = () => (
@@ -53,36 +59,72 @@ const RowInBasket: React.FC<IProductsInBasketProps> = (
 
   const Price = discountPrice ? <DiscountPriceWidget /> : <PriceWidget />;
 
+  let infoText: string | undefined = undefined;
+  if (prod.brand) {
+    infoText = `${prod.brand?.[locale]}`;
+  }
+
+  if (prod?.specifications) {
+    const findColorText = prod.specifications.find(
+      (spec) => String(spec.name['ru']).toLowerCase() === 'цвет',
+    )?.value[locale];
+    const findMaterialText = prod.specifications.find(
+      (spec) => String(spec.name['ru']).toLowerCase() === 'материал',
+    )?.value[locale];
+    if (findColorText) {
+      infoText += `, ${findColorText}`;
+    }
+    if (findMaterialText) {
+      infoText += `, ${findMaterialText}`;
+    }
+  }
 
   return (
-    <Flex gap={10} style={{ width: "100%" }}>
+    <Flex gap={10} style={{ width: '100%' }}>
       <Flex
-        align="center"
-        justify="center"
-        style={{ width: "30%", display: "flex" }}
+        align='center'
+        justify='center'
+        style={{ width: '40%' }}
+        vertical
+        gap={10}
       >
-        <Image
-          src={prod.img[0]}
-          alt={name}
-          width={80}
-          height={100}
+        <Flex
           style={{
-            objectFit: "scale-down",
-            objectPosition: "center",
+            width: '100%',
+            height: '185px',
+            position: 'relative',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            backgroundColor: 'gray',
           }}
-        />
-      </Flex>
-      <Flex vertical style={{ width: "70%" }}>
-        <Text className={style.headerProduct}>
-          {name}
-        </Text>
-        {Price}
-        <Flex gap={10} align="center" justify="right">
+        >
+          <Image
+            src={prod.img[0]}
+            alt={name}
+            fill
+            style={{
+              objectFit: 'contain',
+            }}
+          />
+        </Flex>
+        <Flex
+          gap={5}
+          align='center'
+          justify='space-around'
+          style={{ width: '100%' }}
+        >
           {IncBasketSlot}
-          {/* <DecBasketSlot count={count} prod_id={Product.id} token={token}/> */}
-          <Text style={{ color: "gray" }}>{count}</Text>
+          <Text style={{ color: 'gray' }}>{count}</Text>
           {DecBasketSlot}
-          {/* <IncBasketSlot prod_id={Product.id} userBasket={userBasket} token={token}/> */}
+        </Flex>
+      </Flex>
+      <Flex vertical style={{ width: '70%' }} justify='space-between'>
+        <Flex vertical style={{ width: '100%' }}>
+          <Flex style={{ width: '100%' }} justify='space-between'>
+            {Price} {AddToFavoriteSlot}
+          </Flex>
+          <Text className={style.headerProduct}>{name}</Text>
+          {infoText && <Text disabled>{infoText}</Text>}
         </Flex>
       </Flex>
     </Flex>

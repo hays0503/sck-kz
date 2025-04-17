@@ -1,7 +1,7 @@
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import defaultFetcher from '@/shared/tools/defaultFetcher';
 import { useReadLocalStorage } from '@undefined/usehooks-ts';
-import { MappedBasketType } from 'api-mapping/basket/v1/get-products/type/MappedBasketType';
+import { MappedBasketType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
 import useSWR, { SWRResponse } from 'swr';
 
 const useGetBasketProductsSWR = (uuid?: string, doNotFetch?: boolean): SWRResponse<MappedBasketType> => {

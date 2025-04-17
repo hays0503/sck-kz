@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import getDataByUuid from "../_api/getDataByUuid";
-import mapping from "../get-products/mapper/mapper";
 import CityEnToRu from "@/shared/constant/city";
 import { STATUS_CODE } from "@/shared/constant/statusCode";
 import addProduct from "./model/add-product";
@@ -8,6 +7,7 @@ import deserializationToRawBasket from "./model/deserialization";
 import { UrlApiWithDomainV2 } from "@/shared/constant/url";
 import { revalidateTag } from "next/cache";
 import { rawBasketType } from "../_type/rawBasketType";
+import mapping from "../get-products/mapper/mapper";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     const uuid = request.nextUrl.searchParams.get("uuid");
@@ -28,12 +28,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     try {
         const response = await getDataByUuid(uuid);
-        // if (!response) {
-        //     return NextResponse.json({
-        //         message: "Корзина не найдена",
-        //     }, { status: 500 });
-        // }
-        const mappedData = await mapping(response as rawBasketType);
+
+        const mappedData = await mapping(response as rawBasketType,cityEn);
+
         const newBasket = addProduct(mappedData,parseInt(prodId as string));
         const deserializationToRawBasketData = deserializationToRawBasket(newBasket,uuid);
         
@@ -62,7 +59,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         }        
     } catch {
         return NextResponse.json({
-            message: "Ошибка в запросе категорий",
+            message: "Ошибка в изменении корзины",
         }, { status: 500 });
     }
 }

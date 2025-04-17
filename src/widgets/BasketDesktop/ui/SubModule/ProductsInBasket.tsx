@@ -4,9 +4,9 @@ import { useState } from "react";
 import style from "./BasketDesktop.module.css";
 import type { CheckboxOptionType, CheckboxProps } from "antd";
 import RowInBasket from "./RowInBasket";
-import { MappedBasketType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import { DecButton, IncButton } from "@/features/operation-in-basket-product";
 import useBasketDelete from "@/features/operation-in-basket-product/model/useBasketDelete";
+import { MappedBasketType } from "api-mapping/basket/v2/get-products/type/MappedBasketType";
 
 const { Text } = Typography;
 const CheckboxGroup = Checkbox.Group;

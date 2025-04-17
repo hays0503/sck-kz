@@ -1,9 +1,9 @@
 import { Flex, Typography } from 'antd';
-import { MappedBasketItemType } from 'api-mapping/basket/v1/get-products/type/MappedBasketType';
 import Image from 'next/image';
 import { CSSProperties, JSX } from 'react';
 import style from './BasketDesktop.module.css';
 import beautifulCost from '@/shared/tools/beautifulCost';
+import { MappedBasketItemType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
 
 const { Text } = Typography;
 

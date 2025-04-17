@@ -5,8 +5,8 @@ import { useBasketAdd } from "../model";
 import IncButton from "./IncButton";
 import DecButton from "./DecButton";
 import React, { CSSProperties } from "react";
-import { MappedBasketItemType } from "api-mapping/basket/v1/get-products/type/MappedBasketType";
 import useGetBasketProductsSWR from "@/entities/Basket/model/getBasketProductsSWR";
+import { MappedBasketItemType } from "api-mapping/basket/v2/get-products/type/MappedBasketType";
 
 
 const { Text } = Typography;

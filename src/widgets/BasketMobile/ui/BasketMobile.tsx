@@ -85,7 +85,7 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
 
   return (
     <Flex justify="center" align="center" gap={10} style={{ width: "100%", paddingTop: "10px" }}>
-      <Flex vertical={true} style={{ width: "95%" }} gap={10}>
+      <Flex vertical={true} style={{ width: "100%",padding:"0 5px" }} gap={10}>
         <ProductsInBasket Products={fetchBasket} />
         <BasketInfo />
         <ToOrder accessToken={accessToken?.token} />
