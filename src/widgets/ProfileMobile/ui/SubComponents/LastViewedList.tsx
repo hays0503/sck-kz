@@ -68,7 +68,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   }, [callbackGetLastViewed]);
 
   const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <Flex vertical style={{ width: '100%' }}>
+    <Flex vertical style={{ width: '100%' }} gap={10}>
       <Title level={5}>{t('vi-smotreli')}</Title>
       {children}
     </Flex>
@@ -114,16 +114,20 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
           {dataGetLastViewedUrl}
         </Link>
         <span style={{ overflowY: 'scroll' }}>
-          {`JSON.stringify(a): `}
-          {JSON.stringify(a)}
+          {`Перевёрнутый массив на клиенте /auth_api/v1/viewed/by_client_uuid_or_user_id: `}
+          <span style={{ color: 'red' }}>{JSON.stringify(a)}</span>
         </span>
         <span style={{ overflowY: 'scroll' }}>
-          {`JSON.stringify(lastViewedProductIds): `}
-          {JSON.stringify(lastViewedProductIds)}
+          {`Обрезанный массив до 8: `}
+          <span style={{ color: 'red' }}>
+            {JSON.stringify(lastViewedProductIds)}
+          </span>
         </span>
         <span style={{ overflowY: 'scroll' }}>
-          {`JSON.stringify(data): `}
-          {JSON.stringify(data?.results.map((item) => item.id))}
+          {`Ids запрошенные у маппера через api nextjs => /api/v2/products_v2/filter_by_ids : `}
+          <span style={{ color: 'red' }}>
+            {JSON.stringify(data?.results.map((item) => item.id))}
+          </span>
         </span>
       </Flex>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
