@@ -83,7 +83,7 @@ const Level2: React.FC<Level2Props> = (props) => {
         icon={<IconLikeIOS ionicons src='log-out-outline' color='purple' />}
       />
 
-      {uuid_id && <LastViewedList uuid={uuid_id} />}
+      {uuid_id && <LastViewedList uuid={uuid_id} user_id={accessToken?.user_id} />}
     </Flex>
   );
 };

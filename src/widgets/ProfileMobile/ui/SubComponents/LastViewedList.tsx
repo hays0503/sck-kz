@@ -12,6 +12,7 @@ const { Text, Title } = Typography;
 
 interface ILastViewedListProps {
   readonly uuid: string;
+  readonly user_id?: string | null;
 }
 
 interface ILastViewedProduct {
@@ -22,7 +23,7 @@ interface ILastViewedProduct {
   created_at: string;
 }
 
-const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
+const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   const t = useTranslations('LastViewedList');
   const cityEn = useGetCityParams();
   const [a, setA] = useState<number[]>();
@@ -37,8 +38,10 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
   });
 
   const callbackGetLastViewed = useCallback(async () => {
-    const dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
-
+    let dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
+    if(user_id){
+      dataGetLastViewedUrl += `&user_id=${user_id}`
+    }
     const responseData = await fetch(dataGetLastViewedUrl, {
       method: 'GET',
       headers: {
@@ -48,7 +51,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
     });
 
     return (await responseData.json()) as ILastViewedProduct[];
-  }, [uuid]);
+  }, [user_id, uuid]);
 
   useEffect(() => {
     callbackGetLastViewed().then((data) => {
@@ -94,13 +97,18 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid }) => {
     </Wrapper>;
   }
 
+  let dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
+  if(user_id){
+    dataGetLastViewedUrl += `&user_id=${user_id}`
+  }
+
   return (
     <Wrapper>
-      <Flex vertical>
-      <span>{`https://sck.kz/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`}</span>
+      <Flex vertical gap={15}>
+      <span>{dataGetLastViewedUrl}</span>
       <span>{`JSON.stringify(a): `}{JSON.stringify(a)}</span>
       <span>{`JSON.stringify(lastViewedProductIds): `}{JSON.stringify(lastViewedProductIds)}</span>      
-      <span>{`JSON.stringify(data): `}{JSON.stringify(data)}</span>
+      <span>{`JSON.stringify(data): `}{JSON.stringify(data?.results.map((item) => item.id))}</span>
       </Flex>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
         {data?.results.map((product) => (

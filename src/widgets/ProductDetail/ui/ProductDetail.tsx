@@ -33,6 +33,7 @@ interface IProductDetailProps {
 
 const SendMessage: React.FC<{ id: number }> = ({ id }) => {
   const client_uuid = useReadLocalStorage<string>('uuid_id');
+  const user_id = useReadLocalStorage<{user_id: string}>('accessToken');
 
   useEffect(() => {
     fetch('/auth_api/v2/viewed/add_viewed', {
@@ -44,9 +45,10 @@ const SendMessage: React.FC<{ id: number }> = ({ id }) => {
       body: JSON.stringify({
         product_id: id,
         client_uuid: client_uuid,
+        user_id
       }),
     });
-  }, [client_uuid, id]);
+  }, [client_uuid, id, user_id]);
   return <></>;
 };
 
