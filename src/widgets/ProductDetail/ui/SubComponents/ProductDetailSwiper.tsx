@@ -1,10 +1,15 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-cube';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperProps, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, EffectCube } from 'swiper/modules';
 import { Image } from 'antd';
 import type { ImagePreviewType } from 'rc-image';
+import {
+  TransformAction,
+  TransformType,
+} from 'rc-image/lib/hooks/useImageTransform';
+import { useRef, useState } from 'react';
 
 interface IProductCartSwiperProps {
   name: string | undefined | null;
@@ -50,29 +55,72 @@ const RenderImages: React.FC<IRenderImagesProps> = (props) => {
 
 const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
   const { images, paramsSwiper, name, width, height } = props;
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+  const isSwiping = useRef(false);
+  const swiperRef = useRef<SwiperClass>(null);
+
+  const handleTransform = (info: {
+    transform: TransformType;
+    action: TransformAction;
+  }) => {
+    if (info.action === 'move' && !isSwiping.current && swiperRef.current) {
+      const x = info.transform.x ?? 0;
+      if (x <= -50) {
+        isSwiping.current = true;
+        setTimeout(() => swiperRef.current?.slideNext(), 0);
+        setTimeout(() => {
+          setPreviewSrc(images[swiperRef.current!.realIndex]);
+        }, 100); // debounce
+        setTimeout(() => (isSwiping.current = false), 500); // debounce
+      }
+      if (x >= 50) {
+        isSwiping.current = true;
+        setTimeout(() => swiperRef.current?.slidePrev(), 0);
+        setTimeout(() => {
+          setPreviewSrc(images[swiperRef.current!.realIndex]);
+        }, 100); // debounce
+        setTimeout(() => (isSwiping.current = false), 500); // debounce
+      }
+    }
+  };
+
   return (
-    <Swiper {...paramsSwiper} modules={[Pagination, Navigation, EffectCube]}>
+    <Swiper
+      {...paramsSwiper}
+      onSwiper={(swiper) => {
+        swiperRef.current = swiper;
+      }}
+    >
       {images.map((item, index) => (
         <SwiperSlide key={index}>
           <link itemProp='image' href={item} />
-          <Image
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            preview={
-              {
-                mask: null,
-              } as ImagePreviewType
-            }
-            src={item.replace('http://185.100.67.246:8888', 'https://sck.kz')}
-            alt={`${name}-slide-${index}`}
-            width={width}
-            height={height}
-            style={{
-              objectFit: 'scale-down',
-              objectPosition: 'center',
-              width: '100%',
-              height: 'inherit',
-            }}
-          />
+            <Image
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              preview={
+                {
+                  afterClose: () => setPreviewSrc(null),
+                  mask: null,
+                  maskClosable: true,
+                  styles:{
+                    mask:{
+                      backgroundColor: 'rgba(0, 0, 0, 0.92)',
+                    }
+                  },
+                  onTransform: handleTransform,
+                } as ImagePreviewType
+              }
+              src={previewSrc ?? item}
+              alt={`${name}-slide-${index}`}
+              width={width}
+              height={height}
+              
+              style={{
+                objectFit: 'scale-down',
+                objectPosition: 'center',
+                width: '100%',
+                height: 'inherit',
+              }}
+            />
         </SwiperSlide>
       ))}
     </Swiper>
@@ -94,14 +142,25 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
       shadowOffset: 20,
       shadowScale: 0.94,
     },
+    modules: [Pagination, Navigation, EffectCube],
     style: { width: width, height: height },
   };
+
+  const imagesReplaceUrl = images.map((item) =>
+    item.replace('http://185.100.67.246:8888', 'https://sck.kz'),
+  );
 
   return (
     <div style={{ width: width, height: height, overflow: 'hidden' }}>
       {images?.length > 0 ? (
+        // <CustomProductDetailSwiper
+        //   images={images}
+        //   name={name}
+        //   width={width}
+        //   height={height}
+        // />
         <RenderSwiper
-          images={images}
+          images={imagesReplaceUrl}
           paramsSwiper={paramsSwiper}
           name={name}
           width={width}
