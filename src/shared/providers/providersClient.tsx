@@ -3,7 +3,7 @@
 import { SWRConfig } from 'swr';
 import { NuqsAdapter } from 'nuqs/adapters/next';
 import { Suspense, useEffect, useState } from 'react';
-import { Button,notification } from 'antd';
+import { Button, Flex, notification } from 'antd';
 import { ClockCircleOutlined, LoginOutlined } from '@ant-design/icons';
 import '@ant-design/v5-patch-for-react-19';
 import { useLocalStorage, useReadLocalStorage } from '@undefined/usehooks-ts';
@@ -25,22 +25,33 @@ export function ProvidersClient({
     [key: string]: any;
   };
 }) {
+  const [api, contextHolder] = notification.useNotification();
   const pathname = usePathname();
-  const isLoginPage = /^\/[a-z]{2}\/city\/[^/]+\/login\/?$/.test(pathname || '');
+  const isLoginPage = /^\/[a-z]{2}\/city\/[^/]+\/login\/?$/.test(
+    pathname || '',
+  );
 
-  const [AccessToken, setAccessToken] = useLocalStorage<{
-    expires_at: Date | undefined;
-    issued_at: Date | undefined;
-    token: string | undefined;
-  } | undefined>('accessToken', {
+  const [AccessToken, setAccessToken] = useLocalStorage<
+    | {
+        expires_at: Date | undefined;
+        issued_at: Date | undefined;
+        token: string | undefined;
+      }
+    | undefined
+  >('accessToken', {
     expires_at: undefined,
     token: undefined,
     issued_at: undefined,
   });
 
-  const [remindLater, setRemindLater] = useLocalStorage<boolean>('remindLater', false);
+  const [remindLater, setRemindLater] = useLocalStorage<boolean>(
+    'remindLater',
+    false,
+  );
   const [remindTime, setRemindTime] = useLocalStorage<number>('remindTime', 0);
-  const RefreshToken = useReadLocalStorage<{ token: string | undefined }>('refreshToken');
+  const RefreshToken = useReadLocalStorage<{ token: string | undefined }>(
+    'refreshToken',
+  );
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const cityEn = useGetCityParams();
   const t = useTranslations();
@@ -91,11 +102,11 @@ export function ProvidersClient({
 
   // Показываем Notification при истекшей сессии
   useEffect(() => {
-    if (isSessionExpired && !isLoginPage && !remindLater) {
+    if (!isSessionExpired && !isLoginPage && !remindLater) {
       const key = 'session-expired';
 
       const handleLogin = () => {
-        notification.destroy(key);
+        api.destroy(key);
         window.location.href = `/city/${cityEn}/login`;
       };
 
@@ -103,18 +114,24 @@ export function ProvidersClient({
         const remindInFiveMinutes = Date.now() + 5 * 60 * 1000;
         setRemindLater(true);
         setRemindTime(remindInFiveMinutes);
-        notification.destroy(key);
+        api.destroy(key);
       };
 
-      notification.open({
+      api.info({
+        showProgress: true,
         key,
         message: t('sessiya-istekla'),
         description: t('pozhaluista-povtorite-avtorizaciyu'),
         duration: 10, // автоисчезновение через 10 секунд
         placement: 'top',
-        btn: (
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <Button type="primary" icon={<LoginOutlined />} onClick={handleLogin}>
+        actions: (
+          <Flex gap={10} vertical style={{ width: '100%',minWidth:320}}>
+            <Button
+              type='primary'
+              icon={<LoginOutlined />}
+              style={{ width: '100%' }}
+              onClick={handleLogin}
+            >
               {t('pereiti-k-avtorizacii')}
             </Button>
             <Button
@@ -124,16 +141,21 @@ export function ProvidersClient({
             >
               {t('napomnit-pozhe')}
             </Button>
-          </div>
+          </Flex>
         ),
       });
     }
-  }, [isSessionExpired, remindLater, isLoginPage, cityEn, t, setRemindLater, setRemindTime]);
+  }, [isSessionExpired, remindLater, isLoginPage, cityEn, t, setRemindLater, setRemindTime, api]);
 
   return (
     <SWRConfig value={{ fallback }}>
       <NuqsAdapter>
-        <Suspense>{children}</Suspense>
+        <Suspense>
+          <>
+            {contextHolder}
+            {children}
+          </>
+        </Suspense>
       </NuqsAdapter>
     </SWRConfig>
   );
