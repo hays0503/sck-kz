@@ -17,7 +17,6 @@ import {
   Upload,
 } from 'antd';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import React, {
   memo,
   useCallback,
