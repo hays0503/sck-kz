@@ -1,15 +1,15 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-cube';
+import 'swiper/css/zoom';
+import 'swiper/css/effect-fade';
 import { Swiper, SwiperClass, SwiperProps, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, EffectCube } from 'swiper/modules';
+import { Pagination, Navigation, Zoom, EffectFade } from 'swiper/modules';
 import { Image } from 'antd';
-import type { ImagePreviewType } from 'rc-image';
-import {
-  TransformAction,
-  TransformType,
-} from 'rc-image/lib/hooks/useImageTransform';
-import { useRef, useState } from 'react';
+import NextImage from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { ZoomInOutlined, CloseOutlined } from '@ant-design/icons';
+import styles from './ProductDetailSwiper.module.css';
 
 interface IProductCartSwiperProps {
   name: string | undefined | null;
@@ -33,142 +33,251 @@ interface IRenderSwiperProps {
 }
 
 const RenderImages: React.FC<IRenderImagesProps> = (props) => {
-  const { name, width, height } = props;
+  const { name, width } = props;
+  
+  // Устанавливаем минимальную высоту равную ширине
+  const minHeight = width;
+  
   return (
     <>
       <link itemProp='image' href={'/nofoto.jpg'} />
-      <Image
-        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-        src='/nofoto.jpg'
-        alt={`${name}-no-image`}
-        width={width}
-        height={height}
-        style={{
-          objectFit: 'scale-down',
-          width: width,
-          height: height,
-        }}
-      />
+      <div className={styles.productImageContainer} style={{ minHeight }}>
+        <Image
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          src='/nofoto.jpg'
+          alt={`${name}-no-image`}
+          width="100%"
+          height="auto"
+          style={{
+            objectFit: 'contain',
+            display: 'block',
+            margin: '0 auto',
+          }}
+          preview={false}
+        />
+      </div>
     </>
   );
 };
 
 const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
-  const { images, paramsSwiper, name, width, height } = props;
-  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
-  const isSwiping = useRef(false);
-  const swiperRef = useRef<SwiperClass>(null);
-
-  const handleTransform = (info: {
-    transform: TransformType;
-    action: TransformAction;
-  }) => {
-    if (info.action === 'move' && !isSwiping.current && swiperRef.current) {
-      const x = info.transform.x ?? 0;
-      if (x <= -50) {
-        isSwiping.current = true;
-        setTimeout(() => swiperRef.current?.slideNext(), 0);
-        setTimeout(() => {
-          setPreviewSrc(images[swiperRef.current!.realIndex]);
-        }, 100); // debounce
-        setTimeout(() => (isSwiping.current = false), 500); // debounce
-      }
-      if (x >= 50) {
-        isSwiping.current = true;
-        setTimeout(() => swiperRef.current?.slidePrev(), 0);
-        setTimeout(() => {
-          setPreviewSrc(images[swiperRef.current!.realIndex]);
-        }, 100); // debounce
-        setTimeout(() => (isSwiping.current = false), 500); // debounce
-      }
+  const { images, paramsSwiper, name, width } = props;
+  const [fullscreenMode, setFullscreenMode] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const fullscreenSwiperRef = useRef<SwiperClass | null>(null);
+  
+  // Устанавливаем минимальную высоту равную ширине
+  const minHeight = width;
+  
+  // Используем useRef для предотвращения бесконечного цикла обновлений
+  const isUpdatingFromMain = useRef(false);
+  const isUpdatingFromFullscreen = useRef(false);
+  
+  // Синхронизация слайдеров только при открытии полноэкранного режима
+  useEffect(() => {
+    // Синхронизируем только при открытии режима
+    if (fullscreenMode && fullscreenSwiperRef.current && activeIndex !== undefined) {
+      fullscreenSwiperRef.current.slideTo(activeIndex, 0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fullscreenMode]); // Намеренно исключаем activeIndex для предотвращения зацикливания
+
+  // Обработчик изменения слайдов в основном свайпере
+  const handleSlideChange = (swiper: SwiperClass) => {
+    if (isUpdatingFromFullscreen.current) {
+      isUpdatingFromFullscreen.current = false;
+      return;
+    }
+    
+    isUpdatingFromMain.current = true;
+    setActiveIndex(swiper.realIndex);
+    
+    // Если открыт полноэкранный режим, синхронизируем его
+    if (fullscreenMode && fullscreenSwiperRef.current) {
+      fullscreenSwiperRef.current.slideTo(swiper.realIndex, 0);
+    }
+    
+    // Сбрасываем флаг через небольшую задержку
+    setTimeout(() => {
+      isUpdatingFromMain.current = false;
+    }, 50);
+  };
+  
+  // Обработчик изменения слайдов в полноэкранном свайпере
+  const handleFullscreenSlideChange = (swiper: SwiperClass) => {
+    if (isUpdatingFromMain.current) {
+      isUpdatingFromMain.current = false;
+      return;
+    }
+    
+    isUpdatingFromFullscreen.current = true;
+    setActiveIndex(swiper.realIndex);
+    
+    // Синхронизируем основной слайдер
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(swiper.realIndex, 0);
+    }
+    
+    // Сбрасываем флаг через небольшую задержку
+    setTimeout(() => {
+      isUpdatingFromFullscreen.current = false;
+    }, 50);
+  };
+
+  // Открытие полноэкранного режима
+  const openFullscreen = () => {
+    setFullscreenMode(true);
+  };
+
+  // Закрытие полноэкранного режима
+  const closeFullscreen = () => {
+    setFullscreenMode(false);
+  };
+
+  // Вариант анимации для модального окна
+  const modalVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.3 } }
   };
 
   return (
-    <Swiper
-      {...paramsSwiper}
-      onSwiper={(swiper) => {
-        swiperRef.current = swiper;
-      }}
-    >
-      {images.map((item, index) => (
-        <SwiperSlide key={index}>
-          <link itemProp='image' href={item} />
-            <Image
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-              preview={
-                {
-                  afterClose: () => setPreviewSrc(null),
-                  mask: null,
-                  maskClosable: true,
-                  styles:{
-                    mask:{
-                      backgroundColor: 'rgba(0, 0, 0, 0.92)',
-                    }
-                  },
-                  onTransform: handleTransform,
-                } as ImagePreviewType
-              }
-              src={previewSrc ?? item}
-              alt={`${name}-slide-${index}`}
-              width={width}
-              height={height}
-              
-              style={{
-                objectFit: 'scale-down',
-                objectPosition: 'center',
-                width: '100%',
-                height: 'inherit',
-              }}
-            />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <>
+      {/* Основной слайдер */}
+      <div className={styles.productSwiperContainer} style={{ minHeight }}>
+        <Swiper
+          {...paramsSwiper}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onSlideChange={handleSlideChange}
+          className={styles.productMainSwiper}
+        >
+          {images.map((item, index) => (
+            <SwiperSlide key={index} className={styles.productSwiperSlide}>
+              <link itemProp='image' href={item} />
+              <div className={styles.productImageWrapper} onClick={openFullscreen}>
+                <Image
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  src={item}
+                  alt={`${name}-slide-${index}`}
+                  width="100%"
+                  height="auto"
+                  style={{
+                    objectFit: 'contain',
+                    display: 'block',
+                    margin: '0 auto',
+                  }}
+                  preview={false}
+                />
+                <div className={styles.fullscreenIndicator}>
+                  <ZoomInOutlined />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      
+      {/* Полноэкранный слайдер */}
+      <AnimatePresence>
+        {fullscreenMode && (
+          <motion.div 
+            className={styles.fullscreenSwiperModal}
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={closeFullscreen} // Закрываем при клике по всей модальной области
+          >
+            <div className={styles.fullscreenClose} onClick={(e) => {
+              e.stopPropagation(); // Предотвращаем всплытие, чтобы кнопка всегда работала
+              closeFullscreen();
+            }}>
+              <CloseOutlined />
+            </div>
+            {/* Свайпер с обработкой событий */}
+            <div className={styles.swiperWrapper} onClick={(e) => e.stopPropagation()}>
+              <Swiper
+                modules={[Pagination, Zoom, Navigation]}
+                onSwiper={(swiper) => {
+                  fullscreenSwiperRef.current = swiper;
+                }}
+                onSlideChange={handleFullscreenSlideChange}
+                initialSlide={activeIndex}
+                pagination={{ clickable: true }}
+                zoom={true}
+                navigation={true}
+                loop={true}
+                className={styles.fullscreenSwiper}
+              >
+              {images.map((item, index) => (
+                <SwiperSlide key={index} className={styles.fullscreenSlide}>
+                  <div 
+                    className={styles.swipeZoomContainer}
+                    onClick={(e) => {
+                      // Предотвращаем всплытие клика на контейнер без зума
+                      e.stopPropagation();
+                    }}
+                  >
+                    <NextImage 
+                      src={item} 
+                      alt={`${name}-fullscreen-${index}`}
+                      width={1200}
+                      height={1200}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        objectFit: 'contain',
+                      }}
+                      priority={index === activeIndex}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+              </Swiper>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
 const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
-  const { images, width, height, name } = props;
+  const { images, width, name } = props;
 
+  // Новые параметры свайпера
   const paramsSwiper: SwiperProps = {
     loop: true,
-    pagination: true,
-    navigation: false,
-    effect: 'cube',
+    pagination: { clickable: true, dynamicBullets: true },
+    slidesPerView: 1,
+    effect: 'fade',
     grabCursor: true,
-    cubeEffect: {
-      shadow: false,
-      slideShadows: true,
-      shadowOffset: 20,
-      shadowScale: 0.94,
-    },
-    modules: [Pagination, Navigation, EffectCube],
-    style: { width: width, height: height },
+    modules: [Pagination, Navigation, EffectFade],
+    style: { width: '100%' },
   };
 
+  // Замена URL для изображений
   const imagesReplaceUrl = images.map((item) =>
     item.replace('http://185.100.67.246:8888', 'https://sck.kz'),
   );
 
   return (
-    <div style={{ width: width, height: height, overflow: 'hidden' }}>
+    <div className={`${styles.productDetailSwiperContainer} ${styles.swiperGlobal}`}>
       {images?.length > 0 ? (
-        // <CustomProductDetailSwiper
-        //   images={images}
-        //   name={name}
-        //   width={width}
-        //   height={height}
-        // />
         <RenderSwiper
           images={imagesReplaceUrl}
           paramsSwiper={paramsSwiper}
           name={name}
           width={width}
-          height={height}
+          height={width} // Минимальная высота равна ширине
         />
       ) : (
-        <RenderImages width={width} height={height} name={name} />
+        <RenderImages width={width} height={width} name={name} />
       )}
+
     </div>
   );
 };

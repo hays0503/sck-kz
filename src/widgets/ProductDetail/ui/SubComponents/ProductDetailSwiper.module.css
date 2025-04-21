@@ -1,0 +1,157 @@
+/* Стили для основного слайдера */
+.productSwiperContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.productMainSwiper {
+  width: 100%;
+}
+
+.productSwiperSlide {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImageWrapper {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.productImageContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreenIndicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили для полноэкранного слайдера */
+.fullscreenSwiperModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Убираем отступы */
+  box-sizing: border-box; /* Включаем padding в размер */
+}
+
+.fullscreenClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiperWrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%; /* Принудительно устанавливаем 100% ширины */
+  height: 60vh; /* 60% от высоты экрана */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Предотвращаем выход за пределы */
+  max-width: 100vw; /* Ограничиваем максимальную ширину */
+  margin: 0 auto; /* Центрируем по горизонтали */
+}
+
+.fullscreenSwiper {
+  width: 100% !important; /* Принудительно устанавливаем 100% ширины */
+  height: 100% !important; /* Принудительно устанавливаем 100% высоты контейнера */
+  max-width: 100vw;
+  max-height: 60vh; /* Соответствует высоте указанной в swiperWrapper */
+}
+
+/* Прозрачные области для клика закрытия */
+.transparentClickArea {
+  position: absolute;
+  z-index: 2; /* Выше слайдера, но ниже кнопки закрытия */
+  width: 60px;
+  height: 100%;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.fullscreenSlide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.swipeZoomContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.swipeZoomContainer img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Навигация в полноэкранном режиме */
+.fullscreenSwiper :global(.swiper-button-next),
+.fullscreenSwiper :global(.swiper-button-prev) {
+  color: white;
+}
+
+.fullscreenSwiper :global(.swiper-pagination-bullet) {
+  background: white;
+}
+
+/* Контейнер продукта */
+.productDetailSwiperContainer {
+  width: 100%;
+}
+
+/* Автоматическая высота для слайдера */
+.swiperGlobal :global(.swiper) {
+  width: 100%;
+  height: auto;
+}
+
+/* Добавляем класс для глобальных стилей */
+.swiperGlobal {
+  width: 100%;
+}
