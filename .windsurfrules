@@ -1,0 +1,8 @@
+1. Russian is the main language for comments and discussions.
+2. Project on "next": "^15.2.4", "typescript": "^5".
+3. For animation I use "framer-motion": "^12.6.2".
+4. Internationalization (translation) [ru, en, kz] "next-intl": "^4.0.2".
+5. For working with slides I use "swiper": "^11.2.6".
+6. For pagination I use "nuqs": "^2.4.1".
+7. For working with API I use "swr": "^2.3.3".
+8. Authorization via JWT.
