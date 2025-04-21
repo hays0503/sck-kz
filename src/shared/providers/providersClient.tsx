@@ -102,7 +102,7 @@ export function ProvidersClient({
 
   // Показываем Notification при истекшей сессии
   useEffect(() => {
-    if (!isSessionExpired && !isLoginPage && !remindLater) {
+    if (isSessionExpired && !isLoginPage && !remindLater) {
       const key = 'session-expired';
 
       const handleLogin = () => {
