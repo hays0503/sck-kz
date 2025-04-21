@@ -121,7 +121,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
     error,
   } = useGetProductBySlugSWR(slug, cityEn);
 
-  const refSliderContainer = useRef<HTMLDivElement>(null);
+  const refSliderContainer = useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>;
   const sliderSize = useResizeObserver({
     ref: refSliderContainer,
     box: 'content-box',

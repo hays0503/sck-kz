@@ -141,7 +141,7 @@ const Render: React.FC<RenderProps> = memo(
     const router = useRouter();
     const t = useTranslations('Render');
     const cityEn = useGetCityParams();
-    const catalogRef = useRef<HTMLDivElement>(null);
+    const catalogRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>;
 
     const { height: catalogHeight = 500 } = useResizeObserver({
       ref: catalogRef,

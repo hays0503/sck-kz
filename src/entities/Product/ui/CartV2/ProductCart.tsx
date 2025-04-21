@@ -22,7 +22,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
     props;
   const currentCity = useGetCityParams();
   const locale = useLocale();
-  const refContainer = useRef<HTMLDivElement>(null);
+  const refContainer = useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>;
 
   const { width: CartWidth = 170 } = useResizeObserver({
     ref: refContainer,
