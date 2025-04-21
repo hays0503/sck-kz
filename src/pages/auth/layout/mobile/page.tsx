@@ -4,7 +4,7 @@ import getUsersBasket from '@/entities/Basket/api/getUsersBasket';
 import { iBasket } from '@/shared/types/basket';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import { useLocalStorage } from '@undefined/usehooks-ts';
+import { useLocalStorage } from 'usehooks-ts';
 import { getUserInfo } from '@/entities/User';
 
 const AuthPage = () => {

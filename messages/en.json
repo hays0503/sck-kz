@@ -361,5 +361,6 @@
   "LastViewedList": {
     "vi-smotreli": "You watched",
     "oshibka": "A mistake happened"
-  }
+  },
+  "loading": "Loading..."
 }

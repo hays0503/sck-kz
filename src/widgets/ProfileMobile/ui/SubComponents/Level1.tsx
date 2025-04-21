@@ -5,10 +5,9 @@ import { UserInfo } from "@/shared/types/user";
 import IconLikeIOS from "@/shared/ui/IconLikeIOS/IconLikeIOS";
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { CSSProperties, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
+import { OptimizedImageWithFallback } from "@/shared/ui";
 interface Level1Props {
   readonly IsAnonymous: boolean | undefined;
   readonly infoUser: UserInfo | null;
@@ -78,7 +77,17 @@ const Level1: React.FC<Level1Props> = (props) => {
         >
           <Suspense>
             <Flex gap={10}>
-              <Image priority={true} src={img} alt="user" width={66} height={66} style={styleImg}/>
+              <OptimizedImageWithFallback 
+                placeholder="blur"
+                blurDataURL={'/sck-user.svg'}
+                priority={true}
+                src={img}
+                alt="user"
+                width={66}
+                height={66}
+                style={styleImg}
+                fallBackSrc={"/sck-user.svg"}
+                />
               {isGuest ? <GuestUser /> : <AuthUser />}
             </Flex>
           </Suspense>

@@ -31,6 +31,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
       src={src}
       alt={alt}
       fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       quality={50}
       style={{
         zIndex: 2,
@@ -46,6 +47,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
       src={src}
       alt={`${alt} ${src}`}
       fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       style={{
         zIndex: 1,
         position: 'absolute',

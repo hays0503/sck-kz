@@ -6,19 +6,20 @@ import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Link } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
-import { useResizeObserver } from '@undefined/usehooks-ts';
+import { useResizeObserver } from 'usehooks-ts';
 
 interface IProductCartProps {
   readonly Product: MappedPopularProductType;
   readonly addToCartSlot: JSX.Element;
   readonly addToFavoriteSlot: JSX.Element;
   readonly prefetch?: boolean;
-  readonly oneImage?:boolean;
+  readonly oneImage?: boolean;
 }
 
 // eslint-disable-next-line react/display-name
 const ProductCart: React.FC<IProductCartProps> = memo((props) => {
-  const { Product, addToCartSlot, addToFavoriteSlot, prefetch,oneImage } = props;
+  const { Product, addToCartSlot, addToFavoriteSlot, prefetch, oneImage } =
+    props;
   const currentCity = useGetCityParams();
   const locale = useLocale();
   const refContainer = useRef<HTMLDivElement>(null);
@@ -64,7 +65,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
               images={Product.img}
               width={CartWidth}
               height={CartHeight}
-              oneImage={oneImage??false}
+              oneImage={oneImage ?? false}
             />
           </Link>
         }

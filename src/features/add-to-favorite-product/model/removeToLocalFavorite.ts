@@ -1,15 +1,18 @@
-import { useLocalStorage } from "@undefined/usehooks-ts";
+import { useLocalStorage } from 'usehooks-ts';
 
 const useRemoveToLocalFavorite = () => {
-    const [favoriteProducts, setFavoriteProducts] = useLocalStorage<number[]>('favoriteProducts',[]);
-    
-    const removeFavoriteProduct = (id: number) => {
-        const mapFavoriteProducts = new Set(favoriteProducts);
-        mapFavoriteProducts.delete(id);
-        setFavoriteProducts(Array.from(mapFavoriteProducts));
-    }
+  const [favoriteProducts, setFavoriteProducts] = useLocalStorage<number[]>(
+    'favoriteProducts',
+    [],
+  );
 
-    return { favoriteProducts, removeFavoriteProduct };
-}
+  const removeFavoriteProduct = (id: number) => {
+    const mapFavoriteProducts = new Set(favoriteProducts);
+    mapFavoriteProducts.delete(id);
+    setFavoriteProducts(Array.from(mapFavoriteProducts));
+  };
+
+  return { favoriteProducts, removeFavoriteProduct };
+};
 
 export default useRemoveToLocalFavorite;

@@ -3,7 +3,7 @@
 import { useUser } from '@/entities/User';
 import { Link, useRouter } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 import {
   Button,
   Flex,
@@ -26,15 +26,18 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { CircleStencil,
+import {
+  CircleStencil,
   //  Cropper, CropperRef
-   } from 'react-mobile-cropper';
-import { FixedCropper, FixedCropperRef,
-  //  ImageRestriction 
-  } from 'react-advanced-cropper';
-
+} from 'react-mobile-cropper';
+import {
+  FixedCropper,
+  FixedCropperRef,
+  //  ImageRestriction
+} from 'react-advanced-cropper';
 
 import 'react-mobile-cropper/dist/style.css';
+import { OptimizedImageWithFallback } from '@/shared/ui';
 
 const { Title, Text } = Typography;
 const changeData = async (
@@ -54,7 +57,6 @@ const changeData = async (
   });
   console.log('Patch data', data);
 };
-
 
 const ImageUpload: React.FC<{
   avatar_path: string;
@@ -151,12 +153,13 @@ const ImageUpload: React.FC<{
     <>
       {contextHolder}
       <Upload beforeUpload={handleUpload} showUploadList={false}>
-        <Image
+        <OptimizedImageWithFallback
           width={160}
           height={160}
           alt='avatar'
           src={avatar_path}
           style={{ borderRadius: '50%' }}
+          fallBackSrc={"/sck-user.svg"}
         />
       </Upload>
       <Modal
@@ -175,9 +178,9 @@ const ImageUpload: React.FC<{
       >
         <FixedCropper
           stencilSize={{
-            width:256,
-            height:256
-          }}        
+            width: 256,
+            height: 256,
+          }}
           stencilProps={{
             handlers: false,
             lines: false,
@@ -188,10 +191,12 @@ const ImageUpload: React.FC<{
           // ref={cropperRef}
           src={image}
           className='cropper'
-          style={{
-            width: '100%',
-            height: 300,
-          } as React.CSSProperties}
+          style={
+            {
+              width: '100%',
+              height: 300,
+            } as React.CSSProperties
+          }
         />
         <Space style={{ marginTop: 10 }}>
           <Button onClick={handleCrop} type='primary'>
@@ -211,9 +216,10 @@ export default function UserMobile() {
   const cityEn = useGetCityParams();
   const t = useTranslations('UserMobile');
   const { isAnonymous, info, reFetchUserInfo } = useUser();
-  const accessToken = useReadLocalStorage<{ token: string,user_id: string } | null>(
-    'accessToken',
-  );
+  const accessToken = useReadLocalStorage<{
+    token: string;
+    user_id: string;
+  } | null>('accessToken');
   const isGuest = isAnonymous;
   const [img, setImg] = useState<string>('/sck-user.svg');
 

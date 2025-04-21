@@ -1,6 +1,6 @@
-import { useLocalStorage, useReadLocalStorage } from "@undefined/usehooks-ts";
-import { useEffect, useState, useMemo } from "react";
-import { getRefreshToken } from "../api";
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useEffect, useState, useMemo } from 'react';
+import { getRefreshToken } from '../api';
 
 export const verifyAuth = async (token: string) => {
   try {
@@ -13,7 +13,7 @@ export const verifyAuth = async (token: string) => {
     }
     return { isVerified: false };
   } catch (error) {
-    console.error("verifyAuth =>", error);
+    console.error('verifyAuth =>', error);
     return { isVerified: false };
   }
 };
@@ -26,16 +26,16 @@ const authCache = new Map<
   {
     isVerified: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any;
   }
 >();
 
 const useIsAnonymous = () => {
   const [isAnonymous, setIsAnonymous] = useState(true);
-  const refreshToken = useReadLocalStorage<LocalStorageToken>("refreshToken");
+  const refreshToken = useReadLocalStorage<LocalStorageToken>('refreshToken');
   const [, setAccessToken] = useLocalStorage<LocalStorageToken>(
-    "accessToken",
-    null
+    'accessToken',
+    null,
   );
 
   // Мемоизируем `refreshToken.token`

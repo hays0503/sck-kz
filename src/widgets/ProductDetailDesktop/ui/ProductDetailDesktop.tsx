@@ -16,7 +16,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
 import { useEffect } from 'react';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 interface IProductDetailProps {
   slug: string;

@@ -11,7 +11,7 @@ import { orderByType } from 'api-mapping/product/by_populates';
 import { FeaturedProductsListPagination } from '@/widgets/FeaturedProductsListPagination';
 import { Logout } from '@/features/logout';
 import { ReviewsUser } from '@/widgets/ReviewsUser';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 const { Title } = Typography;
 
@@ -88,7 +88,9 @@ const Level2: React.FC<Level2Props> = (props) => {
   const isGuest = props.IsAnonymous;
   const { setContent } = props;
   const { order, page } = props;
-  const accessToken = useReadLocalStorage<{ user_id: string|undefined|null }>('accessToken');
+  const accessToken = useReadLocalStorage<{
+    user_id: string | undefined | null;
+  }>('accessToken');
   const t = useTranslations('Level2');
 
   return (
@@ -127,9 +129,13 @@ const Level2: React.FC<Level2Props> = (props) => {
 
         <ElementList
           title={t('otzyvy')}
-          action={() => setContent(<>
-            <ReviewsUser user_id={accessToken?.user_id}/>
-          </>)}
+          action={() =>
+            setContent(
+              <>
+                <ReviewsUser user_id={accessToken?.user_id} />
+              </>,
+            )
+          }
           disabled={isGuest}
           icon={<IconLikeIOS ionicons src='chatbox-outline' color='#3baad0' />}
         />

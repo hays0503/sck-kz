@@ -14,7 +14,7 @@ import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import Image from 'next/image';
 import { useRouter } from '@/i18n/routing';
 import FilterDesktop from '@/features/new-product-filter/ui/FilterDesktop';
-import { useResizeObserver } from '@undefined/usehooks-ts';
+import { useResizeObserver } from 'usehooks-ts';
 import { FilterType } from '@/features/new-product-filter/ui/SubModule/FilterValueCheckBox';
 const { Text } = Typography;
 
@@ -136,7 +136,7 @@ const Render: React.FC<RenderProps> = memo(
     CurrentPage,
     SetCurrentPage,
     filter,
-    productIds
+    productIds,
   }) => {
     const router = useRouter();
     const t = useTranslations('Render');
@@ -201,7 +201,7 @@ const Render: React.FC<RenderProps> = memo(
                 height={catalogHeight}
                 dataSpecifications={filter}
                 dropFilter={() => {
-                  SetActiveFilterProductIds(productIds??[]);
+                  SetActiveFilterProductIds(productIds ?? []);
                   SetCurrentPage(1);
                 }}
                 filterActive={ActiveFilterProductIds}

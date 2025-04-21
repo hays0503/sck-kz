@@ -16,7 +16,7 @@ import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
-import { useIntersectionObserver } from '@undefined/usehooks-ts';
+import { useIntersectionObserver } from 'usehooks-ts';
 import { Link } from '@/i18n/routing';
 import { motion } from 'framer-motion';
 // import { PRODUCT } from '@/shared/constant/product';

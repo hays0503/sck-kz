@@ -19,7 +19,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
 import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
-import { useReadLocalStorage, useResizeObserver } from '@undefined/usehooks-ts';
+import { useReadLocalStorage, useResizeObserver } from 'usehooks-ts';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { CopyUrlButton } from '@/features/copy-url-button';
 import { ShareButton } from '@/features/share-button';
@@ -33,7 +33,7 @@ interface IProductDetailProps {
 
 const SendMessage: React.FC<{ id: number }> = ({ id }) => {
   const client_uuid = useReadLocalStorage<string>('uuid_id');
-  const user_id = useReadLocalStorage<{user_id: string}>('accessToken');
+  const user_id = useReadLocalStorage<{ user_id: string }>('accessToken');
 
   useEffect(() => {
     fetch('/auth_api/v2/viewed/add_viewed', {

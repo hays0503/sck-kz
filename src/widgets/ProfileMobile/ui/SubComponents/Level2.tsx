@@ -3,7 +3,7 @@ import { UserInfo } from '@/shared/types/user';
 import { Flex } from 'antd';
 import { useTranslations } from 'next-intl';
 import React, { lazy } from 'react';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 import IconLikeIOS from '@/shared/ui/IconLikeIOS/IconLikeIOS';
 import { Watermark } from 'antd';
@@ -83,7 +83,9 @@ const Level2: React.FC<Level2Props> = (props) => {
         icon={<IconLikeIOS ionicons src='log-out-outline' color='purple' />}
       />
 
-      {uuid_id && <LastViewedList uuid={uuid_id} user_id={accessToken?.user_id} />}
+      {uuid_id && (
+        <LastViewedList uuid={uuid_id} user_id={accessToken?.user_id} />
+      )}
     </Flex>
   );
 };

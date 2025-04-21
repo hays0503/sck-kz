@@ -47,8 +47,8 @@ const BannerMobileSlider: React.FC<BannerMobileSliderProps> = ({ category }) => 
                     router.push(`/city/${city}/catalog/category-slug/${item.slug}`);
                 }} key={bannerImg} className={style.swiperSlide}>
                     <Image
-                        priority={false}
-                        loading="lazy"
+                        priority={true}
+                        // loading="lazy"
                         src={bannerImg}
                         alt="banner"
                         fill

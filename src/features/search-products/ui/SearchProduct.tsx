@@ -16,7 +16,7 @@ import {
 } from 'antd';
 
 import { useState } from 'react';
-import { useDebounceCallback } from '@undefined/usehooks-ts';
+import { useDebounceCallback } from 'usehooks-ts';
 import { SearchOutlined } from '@ant-design/icons';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';

@@ -1,10 +1,13 @@
-import { useEffect, useState,
-  //  useMemo, 
-   useCallback } from "react";
-import useIsAnonymous from "./useIsAnonymous";
-import { UserInfo } from "@/shared/types/user";
-import { getUserInfo } from "../api";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
+import {
+  useEffect,
+  useState,
+  //  useMemo,
+  useCallback,
+} from 'react';
+import useIsAnonymous from './useIsAnonymous';
+import { UserInfo } from '@/shared/types/user';
+import { getUserInfo } from '../api';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 type ResponseUserInfo = {
   isAnonymous: boolean;
@@ -15,22 +18,22 @@ type ResponseUserInfo = {
 const useGetUserInfo = (): ResponseUserInfo => {
   const isAnonymous = useIsAnonymous();
   const accessToken = useReadLocalStorage<{ token: string } | null>(
-    "accessToken"
+    'accessToken',
   );
   const [info, setInfo] = useState<UserInfo | null>(null);
 
   const reFetchUserInfo = useCallback(async () => {
-    console.log("Попытка перезапросить информацию о пользователе");
+    console.log('Попытка перезапросить информацию о пользователе');
     if (isAnonymous || !accessToken?.token) {
-      console.log("Пользователь анонимен или токен отсутствует");
+      console.log('Пользователь анонимен или токен отсутствует');
       setInfo(null);
     } else {
       const userInfo = await getUserInfo(accessToken.token);
       if (userInfo.statusCode === 200) {
-        console.log("Успешно получена информация о пользователе");
+        console.log('Успешно получена информация о пользователе');
         setInfo(userInfo.data);
       } else {
-        console.log("Не удалось получить информацию о пользователе");
+        console.log('Не удалось получить информацию о пользователе');
       }
     }
   }, [isAnonymous, accessToken]);
@@ -50,7 +53,7 @@ const useGetUserInfo = (): ResponseUserInfo => {
           setInfo(userInfo.data);
         }
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        console.error('Error fetching user info:', error);
         if (isMounted) setInfo(null);
       }
     };

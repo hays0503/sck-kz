@@ -1,44 +1,48 @@
-"use client";
+'use client';
 
-import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
-import { useCallback } from "react";
-import { mutate } from "swr";
-import { useReadLocalStorage } from "@undefined/usehooks-ts";
-import { message } from "antd";
-import { useTranslations } from "next-intl";
+import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
+import { useCallback } from 'react';
+import { mutate } from 'swr';
+import { useReadLocalStorage } from 'usehooks-ts';
+import { message } from 'antd';
+import { useTranslations } from 'next-intl';
 
 interface useBasketDecProps {
   readonly prod_id: number;
 }
 
-type useBasketAddHook = (props: useBasketDecProps) => [() => void, React.ReactNode];
+type useBasketAddHook = (
+  props: useBasketDecProps,
+) => [() => void, React.ReactNode];
 
 const useBasketDec: useBasketAddHook = ({ prod_id }) => {
-  const t = useTranslations("Basket");
-  const uuid = useReadLocalStorage<string>("uuid_id");
+  const t = useTranslations('Basket');
+  const uuid = useReadLocalStorage<string>('uuid_id');
   const [messageApi, contextHolder] = message.useMessage();
   const cityEn = useGetCityParams();
   const action = useCallback(async () => {
     const url = `/api-mapping/basket/v2/dec-product?uuid=${uuid}&prod_id=${prod_id}&city=${cityEn}`;
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
     });
     if (response.ok) {
       mutate(`/api-mapping/basket/v2/count/?uuid=${uuid}`);
-      mutate(`/api-mapping/basket/v2/get-products/?uuid=${uuid}&city=${cityEn}`);
+      mutate(
+        `/api-mapping/basket/v2/get-products/?uuid=${uuid}&city=${cityEn}`,
+      );
       messageApi.open({
-        type: "success",
-        content: t('tovar-udalyon-iz-korziny')
+        type: 'success',
+        content: t('tovar-udalyon-iz-korziny'),
       });
-    }else{
+    } else {
       messageApi.open({
-        type: "error",
-        content: t("error"),
+        type: 'error',
+        content: t('error'),
       });
     }
   }, [uuid, prod_id, cityEn, messageApi, t]);
 
-  return  [action, contextHolder];
+  return [action, contextHolder];
 };
 
 export default useBasketDec;

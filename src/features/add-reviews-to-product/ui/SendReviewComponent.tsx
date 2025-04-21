@@ -1,5 +1,5 @@
 import { UrlApiV1 } from '@/shared/constant/url';
-import { useReadLocalStorage } from '@undefined/usehooks-ts';
+import { useReadLocalStorage } from 'usehooks-ts';
 import { Button, Flex, Input, message, Rate, Typography } from 'antd';
 import { TextAreaRef } from 'antd/es/input/TextArea';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
@@ -73,12 +73,25 @@ const SendReviewComponent: React.FC<ISendReviewComponent> = ({
     <Flex gap={5} vertical>
       {contextHolder}
       <Flex vertical align='center' justify='center'>
-        <Paragraph style={{ textAlign: 'center',verticalAlign: 'middle', width: '100%',height:"auto",margin:"1px" }}>
-          <Text disabled style={{textAlign:"center",verticalAlign: 'middle'}}>{t('naskolko-vam-ponravilsya-tovar')}:</Text>
+        <Paragraph
+          style={{
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            width: '100%',
+            height: 'auto',
+            margin: '1px',
+          }}
+        >
+          <Text
+            disabled
+            style={{ textAlign: 'center', verticalAlign: 'middle' }}
+          >
+            {t('naskolko-vam-ponravilsya-tovar')}:
+          </Text>
         </Paragraph>
         <Rate
           defaultValue={5}
-          style={{ fontSize: '28px',color:"#FFA600" }}
+          style={{ fontSize: '28px', color: '#FFA600' }}
           value={rating}
           onChange={setRating}
         />
