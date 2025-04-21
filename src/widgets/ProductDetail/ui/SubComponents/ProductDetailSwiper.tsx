@@ -198,7 +198,10 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
               <CloseOutlined />
             </div>
             {/* Свайпер с обработкой событий */}
-            <div className={styles.swiperWrapper} onClick={(e) => e.stopPropagation()}>
+            <div
+             className={styles.swiperWrapper} 
+             onClick={(e) => e.stopPropagation()}
+             >
               <Swiper
                 modules={[Pagination, Zoom, Navigation]}
                 onSwiper={(swiper) => {
@@ -215,7 +218,7 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = (props) => {
               {images.map((item, index) => (
                 <SwiperSlide key={index} className={styles.fullscreenSlide}>
                   <div 
-                    className={styles.swipeZoomContainer}
+                    className={`swiper-zoom-container ${styles.swipeZoomContainer}`}
                     onClick={(e) => {
                       // Предотвращаем всплытие клика на контейнер без зума
                       e.stopPropagation();
