@@ -168,7 +168,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           <ProductDetailItem>
             {/* Слайдер */}
             <Flex
-              style={{ width: '100%', height: '65dvh', position: 'relative' }}
+              style={{ width: '100%', height: '100%', position: 'relative' }}
               justify='center'
               ref={refSliderContainer}
             >

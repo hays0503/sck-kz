@@ -25,7 +25,7 @@ const ProductDetailConfiguration: React.FC<IProductDetailConfiguration> = (
   const currentCity = useGetCityParams();
 
   return (
-    <Flex vertical={true} gap={10} style={{ width: '100%', padding: '10px' }}>
+    <Flex vertical={true} gap={10} style={{ width: '100%',height: 'auto', padding: '10px' }}>
       <Title level={3} itemProp='name'>
         {nameProduct}
       </Title>

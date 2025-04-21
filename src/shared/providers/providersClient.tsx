@@ -8,6 +8,7 @@ import { useGetCityParams } from '../hooks/useGetCityParams';
 import { usePathname } from 'next/navigation';
 import { useSessionReminder } from '@/entities/User/model/useSessionReminder';
 import { useRefreshAccessToken } from '@/entities/User/model/useRefreshAccessToken';
+import '@ant-design/v5-patch-for-react-19';
 
 export function ProvidersClient({
   children,

@@ -257,6 +257,7 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
     grabCursor: true,
     modules: [Pagination, Navigation, EffectFade],
     style: { width: '100%' },
+    autoHeight: true
   };
 
   // Замена URL для изображений
