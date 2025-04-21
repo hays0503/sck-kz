@@ -62,3 +62,4 @@ logs
 
 # Additional large directories that might be present
 public/images/large
+git-diagram.svg
