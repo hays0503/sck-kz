@@ -2,16 +2,19 @@ import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { UserInfo } from '@/shared/types/user';
 import { Flex } from 'antd';
 import { useTranslations } from 'next-intl';
-import React, { lazy } from 'react';
+import React from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 
 import IconLikeIOS from '@/shared/ui/IconLikeIOS/IconLikeIOS';
 import { Watermark } from 'antd';
 import ElementList from './ElementList';
+import dynamic from 'next/dynamic';
 
-const LastViewedList = lazy(() =>
-  import('./LastViewedList').then((module) => ({ default: module.default })),
-);
+// const LastViewedList = lazy(() =>
+//   import('./LastViewedList').then((module) => ({ default: module.default })),
+// );
+
+const LastViewedList = dynamic(() => import('./LastViewedList'), { ssr: false });
 
 interface Level2Props {
   readonly IsAnonymous: boolean | undefined;
