@@ -72,7 +72,8 @@
     "kak-vy-zdes-ochutilis": "How did you end up here?",
     "tovar-udalen": "The goods are removed or completely sold in this city, but in our store you will find a thousand other goods!",
     "po-zaprosu": "According to your request",
-    "netchego-ne-naydeno": "Nothing is found"
+    "netchego-ne-naydeno": "Nothing is found",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "The goods are deleted or completely sold in this city, but in our store you will find a thousand other products"
   },
   "Error": {
     "title": "There is a problem... We will try to solve it if it does not go away for some time please let us know at sck@sck.kz",
@@ -257,7 +258,8 @@
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Selected goods were not found",
     "title": "There was a mistake:",
-    "na-glavnuyu": "On the main one"
+    "na-glavnuyu": "On the main one",
+    "loading": "Loading"
   },
   "RenderFeaturedProducts": {
     "loading": "Loading",
@@ -362,5 +364,38 @@
     "vi-smotreli": "You watched",
     "oshibka": "A mistake happened"
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "adres": "Address",
+  "avtorizovatsya": "Logue",
+  "error": "Error:",
+  "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "Function \\ \"Share \\\" is not supported in your browser.",
+  "ili-voidite-cherez": "Or enter through",
+  "izbrannye-tovary-ne-nai-deny": "Selected goods were not found",
+  "k-nachalu-spiska": "By the beginning of the list",
+  "kharakteristiki-i-opisanie": "Characteristics and description",
+  "kopirovat-ssylku": "Copy the link",
+  "lichnyi-kabinet": "Personal office",
+  "login": "Login",
+  "my-otpravili-kod-podtverzhdeniya-na-nomer": "We sent a confirmation code to the number",
+  "naskolko-vam-ponravilsya-tovar": "How much you liked the product",
+  "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "By pressing the “Get SMS Code” button, I confirm that I am familiar with and agree with the conditions of privacy policy",
+  "ne-udalos-otpravit-ssylku": "It was not possible to send a link.",
+  "ne-udalos-skopirovat-ssylku": "It was not possible to copy the link.",
+  "net-ocenok": "No assessments",
+  "oshibka": "Error",
+  "otzyvy": "Reviews",
+  "podelitsya": "Share",
+  "smotrite-takzhe": "See also",
+  "soputstvuyushie-tovara": "Related goods",
+  "ssylka-uspeshno-otpravlena": "The link is successfully sent!",
+  "ssylka-uspeshno-skopirovana": "The link is successfully copied!",
+  "tovar-dobavlen-v-korzinu": "The goods are added to the basket",
+  "tovar-udalyon-iz-korziny": "The goods are removed from the basket",
+  "u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym": "This product has no reviews yet. \nYou can leave it the first",
+  "v-etom-gorode-zakonchilis-tovary": "The goods have ended in this city",
+  "varianty-ispolneniya": "Options for execution",
+  "vvedite-kod-iz-sms": "Enter the code from SMS",
+  "vvesti-drugoi-nomer-telefona": "Enter another phone number",
+  "yuridicheskaya-informaciya": "Legal information",
+  "zagruzka": "Loading"
 }

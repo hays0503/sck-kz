@@ -1,4 +1,6 @@
 'use client';
+
+import { useGetLastViewedProductIds } from '@/entities/Product/model';
 import useGetProductByIdsSWR from '@/entities/Product/model/getProductByIdsSWR';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
 import { AddToFavoriteProduct } from '@/features/add-to-favorite-product';
@@ -6,7 +8,7 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Skeleton, Spin, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo } from 'react';
 
 const { Text, Title } = Typography;
 
@@ -15,56 +17,19 @@ interface ILastViewedListProps {
   readonly user_id?: string | null;
 }
 
-interface ILastViewedProduct {
-  product_id: number;
-  client_uuid: string | null;
-  id: string;
-  user_id: string | null;
-  created_at: string;
-}
-
 const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   const t = useTranslations('LastViewedList');
   const cityEn = useGetCityParams();
-  const [, setA] = useState<number[]>();
-  const [lastViewedProductIds, setLastViewedProductIds] = useState<number[]>(
-    [],
+  const { productIds, loading, error } = useGetLastViewedProductIds(
+    uuid,
+    user_id,
   );
-  const { data, isLoading, isValidating, error } = useGetProductByIdsSWR({
-    ids: lastViewedProductIds,
+  const { data, isLoading, isValidating } = useGetProductByIdsSWR({
+    ids: productIds,
     city: cityEn,
     orderBy: 'none_sort',
     page: 1,
   });
-
-  const callbackGetLastViewed = useCallback(async () => {
-    let dataGetLastViewedUrl = `/auth_api/v2/viewed/by_client_uuid_or_user_id?client_uuid=${uuid}`;
-    if (user_id) {
-      dataGetLastViewedUrl += `&user_id=${user_id}`;
-    }
-    const responseData = await fetch(dataGetLastViewedUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-
-    return (await responseData.json()) as ILastViewedProduct[];
-  }, [user_id, uuid]);
-
-  useEffect(() => {
-    callbackGetLastViewed().then((data) => {
-      const dataIds = data
-        .reverse()
-        .map((item: ILastViewedProduct) => item.product_id);
-
-      setA(dataIds);
-
-      const uniqDataIds = Array.from(new Set(dataIds)).slice(0, 8);
-      setLastViewedProductIds(uniqDataIds);
-    });
-  }, [callbackGetLastViewed]);
 
   const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <Flex vertical style={{ width: '100%' }} gap={10}>
@@ -73,36 +38,37 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
     </Flex>
   );
 
-  if (isLoading || isValidating) {
+  if (productIds.length === 0 || loading || isLoading || isValidating) {
     return (
       <Wrapper>
-        {lastViewedProductIds.length == 0 ? (
+        {productIds.length === 0 ? (
           <Spin />
         ) : (
-          <>
-            {lastViewedProductIds.map((item: number) => (
-              <Skeleton key={item} />
-            ))}
-          </>
+          productIds.map((id) => <Skeleton key={id} />)
         )}
       </Wrapper>
     );
   }
 
   if (error) {
-    <Wrapper>
-      <Text>{`${t('oshibka')}: ${JSON.stringify(error)}`}</Text>
-    </Wrapper>;
+    return (
+      <Wrapper>
+        <Text type='danger'>{`${t('oshibka')}: ${String(error)}`}</Text>
+      </Wrapper>
+    );
+  }
+
+  if (!data || data.results.length === 0) {
+    return null;
   }
 
   return (
-    <Wrapper>      
+    <Wrapper>
       <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
-        {data?.results.map((product) => (
+        {data.results.map((product) => (
           <Flex vertical key={product.id}>
             <ProductCart
               oneImage
-              key={product.id}
               Product={product}
               addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
               addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
@@ -115,3 +81,5 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 };
 
 export default memo(LastViewedList);
+
+LastViewedList.displayName = 'LastViewedList';

@@ -1,3 +1,4 @@
 import useGetProductPopulatesSWR from "./getProductPopulatesSWR";
 import useGetProductByCategorySWR from "./getProductByCategorySWR";
-export { useGetProductPopulatesSWR, useGetProductByCategorySWR };
+import useGetLastViewedProductIds from "./getLastViewedProductIds";
+export { useGetProductPopulatesSWR, useGetProductByCategorySWR, useGetLastViewedProductIds }; 

@@ -81,7 +81,8 @@
     "kak-vy-zdes-ochutilis": "Как вы здесь очутились?",
     "tovar-udalen": "Товар удален или полностью распродан в этом городе, но в нашем магазине вас ждет тысяча других товаров!",
     "po-zaprosu": "По вашему запросу",
-    "netchego-ne-naydeno": "нечего не найдено"
+    "netchego-ne-naydeno": "нечего не найдено",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Товар удалён или полностью распродан в этом городе но в насшем магазине вас ждет тысяча других товаров"
   },
   "Error": {
     "title": "Возникла проблема... Мы постараемся решить их если она не уходит в течениеи некоторого времени пожалуйста сообщите нам об этом по адрессу sck@sck.kz  ",
@@ -395,5 +396,6 @@
     "vi-smotreli": "Вы смотрели",
     "oshibka": "Случилась ошибка"
   },
-  "yuridicheskaya-informaciya": "Юридическая информация"
+  "yuridicheskaya-informaciya": "Юридическая информация",
+  "korzina-pusta": "Корзина пуста"
 }

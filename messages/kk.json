@@ -72,7 +72,8 @@
     "kak-vy-zdes-ochutilis": "Бұл жерге қалай келдіңіз?",
     "tovar-udalen": "Тауарлар осы қалада алынып тасталады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа тауарлар таба аласыз!",
     "po-zaprosu": "Сіздің сұранысыңызға сәйкес",
-    "netchego-ne-naydeno": "Ештеңе табылмады"
+    "netchego-ne-naydeno": "Ештеңе табылмады",
+    "tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov": "Тауарлар бұл қалада жойылады немесе толығымен сатылады, бірақ біздің дүкенімізде сіз мың басқа өнімдерді таба аласыз"
   },
   "Error": {
     "title": "Мәселе бар... Егер біраз уақыт өтпесе, оны шешуге тырысамыз. sck@sck.kz мекенжайына хабарлаңыз.",
@@ -257,7 +258,8 @@
   "FeaturedProductsListPagination": {
     "izbrannye-tovary-ne-nai-deny": "Таңдалған тауарлар табылмады",
     "title": "Қате болды:",
-    "na-glavnuyu": "Негізгі жағында"
+    "na-glavnuyu": "Негізгі жағында",
+    "loading": "Тиеу"
   },
   "RenderFeaturedProducts": {
     "loading": "Тиеу",
@@ -362,5 +364,38 @@
     "vi-smotreli": "Сен көрдің",
     "oshibka": "Қате болды"
   },
-  "loading": "Жүктеу ..."
+  "loading": "Жүктеу ...",
+  "adres": "Айналу",
+  "avtorizovatsya": "Кан тілеу",
+  "error": "Қате:",
+  "funkciya-podelitsya-ne-podderzhivaetsya-v-vashem-brauzere": "\\ «Бөлісу \\» функциясы сіздің браузеріңізге қолдау көрсетілмейді.",
+  "ili-voidite-cherez": "Немесе енгізіңіз",
+  "izbrannye-tovary-ne-nai-deny": "Таңдалған тауарлар табылмады",
+  "k-nachalu-spiska": "Тізімнің басында",
+  "kharakteristiki-i-opisanie": "Сипаттамасы және сипаттамасы",
+  "kopirovat-ssylku": "Сілтемені көшіріңіз",
+  "lichnyi-kabinet": "Жеке кабинет",
+  "login": "Кіру",
+  "my-otpravili-kod-podtverzhdeniya-na-nomer": "Біз растау кодын нөмірге жібердік",
+  "naskolko-vam-ponravilsya-tovar": "Сізге қанша ұнады",
+  "nazhimaya-knopku-poluchit-sms-kod-ya-podtverzhdayu-chto-oznakomlen-i-soglasen-s-usloviyami-politiki-konfidencialnosti": "«SMS кодын алу» түймесін басу арқылы мен құпиялылық саясатының шарттарымен танысып, келісетінімді растаймын",
+  "ne-udalos-otpravit-ssylku": "Сілтемені жіберу мүмкін болмады.",
+  "ne-udalos-skopirovat-ssylku": "Сілтемені көшіру мүмкін болмады.",
+  "net-ocenok": "Бағаланбайды",
+  "oshibka": "Қателік",
+  "otzyvy": "Пікірлер",
+  "podelitsya": "Бөлу",
+  "smotrite-takzhe": "Сондай-ақ қараңыз",
+  "soputstvuyushie-tovara": "Байланысты тауарлар",
+  "ssylka-uspeshno-otpravlena": "Сілтеме сәтті жіберілді!",
+  "ssylka-uspeshno-skopirovana": "Сілтеме сәтті көшірілді!",
+  "tovar-dobavlen-v-korzinu": "Тауарлар себетке қосылады",
+  "tovar-udalyon-iz-korziny": "Тауарлар себеттен алынып тасталады",
+  "u-etogo-tovara-eshe-net-otzyvov-vy-mozhete-ostavit-ego-pervym": "Бұл өнімде әлі шолулар жоқ. Сіз оны бірінші болып қалдыруға болады",
+  "v-etom-gorode-zakonchilis-tovary": "Бұл қалада тауарлар аяқталды",
+  "varianty-ispolneniya": "Орындаудың нұсқалары",
+  "vvedite-kod-iz-sms": "SMS-тен кодты енгізіңіз",
+  "vvesti-drugoi-nomer-telefona": "Басқа телефон нөмірін енгізіңіз",
+  "yuridicheskaya-informaciya": "Құқықтық ақпарат",
+  "zagruzka": "Тиеу"
 }
