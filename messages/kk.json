@@ -87,7 +87,8 @@
     "artikul": "Мақала",
     "reviews": "Пікір(лер)",
     "smotret-vse-otzivy": "Барлық шолулар",
-    "no-reviews": "Бағаланбайды"
+    "no-reviews": "Бағаланбайды",
+    "brand": "Сорт"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Сіздің телефоныңыз",
@@ -348,7 +349,7 @@
     "varianty-ispolneniya": "Орындаудың нұсқалары"
   },
   "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Сізде әлі шолу болған жоқ сияқты",
-  "nichego-ne-nai-deno": "Ештеңе табылмады",
+  "nichego-ne-nai-deno": "Таба алмады",
   "smotret-vse": "Бәрін қараңыз",
   "ProductDetailAnotherProduct": {
     "smotrite-takzhe": "Сондай-ақ қараңыз",
@@ -397,5 +398,7 @@
   "vvedite-kod-iz-sms": "SMS-тен кодты енгізіңіз",
   "vvesti-drugoi-nomer-telefona": "Басқа телефон нөмірін енгізіңіз",
   "yuridicheskaya-informaciya": "Құқықтық ақпарат",
-  "zagruzka": "Тиеу"
+  "zagruzka": "Тиеу",
+  "vozmozhno-vam-ponravitsya": "Сізге ұнайды",
+  "zakryt": "Жабу"
 }

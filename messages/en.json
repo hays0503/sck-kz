@@ -87,7 +87,8 @@
     "artikul": "Article",
     "reviews": "Review(s)",
     "smotret-vse-otzivy": "All reviews",
-    "no-reviews": "No assessments"
+    "no-reviews": "No assessments",
+    "brand": "Brand"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Your phone",
@@ -348,7 +349,7 @@
     "varianty-ispolneniya": "Options for execution"
   },
   "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "It looks like you haven't had a review yet",
-  "nichego-ne-nai-deno": "Nothing was found",
+  "nichego-ne-nai-deno": "Could not find",
   "smotret-vse": "Watch everything",
   "ProductDetailAnotherProduct": {
     "smotrite-takzhe": "See also",
@@ -397,5 +398,7 @@
   "vvedite-kod-iz-sms": "Enter the code from SMS",
   "vvesti-drugoi-nomer-telefona": "Enter another phone number",
   "yuridicheskaya-informaciya": "Legal information",
-  "zagruzka": "Loading"
+  "zagruzka": "Loading",
+  "vozmozhno-vam-ponravitsya": "You may like it",
+  "zakryt": "Close"
 }

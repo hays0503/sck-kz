@@ -17,8 +17,12 @@ import './FooterMobile.css';
 export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   const currentCity = useGetCityParams();
   const [current, setCurrent] = useState<string>(defaultKey ?? '1');
-  const uuid: string | null = useReadLocalStorage<string>('uuid_id');
-  const accessToken = useReadLocalStorage<{ user_id: string }>('accessToken');
+  const uuid = useReadLocalStorage<
+    string | null | undefined
+  >('uuid_id', { initializeWithValue: false });
+  const accessToken = useReadLocalStorage<
+    { user_id: string } | null | undefined
+  >('accessToken', { initializeWithValue: false });
   const router = useRouter();
   const sizeConstant = '32px';
   const items: TabsProps['items'] = [

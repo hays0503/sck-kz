@@ -18,6 +18,7 @@ import { BannerMobileSlider } from '@/widgets/BannerMobileSlider';
 import { CSSProperties } from 'react';
 import { unstable_cache } from 'next/cache';
 import { MobileFooterMenu } from '@/widgets/MobileFooterMenu';
+import getProductByCategory from '@/entities/Product/api/getProductByCategory';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -35,11 +36,12 @@ export default async function HomePage({ params, searchParams }: PageProps) {
   const urlPopulates = `/api-mapping/product/by_populates?page=${page}&order=none_sort&city=${city}`;
   const urlCity = `/api-mapping/city`;
   const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`;
+  const urlProductMore = `/api-mapping/product/by_category/?category=${'mebel'}&order=none_sort&page=${1}&city=${city}`;
 
   const revalidateTime = { revalidate: 300 };
 
   // Запросы с кэшированием
-  const [productsData, citiesData, categoryRootData] = await Promise.all([
+  const [productsData, citiesData, categoryRootData,productMore] = await Promise.all([
     unstable_cache(
       () => getProductPopulates({ city, orderBy: 'none_sort', page }),
       [urlPopulates],
@@ -51,12 +53,24 @@ export default async function HomePage({ params, searchParams }: PageProps) {
       [urlCategoryRoot],
       revalidateTime,
     )(),
+    unstable_cache(
+      () =>
+        getProductByCategory({
+          slug: 'mebel',
+          city,
+          orderBy: 'none_sort',
+          page: 1,
+        }),
+      [city],
+      revalidateTime,
+    )()
   ]);
 
   const fallback = {
     [urlPopulates]: productsData,
     [urlCity]: citiesData,
     [urlCategoryRoot]: categoryRootData,
+    [urlProductMore]: productMore
   };
 
   return (

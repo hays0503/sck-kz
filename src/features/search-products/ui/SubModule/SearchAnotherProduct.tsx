@@ -1,5 +1,4 @@
 import { Flex, Spin, Typography } from 'antd';
-import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import { useTranslations } from 'next-intl';
 import React, {
   CSSProperties,
@@ -23,11 +22,11 @@ import { motion } from 'framer-motion';
 const { Text } = Typography;
 
 interface IProductDetailAnotherProductProps {
-  readonly product: MappedProductDetailType;
+  readonly slug: string;
 }
 
 const gridStyle = {
-  width: '100%',
+  width: '95%',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridGap: '10px',
@@ -58,6 +57,7 @@ const PageObserved: React.FC<{
     <div style={gridStyle} ref={ref}>
       {Products.map((product: MappedPopularProductType) => (
         <ProductCart
+          oneImage={true}
           key={product.id}
           Product={product}
           addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
@@ -76,7 +76,6 @@ const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     style={{
       width: '100%',
       height: 'fit-content',
-      padding: '10px',
       scrollBehavior: 'smooth',
     }}
   >
@@ -84,9 +83,9 @@ const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   </Flex>
 );
 
-const ProductDetailAnotherProduct: React.FC<
-  IProductDetailAnotherProductProps
-> = ({ product }): React.ReactNode => {
+const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
+  slug,
+}): React.ReactNode => {
   const t = useTranslations('ProductDetailAnotherProduct');
   const cityEn = useGetCityParams();
 
@@ -104,13 +103,10 @@ const ProductDetailAnotherProduct: React.FC<
   );
 
   const getPage = useCallback(
-    (
-      page: number,
-    ): string | null => {
-
-      return `/api-mapping/product/by_category/?category=${product.categorySlug}&order=none_sort&page=${page}&city=${cityEn}`;
+    (page: number): string | null => {
+      return `/api-mapping/product/by_category/?category=${slug}&order=none_sort&page=${page}&city=${cityEn}`;
     },
-    [cityEn, product.categorySlug],
+    [cityEn, slug],
   );
 
   const { data, setSize, isLoading, isValidating, error } = useSWRInfinite<{
@@ -200,4 +196,4 @@ const ProductDetailAnotherProduct: React.FC<
   );
 };
 
-export default memo(ProductDetailAnotherProduct);
+export default memo(SearchAnotherProduct);

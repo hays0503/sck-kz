@@ -1,10 +1,10 @@
-"use server";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
-import "@/shared/styles/Reset.scss";
-import "@/shared/styles/globals.css";
-import { ConfigProvider } from "antd";
+'use server';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import '@/shared/styles/Reset.scss';
+import '@/shared/styles/globals.css';
+import { ConfigProvider } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
 import enUS from 'antd/locale/en_US';
 import kzKZ from 'antd/locale/kk_KZ';
@@ -20,35 +20,39 @@ export async function ProvidersServer({
 
   const lang = await getLocale();
 
-
   const antdLocale = () => {
     switch (locale) {
-      case 'ru-RU': return ruRU
-      case 'en-US': return enUS
-      case 'kz-KZ': return kzKZ
-      default: return ruRU
+      case 'ru-RU':
+        return ruRU;
+      case 'en-US':
+        return enUS;
+      case 'kz-KZ':
+        return kzKZ;
+      default:
+        return ruRU;
     }
-  }
-
+  };
 
   return (
-
     <AntdRegistry>
-      <ConfigProvider theme={{
-        cssVar: true,
-        token: {
-          fontFamily: 'Inter',
-
-        }
-        
-      }} locale={antdLocale()}>
-        <NextIntlClientProvider
-          locale={lang}
-          messages={messages}>
+      <ConfigProvider
+        theme={{
+          cssVar: true,
+          components: {
+            Select: {
+              optionPadding: 0,
+            },
+          },
+          token: {
+            fontFamily: 'Inter',
+          },
+        }}
+        locale={antdLocale()}
+      >
+        <NextIntlClientProvider locale={lang} messages={messages}>
           {children}
         </NextIntlClientProvider>
       </ConfigProvider>
     </AntdRegistry>
-
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { Layout } from "antd";
 import React, { CSSProperties, useLayoutEffect, useRef, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 interface ILayoutMainProps {
   readonly headerContent: React.ReactNode;
@@ -16,6 +17,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
   const refContent = useRef<HTMLDivElement>(null);
   const refFooter = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState("100dvh");
+  const [,setContentHeightLocal] = useLocalStorage<string|undefined>("contentWidth", undefined);
 
   // useDisableRubberBandScroll();
 
@@ -24,8 +26,9 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
       const headerHeight = refHeader.current.offsetHeight || 0;
       const footerHeight = refFooter.current.offsetHeight || 0;
       setContentHeight(`calc(100dvh - ${headerHeight + footerHeight}px)`);
+      setContentHeightLocal(`calc(100dvh - ${headerHeight + footerHeight}px)`);
     }
-  }, []);
+  }, [setContentHeightLocal]);
 
   const layoutStyle: CSSProperties = {
     display: "flex",

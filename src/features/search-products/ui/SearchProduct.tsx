@@ -1,237 +1,274 @@
 'use client';
+
 import { Link, useRouter } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
-
-import beautifulCost from '@/shared/tools/beautifulCost';
-
 import {
   AutoComplete,
   AutoCompleteProps,
   Button,
   Flex,
-  Image as ImageAntd,
   Input,
-  Spin,
+  Skeleton,
   Typography,
 } from 'antd';
-
-import { useState } from 'react';
-import { useDebounceCallback } from 'usehooks-ts';
-import { SearchOutlined } from '@ant-design/icons';
+import { useState, useRef, useCallback, useMemo } from 'react';
+import {
+  useDebounceCallback,
+  useDebounceValue
+} from 'usehooks-ts';
+import { CloseSquareFilled, SearchOutlined } from '@ant-design/icons';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
-import Image from 'next/image';
-import { TextTruncate } from '@/shared/ui';
+import './SearchProduct.css';
+import { SearchProductOption } from './SubModule/SearchProductOption';
+import SearchAnotherProduct from './SubModule/SearchAnotherProduct';
+
 const { Text } = Typography;
 
 export default function SearchProduct() {
-  const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
+  const [text, setText] = useDebounceValue('', 500);
   const router = useRouter();
   const cityEn = useGetCityParams();
   const locale = useLocale();
-  const [text, setText] = useState('');
+  const t = useTranslations();
+  const abortRef = useRef<AbortController | null>(null);
+  const [products, setProducts] = useState<MappedPopularProductType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const search = useDebounceCallback(async (value: string) => {
+    if (!isLoading) return;
+    if (!value.trim()) return;
+
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     try {
-      const response = await fetch(
-        `/api/v2/search/${value.toLocaleLowerCase()}`,
+      const indexRes = await fetch(`/api/v2/search/${value.toLowerCase()}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        signal: controller.signal,
+      });
+
+      const { results: indexResults } = await indexRes.json();
+
+      if (indexResults.length == 0) {
+        setIsLoading(false);
+        setProducts([]);
+        return;
+      }
+
+      const productIds = indexResults.map((p: { id: number }) => p.id);
+
+      if (productIds.length == 0) {
+        setIsLoading(false);
+        setProducts([]);
+        return;
+      }
+
+      const productRes = await fetch(
+        `/api-mapping/product/by_ids/?order=none_sort&city=${cityEn}&page=1&ids=${productIds.join(',')}`,
         {
-          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
+          cache: 'force-cache',
+          signal: controller.signal,
         },
       );
 
-      try {
-        const productsRawIndex: { results: { id: number }[] } =
-          await response.json();
-        const productsId = productsRawIndex?.results?.map(
-          (product) => product.id,
-        );
-        console.log('productsId', productsId);
-        try {
-          const responseProducts = await fetch(
-            `/api-mapping/product/by_ids/?order=none_sort&city=${cityEn}&page=1&ids=${productsId.join(',')}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-              cache: 'force-cache',
-            },
-          );
-
-          try {
-            const products = await responseProducts.json();
-            const options = products?.results.map(
-              (product: MappedPopularProductType) => {
-                const img =
-                  product?.img?.[0].replace(
-                    'http://185.100.67.246:8888',
-                    'https://sck.kz',
-                  ) ?? '/nofoto.jpg';
-                return {
-                  value: product.slug,
-                  label: (
-                    <>
-                      <Flex align='center' justify='space-between'>
-                        <ImageAntd
-                          preview={false}
-                          src={img}
-                          alt={product?.name?.[locale] ?? img}
-                          width={100}
-                          height={100}
-                          loading='lazy'
-                          style={{
-                            objectFit: 'scale-down',
-                            aspectRatio: '1/1',
-                          }}
-                          placeholder={
-                            <Spin size={'small'}>
-                              <Image
-                                quality={5}
-                                width={100}
-                                height={100}
-                                src={img}
-                                alt={product?.name?.[locale] ?? img}
-                              />
-                            </Spin>
-                          }
-                        />
-                        <Flex
-                          align='center'
-                          wrap
-                          style={{
-                            minWidth: '200px',
-                            width: '70%',
-                            height: '100px',
-                          }}
-                        >
-                          <TextTruncate
-                            text={product?.name?.[locale] ?? 'Название нет'}
-                            style={{ width: '100%', height: '100px' }}
-                          />
-                        </Flex>
-                        <Flex style={{ width: '20%' }}>
-                          <Text>{beautifulCost(product?.price)}</Text>
-                        </Flex>
-                      </Flex>
-                    </>
-                  ),
-                };
-              },
-            );
-            setOptions(options);
-          } catch (error) {
-            console.log(
-              'Произошла ошибка при поиске товара - при парсинге продуктов',
-              error,
-            );
-          }
-        } catch (error) {
-          console.log(
-            'Произошла ошибка при поиске товара - при запросе продуктов по id',
-            error,
-          );
-        }
-      } catch (error) {
-        console.log('Произошла ошибка при поиске товара - при парсинге', error);
-      }
+      const { results: fetchedProducts } = await productRes.json();
+      setProducts(Array.isArray(fetchedProducts) ? fetchedProducts : []);
     } catch (error) {
-      console.log(
-        'Произошла ошибка при поиске товара - при запросе индекса',
-        error,
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        // Обычная отмена запроса — игнорируем
+        return;
+      }
+      console.error('Ошибка при поиске товара:', error);
+    }
+    setIsLoading(false);
+  }, 3500);
+
+  const options = useMemo<AutoCompleteProps['options']>(() => {
+    return products.slice(0, 20).map((product) => ({
+      value: product.slug,
+      label: (
+        <SearchProductOption
+          key={product.id}
+          product={product}
+          locale={locale}
+        />
+      ),
+    }));
+  }, [locale, products]);
+
+  const onSelect = useCallback(
+    (value: string) => {
+      setText('');
+      router.push(`/city/${cityEn}/product/${value}`);
+    },
+    [cityEn, router, setText],
+  );
+
+  const handleSearchClick = useCallback(() => {
+    if (text.trim()) {
+      router.push(`/city/${cityEn}/search/${text}`);
+    }
+  }, [cityEn, router, text]);
+
+  const NotFound = () => {
+    const _ContentHeightLocal = `calc(100dvh - 158px)`
+    if (isLoading) {
+      return (
+        <Flex style={{ width: '100%', padding: 10 }} vertical>
+          <Skeleton active />
+        </Flex>
       );
     }
-  }, 500);
+    if (products.length === 0)      
+      return (
+        <Flex
+          vertical
+          style={{
+            position: 'relative',
+            width: '100%',
+            paddingLeft:5,
+            paddingRight:5,
+            height: _ContentHeightLocal,
+            boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
 
-  const t = useTranslations();
+          } as React.CSSProperties}
+        >
+          <Flex
+            vertical
+            style={{
+              width: '100dvw',
+              height: '100%',
+              overflow: 'auto',
+            }}
+          >
+            <Text>
+              {t('nichego-ne-nai-deno')} {`"${text}".`} <br />{' '}
+              {t('vozmozhno-vam-ponravitsya')}:
+            </Text>
+            <SearchAnotherProduct slug={'mebel'} />
+          </Flex>
+          {/* <Button
+            style={{
+              width: '100%',
+              padding: 10,
+              borderRadius: '0px 0px 12px 12px',
+              height: '50px',
+              color: 'black',
+              backgroundColor: 'yellow',
+            }}
+            type='primary'
+            onClick={() => {
+              setIsLoading(false);
+              setText('');
+            }}
+          >
+            {t('zakryt')}
+          </Button> */}
+        </Flex>
+      );
+  };
 
   return (
     <AutoComplete
+      open={true}
       value={text}
-      autoClearSearchValue
-      listHeight={600}
+      autoClearSearchValue={true}
+      listHeight={500}
       options={options}
-      style={{ width: '100%', height: '100%' }}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
       onSearch={search}
-      onChange={(value) => setText(value)}
-      onSelect={(value) => {
-        setText('');
-        router.push(`/city/${cityEn}/product/${value}`);
+      onChange={(value: string) => {
+        setText(value);
+        setIsLoading(true);
       }}
+      onSelect={onSelect}
       dropdownStyle={{
-        minWidth: '50dvw',
+        position: 'relative',
+        left: 0,
+        minWidth: '100dvw',
+        padding: 0,
+        borderRadius: '12px 12px 0px 0px',
+        boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
       }}
-      notFoundContent={
-        <>{text !== '' && <Text>{t('nichego-ne-nai-deno')}</Text>}</>
-      }
+      notFoundContent={<NotFound />}
       dropdownRender={(menu) => (
         <>
-          {text !== '' && (
-            <Flex vertical style={{ width: '100%' }}>
-              {menu}
-              {options && options?.length > 0 && (
+          {text ? (
+            <Flex
+              vertical
+              style={{ width: '100%', borderRadius: '12px 12px 0px 0px' }}
+            >
+              {options && options?.length != 0 && (
                 <Link
                   href={`/city/${cityEn}/search/${text}`}
                   style={{
-                    background: ' #4954f0',
-                    borderRadius: '4px',
-                    padding: '5px',
+                    background: '#4954f0',
+                    padding: 5,
                     cursor: 'pointer',
                     display: 'flex',
-                    gap: '5px',
+                    gap: 5,
                     justifyContent: 'center',
-                    alignContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
-                  <SearchOutlined
-                    style={{ color: '#ffffff', fontSize: '16px' }}
-                  />
-                  <Text style={{ color: '#ffffff' }}>{t('smotret-vse')}</Text>
+                  <SearchOutlined style={{ color: '#fff', fontSize: 16 }} />
+                  <Text style={{ color: '#fff' }}>{t('smotret-vse')}</Text>
                 </Link>
               )}
+              {menu}
             </Flex>
-          )}
+          ) : null}
         </>
       )}
     >
       <Flex
         align='center'
         style={{
-          borderRadius: '4px',
-          height: '44px',
+          borderRadius: 4,
+          height: 44,
           backgroundColor: 'transparent',
           border: '1px solid rgb(142, 142, 142)',
         }}
       >
         <Input
-          placeholder={'Поиск'}
-          // role='search'
-          // name='search'
+          allowClear={{
+            clearIcon: <CloseSquareFilled style={{ fontSize: 16 }} />,
+          }}
+          onClear={() => {
+            setText('');
+            setIsLoading(false);
+          }}
+          placeholder='Поиск'
           style={{
             height: 'inherit',
             backgroundColor: 'transparent',
             border: 'none',
           }}
+          onPressEnter={handleSearchClick}
         />
         <Button
           type='text'
           style={{
             borderRadius: '0 4px 4px 0',
-            width: '50px',
+            width: 50,
             height: 'inherit',
             backgroundColor: '#4954f0',
           }}
-          onClick={() => {
-            if (text) {
-              router.push(`/city/${cityEn}/search/${text}`);
-            }
-          }}
+          onClick={handleSearchClick}
         >
-          <SearchOutlined style={{ color: '#ffffff', fontSize: '22px' }} />
+          <SearchOutlined style={{ color: '#fff', fontSize: 22 }} />
         </Button>
       </Flex>
     </AutoComplete>

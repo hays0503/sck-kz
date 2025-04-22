@@ -96,7 +96,8 @@
     "artikul": "Артикул",
     "reviews": "Отзыв(ов)",
     "smotret-vse-otzivy": "Все отзывы",
-    "no-reviews": "Нет оценок"
+    "no-reviews": "Нет оценок",
+    "brand": "Бренд"
   },
   "InputNumberPhoneKz": {
     "vash-telefon": "Ваш телефон",
@@ -375,7 +376,7 @@
     "varianty-ispolneniya": "Варианты исполнения"
   },
   "pokhozhe-vy-eshe-ne-uspeli-ostavit-otzyv": "Похоже вы еще не успели оставить отзыв",
-  "nichego-ne-nai-deno": "Ничего не найдено",
+  "nichego-ne-nai-deno": "Не смогли найти",
   "smotret-vse": "Смотреть все",
   "soputstvuyushie-tovara": "Сопутствующие товара",
   "kharakteristiki-i-opisanie": "Характеристики и описание",
@@ -397,5 +398,7 @@
     "oshibka": "Случилась ошибка"
   },
   "yuridicheskaya-informaciya": "Юридическая информация",
-  "korzina-pusta": "Корзина пуста"
+  "korzina-pusta": "Корзина пуста",
+  "vozmozhno-vam-ponravitsya": "Возможно, вам понравиться",
+  "zakryt": "Закрыть"
 }
