@@ -8,13 +8,7 @@ import { useReadLocalStorage } from 'usehooks-ts';
 import IconLikeIOS from '@/shared/ui/IconLikeIOS/IconLikeIOS';
 import { Watermark } from 'antd';
 import ElementList from './ElementList';
-import dynamic from 'next/dynamic';
 
-// const LastViewedList = lazy(() =>
-//   import('./LastViewedList').then((module) => ({ default: module.default })),
-// );
-
-const LastViewedList = dynamic(() => import('./LastViewedList'), { ssr: false });
 
 interface Level2Props {
   readonly IsAnonymous: boolean | undefined;
@@ -23,7 +17,6 @@ interface Level2Props {
 
 const Level2: React.FC<Level2Props> = (props) => {
   const isGuest = props.IsAnonymous;
-  const uuid_id = useReadLocalStorage<string | undefined | null>('uuid_id');
   const accessToken = useReadLocalStorage<{
     user_id: string | undefined | null;
   }>('accessToken');
@@ -85,10 +78,6 @@ const Level2: React.FC<Level2Props> = (props) => {
         color='red'
         icon={<IconLikeIOS ionicons src='log-out-outline' color='purple' />}
       />
-
-      {uuid_id && (
-        <LastViewedList uuid={uuid_id} user_id={accessToken?.user_id} />
-      )}
     </Flex>
   );
 };

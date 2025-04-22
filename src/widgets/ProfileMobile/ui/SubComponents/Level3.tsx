@@ -1,6 +1,23 @@
+import dynamic from 'next/dynamic';
+import { useReadLocalStorage } from 'usehooks-ts';
 
+const LastViewedList = dynamic(() => import('./LastViewedList'), {
+  ssr: false,
+});
 const Level3 = () => {
-    return <></>
-}
+  const uuid_id = useReadLocalStorage<string | undefined | null>('uuid_id', {
+    initializeWithValue: false,
+  });
+  const accessToken = useReadLocalStorage<{
+    user_id: string | undefined | null;
+  }>('accessToken');
+  return (
+    <>
+      {uuid_id && (
+        <LastViewedList uuid={uuid_id} user_id={accessToken?.user_id} />
+      )}
+    </>
+  );
+};
 
-export default Level3
+export default Level3;
