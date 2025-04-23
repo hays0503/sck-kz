@@ -22,7 +22,9 @@ const HeaderMobile: React.FC<IHeaderMobileProps> = ({
       <Flex justify="space-around" align="center" style={{ 
         width: "100%",
         height:"40px",
-        background: "linear-gradient(180deg,#ffc600,rgba(255, 255, 255, 0))" }}>
+        // background: "linear-gradient(180deg,#ffc600,rgba(255, 255, 255, 0))" 
+      }}
+        >
         <SelectCity/>
         <Flex gap={10} justify="center" align="center" wrap="wrap">
           <ChangeLanguage/>

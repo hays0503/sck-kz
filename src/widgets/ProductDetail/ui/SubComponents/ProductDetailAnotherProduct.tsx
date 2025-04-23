@@ -58,6 +58,8 @@ const PageObserved: React.FC<{
     <div style={gridStyle} ref={ref}>
       {Products.map((product: MappedPopularProductType) => (
         <ProductCart
+          width='48.21dvw'
+          height='64.21dvw'
           key={product.id}
           Product={product}
           addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
@@ -104,10 +106,7 @@ const ProductDetailAnotherProduct: React.FC<
   );
 
   const getPage = useCallback(
-    (
-      page: number,
-    ): string | null => {
-
+    (page: number): string | null => {
       return `/api-mapping/product/by_category/?category=${product.categorySlug}&order=none_sort&page=${page}&city=${cityEn}`;
     },
     [cityEn, product.categorySlug],

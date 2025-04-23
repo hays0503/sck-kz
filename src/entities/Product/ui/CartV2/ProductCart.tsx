@@ -14,17 +14,28 @@ interface IProductCartProps {
   readonly addToFavoriteSlot: JSX.Element;
   readonly prefetch?: boolean;
   readonly oneImage?: boolean;
+  readonly width?: string;
+  readonly height?: string;
 }
 
 // eslint-disable-next-line react/display-name
 const ProductCart: React.FC<IProductCartProps> = memo((props) => {
-  const { Product, addToCartSlot, addToFavoriteSlot, prefetch, oneImage } =
-    props;
+  const {
+    Product,
+    addToCartSlot,
+    addToFavoriteSlot,
+    prefetch,
+    oneImage,
+    width,
+    height,
+  } = props;
   const currentCity = useGetCityParams();
   const locale = useLocale();
-  const refContainer = useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>;
+  const refContainer = useRef<HTMLDivElement>(
+    null,
+  ) as React.RefObject<HTMLElement>;
 
-  const { width: CartWidth = 170 } = useResizeObserver({
+  const { width: CartWidth = 0 } = useResizeObserver({
     ref: refContainer,
     box: 'border-box',
   });
@@ -33,7 +44,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
     ? Product?.name?.[locale]
     : Product.name?.['ru'];
 
-  const CartHeight = CartWidth + 70;
+  const CartHeight = 70 + CartWidth;
 
   return (
     <Flex
@@ -53,8 +64,10 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
             href={`/city/${currentCity}/product/${props.Product.slug}`}
             prefetch={prefetch ?? true}
             style={{
-              width: CartWidth,
-              height: CartHeight,
+              width: width ?? CartWidth,
+              height: height ?? CartHeight,
+              minWidth: '100px',
+              minHeight: '100px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -63,8 +76,8 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
             <ProductCartSwiper
               name={ProductName}
               images={Product.img}
-              width={CartWidth}
-              height={CartHeight}
+              width={width ?? CartWidth}
+              height={height ?? CartHeight}
               oneImage={oneImage ?? false}
             />
           </Link>

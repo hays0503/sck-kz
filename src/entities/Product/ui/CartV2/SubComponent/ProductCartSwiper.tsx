@@ -10,8 +10,8 @@ import { memo } from 'react';
 interface ProductCartSwiperProps {
   readonly name?: string | null;
   readonly images: string[];
-  readonly width: number;
-  readonly height: number;
+  readonly width: number|string;
+  readonly height: number|string;
   readonly oneImage: boolean;
 }
 
@@ -25,8 +25,8 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
   <>
     <link itemProp='image' href={src} />
     <Image
-      placeholder='blur'
-      blurDataURL={src}
+      // placeholder='blur'
+      // blurDataURL={src}
       priority
       src={src}
       alt={alt}
@@ -39,7 +39,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
       }}
     />
     {/* Blurred background image */}
-    <Image
+    {/* <Image
       placeholder='blur'
       blurDataURL={src}
       priority
@@ -58,7 +58,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
         width: '100%',
         height: '100%',
       }}
-    />
+    /> */}
   </>
 ));
 RenderImage.displayName = 'RenderImage';
@@ -91,10 +91,10 @@ const RenderSwiper: React.FC<{
         />
 
         {/* Blurred background image */}
-        <RenderImage
+        {/* <RenderImage
           src={src}
           alt={`${name}-background-${index}`}
-        />
+        /> */}
       </SwiperSlide>
     ))}
   </Swiper>
@@ -114,6 +114,7 @@ const ProductCartSwiper: React.FC<ProductCartSwiperProps> = ({
     overflow: 'hidden',
     borderRadius: 12,
     position: 'relative',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   };
 
   const altName = name ?? 'product';

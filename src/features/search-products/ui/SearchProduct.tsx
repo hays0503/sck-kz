@@ -12,10 +12,7 @@ import {
   Typography,
 } from 'antd';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import {
-  useDebounceCallback,
-  useDebounceValue
-} from 'usehooks-ts';
+import { useDebounceCallback, useDebounceValue } from 'usehooks-ts';
 import { CloseSquareFilled, SearchOutlined } from '@ant-design/icons';
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
@@ -120,7 +117,7 @@ export default function SearchProduct() {
   }, [cityEn, router, text]);
 
   const NotFound = () => {
-    const _ContentHeightLocal = `calc(100dvh - 158px)`
+    const _ContentHeightLocal = `calc(100dvh - 158px)`;
     if (isLoading) {
       return (
         <Flex style={{ width: '100%', padding: 10 }} vertical>
@@ -128,19 +125,18 @@ export default function SearchProduct() {
         </Flex>
       );
     }
-    if (products.length === 0)      
+    if (products.length === 0)
       return (
         <Flex
           vertical
-          style={{
-            position: 'relative',
-            width: '100%',
-            paddingLeft:5,
-            paddingRight:5,
-            height: _ContentHeightLocal,
-            boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
-
-          } as React.CSSProperties}
+          style={
+            {
+              position: 'relative',
+              width: '100%',
+              height: _ContentHeightLocal,
+              boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
+            } as React.CSSProperties
+          }
         >
           <Flex
             vertical
@@ -150,7 +146,7 @@ export default function SearchProduct() {
               overflow: 'auto',
             }}
           >
-            <Text>
+            <Text style={{ paddingLeft: 5, paddingRight: 5 }}>
               {t('nichego-ne-nai-deno')} {`"${text}".`} <br />{' '}
               {t('vozmozhno-vam-ponravitsya')}:
             </Text>

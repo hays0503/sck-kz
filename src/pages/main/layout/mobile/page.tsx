@@ -4,7 +4,7 @@ import { ProvidersServer } from '@/shared/providers/providersServer';
 import { ProvidersClient } from '@/shared/providers/providersClient';
 import { LayoutMain } from '@/widgets/LayoutMain';
 import { Flex } from 'antd';
-import { ProductPopularListPagination } from '@/widgets/ProductPopularListPagination';
+import { ProductPopularListPagination } from '@/widgets/ProductPopularListPaginationMobile';
 import getProductPopulates from '@/entities/Product/api/getProductPopulates';
 import { HeaderMobile } from '@/widgets/HeaderMobile';
 import { SelectCity } from '@/features/select-city';

@@ -13,11 +13,13 @@ import defaultFetcher from '@/shared/tools/defaultFetcher';
 import useSWRInfinite from 'swr/infinite';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
-import { AddToBasketProduct } from '@/features/operation-in-basket-product';
-import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
+// import { AddToBasketProduct } from '@/features/operation-in-basket-product';
+// import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { useIntersectionObserver } from 'usehooks-ts';
 import { Link } from '@/i18n/routing';
 import { motion } from 'framer-motion';
+import { AddToBasketProduct } from '@/features/operation-in-basket-product';
+import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 // import { PRODUCT } from '@/shared/constant/product';
 const { Text } = Typography;
 
@@ -26,11 +28,31 @@ interface IProductDetailAnotherProductProps {
 }
 
 const gridStyle = {
-  width: '95%',
+  width: '100%',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridGap: '10px',
 } as CSSProperties;
+
+const Page: React.FC<{
+  Products: MappedPopularProductType[];
+}> = ({ Products }) => {
+  return (
+    <div style={{ ...gridStyle }}>
+      {Products?.map((product: MappedPopularProductType) => (
+        <ProductCart
+          width='48.21dvw'
+          height='64.21dvw'
+          oneImage={true}
+          key={product.id}
+          Product={product}
+          addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
+          addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
+        />
+      ))}
+    </div>
+  );
+};
 
 const PageObserved: React.FC<{
   Products: MappedPopularProductType[];
@@ -38,7 +60,7 @@ const PageObserved: React.FC<{
   isValidating: boolean;
 }> = ({ Products, callbackIntersecting, isValidating }) => {
   const running = useRef(false);
-  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.1 });
+  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.25 });
 
   useEffect(() => {
     if (!running.current && isIntersecting) {
@@ -62,6 +84,8 @@ const PageObserved: React.FC<{
           Product={product}
           addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
           addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
+          width='48.21dvw'
+          height='64.21dvw'
         />
       ))}
     </div>
@@ -72,16 +96,38 @@ const PageObservedMemo = memo(PageObserved);
 const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <Flex
     vertical={true}
-    gap={10}
+    gap={5}
     style={{
       width: '100%',
       height: 'fit-content',
       scrollBehavior: 'smooth',
+      contentVisibility: 'auto',
+      overflowAnchor: 'auto',
     }}
   >
     {children}
   </Flex>
 );
+
+const RenderList: React.FC<{
+  Products: MappedPopularProductType[];
+  index: number;
+  len: number;
+  callbackIntersecting: () => void;
+  isValidating: boolean;
+}> = ({ Products, index, len, callbackIntersecting, isValidating }) => {
+  if (index + 1 === len) {
+    return (
+      <PageObservedMemo
+        Products={Products}
+        callbackIntersecting={callbackIntersecting}
+        isValidating={isValidating}
+      />
+    );
+  } else {
+    return <Page Products={Products} />;
+  }
+};
 
 const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
   slug,
@@ -159,8 +205,6 @@ const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
     );
   }
 
-  // console.log(data);
-
   return (
     <ListWrapper>
       <Text id='start-list' style={styleText}>
@@ -168,8 +212,10 @@ const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
       </Text>
       {data?.map((d, index) => {
         return d?.results?.length > 0 ? (
-          <PageObservedMemo
+          <RenderList
             key={index}
+            index={index}
+            len={data.length}
             Products={d.results}
             isValidating={isValidating}
             callbackIntersecting={handleIntersection}
