@@ -43,14 +43,14 @@ const Level1: React.FC<Level1Props> = ({ Products }) => {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
-    gridGap: '10px',
+    gridGap: '5px',
   };
 
   return (
     <div style={gridStyle}>
       {Products?.map((item, index) => (
         <ProductCart
-          width='48.21dvw'
+          width='47.60dvw'
           height='64.21dvw'
           key={index}
           Product={item}

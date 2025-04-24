@@ -41,7 +41,7 @@ const Page: React.FC<{
     <div style={{ ...gridStyle }}>
       {Products?.map((product: MappedPopularProductType) => (
         <ProductCart
-          width='48.21dvw'
+          width='47.60dvw'
           height='64.21dvw'
           oneImage={true}
           key={product.id}
@@ -86,7 +86,7 @@ const PageObserved: React.FC<{
           Product={product}
           addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
           addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-          width='48.21dvw'
+          width='47.60dvw'
           height='64.21dvw'
         />
       ))}

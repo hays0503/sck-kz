@@ -58,7 +58,7 @@ const PageObserved: React.FC<{
     <div style={gridStyle} ref={ref}>
       {Products.map((product: MappedPopularProductType) => (
         <ProductCart
-          width='48.21dvw'
+          width='47.60dvw'
           height='64.21dvw'
           key={product.id}
           Product={product}

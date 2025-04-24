@@ -52,7 +52,7 @@ const Level1: React.FC<Level1Props> = memo(({ Products }) => {
     <div style={gridStyle}>
       {Products?.map((item, index) => (
         <ProductCart
-          width='48.21dvw'
+          width='47.60dvw'
           height='64.21dvw'
           key={index}
           Product={item}
