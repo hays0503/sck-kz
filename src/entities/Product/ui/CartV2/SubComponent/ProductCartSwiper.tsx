@@ -5,13 +5,14 @@ import 'swiper/css/effect-cube';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectCube } from 'swiper/modules';
 import Image from 'next/image';
-import { memo } from 'react';
+import { CSSProperties, memo } from 'react';
+import { Flex } from 'antd';
 
 interface ProductCartSwiperProps {
   readonly name?: string | null;
   readonly images: string[];
-  readonly width: number|string;
-  readonly height: number|string;
+  readonly width: number | string;
+  readonly height: number | string;
   readonly oneImage: boolean;
 }
 
@@ -22,7 +23,17 @@ interface RenderImageProps {
 }
 
 const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
-  <>
+  <Flex
+    justify='center'
+    align='center'
+    style={
+      {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'white',
+      } as CSSProperties
+    }
+  >
     <link itemProp='image' href={src} />
     <Image
       // placeholder='blur'
@@ -31,11 +42,12 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
       src={src}
       alt={alt}
       fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       quality={50}
       style={{
         zIndex: 2,
         objectFit: 'contain',
+        aspectRatio: '3/4',
       }}
     />
     {/* Blurred background image */}
@@ -59,7 +71,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
         height: '100%',
       }}
     /> */}
-  </>
+  </Flex>
 ));
 RenderImage.displayName = 'RenderImage';
 
@@ -71,24 +83,21 @@ const RenderSwiper: React.FC<{
     modules={[Pagination, EffectCube]}
     loop
     grabCursor
-    effect='cube'
+    // effect='cube'
     pagination
     lazyPreloadPrevNext={2}
-    cubeEffect={{
-      shadow: false,
-      slideShadows: true,
-      shadowOffset: 20,
-      shadowScale: 0.94,
-    }}
+    // cubeEffect={{
+    //   shadow: false,
+    //   slideShadows: true,
+    //   shadowOffset: 20,
+    //   shadowScale: 0.94,
+    // }}
     style={{ width: '100%', height: '100%' }}
   >
     {images.map((src, index) => (
       <SwiperSlide key={index} style={{ position: 'relative' }}>
         {/* Foreground image */}
-        <RenderImage
-          src={src}
-          alt={`${name}-slide-${index}`}
-        />
+        <RenderImage src={src} alt={`${name}-slide-${index}`} />
 
         {/* Blurred background image */}
         {/* <RenderImage
@@ -129,10 +138,7 @@ const ProductCartSwiper: React.FC<ProductCartSwiperProps> = ({
       {isMultiple ? (
         <RenderSwiper images={images} name={altName} />
       ) : (
-        <RenderImage
-          src={mainSrc}
-          alt={`${altName}-image`}
-        />
+        <RenderImage src={mainSrc} alt={`${altName}-image`} />
       )}
     </div>
   );
