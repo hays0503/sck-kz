@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import { useResizeObserver } from 'usehooks-ts';
+import useSaveLastElementView from '@/shared/hooks/useSaveLastElementView';
 
 interface IProductCartProps {
   readonly Product: MappedPopularProductType;
@@ -40,6 +41,8 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
     box: 'border-box',
   });
 
+  const saveScroll = useSaveLastElementView(`ProductCart${Product.id}`);
+
   const ProductName = Product.name?.[locale]
     ? Product?.name?.[locale]
     : Product.name?.['ru'];
@@ -48,6 +51,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
 
   return (
     <Flex
+      id={`ProductCart${Product.id}`}
       ref={refContainer}
       wrap
       vertical={true}
@@ -61,6 +65,8 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         addToFavoriteSlot={addToFavoriteSlot}
         Swiper={
           <Link
+            onClick={() => saveScroll()}
+            scroll={false}
             href={`/city/${currentCity}/product/${props.Product.slug}`}
             prefetch={prefetch ?? true}
             style={{
@@ -84,6 +90,8 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         }
       />
       <Link
+        onClick={() => saveScroll()}
+        scroll={false}
         href={`/city/${currentCity}/product/${props.Product.slug}`}
         style={{ width: '100%' }}
         prefetch={prefetch}

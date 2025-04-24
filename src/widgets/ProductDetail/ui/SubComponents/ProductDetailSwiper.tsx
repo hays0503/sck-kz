@@ -15,12 +15,12 @@ interface IProductCartSwiperProps {
   name: string | undefined | null;
   images: string[];
   width: number;
-  height: number;
+  height: number | string;
 }
 
 interface IRenderImagesProps {
   width: number;
-  height: number;
+  height: number | string;
   name: string | undefined | null;
 }
 
@@ -29,14 +29,14 @@ interface IRenderSwiperProps {
   paramsSwiper: SwiperProps;
   name: string | undefined | null;
   width: number;
-  height: number;
+  height: number | string;
 }
 
 const RenderImages: React.FC<IRenderImagesProps> = (props) => {
-  const { name, width } = props;
+  const { name } = props;
   
-  // Устанавливаем минимальную высоту равную ширине
-  const minHeight = width;
+  // Фиксированная высота 60dvh
+  const minHeight = '60dvh';
   
   return (
     <>
@@ -256,7 +256,7 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
     loop: true,
     pagination: { clickable: true, dynamicBullets: true },
     slidesPerView: 1,
-    effect: 'fade',
+    // effect: 'fade',
     grabCursor: true,
     modules: [Pagination, Navigation, EffectFade],
     style: { width: '100%' },
@@ -276,7 +276,7 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
           paramsSwiper={paramsSwiper}
           name={name}
           width={width}
-          height={width} // Минимальная высота равна ширине
+          height={'60dvh'} // Минимальная высота равна 60dvh
         />
       ) : (
         <RenderImages width={width} height={width} name={name} />

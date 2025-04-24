@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { useSessionReminder } from '@/entities/User/model/useSessionReminder';
 import { useRefreshAccessToken } from '@/entities/User/model/useRefreshAccessToken';
 import '@ant-design/v5-patch-for-react-19';
+import useScrollToLastViewedElement from '../hooks/useScrollToLastViewElemets';
 
 export function ProvidersClient({
   children,
@@ -57,6 +58,8 @@ export function ProvidersClient({
     isLoginPage,
     cityEn,
   });
+
+  useScrollToLastViewedElement();
 
   return (
     <SWRConfig value={{ fallback }}>

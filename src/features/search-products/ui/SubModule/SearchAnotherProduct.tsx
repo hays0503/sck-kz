@@ -54,6 +54,8 @@ const Page: React.FC<{
   );
 };
 
+const PageMemo = memo(Page);
+
 const PageObserved: React.FC<{
   Products: MappedPopularProductType[];
   callbackIntersecting: () => void;
@@ -125,7 +127,7 @@ const RenderList: React.FC<{
       />
     );
   } else {
-    return <Page Products={Products} />;
+    return <PageMemo Products={Products} />;
   }
 };
 
@@ -160,7 +162,7 @@ const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
     results: MappedPopularProductType[];
   }>(getPage, defaultFetcher, {
     persistSize: false,
-    initialSize: 1,
+    initialSize: 10,
     parallel: true,
     revalidateFirstPage: false,
   });

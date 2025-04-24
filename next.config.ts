@@ -9,8 +9,15 @@ const withNextIntl = createNextIntlPlugin();
 const isSentryDisabled = process.env.DISABLE_SENTRY === 'true';
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    rules: {
+      '*.scss': {
+        loaders: [`sass-loader`],
+        as: `*.css`,
+      },
+    },
+  },
   trailingSlash: true,
-  // staticPageGenerationTimeout: 1000,
   images: {
     remotePatterns: [
       {
@@ -48,20 +55,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   experimental: {
-    // reactCompiler: {
-    //   // Поддержка компилятора react
-    //   compilationMode: 'all',
-    //   panicThreshold: 'ALL_ERRORS',
-    // },
+    scrollRestoration: true,
     viewTransition: true, // Для плавного перехода между страницами
-    turbo: {
-      rules: {
-        '*.scss': {
-          loaders: [`sass-loader`],
-          as: `*.css`,
-        },
-      },
-    },
   },
   pageExtensions: [`mdx`, `md`, `jsx`, `js`, `tsx`, `ts`],
 

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev-debug": "cross-env NODE_OPTIONS='--inspect' next dev",
-    "dev-no-sentry": "cross-env DISABLE_SENTRY=true next dev",
+    "dev-no-sentry": "cross-env DISABLE_SENTRY=true next dev  --turbopack",
     "build": "next build",
     "build-no-sentry": "cross-env DISABLE_SENTRY=true next build",
     "start": "next start",
