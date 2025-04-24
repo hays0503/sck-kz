@@ -56,7 +56,7 @@ const mapping = async (
       en: Placeholder(rawData?.additional_data?.EN,'Перевод не установлен en',"Название на английском"),
       kk: Placeholder(rawData?.additional_data?.KZ,'Перевод не установлен kz',"Название на казахском"),
     },
-    img: rawData?.images.map((image) => image.image),
+    img: rawData?.images.map((image) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')),
     rating: rawData?.avg_rating,
     price,
     oldPrice,

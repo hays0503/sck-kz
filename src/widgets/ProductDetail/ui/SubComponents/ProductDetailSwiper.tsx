@@ -268,9 +268,10 @@ const ProductDetailSwiper: React.FC<IProductCartSwiperProps> = (props) => {
   };
 
   // Замена URL для изображений
-  const imagesReplaceUrl = images.map((item) =>
-    item.replace('http://185.100.67.246:8888', 'https://sck.kz'),
-  );
+  const imagesReplaceUrl = images
+  // .map((item) =>
+  //   item.replace('http://185.100.67.246:8888', 'https://sck.kz'),
+  // );
 
   return (
     <div

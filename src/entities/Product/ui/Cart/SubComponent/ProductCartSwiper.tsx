@@ -86,8 +86,8 @@ const ProductCartSwiper: React.FC<IProductCartSwiperProps> = (props) => {
 
   const paramsSwiper: SwiperProps = {
     lazy: 'true',
-    lazyPreloadPrevNext: 2,
-    loop: true,
+    lazyPreloadPrevNext: 1,
+    loop: images.length > 1,
     pagination: true,
     navigation: false,
     effect: "cube",

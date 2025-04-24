@@ -81,11 +81,11 @@ const RenderSwiper: React.FC<{
 }> = memo(({ images, name }) => (
   <Swiper
     modules={[Pagination, EffectCube]}
-    loop
+    loop={images.length > 1}
     grabCursor
     // effect='cube'
     pagination
-    lazyPreloadPrevNext={2}
+    lazyPreloadPrevNext={1}
     // cubeEffect={{
     //   shadow: false,
     //   slideShadows: true,

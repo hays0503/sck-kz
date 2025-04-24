@@ -96,7 +96,9 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = ({
             }}
           >
             <Image
-              src={item.replace('http://185.100.67.246:8888', 'https://sck.kz')}
+              src={item
+                // .replace('http://185.100.67.246:8888', 'https://sck.kz')
+              }
               alt={`${name || 'product'}-thumb-${index}`}
               style={{ objectFit: 'contain'}}
               fill
@@ -116,7 +118,9 @@ const RenderSwiper: React.FC<IRenderSwiperProps> = ({
             <link itemProp='image' href={item} />
             <ImageAntd
               preview={{ mask: null } as ImagePreviewType}
-              src={item.replace('http://185.100.67.246:8888', 'https://sck.kz')}
+              src={item
+                // .replace('http://185.100.67.246:8888', 'https://sck.kz')
+              }
               alt={`${name || 'product'}-slide-${index}`}
               width={width}
               height={height}
