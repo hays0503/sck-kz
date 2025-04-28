@@ -199,35 +199,40 @@ export default function SearchProduct() {
         boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
       }}
       notFoundContent={<NotFound />}
-      dropdownRender={(menu) => (
-        <>
-          {text ? (
-            <Flex
-              vertical
-              style={{ width: '100%',position: 'relative',overflow: 'auto',height:"80dvh", borderRadius: '12px 12px 0px 0px' }}
-            >
-              {options && options?.length != 0 && (
-                <Link
-                  href={`/city/${cityEn}/search/${text}`}
-                  style={{
-                    background: '#4954f0',
-                    padding: 5,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    gap: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <SearchOutlined style={{ color: '#fff', fontSize: 16 }} />
-                  <Text style={{ color: '#fff' }}>{t('smotret-vse')}</Text>
-                </Link>
-              )}
-              {menu}
-            </Flex>
-          ) : null}
-        </>
-      )}
+      dropdownRender={(menu) => {
+        if (text === '') return menu;
+        return (
+          <Flex
+            vertical
+            style={{
+              width: '100%',
+              position: 'relative',
+              overflow: 'auto',
+              height: '80dvh',
+              borderRadius: '12px 12px 0px 0px',
+            }}
+          >
+            {options && options?.length != 0 && (
+              <Link
+                href={`/city/${cityEn}/search/${text}`}
+                style={{
+                  background: '#4954f0',
+                  padding: 5,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  gap: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <SearchOutlined style={{ color: '#fff', fontSize: 16 }} />
+                <Text style={{ color: '#fff' }}>{t('smotret-vse')}</Text>
+              </Link>
+            )}
+            {menu}
+          </Flex>
+        );
+      }}
     >
       <Flex
         align='center'
