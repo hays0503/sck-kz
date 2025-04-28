@@ -200,7 +200,12 @@ export default function SearchProduct() {
       }}
       notFoundContent={<NotFound />}
       dropdownRender={(menu) => {
-        if (text === '') return menu;
+        if (isLoading) {
+          return <></>
+        }
+        if(text === '') {
+          return <></>
+        }
         return (
           <Flex
             vertical
@@ -208,7 +213,7 @@ export default function SearchProduct() {
               width: '100%',
               position: 'relative',
               overflow: 'auto',
-              height: '80dvh',
+              height: 'calc(100dvh - 158px)',
               borderRadius: '12px 12px 0px 0px',
             }}
           >
