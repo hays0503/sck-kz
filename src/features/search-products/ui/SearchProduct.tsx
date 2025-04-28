@@ -79,6 +79,8 @@ export default function SearchProduct() {
 
       const { results: fetchedProducts } = await productRes.json();
       setProducts(Array.isArray(fetchedProducts) ? fetchedProducts : []);
+      const activeTextarea = document.activeElement as HTMLElement;
+      activeTextarea?.blur();
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
         // Обычная отмена запроса — игнорируем
@@ -86,6 +88,7 @@ export default function SearchProduct() {
       }
       console.error('Ошибка при поиске товара:', error);
     }
+
     setIsLoading(false);
   }, 3500);
 
@@ -115,6 +118,8 @@ export default function SearchProduct() {
       router.push(`/city/${cityEn}/search/${text}`);
     }
   }, [cityEn, router, text]);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const NotFound = () => {
     const _ContentHeightLocal = `calc(100dvh - 158px)`;
@@ -175,10 +180,12 @@ export default function SearchProduct() {
 
   return (
     <AutoComplete
+      autoFocus
+      backfill
       open={true}
       value={text}
       autoClearSearchValue={true}
-      listHeight={500}
+      
       options={options}
       style={{
         width: '100%',
@@ -190,8 +197,9 @@ export default function SearchProduct() {
         setIsLoading(true);
       }}
       onSelect={onSelect}
+      listHeight={500}
       dropdownStyle={{
-        position: 'relative',
+        // position: 'relative',
         left: 0,
         minWidth: '100dvw',
         padding: 0,
@@ -201,19 +209,18 @@ export default function SearchProduct() {
       notFoundContent={<NotFound />}
       dropdownRender={(menu) => {
         if (isLoading) {
-          return <></>
+          return <></>;
         }
-        if(text === '') {
-          return <></>
+        if (text === '') {
+          return <></>;
         }
         return (
           <Flex
+            ref={scrollRef}
             vertical
             style={{
               width: '100%',
-              position: 'relative',
               overflow: 'auto',
-              height: 'calc(100dvh - 158px)',
               borderRadius: '12px 12px 0px 0px',
             }}
           >
