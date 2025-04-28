@@ -31,6 +31,7 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
         width: '100%',
         height: '100%',
         backgroundColor: 'white',
+        position: 'relative',
       } as CSSProperties
     }
   >

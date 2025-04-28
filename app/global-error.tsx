@@ -17,6 +17,9 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
         does not expose status codes for errors, we simply pass 0 to render a
         generic error message. */}
         <NextError statusCode={0} />
+        <span>
+          {JSON.stringify(error)}
+        </span>
       </body>
     </html>
   );

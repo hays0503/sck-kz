@@ -204,7 +204,7 @@ export default function SearchProduct() {
           {text ? (
             <Flex
               vertical
-              style={{ width: '100%', borderRadius: '12px 12px 0px 0px' }}
+              style={{ width: '100%',position: 'relative',overflow: 'auto',height:"80dvh", borderRadius: '12px 12px 0px 0px' }}
             >
               {options && options?.length != 0 && (
                 <Link
