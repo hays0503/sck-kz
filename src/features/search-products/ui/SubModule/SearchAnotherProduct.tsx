@@ -13,14 +13,11 @@ import defaultFetcher from '@/shared/tools/defaultFetcher';
 import useSWRInfinite from 'swr/infinite';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
-// import { AddToBasketProduct } from '@/features/operation-in-basket-product';
-// import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { useIntersectionObserver } from 'usehooks-ts';
 import { Link } from '@/i18n/routing';
 import { motion } from 'framer-motion';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
-// import { PRODUCT } from '@/shared/constant/product';
 const { Text } = Typography;
 
 interface IProductDetailAnotherProductProps {
@@ -172,10 +169,8 @@ const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
       const count = data[0].len;
       const loaded = data.reduce((acc, item) => acc + item.results.length, 0);
       if (loaded >= count) {
-        // console.log('all data is loaded ', { count, loaded });
         return;
       } else {
-        // console.log('load more data', { count, loaded });
         setSize((prev) => prev + 1);
       }
     }

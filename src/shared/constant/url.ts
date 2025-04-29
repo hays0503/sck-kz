@@ -1,3 +1,4 @@
+
 export const ApiUrl = process.env.API_URL;
 // const ApiPortV1 = `:${process.env.API_PORT_V1}`;
 // const ApiAuthPortV1 = `:${process.env.API_AUTH_PORT_V1}`;
@@ -8,6 +9,7 @@ export const ApiUrl = process.env.API_URL;
 const UrlApiV1 = {
   getCity: `/api/v1/cities/`,
   getCategory: `/api/v1/category/`,
+  getBrand: `/api/v1/brand/`,
   
   getProducts: `/api/v1/products/`,
   getPopulates: `/api/v1/populates/`,
@@ -35,6 +37,7 @@ const UrlApiV2 = {
 const UrlApiWithDomainV1 = {
   getCity: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/citys/`, // Опечатка
   getCategory: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/category/`,
+  getBrand: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/brand/`,
   getPopulates: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/populates/`,
   getProducts: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/products/`,
   getProductReviews: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v1/reviews/`,

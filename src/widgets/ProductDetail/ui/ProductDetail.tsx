@@ -279,7 +279,7 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
           )}
 
           <ProductDetailItem>
-            <ProductDetailAnotherProduct product={product} />
+            <ProductDetailAnotherProduct slug={product.categorySlug} />
           </ProductDetailItem>
         </Flex>
       </Flex>

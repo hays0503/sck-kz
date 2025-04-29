@@ -20,7 +20,7 @@ const mapping = (
       en: getLocalizedName(product, 'EN'),
       kk: getLocalizedName(product, 'KZ'),
     },
-    img: product.images?.map((image: rawImage) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')).reverse() ?? [],
+    img: product.images?.map((image: rawImage) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')) ?? [],
     rating: typeof product.avg_rating === 'number' ? product?.avg_rating : 0, // Приведение к number
     price: product?.stocks?.[city]?.price ?? 0,
     oldPrice:

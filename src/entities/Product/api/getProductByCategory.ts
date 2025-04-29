@@ -5,6 +5,7 @@ interface getProductByCategoryProps {
   city: string;
   orderBy: 'avg_rating' | '-avg_rating' | 'stocks__price' | '-stocks__price' | 'none_sort';
   page: number;
+  brand?: string
 }
 
 export type getProductResult = {
@@ -17,6 +18,7 @@ const getProductByCategory = async ({
   city,
   orderBy,
   page,
+  brand
 }: getProductByCategoryProps): Promise<getProductResult> => {
   // Поверка на корректность orderBy
   const isCorrectOrderBy =
@@ -28,7 +30,7 @@ const getProductByCategory = async ({
   // Пресутсвуют ли обязательные параметры
   if (!slug || !isCorrectOrderBy || !city || !page) {
     console.error(
-      'getProductPopulates error',
+      'getProductByCategory error',
       'isCorrectOrderBy',
       isCorrectOrderBy,
       'city',
@@ -43,7 +45,10 @@ const getProductByCategory = async ({
   }
 
   const host_port = process.env.HOST_PORT ? `:${process.env.HOST_PORT}` : '';
-  const url = `${process.env.HOST_URL}${host_port}/api-mapping/product/by_category/?category=${slug}&order=${orderBy}&page=${page}&city=${city}`;
+  let url = `${process.env.HOST_URL}${host_port}/api-mapping/product/by_category/?category=${slug}&order=${orderBy}&page=${page}&city=${city}`;
+  if (brand) {
+    url += `&brand=${brand}`;
+  }
 
   const response = await fetch(url, {
     method: 'GET',
@@ -53,7 +58,7 @@ const getProductByCategory = async ({
   });
 
   if (!response.ok) {
-    console.error('getProductPopulates error', 'response', response);
+    console.error('getProductByCategory error', 'response', response);
     return {
       len: 0,
       results: [],

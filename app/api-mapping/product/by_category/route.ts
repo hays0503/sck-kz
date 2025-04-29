@@ -11,6 +11,7 @@ export async function GET(request: NextRequest): Promise<Response> {
   const orderBy = request.nextUrl.searchParams.get('order');
   const cityEn = request.nextUrl.searchParams.get('city');
   const page = request.nextUrl.searchParams.get('page');
+  const brand = request.nextUrl.searchParams.get('brand');
 
   // Поверка на корректность orderBy
   const isCorrectOrderBy = !orderBy || checkOrderByType(orderBy);
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   const cityRu: string = (CityEnToRu[cityEn] as string) ?? 'Караганда';
   const offset = PRODUCT.PRODUCT_PER_PAGE * (parseInt(page) - 1);
-  const url = `${UrlApiWithDomainV2.getProducts}category/${category}/?ordering=${orderBy}&offset=${offset}&limit=${PRODUCT.PRODUCT_PER_PAGE}&city=${cityRu}`;
+  const url = `${UrlApiWithDomainV2.getProducts}category/${category}/?ordering=${orderBy}&offset=${offset}&limit=${PRODUCT.PRODUCT_PER_PAGE}&city=${cityRu}&brand=${brand??""}`;
   console.log('url', url);
   const response = await fetch(url, {
     next: { revalidate: 60 }, // Данные кешируются на 60 секунд
