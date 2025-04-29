@@ -68,8 +68,11 @@ const BrandList: React.FC<BrandListProps> = ({
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '10px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))',
+        gridGap: '10px',
+        width: 'calc(100%)',
+        // backgroundColor: 'red',
+        padding: '5px',
       }}
     >
       {brands.map((brand, index) => {
@@ -78,20 +81,17 @@ const BrandList: React.FC<BrandListProps> = ({
 
         const buttonProps: ButtonProps = {
           style: {
-            overflow: 'hidden',
             display: 'flex',
-            maxHeight: '45px',
-            maxWidth: '100px',
-            minWidth: '90px',
+            alignItems: 'center',
+            justifyContent: 'center',
             minHeight: '45px',
-            position: 'relative',
-            textWrap: 'wrap',
             padding: '5px',
+            overflow: 'hidden',
             boxShadow: '1px 1px 50px 5px rgba(34, 60, 80, 0.1)',
             border:
               selectBrand === brand.id.toString()
                 ? '2px solid #F00'
-                : '2px solid rgba(255, 255, 255, 0)',
+                : '2px solid transparent',
           },
           onClick: () => {
             if (selectBrand === brand.id.toString()) return setSelectBrand('');

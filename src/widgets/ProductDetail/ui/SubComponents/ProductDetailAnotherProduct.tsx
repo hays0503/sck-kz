@@ -13,8 +13,7 @@ import defaultFetcher from '@/shared/tools/defaultFetcher';
 import useSWRInfinite from 'swr/infinite';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
-import { useIntersectionObserver } from 'usehooks-ts';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import BrandList from './BrandList';
@@ -25,7 +24,8 @@ interface IProductDetailAnotherProductProps {
 }
 
 const gridStyle = {
-  width: '100%',
+  willChange: 'opacity, transform',
+  width: 'calc( 100% - 10px )',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridGap: '10px',
@@ -41,63 +41,89 @@ const styleText = {
   color: '#00000073',
 };
 
+export const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const AnimatedProductCard: React.FC<{ product: MappedPopularProductType }> = ({
+  product,
+}) => {
+  return (
+    <motion.div variants={cardVariants} transition={{ duration: 0.4 }}>
+      <ProductCart
+        oneImage={true}
+        Product={product}
+        addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
+        addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
+        width='47.60dvw'
+        height='64.21dvw'
+      />
+    </motion.div>
+  );
+};
+
+const AnimatedProductCardMemo = memo(AnimatedProductCard);
+
 const Page: React.FC<{
   Products: MappedPopularProductType[];
 }> = ({ Products }) => {
+
   return (
-    <div style={{ ...gridStyle }}>
+    <motion.div
+      style={gridStyle}
+      variants={containerVariants}
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ amount: 'some', once: true }} // Без useRef и лишнего рендера
+    >
       {Products?.map((product: MappedPopularProductType) => (
-        <ProductCart
-          width='47.60dvw'
-          height='64.21dvw'
-          oneImage={true}
-          key={product.id}
-          Product={product}
-          addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
-          addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-        />
+        <AnimatedProductCardMemo key={product.id} product={product} />
       ))}
-    </div>
+    </motion.div>
   );
 };
 
 const PageMemo = memo(Page);
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.1,
+    },
+  },
+};
+
 const PageObserved: React.FC<{
   Products: MappedPopularProductType[];
   callbackIntersecting: () => void;
-  isValidating: boolean;
-}> = ({ Products, callbackIntersecting, isValidating }) => {
-  const running = useRef(false);
-  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.25 });
+}> = ({ Products, callbackIntersecting }) => {
+  const wrapperRef = useRef(null);
+  const isInView = useInView(wrapperRef, {
+    once: true,
+    margin: '0px 0px -1% 0px',
+
+  });
 
   useEffect(() => {
-    if (!running.current && isIntersecting) {
-      running.current = true;
+    if (isInView) {
       callbackIntersecting();
     }
-  }, [isIntersecting, callbackIntersecting]);
-
-  useEffect(() => {
-    if (!isValidating) {
-      running.current = false;
-    }
-  }, [isValidating]);
+  }, [isInView, callbackIntersecting]);
 
   return (
-    <div style={gridStyle} ref={ref}>
-      {Products.map((product: MappedPopularProductType) => (
-        <ProductCart
-          oneImage={true}
-          key={product.id}
-          Product={product}
-          addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
-          addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-          width='47.60dvw'
-          height='64.21dvw'
-        />
-      ))}
-    </div>
+    <motion.div
+      ref={wrapperRef}
+      style={gridStyle}
+      variants={containerVariants}
+      viewport={{ amount: 'some', once: true }}
+    >
+      {Products.map((product: MappedPopularProductType) => {
+        return <AnimatedProductCardMemo key={product.id} product={product} />;
+      })}
+    </motion.div>
   );
 };
 const PageObservedMemo = memo(PageObserved);
@@ -114,7 +140,7 @@ const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       minHeight: '420px',
       scrollBehavior: 'smooth',
       contentVisibility: 'auto',
-      overflow: 'auto',
+      // overflowY: 'auto',
       // overflowAnchor: 'revert',
     }}
   >
@@ -127,14 +153,12 @@ const RenderList: React.FC<{
   index: number;
   len: number;
   callbackIntersecting: () => void;
-  isValidating: boolean;
-}> = ({ Products, index, len, callbackIntersecting, isValidating }) => {
+}> = ({ Products, index, len, callbackIntersecting }) => {
   if (index + 1 === len) {
     return (
       <PageObservedMemo
         Products={Products}
         callbackIntersecting={callbackIntersecting}
-        isValidating={isValidating}
       />
     );
   } else {
@@ -170,7 +194,7 @@ const ProductDetailAnotherProduct: React.FC<
     results: MappedPopularProductType[];
   }>(getKey, defaultFetcher, {
     persistSize: false,
-    initialSize: 1,
+    initialSize: 25,
     parallel: true,
     revalidateFirstPage: false,
   });
@@ -260,7 +284,6 @@ const ProductDetailAnotherProduct: React.FC<
                   index={index}
                   len={data.length}
                   Products={d.results}
-                  isValidating={isValidating}
                   callbackIntersecting={handleIntersection}
                 />
               )
@@ -281,7 +304,7 @@ const ProductDetailAnotherProduct: React.FC<
             align='center'
             gap={10}
           >
-            <Spin />
+            <Skeleton active/>
           </Flex>
         </motion.div>
       )}
