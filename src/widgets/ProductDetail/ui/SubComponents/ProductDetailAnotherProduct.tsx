@@ -1,4 +1,4 @@
-import { Flex, Skeleton, Spin, Typography } from 'antd';
+import { Flex, Skeleton, Typography } from 'antd';
 import { useTranslations } from 'next-intl';
 import React, {
   CSSProperties,
