@@ -59,6 +59,7 @@ const mapping = async (
             en: getLocalizedName(product?.brand, 'EN'),
             kk: getLocalizedName(product?.brand, 'KZ'),
           },
+          tags: product?.tags ?? [],
           specifications: product?.specifications?.map((specification: rawSpecification) => ({
                 name: {
                   ru: specification?.name_specification?.name_specification,

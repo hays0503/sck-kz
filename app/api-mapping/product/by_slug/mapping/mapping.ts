@@ -51,6 +51,7 @@ const mapping = async (
   const mainData = {
     id: rawData?.id,
     slug: rawData?.slug,
+    tags: rawData?.tags,
     name: {
       ru: Placeholder(rawData?.name_product,'Перевод не установлен ru',"Название на русском"),
       en: Placeholder(rawData?.additional_data?.EN,'Перевод не установлен en',"Название на английском"),
