@@ -38,7 +38,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
 
   const { width: CartWidth = 0 } = useResizeObserver({
     ref: refContainer,
-    box: 'border-box',
+    box: 'content-box',
   });
 
   const saveScroll = useSaveLastElementView(`ProductCart${Product.id}`);
@@ -60,11 +60,13 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
       itemScope
       itemType='http://schema.org/Product'
       style={{
-        position: 'relative'
+        position: 'relative',
+        
       }}
     >
       <Level1
         discount={Product.discount}
+        tags={Product.tags}
         addToFavoriteSlot={addToFavoriteSlot}
         Swiper={
           <Link

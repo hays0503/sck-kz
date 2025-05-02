@@ -30,6 +30,7 @@ const mapping = (
         : null,
     reviews: product?.reviews_count,
     discount: product?.discount?.amount ?? null,
+    tags: product?.tags,
     brand: {
       ru: product?.brand?.name_brand ?? null,
       en: getLocalizedName(product?.brand, 'EN'),

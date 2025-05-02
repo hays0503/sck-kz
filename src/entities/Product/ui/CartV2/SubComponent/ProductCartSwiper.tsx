@@ -37,8 +37,6 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
   >
     <link itemProp='image' href={src} />
     <Image
-      // placeholder='blur'
-      // blurDataURL={src}
       priority
       src={src}
       alt={alt}
@@ -51,27 +49,6 @@ const RenderImage: React.FC<RenderImageProps> = memo(({ src, alt }) => (
         aspectRatio: '3/4',
       }}
     />
-    {/* Blurred background image */}
-    {/* <Image
-      placeholder='blur'
-      blurDataURL={src}
-      priority
-      quality={50}
-      src={src}
-      alt={`${alt} ${src}`}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      style={{
-        zIndex: 1,
-        position: 'absolute',
-        filter: 'blur(5px) brightness(90%)',
-        objectFit: 'cover',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-      }}
-    /> */}
   </Flex>
 ));
 RenderImage.displayName = 'RenderImage';
@@ -84,27 +61,14 @@ const RenderSwiper: React.FC<{
     modules={[Pagination, EffectCube]}
     loop={images.length > 1}
     grabCursor
-    // effect='cube'
     pagination
     lazyPreloadPrevNext={1}
-    // cubeEffect={{
-    //   shadow: false,
-    //   slideShadows: true,
-    //   shadowOffset: 20,
-    //   shadowScale: 0.94,
-    // }}
     style={{ width: '100%', height: '100%' }}
   >
     {images.map((src, index) => (
       <SwiperSlide key={index} style={{ position: 'relative' }}>
         {/* Foreground image */}
         <RenderImage src={src} alt={`${name}-slide-${index}`} />
-
-        {/* Blurred background image */}
-        {/* <RenderImage
-          src={src}
-          alt={`${name}-background-${index}`}
-        /> */}
       </SwiperSlide>
     ))}
   </Swiper>
@@ -122,10 +86,15 @@ const ProductCartSwiper: React.FC<ProductCartSwiperProps> = ({
     width,
     height,
     overflow: 'hidden',
-    borderRadius: 12,
     position: 'relative',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-  };
+    '--swiper-pagination-bullet-size': '5px',
+    '--swiper-pagination-bullet-horizontal-gap': '2px',
+    '--swiper-theme-color': '#ffcd1e',
+    '--swiper-pagination-bottom': '0px',
+    border: '1px solid rgb(0, 0, 0)',
+    borderRadius: '12px',
+  } as CSSProperties;
 
   const altName = name ?? 'product';
 
