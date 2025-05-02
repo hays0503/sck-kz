@@ -59,6 +59,9 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
       justify='space-between'
       itemScope
       itemType='http://schema.org/Product'
+      style={{
+        position: 'relative'
+      }}
     >
       <Level1
         discount={Product.discount}

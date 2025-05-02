@@ -50,7 +50,11 @@ const AnimatedProductCard: React.FC<{ product: MappedPopularProductType }> = ({
   product,
 }) => {
   return (
-    <motion.div variants={cardVariants} transition={{ duration: 0.4 }}>
+    <motion.div
+      key={`${product.id}-${product.name}`}
+      variants={cardVariants}
+      transition={{ duration: 0.4 }}
+    >
       <ProductCart
         oneImage={true}
         Product={product}
@@ -68,17 +72,18 @@ const AnimatedProductCardMemo = memo(AnimatedProductCard);
 const Page: React.FC<{
   Products: MappedPopularProductType[];
 }> = ({ Products }) => {
-
   return (
-    <motion.div
-      style={gridStyle}
-      variants={containerVariants}
-      initial='hidden'
-      whileInView='visible'
-      viewport={{ amount: 'some', once: true }} // Без useRef и лишнего рендера
-    >
-      {Products?.map((product: MappedPopularProductType) => (
-        <AnimatedProductCardMemo key={product.id} product={product} />
+    <motion.div layout style={gridStyle}>
+      {Products?.map((product) => (
+        <motion.div
+          key={product.id}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.4 }}
+        >
+          <AnimatedProductCard product={product} />
+        </motion.div>
       ))}
     </motion.div>
   );
@@ -87,11 +92,15 @@ const Page: React.FC<{
 const PageMemo = memo(Page);
 
 const containerVariants = {
-  hidden: {},
+  hidden: {
+    opacity: 1,
+    scale: 0.95,
+  },
   visible: {
+    opacity: 1,
+    scale: 1,
     transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.1,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -104,7 +113,6 @@ const PageObserved: React.FC<{
   const isInView = useInView(wrapperRef, {
     once: true,
     margin: '0px 0px -1% 0px',
-
   });
 
   useEffect(() => {
@@ -304,7 +312,7 @@ const ProductDetailAnotherProduct: React.FC<
             align='center'
             gap={10}
           >
-            <Skeleton active/>
+            <Skeleton active />
           </Flex>
         </motion.div>
       )}

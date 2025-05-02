@@ -64,16 +64,20 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 
   return (
     <Wrapper>
-      <Flex gap={25} style={{ overflowY: 'scroll', paddingBottom: 25 }}>
+      <Flex
+        gap={25}
+        style={{ overflowY: 'scroll', paddingBottom: 25 }}
+      >
         {data.results.map((product) => (
-          <Flex vertical key={product.id}>
-            <ProductCart
-              oneImage
-              Product={product}
-              addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
-              addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-            />
-          </Flex>
+          <ProductCart
+            key={product.id}
+            width='47.60dvw'
+            height='64.21dvw'            
+            oneImage
+            Product={product}
+            addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
+            addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
+          />
         ))}
       </Flex>
     </Wrapper>

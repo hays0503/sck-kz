@@ -1,4 +1,5 @@
 export interface MappedProductType {
+    results: any;
     id: number;
     slug: string;
     name: Record<string, string|null>;
