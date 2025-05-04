@@ -94,7 +94,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 style={{
                   width: '100%',
                   height: '3px',
-                  backgroundColor: '#eeeff1',
+                  backgroundColor: '#eeeeee',
                 }}
               />
               <BannerMobileSlider category={categoryRootData?.results ?? []} />
@@ -102,7 +102,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 style={{
                   width: '100%',
                   height: '3px',
-                  backgroundColor: '#eeeff1',
+                  backgroundColor: '#eeeeee',
                 }}
               />
               <TabletCategory />
@@ -110,7 +110,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 style={{
                   width: '100%',
                   height: '3px',
-                  backgroundColor: '#eeeff1',
+                  backgroundColor: '#eeeeee',
                 }}
               />
               <ProductPopularListPagination />

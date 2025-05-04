@@ -148,6 +148,7 @@ const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       minHeight: '420px',
       scrollBehavior: 'smooth',
       contentVisibility: 'auto',
+          backgroundColor: '#f5f5f5'
       // overflowY: 'auto',
       // overflowAnchor: 'revert',
     }}

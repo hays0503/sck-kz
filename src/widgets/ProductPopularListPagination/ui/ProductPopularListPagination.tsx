@@ -42,7 +42,7 @@ const ProductPopularListPagination: React.FC = () => {
     <Flex vertical={true} gap={5} align="center" justify="space-evenly" style={{
       width: "100%",
       height: "100%",
-      backgroundColor: "#FFF",
+      backgroundColor: "#f5f5f5",
       padding: "5px"
     }}>
       <Flex vertical align="start" justify="center" style={{ width: "100%" }}>

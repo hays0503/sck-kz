@@ -22,7 +22,7 @@ const ProductDetailRelatedProduct: React.FC<
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
-    gridGap: '10px',
+    gridGap: '10px',    backgroundColor: '#f5f5f5'
   };
 
   return (

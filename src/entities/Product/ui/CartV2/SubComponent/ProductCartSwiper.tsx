@@ -92,7 +92,7 @@ const ProductCartSwiper: React.FC<ProductCartSwiperProps> = ({
     '--swiper-pagination-bullet-horizontal-gap': '2px',
     '--swiper-theme-color': '#ffcd1e',
     '--swiper-pagination-bottom': '0px',
-    border: '1px solid rgb(0, 0, 0)',
+    border: '1px solid rgb(255, 255, 255)',
     borderRadius: '12px',
   } as CSSProperties;
 

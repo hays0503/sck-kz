@@ -53,7 +53,7 @@ const ProductPopularListPagination: React.FC = () => {
       style={{
         width: '100%',
         height: '100%',
-        backgroundColor: '#FFF',
+        backgroundColor: '#f5f5f5',
       }}
     >
       <Flex

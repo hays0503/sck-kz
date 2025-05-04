@@ -101,7 +101,7 @@ const ListWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       height: 'fit-content',
       scrollBehavior: 'smooth',
       contentVisibility: 'auto',
-      overflowAnchor: 'auto',
+      overflowAnchor: 'auto',    backgroundColor: '#f5f5f5'
     }}
   >
     {children}

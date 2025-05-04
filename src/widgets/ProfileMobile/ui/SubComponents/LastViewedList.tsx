@@ -32,7 +32,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   });
 
   const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <Flex vertical style={{ width: '100%' }} gap={10}>
+    <Flex vertical style={{ width: '100%', backgroundColor: '#f5f5f5' }} gap={10}>
       <Title level={5}>{t('vi-smotreli')}</Title>
       {children}
     </Flex>

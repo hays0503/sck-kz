@@ -13,42 +13,51 @@ const { Text } = Typography;
 
 const categories = [
   {
-    image: 'fire.png',
+    image: '/TestPic/fire.png',
     w: 44,
     h: 44,
     p: '-6px 0 0 0',
     th: 'unset',
     text: 'Акции',
-    href: 'main',
+    href: '/catalog/menu/main',
   },
   {
-    image: 'comp.png',
+    image: '/TestPic/comp.png',
     w: 50,
     h: 30,
     p: '0 0 0 5px',
     th: 24,
     text: 'ТВ, Аудио, Видео',
-    href: 'tv-audio-video',
+    href: '/catalog/menu/tv-audio-video',
   },
   {
-    image: 'sofa.png',
+    image: '/TestPic/sofa.png',
     w: 51,
     h: 30,
     p: 'unset', //'5px 0 0 0',
     th: 24,
     text: 'Мебель',
-    href: 'mebel',
+    href: '/catalog/menu/mebel',
   },
   {
-    image: 'frige.png',
+    image: '/iconKZ/kz.png',
+    w: 50,
+    h: 50,
+    p: '0px 0px -5px 0px',
+    th: 14,
+    text: 'Made in KZ',
+    href: '/catalog/category-slug-new',
+    padding: '0',
+  },
+  {
+    image: '/TestPic/frige.png',
     w: 30,
     h: 30,
     p: 'unset', //'5px 0 0 0',
     th: 24,
     text: 'Бытовая техника',
-    href: 'bytovaya-tehnika',
+    href: '/catalog/menu/bytovaya-tehnika',
   },
-  // { image: "accessories.png", text: "Аксессуары",href:'main' }
 ];
 
 const palettes = [
@@ -66,51 +75,7 @@ const palettes = [
   'linear-gradient(180deg, #E18001 0%, #FFAC40 100%)', // 11
 ];
 
-const mix = [
-  { sets: [0, 3, 4, 1], inner: true },
-  // { sets: [0, 3, 4, 1], inner: false },
-
-  // { sets: [6, 9, 10, 7], inner: true },
-  // { sets: [6, 9, 10, 7], inner: false },
-
-  // { sets: [0, 1, 2, 3], inner: true },
-  // { sets: [0, 1, 2, 3], inner: false },
-
-  // { sets: [2, 3, 4, 5], inner: true },
-  // { sets: [2, 3, 4, 5], inner: false },
-
-  // { sets: [6, 7, 8, 9], inner: true },
-  // { sets: [6, 7, 8, 9], inner: false },
-
-  // { sets: [9, 10, 11, 8], inner: true },
-  // { sets: [9, 10, 11, 8], inner: false },
-
-  // { sets: [0, 0, 0, 0], inner: false },
-  // { sets: [0, 0, 0, 0], inner: true },
-  // { sets: [1, 1, 1, 1], inner: false },
-  // { sets: [1, 1, 1, 1], inner: true },
-  // { sets: [2, 2, 2, 2], inner: false },
-  // { sets: [2, 2, 2, 2], inner: true },
-  // { sets: [3, 3, 3, 3], inner: false },
-  // { sets: [3, 3, 3, 3], inner: true },
-  // { sets: [4, 4, 4, 4], inner: false },
-  // { sets: [4, 4, 4, 4], inner: true },
-  // { sets: [5, 5, 5, 5], inner: false },
-  // { sets: [5, 5, 5, 5], inner: true },
-
-  // { sets: [6, 6, 6, 6], inner: false },
-  // { sets: [6, 6, 6, 6], inner: true },
-  // { sets: [7, 7, 7, 7], inner: false },
-  // { sets: [7, 7, 7, 7], inner: true },
-  // { sets: [8, 8, 8, 8], inner: false },
-  // { sets: [8, 8, 8, 8], inner: true },
-  // { sets: [9, 9, 9, 9], inner: false },
-  // { sets: [9, 9, 9, 9], inner: true },
-  // { sets: [10, 10, 10, 10], inner: false },
-  // { sets: [10, 10, 10, 10], inner: true },
-  // { sets: [11, 11, 11, 11], inner: false },
-  // { sets: [11, 11, 11, 11], inner: true },
-];
+const mix = [{ sets: [0, 3, 4, 6, 1], inner: true }];
 
 type SlideProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
   size: number;
@@ -122,16 +87,17 @@ type SlideProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
   h: number;
   p: string;
   th: number | string;
+  padding?: string;
 };
 
 const Row = () => {
   const cityEn = useGetCityParams();
 
   const Inner: React.FC<SlideProps> = (props) => {
-    const { size, background, src, text, href, w, h, p, th } = props;
+    const { size, background, src, text, href, w, h, p, th,padding } = props;
     return (
       <>
-        <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
+        <Link href={`/city/${cityEn}${href}`}>
           <Flex vertical align='center' justify='space-around' gap={5}>
             <Flex
               vertical
@@ -140,7 +106,7 @@ const Row = () => {
                 height: size,
                 background: background,
                 borderRadius: 10,
-                paddingTop: 10,
+                padding: padding??`10px 0 0 0`,
               }}
               gap={4}
               justify='flex-start'
@@ -181,7 +147,7 @@ const Row = () => {
     const { size, background, src, text, href, p } = props;
     return (
       <>
-        <Link href={`/city/${cityEn}/catalog/menu/${href}`}>
+        <Link href={`/city/${cityEn}${href}`}>
           <Flex vertical align='center' gap={5}>
             <Flex
               justify='center'
@@ -195,8 +161,8 @@ const Row = () => {
             >
               <Flex
                 style={{
-                  width:"80%",
-                  height:"80%",
+                  width: '80%',
+                  height: '80%',
                   position: 'relative',
                 }}
               >
@@ -236,24 +202,22 @@ const Row = () => {
         spaceBetween={'1%'}
         slidesPerView={4}
         slidesPerGroup={4}
-        // navigation
         modules={[Navigation]}
         autoHeight
         centerInsufficientSlides
-        // slidesOffsetBefore={5}
-        // slidesOffsetAfter={5}
       >
         {mix.map(({ sets, inner }, groupIndex) =>
-          categories.map(({ image, text, href, w, h, p, th }, index) => {
+          categories.map(({ image, text, href, w, h, p, th, padding }, index) => {
             const PropsForSlide = {
               background: palettes[sets[index]] ?? '#000',
-              src: `/TestPic/${image}`,
+              src: `${image}`,
               text,
               href,
               w,
               h,
               p,
               th,
+              padding
             };
 
             const key = `${groupIndex}-${index}`;

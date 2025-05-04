@@ -44,6 +44,7 @@ const Level1: React.FC<Level1Props> = ({ Products }) => {
     display: 'grid',
     gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
     gridGap: '5px',
+    backgroundColor: '#f5f5f5'
   };
 
   return (

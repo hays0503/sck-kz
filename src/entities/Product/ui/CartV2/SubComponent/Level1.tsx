@@ -161,7 +161,6 @@ const Level1: React.FC<ILevel1Props> = (props) => {
         position: 'relative',
         overflow: 'hidden',
         borderRadius: '12px',
-        backgroundColor: 'red',
       }}
     >
       <AddFavorite />
