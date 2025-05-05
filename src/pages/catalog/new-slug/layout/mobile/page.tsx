@@ -10,6 +10,7 @@ import { SearchProduct } from '@/features/search-products';
 import { Specification } from '@/shared/types/specification';
 import { Flex } from 'antd';
 import { FilterMobile } from '@/widgets/FilterMobile';
+import { unstable_cache } from 'next/cache';
 
 type PageProps = {
   params: Promise<{
@@ -33,7 +34,7 @@ export async function getSpecif(): Promise<Specification[]> {
 
 export default async function CatalogPage(props: PageProps) {
   const { params } = await props;
-  const specifications = await getSpecif();
+  const specifications = await unstable_cache(getSpecif, [], { revalidate: 300 })();
   console.log(params)
   return (
     <ProvidersServer>

@@ -1,14 +1,38 @@
 'use client';
-import { Collapse, Flex,Typography } from 'antd';
+import { Collapse, Flex, Typography } from 'antd';
 import { useCallback, useMemo, useState } from 'react';
 import RenderActiveTags, {
   ActiveFilterType,
 } from './SubModule/RenderActiveTags';
 import { Specification } from '@/shared/types/specification';
 import Link from 'next/link';
-
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
+
+// export type Specification  = {
+//   id:                  number;
+//   name_specification:  NameSpecification;
+//   value_specification: ValueSpecification;
+//   product:             number;
+// }
+
+// export interface NameSpecification {
+//   id:                 number;
+//   additional_data:    AdditionalData;
+//   name_specification: string;
+// }
+
+// export interface AdditionalData {
+//   EN: string;
+//   KZ: string;
+// }
+
+// export interface ValueSpecification {
+//   id:                  number;
+//   additional_data:     AdditionalData;
+//   value_specification: string;
+// }
 
 const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
   specifications,
@@ -18,10 +42,17 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
   const grouped = useMemo(() => {
     const result: Record<
       string,
-      { count: number; values: Map<string, number> }
+      {
+        count: number;
+        values: Map<string, { id: number; productIds: number[] }>;
+      }
     > = {};
 
-    for (const { name_specification, value_specification } of specifications) {
+    for (const {
+      name_specification,
+      value_specification,
+      product,
+    } of specifications) {
       const name = name_specification.name_specification.trim();
       const value = value_specification.value_specification.trim();
       const id = value_specification.id;
@@ -29,8 +60,14 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
       if (!name || !value) continue;
 
       if (!result[name]) result[name] = { count: 0, values: new Map() };
+
       result[name].count += 1;
-      result[name].values.set(value, id);
+
+      if (!result[name].values.has(value)) {
+        result[name].values.set(value, { id, productIds: [product] });
+      } else {
+        result[name].values.get(value)!.productIds.push(product);
+      }
     }
 
     return Object.entries(result).sort((a, b) => b[1].count - a[1].count);
@@ -50,8 +87,6 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
       ),
     [activeKey],
   );
-
-
 
   const onClickLabel = useCallback(
     (
@@ -87,6 +122,24 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
     [],
   );
 
+  const ExpandsText: React.FC<{ Node: React.ReactNode }> = ({ Node }) => {
+    const [expanded, setExpanded] = useState(false);
+
+    if (!expanded) {
+      return (
+        <InfoCircleOutlined
+          onClick={() => setExpanded(!expanded)}
+          style={{
+            fontSize: '16px',
+            color: '#999',
+          }}
+        />
+      );
+    }
+
+    return <>{Node}</>;
+  };
+
   const collapseItems = useMemo(
     () =>
       grouped.flatMap(([name, { count, values }]) => {
@@ -99,28 +152,66 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
         return [
           {
             key: name,
-            label: <Text style={{
-              color: isSelectedType(type_id) ? 'red' : 'inherit',
-            }}>
-              {`${name} — (${count}) = id:${type_id}`}
-            </Text>,
+            label: (
+              <Text
+                style={{
+                  color: isSelectedType(type_id) ? 'red' : 'inherit',
+                }}
+              >
+                {`${name} — (${count}) = id:${type_id}`}
+              </Text>
+            ),
             children: (
               <ul style={{ paddingLeft: '1rem' }}>
                 {[...values.entries()]
                   .sort((a, b) => a[0].localeCompare(b[0]))
-                  .map(([value, id]) => (
-                    <li
-                      key={id}
-                      style={{
-                        cursor: 'pointer',
-                        color: isSelectedValue(type_id, id) ? 'red' : 'inherit',
-                      }}
-                      onClick={() => onClickLabel(name, type_id, value, id)}
-                    >
-                      {value}
-                      <span style={{ color: '#999' }}>(id: {id})</span>
-                    </li>
-                  ))}
+                  .map(([value, { id, productIds }]) => {
+                    return (
+                      <Flex
+                        key={id}
+                        gap={5}
+                        style={{
+                          cursor: 'pointer',
+                          color: isSelectedValue(type_id, id)
+                            ? 'red'
+                            : 'inherit',
+                        }}
+                        wrap
+                      >
+                        <Text
+                          style={{
+                            color: 'inherit',
+                          }}
+                          onClick={() => onClickLabel(name, type_id, value, id)}
+                        >
+                          {value}
+                        </Text>
+                        <ExpandsText
+                          Node={
+                            <Flex gap={5} wrap>
+                              <Text style={{ color: '#999' }}>
+                                id:{productIds.length},
+                              </Text>
+                              <Text style={{ color: '#999' }}>
+                               {productIds.length}{' '}{productIds.length === 1 ? 'товар,' : 'товаров,'}
+                              </Text>
+                              <Flex gap={5} wrap>
+                                {productIds.map((id) => (
+                                  <Link
+                                    key={id}
+                                    href={`https://sck.kz/admin/app_products/products/${id}/change/`}
+                                    target='_blank'
+                                  >
+                                    {id}
+                                  </Link>
+                                ))}
+                              </Flex>
+                            </Flex>
+                          }
+                        />
+                      </Flex>
+                    );
+                  })}
               </ul>
             ),
           },
@@ -129,21 +220,23 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
     [grouped, specifications, isSelectedType, isSelectedValue, onClickLabel],
   );
 
-  const url = `http://185.100.67.246:8888/categories/4/facets/${
-    activeKey
-      .map(
-        ({ type_id, values }) =>
-          `spec_${type_id}=${values.map(({ value_id }) => value_id).join(',')}`,
-      )
-      .join('&')
-  }`
+  const url = `http://185.100.67.246:8888/categories/facets/?${activeKey
+    .map(
+      ({ type_id, values }) =>
+        `spec_${type_id}=${values.map(({ value_id }) => value_id).join(',')}`,
+    )
+    .join('&')}`;
 
   return (
     <Flex vertical gap={12} style={{ width: '100%' }}>
       <Link
         href={url}
         target='_blank'
-        style={{ textWrap: 'balance',overflowWrap: 'break-word',padding: '10px' }}
+        style={{
+          textWrap: 'balance',
+          overflowWrap: 'break-word',
+          padding: '10px',
+        }}
       >
         {url}
       </Link>
