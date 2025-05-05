@@ -400,5 +400,9 @@
   "yuridicheskaya-informaciya": "Legal information",
   "zagruzka": "Loading",
   "vozmozhno-vam-ponravitsya": "You may like it",
-  "zakryt": "Close"
+  "zakryt": "Close",
+  "actions": {
+    "filter": "Filter",
+    "apply": "Apply"
+  }
 }

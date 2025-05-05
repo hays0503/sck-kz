@@ -400,5 +400,9 @@
   "yuridicheskaya-informaciya": "Құқықтық ақпарат",
   "zagruzka": "Тиеу",
   "vozmozhno-vam-ponravitsya": "Сізге ұнайды",
-  "zakryt": "Жабу"
+  "zakryt": "Жабу",
+  "actions": {
+    "filter": "Сүзу",
+    "apply": "Өтініш беру"
+  }
 }
