@@ -145,7 +145,7 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
       grouped.flatMap(([name, { count, values }]) => {
         const type_id = specifications.find(
           (s) => s.name_specification.name_specification.trim() === name,
-        )?.id;
+        )?.name_specification.id;
 
         if (!type_id) return [];
 
