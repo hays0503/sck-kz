@@ -46,7 +46,7 @@ const categories = [
     p: '0px 0px -5px 0px',
     th: 14,
     text: 'Made in KZ',
-    href: '/catalog/category-slug-new',
+    href: '/filter',
     padding: '0',
   },
   {
