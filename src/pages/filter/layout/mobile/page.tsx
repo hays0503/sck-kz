@@ -70,11 +70,9 @@ export default async function HomePage({ params, searchParams }: PageProps) {
             />
           }
           content={<FilterRenderMobile fetchData={{
-            total:fetchData.total,
             categorys:fetchData.categorys,
             brands:fetchData.brands,
             specifications:fetchData.specifications,
-            products:fetchData.products
 
           }} />}
           footerContent={<FooterMobile />}
