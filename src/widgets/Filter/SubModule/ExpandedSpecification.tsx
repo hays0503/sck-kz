@@ -1,0 +1,73 @@
+// Основной компонент ExpandedSpecification
+
+import { memo, useCallback, useMemo, useState } from 'react';
+import { onClickLabelProps, Specification } from './FilterType';
+import { Flex, Tag, Typography } from 'antd';
+import { AnimatePresence, motion } from 'framer-motion';
+import ColorBall, { getHexColorsFromRussian } from './colors';
+import AnimatedTag from './AnimatedTag';
+const { Text } = Typography;
+const ExpandedSpecification = ({
+  specification,
+  onClickLabel,
+}: {
+  specification: Specification;
+  onClickLabel: (props: onClickLabelProps) => void;
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const toggleExpanded = useCallback(() => setIsExpanded((prev) => !prev), []);
+
+  const renderData = useMemo(
+    () =>
+      isExpanded ? specification.values : specification.values.slice(0, 5),
+    [isExpanded, specification],
+  );
+
+  const showTagExpanded = specification.values.length > 5;
+
+  return (
+    <Flex wrap gap={8}>
+      <AnimatePresence initial={false}>
+        {renderData.map(({ id, value, count }) => {
+          const colors = getHexColorsFromRussian(value); // Извлекаем цвета из value
+
+          return (
+            <AnimatedTag
+              key={id}
+              onClick={() =>
+                onClickLabel({
+                  type_id: specification.id,
+                  type_name: specification.name,
+                  value_id: id,
+                  value_name: value,
+                })
+              }
+            >
+              <Flex gap={4}>
+                {colors.length > 0 && <ColorBall colors={colors} />}
+                {/* Отображаем шарик, если есть цвета */}
+                <Text>{value}</Text>
+                <Text style={{ color: '#808185', opacity: '0.5' }}>
+                  ({count})
+                </Text>
+              </Flex>
+            </AnimatedTag>
+          );
+        })}
+      </AnimatePresence>
+      {showTagExpanded && (
+        <motion.div layout>
+          <Tag
+            onClick={toggleExpanded}
+            color={isExpanded ? 'red' : '#9999'}
+            style={{ color: 'black' }}
+          >
+            {isExpanded ? 'Скрыть' : '...'}
+          </Tag>
+        </motion.div>
+      )}
+    </Flex>
+  );
+};
+
+export default memo(ExpandedSpecification);

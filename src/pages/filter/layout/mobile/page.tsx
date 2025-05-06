@@ -1,4 +1,3 @@
-
 import { SearchParams } from 'nuqs';
 // import { searchParamsCache } from './searchParams';
 import { ProvidersServer } from '@/shared/providers/providersServer';
@@ -13,7 +12,7 @@ import { FooterMobile } from '@/widgets/FooterMobile';
 import { getCategoryRoot } from '@/entities/Category';
 import { unstable_cache } from 'next/cache';
 import { FilterRenderMobile } from '@/widgets/Filter/Filter';
-
+import CityEnToRu from '@/shared/constant/city';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -32,9 +31,11 @@ export default async function HomePage({ params, searchParams }: PageProps) {
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
 
-  const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}`;
+  const cityRu = CityEnToRu[city];
 
-  const fetchData = (await (await fetch(url)).json())
+  const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}&city=${cityRu}`;
+
+  const fetchData = await (await fetch(url)).json();
 
   // Ключи для кэша
   const urlCity = `/api-mapping/city`;
@@ -57,7 +58,6 @@ export default async function HomePage({ params, searchParams }: PageProps) {
     [urlCategoryRoot]: categoryRootData,
   };
 
-
   return (
     <ProvidersServer>
       <ProvidersClient fallback={fallback}>
@@ -69,12 +69,16 @@ export default async function HomePage({ params, searchParams }: PageProps) {
               SearchProduct={SearchProduct}
             />
           }
-          content={<FilterRenderMobile fetchData={{
-            categorys:fetchData.categorys,
-            brands:fetchData.brands,
-            specifications:fetchData.specifications,
-
-          }} />}
+          content={
+            <FilterRenderMobile
+              fetchData={{
+                category: fetchData.categorys,
+                brands: fetchData.brands,
+                specifications: fetchData.specifications,
+                products: fetchData.products.items,
+              }}
+            />
+          }
           footerContent={<FooterMobile />}
         />
       </ProvidersClient>

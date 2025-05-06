@@ -51,8 +51,8 @@ const Level1: React.FC<Level1Props> = ({ Products }) => {
     <div style={gridStyle}>
       {Products?.map((item, index) => (
         <ProductCart
-          width='49.5dvw'
-          height='65dvw'
+          width='48dvw'
+          height='64dvw'
           key={index}
           Product={item}
           addToCartSlot={
