@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { CSSProperties, memo } from 'react';
 import { ProductCart } from '@/entities/Product/ui/CartV2';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
@@ -15,7 +15,11 @@ const ProductGrid = memo(({ products, cityEn }: Props) => {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
     gap: '10px',
-  };
+    width: '100%',
+    height: 'auto',
+    paddingTop: '10px',
+    paddingBottom: '10px',
+  } as CSSProperties;
 
   return (
     <div style={styleGrid}>
