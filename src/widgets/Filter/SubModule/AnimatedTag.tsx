@@ -1,6 +1,5 @@
 import { Tag } from 'antd';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
 
 // Анимированный Tag
 const tagVariants = {
@@ -24,4 +23,4 @@ const AnimatedTag: React.FC<React.ComponentProps<typeof Tag>> = ({
   </motion.div>
 );
 
-export default memo(AnimatedTag);
+export default AnimatedTag;

@@ -18,7 +18,7 @@ const RenderTagsList: React.FC<{
   onClickLabel: (props: onClickLabelProps) => void;
   onClear: () => void;
   ToggleFilter?: React.ReactNode;
-}> = ({ selectedFilters, onClickLabel, onClear, ToggleFilter }) => {
+}> = ({ selectedFilters, onClickLabel, onClear }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const RenderTagsList: React.FC<{
     >
       {/* Кнопка сброса */}
       <Flex vertical gap={10}>
-        {ToggleFilter}
+        {/* {ToggleFilter} */}
         <Button
           type='primary'
           style={{

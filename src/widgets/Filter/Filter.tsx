@@ -1,7 +1,7 @@
 'use client';
 
-import { Flex, Skeleton } from 'antd';
-import React, { useCallback, memo, useMemo, useReducer } from 'react';
+import { Flex, Skeleton, Spin } from 'antd';
+import React, { useCallback, useReducer, useTransition, useState } from 'react';
 import type {
   FacetResponse,
   onClickLabelProps,
@@ -13,153 +13,30 @@ import { toggleFilterValue } from './SubModule/ToggleFilterValue';
 import ToggleFilter from './SubModule/ToggleFilter';
 import { AnimatePresence, motion } from 'framer-motion';
 import RenderTagsList from './SubModule/RenderTagsList';
+import { buildUrl } from './SubModule/useGetNewFilterData';
 
 const LazySpecificationsRenderList = dynamic(
   () => import('./SubModule/SpecificationsRenderList'),
-  {
-    ssr: false,
-    loading: () => <Skeleton active>Загрузка характеристик...</Skeleton>,
-  },
+  { ssr: false, loading: () => <Skeleton active /> },
 );
 const LazyCategoriesRenderListTags = dynamic(
   () => import('./SubModule/CategoriesRenderListTags'),
-  {
-    ssr: false,
-    loading: () => <Skeleton active>Загрузка категорий...</Skeleton>,
-  },
+  { ssr: false, loading: () => <Skeleton active /> },
 );
 const LazyBrandsRenderListTags = dynamic(
   () => import('./SubModule/BrandsRenderListTags'),
-  {
-    ssr: false,
-    loading: () => <Skeleton active>Загрузка брендов...</Skeleton>,
-  },
+  { ssr: false, loading: () => <Skeleton active /> },
 );
-
 const LazyProductGrid = dynamic(() => import('./SubModule/ProductGrid'), {
   ssr: true,
-  loading: () => <Skeleton active>Загрузка товаров...</Skeleton>,
+  loading: () => <Skeleton active />,
 });
 
-const Menu = memo(
-  ({
-    hasFilters,
-    selectedFilters,
-    onClickLabel,
-    onClear,
-    toggleComponent,
-    showToggle,
-  }: {
-    hasFilters: boolean;
-    selectedFilters: SelectFilteredType[];
-    onClickLabel: (payload: onClickLabelProps) => void;
-    onClear: () => void;
-    toggleComponent: React.ReactNode;
-    showToggle: boolean;
-  }) => (
-    <Flex style={{ position: 'sticky', top: 0, width: '100dvw', zIndex: 1000 }}>
-      {showToggle && (
-        <Flex
-          style={{
-            width: '100%',
-            padding: '16px',
-            background: '#f5f5f5',
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-          }}
-        >
-          {toggleComponent}
-        </Flex>
-      )}
-      <AnimatePresence mode='wait'>
-        {hasFilters && (
-          <motion.div
-            key='tags-container'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1}}
-            transition={{ duration: 0.1 }}
-            style={{
-              width: '100%',
-              zIndex: 2000,
-              top: 0,
-              position: 'relative',
-              background: '#f5f5f5',
-            }}
-          >
-            <RenderTagsList
-              selectedFilters={selectedFilters}
-              onClickLabel={onClickLabel}
-              onClear={onClear}
-              ToggleFilter={toggleComponent}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Flex>
-  ),
-);
-Menu.displayName = 'Menu';
-
-const Filter = memo(
-  ({
-    filterHide,
-    fetchData,
-    onClickLabel,
-  }: {
-    filterHide: boolean;
-    fetchData: FacetResponse;
-    onClickLabel: (payload: onClickLabelProps) => void;
-  }) => {
-    const visible = !filterHide;
-
-    return (
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: visible ? 1 : 0,
-          scale: visible ? 1 : 0.95,
-          pointerEvents: visible ? 'auto' : 'none',
-          height: visible ? 'auto' : 0,
-        }}
-        transition={{ duration: 0.25 }}
-        style={{
-          position: 'relative',
-          backgroundColor: 'inherit',
-          zIndex: 900,
-          padding: visible ? '10px' : '0',
-        }}
-      >
-        <Flex vertical gap={12}>
-          {fetchData?.category && fetchData.category?.length > 0 && (
-            <LazyCategoriesRenderListTags
-              categories={fetchData.category}
-              onClickLabel={onClickLabel}
-            />
-          )}
-          {fetchData?.brands && fetchData.brands?.length > 0 && (
-            <LazyBrandsRenderListTags
-              brands={fetchData.brands}
-              onClickLabel={onClickLabel}
-            />
-          )}
-          {fetchData?.specifications &&
-            fetchData.specifications?.length > 0 && (
-              <LazySpecificationsRenderList
-                specifications={fetchData.specifications}
-                onClickLabel={onClickLabel}
-              />
-            )}
-        </Flex>
-      </motion.div>
-    );
-  },
-);
-Filter.displayName = 'Filter';
-
-// Reducer for filters
 type State = {
   selectedFilters: SelectFilteredType[];
   filterHide: boolean;
 };
+
 type Action =
   | { type: 'toggle_filter' }
   | { type: 'clear_filters' }
@@ -184,65 +61,175 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = memo(
-  ({ fetchData }) => {
-    const cityEn = useGetCityParams();
-    const [state, dispatch] = useReducer(reducer, {
-      selectedFilters: [],
-      filterHide: true,
+export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
+  fetchData,
+}) => {
+  const cityEn = useGetCityParams();
+  const [state, dispatch] = useReducer(reducer, {
+    selectedFilters: [],
+    filterHide: true,
+  });
+
+  const [data, setData] = useState<FacetResponse>(fetchData);
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = useCallback(
+    (payload: onClickLabelProps) => {
+      const newSelected = toggleFilterValue(state.selectedFilters, payload);
+      dispatch({ type: 'toggle_value', payload });
+
+      startTransition(() => {
+        const url = buildUrl(newSelected, cityEn);
+        fetch(url)
+          .then((res) => res.json())
+          .then((res) =>
+            setData({
+              category: res.categorys,
+              brands: res.brands,
+              specifications: res.specifications,
+              products: res?.products.items,
+            }),
+          );
+      });
+    },
+    [state.selectedFilters, cityEn],
+  );
+
+  const handleClear = useCallback(() => {
+    dispatch({ type: 'clear_filters' });
+    startTransition(() => {
+      const url = buildUrl([], cityEn);
+      fetch(url)
+        .then((res) => res.json())
+        .then((res) =>
+          setData({
+            category: res.categorys,
+            brands: res.brands,
+            specifications: res.specifications,
+            products: res?.products.items,
+          }),
+        );
     });
+  }, [cityEn]);
 
-    const handleToggle = useCallback(
-      () => dispatch({ type: 'toggle_filter' }),
-      [],
-    );
-    const handleClear = useCallback(
-      () => dispatch({ type: 'clear_filters' }),
-      [],
-    );
-    const handleClick = useCallback(
-      (payload: onClickLabelProps) =>
-        dispatch({ type: 'toggle_value', payload }),
-      [],
-    );
+  const handleToggle = useCallback(
+    () => dispatch({ type: 'toggle_filter' }),
+    [],
+  );
 
-    const memoToggleFilter = useMemo(
-      () => (
-        <ToggleFilter filterHide={state.filterHide} onToggle={handleToggle} />
-      ),
-      [state.filterHide, handleToggle],
-    );
+  // const memoToggleFilter = (
+  //   <ToggleFilter filterHide={state.filterHide} onToggle={handleToggle} />
+  // );
+  // useMemo(
+  //   () => (
 
-    const memoizedProducts = useMemo(
-      () => fetchData.products,
-      [fetchData.products],
-    );
+  //   ),
+  //   [state.filterHide, handleToggle],
+  // );
 
-    const hasFilters = state.selectedFilters.length > 0;
+  const hasFilters = state.selectedFilters.length !== 0;
 
-    return (
+  return (
+    <Flex
+      vertical
+      style={{ padding: 0, position: 'relative', overflow: 'clip' }}
+    >
       <Flex
         vertical
-        style={{ padding: 0, position: 'relative', overflow: 'clip' }}
+        style={{
+          position: 'sticky',
+          top: 0,
+          width: '100dvw',
+          zIndex: 1000,
+          background: '#f5f5f5',
+        }}
       >
-        <Menu
-          hasFilters={hasFilters}
-          selectedFilters={state.selectedFilters}
-          onClickLabel={handleClick}
-          onClear={handleClear}
-          toggleComponent={memoToggleFilter}
-          showToggle={!hasFilters}
-        />
-        <Filter
-          filterHide={state.filterHide}
-          fetchData={fetchData}
-          onClickLabel={handleClick}
-        />
-        {memoizedProducts && (
-          <LazyProductGrid products={memoizedProducts} cityEn={cityEn} />
-        )}
+        <Flex style={{ padding: '16px 16px 16px 16px' }}>
+          <ToggleFilter filterHide={state.filterHide} onToggle={handleToggle} />
+        </Flex>
+        <AnimatePresence mode='wait'>
+          {isPending && <Spin size='large' spinning fullscreen />}
+          {hasFilters && (
+            <motion.div
+              key='tags'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.1 }}
+              style={{
+                width: '100%',
+                position: 'relative',
+                background: '#f5f5f5',
+              }}
+            >
+              <RenderTagsList
+                selectedFilters={state.selectedFilters}
+                onClickLabel={handleClick}
+                onClear={handleClear}
+                ToggleFilter={
+                  <ToggleFilter
+                    filterHide={state.filterHide}
+                    onToggle={handleToggle}
+                  />
+                }
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Flex>
-    );
-  },
-);
+
+      <motion.div
+        initial={false}
+        animate={{
+          opacity: state.filterHide ? 0 : 1,
+          scale: state.filterHide ? 0.95 : 1,
+          pointerEvents: state.filterHide
+            ? 'none'
+            : isPending
+              ? 'none'
+              : 'auto',
+          height: state.filterHide ? 0 : 'auto',
+        }}
+        transition={{ duration: 0.25 }}
+        style={{
+          position: 'relative',
+          backgroundColor: 'inherit',
+          zIndex: 900,
+          padding: state.filterHide ? '0' : '10px',
+          opacity: isPending ? 0.5 : 1,
+        }}
+      >
+        <Flex vertical gap={12}>
+          {data.category && (
+            <LazyCategoriesRenderListTags
+              categories={data.category}
+              onClickLabel={handleClick}
+            />
+          )}
+          {data.brands && (
+            <LazyBrandsRenderListTags
+              brands={data.brands}
+              onClickLabel={handleClick}
+            />
+          )}
+          {data.specifications && (
+            <LazySpecificationsRenderList
+              specifications={data.specifications}
+              onClickLabel={handleClick}
+            />
+          )}
+        </Flex>
+      </motion.div>
+
+      {data.products && (
+        <LazyProductGrid
+          products={data.products}
+          cityEn={cityEn}
+          isPending={isPending}
+        />
+      )}
+    </Flex>
+  );
+};
+
 FilterRenderMobile.displayName = 'FilterRenderMobile';
+export default FilterRenderMobile;

@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { FacetResponse, SelectFilteredType } from './FilterType';
+import CityEnToRu from '@/shared/constant/city';
+import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 
 // Сборка URL с использованием URLSearchParams
-const buildUrl = (selectedFilters: SelectFilteredType[]): string => {
-  const baseUrl = 'http://185.100.67.246:8888/categories/facets/';
+export const buildUrl = (selectedFilters: SelectFilteredType[], cityEn: string): string => {
+  const baseUrl = '/categories/facets/';
   const params = new URLSearchParams();
 
   const getIds = (name: string): string[] =>
@@ -27,7 +29,7 @@ const buildUrl = (selectedFilters: SelectFilteredType[]): string => {
       }
     });
 
-  return `${baseUrl}?${params.toString()}`;
+  return `${baseUrl}?${params.toString()}&city=${CityEnToRu[cityEn]}`;
 };
 
 interface UseGetNewFilterDataProps {
@@ -42,6 +44,7 @@ interface UseGetNewFilterDataResult {
 const useGetNewFilterData = ({
   selectedFilters,
 }: UseGetNewFilterDataProps): UseGetNewFilterDataResult => {
+  const cityEn = useGetCityParams();
   const [isLoading, setIsLoading] = useState(false);
   const [filterData, setFilterData] = useState<FacetResponse>({});
 
@@ -49,7 +52,7 @@ const useGetNewFilterData = ({
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const url = buildUrl(selectedFilters);
+        const url = buildUrl(selectedFilters,cityEn);
         const res = await fetch(url);
         if (!res.ok) throw new Error(`Ошибка HTTP: ${res.status}`);
         const data: FacetResponse = await res.json();
