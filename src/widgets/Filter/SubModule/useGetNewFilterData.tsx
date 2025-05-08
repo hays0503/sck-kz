@@ -173,7 +173,7 @@ const useGetNewFilterData = ({
     };
 
     fetchData();
-  }, [selectedFilters]);
+  }, [cityEn, selectedFilters]);
 
   return { isLoading, filterData };
 };
