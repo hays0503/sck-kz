@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Skeleton, Spin } from 'antd';
-import React, { useCallback, useReducer, useTransition, useState } from 'react';
+import React, { useCallback, useReducer, useTransition, useState, useEffect } from 'react';
 import type {
   FacetResponse,
   onClickLabelProps,
@@ -19,6 +19,9 @@ import {
   convertUrlToFilterData,
 } from './SubModule/useGetNewFilterData';
 import { usePathname, useRouter } from '@/i18n/routing';
+import { useQueryState } from 'nuqs';
+import { SortingProducts } from '@/features/sorting-products';
+import { convertSortOrder } from '@/features/sorting-products/ui/SortingProducts';
 
 const LazySpecificationsRenderList = dynamic(
   () => import('./SubModule/SpecificationsRenderList'),
@@ -66,6 +69,8 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+
+
 export const FilterRenderMobile: React.FC<{
   fetchData: FacetResponse;
   searchParamsData: string;
@@ -75,12 +80,29 @@ export const FilterRenderMobile: React.FC<{
     selectedFilters: convertUrlToFilterData(searchParamsData, fetchData),
     filterHide: true,
   });
-
+  const [sortOrder] = useQueryState('order', { defaultValue: 'stocks__price' });
   const route = useRouter();
   const pathname = usePathname();
 
   const [data, setData] = useState<FacetResponse>(fetchData);
   const [isPending, startTransition] = useTransition();
+
+  useEffect(()=>{
+    startTransition(() => {
+      const url = `${buildUrl(state.selectedFilters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((res) =>
+          setData({
+            category: res.categorys,
+            brands: res.brands,
+            specifications: res.specifications,
+            products: res?.products.items,
+          }),
+        );
+    });
+  },[cityEn, sortOrder, state.selectedFilters])
 
   const handleClick = useCallback(
     (payload: onClickLabelProps) => {
@@ -89,10 +111,7 @@ export const FilterRenderMobile: React.FC<{
 
       startTransition(() => {
         const url = buildUrl(newSelected, cityEn);
-        console.log("before url", newSelected);
         const params = buildParams(newSelected);
-        console.log("after url", params);
-        console.log(params);
         route.push(
           {
             pathname: params,
@@ -101,7 +120,7 @@ export const FilterRenderMobile: React.FC<{
             scroll: false,
           },
         );
-        fetch(url)
+        fetch(`${url}&ordering=${convertSortOrder(sortOrder)}`)
           .then((res) => res.json())
           .then((res) =>
             setData({
@@ -113,7 +132,7 @@ export const FilterRenderMobile: React.FC<{
           );
       });
     },
-    [state.selectedFilters, cityEn, route],
+    [state.selectedFilters, cityEn, route, sortOrder],
   );
 
   const handleClear = useCallback(() => {
@@ -128,7 +147,7 @@ export const FilterRenderMobile: React.FC<{
           scroll: false,
         },
       );
-      fetch(url)
+      fetch(`${url}&ordering=${convertSortOrder(sortOrder)}`)
         .then((res) => res.json())
         .then((res) =>
           setData({
@@ -139,7 +158,7 @@ export const FilterRenderMobile: React.FC<{
           }),
         );
     });
-  }, [cityEn, pathname, route]);
+  }, [cityEn, pathname, route, sortOrder]);
 
   const handleToggle = useCallback(
     () => dispatch({ type: 'toggle_filter' }),
@@ -243,11 +262,14 @@ export const FilterRenderMobile: React.FC<{
       </motion.div>
 
       {data.products && (
-        <LazyProductGrid
-          products={data.products}
-          cityEn={cityEn}
-          isPending={isPending}
-        />
+        <Flex style={{width:'100%'}} vertical>
+          <SortingProducts url={pathname} />
+          <LazyProductGrid
+            products={data.products}
+            cityEn={cityEn}
+            isPending={isPending}
+          />
+        </Flex>
       )}
     </Flex>
   );

@@ -9,6 +9,7 @@ import { BRAND_FILTER_TYPE_ID } from './BrandsRenderListTags';
 
 // Сборка URL с использованием URLSearchParams
 export const buildUrl = (selectedFilters: SelectFilteredType[], cityEn: string): string => {
+  
   const baseUrl = '/categories/facets/';
   const params = new URLSearchParams();
 

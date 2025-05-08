@@ -9,6 +9,21 @@ interface SortingProductsProps {
   url: string;
 }
 
+export const convertSortOrder = (order: string) => {
+  switch (order) {
+    case 'stocks__price':
+      return 'price';
+    case '-stocks__price':
+      return '-price';
+    case 'avg_rating':
+      return 'reviews';
+    case '-avg_rating':
+      return '-reviews';
+    default:
+      return 'price';
+  }
+}
+
 const SortingProducts: React.FC<SortingProductsProps> = ({url }) => {
   const t = useTranslations("SortingProducts");
   const [sortOrder, setSortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
@@ -75,7 +90,7 @@ const SortingProducts: React.FC<SortingProductsProps> = ({url }) => {
       style={{
         width: "100%",
         padding: "10px",
-        backgroundColor: "#fff",
+        backgroundColor: "#f5f5f5",
         marginTop: "1px",
       }}
       gap={5}
