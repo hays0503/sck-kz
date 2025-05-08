@@ -1,16 +1,18 @@
 // Основной компонент ExpandedSpecification
 
 import { memo, useCallback, useMemo, useState } from 'react';
-import { onClickLabelProps, Specification } from './FilterType';
+import { onClickLabelProps, SelectFilteredType, SelectFilteredValueType, Specification } from './FilterType';
 import { Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import ColorBall, { getHexColorsFromRussian } from './colors';
 import AnimatedTag from './AnimatedTag';
 const { Text } = Typography;
 const ExpandedSpecification = ({
+  selectedFilters,
   specification,
   onClickLabel,
 }: {
+  selectedFilters: SelectFilteredType[];
   specification: Specification;
   onClickLabel: (props: onClickLabelProps) => void;
 }) => {
@@ -24,6 +26,12 @@ const ExpandedSpecification = ({
   );
 
   const showTagExpanded = specification.values.length > 5;
+
+  
+  const selectedId =
+    selectedFilters
+      .find((f: SelectFilteredType) => f.id === specification.id)
+      ?.values.map((v: SelectFilteredValueType) => v.id) ?? [];
 
   return (
     <Flex wrap gap={8}>
@@ -42,6 +50,7 @@ const ExpandedSpecification = ({
                   value_name: value,
                 })
               }
+              style={{ cursor: 'pointer',backgroundColor: selectedId.includes(id) ? '#fdde45' : '#f5f5f5' }} 
             >
               <Flex gap={4}>
                 {colors.length > 0 && <ColorBall colors={colors} />}

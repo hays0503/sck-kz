@@ -1,20 +1,26 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { BrandElement, onClickLabelProps } from './FilterType';
+import {
+  BrandElement,
+  onClickLabelProps,
+  SelectFilteredType,
+  SelectFilteredValueType,
+} from './FilterType';
 import Section from './Section';
 import { Flex, Tag, Typography } from 'antd';
 import AnimatedTag from './AnimatedTag';
 
-const {Text} = Typography
+const { Text } = Typography;
 
 // Специальные ID для категорий и брендов
-const CATEGORY_FILTER_TYPE_ID = -1;
+export const CATEGORY_FILTER_TYPE_ID = -1;
 
 // --- Кликалка для категорий ---
 const CategoriesRenderListTags: React.FC<{
+  selectedFilters: SelectFilteredType[];
   categories: BrandElement[];
   onClickLabel: (props: onClickLabelProps) => void;
-}> = ({ categories, onClickLabel }) => {
+}> = ({ selectedFilters, categories, onClickLabel }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = useCallback(() => setIsExpanded((prev) => !prev), []);
   const renderData = useMemo(
@@ -22,6 +28,11 @@ const CategoriesRenderListTags: React.FC<{
     [isExpanded, categories],
   );
   const showToggle = categories.length > 5;
+
+  const selectedId =
+    selectedFilters
+      .find((f: SelectFilteredType) => f.id === CATEGORY_FILTER_TYPE_ID)
+      ?.values.map((v: SelectFilteredValueType) => v.id) ?? [];
 
   return (
     <Section title='Категории'>
@@ -38,12 +49,17 @@ const CategoriesRenderListTags: React.FC<{
                   value_name: name,
                 })
               }
-              style={{ cursor: 'pointer',display:'flex',gap:'5px' }}
+              style={{
+                cursor: 'pointer',
+                display: 'flex',
+                gap: '5px',
+                backgroundColor: selectedId.includes(id) ? '#fdde45' : 'unset',
+              }}
             >
               <Text>{name}</Text>
-                <Text style={{ color: '#808185', opacity: '0.5' }}>
-                  ({count})
-                </Text>
+              <Text style={{ color: '#808185', opacity: '0.5' }}>
+                ({count})
+              </Text>
             </AnimatedTag>
           ))}
         </AnimatePresence>

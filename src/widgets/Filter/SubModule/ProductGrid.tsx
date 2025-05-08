@@ -40,7 +40,6 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
             key={product.id}
             width='47.60dvw'
             height='64.21dvw'
-            oneImage
             Product={{
               id: product.id,
               slug: product.slug,

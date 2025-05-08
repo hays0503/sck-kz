@@ -1,14 +1,20 @@
 import { Flex } from 'antd';
-import { onClickLabelProps, Specification } from './FilterType';
+import {
+  onClickLabelProps,
+  SelectFilteredType,
+  Specification,
+} from './FilterType';
 import Section from './Section';
 import { AnimatePresence, motion } from 'framer-motion';
 import SpecificationsRenderItem from './SpecificationsRenderItem';
 import { memo } from 'react';
 
 const SpecificationsRenderList = ({
+  selectedFilters,
   specifications,
   onClickLabel,
 }: {
+  selectedFilters: SelectFilteredType[];
   specifications: Specification[];
   onClickLabel: (props: onClickLabelProps) => void;
 }) => (
@@ -25,6 +31,7 @@ const SpecificationsRenderList = ({
           >
             <motion.div layout>
               <SpecificationsRenderItem
+                selectedFilters={selectedFilters}
                 specification={spec}
                 onClickLabel={onClickLabel}
               />

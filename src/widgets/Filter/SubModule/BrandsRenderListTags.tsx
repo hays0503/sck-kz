@@ -1,19 +1,20 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { BrandElement, onClickLabelProps } from './FilterType';
+import { BrandElement, onClickLabelProps, SelectFilteredType, SelectFilteredValueType } from './FilterType';
 import Section from './Section';
 import { Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimatedTag from './AnimatedTag';
 
-const BRAND_FILTER_TYPE_ID = -2;
+export const BRAND_FILTER_TYPE_ID = -2;
 
 const { Text } = Typography;
 
 // --- Кликалка для брендов ---
 const BrandsRenderListTags: React.FC<{
+  selectedFilters: SelectFilteredType[];
   brands: BrandElement[];
   onClickLabel: (props: onClickLabelProps) => void;
-}> = ({ brands, onClickLabel }) => {
+}> = ({ selectedFilters, brands, onClickLabel }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = useCallback(() => setIsExpanded((prev) => !prev), []);
   const renderData = useMemo(
@@ -21,6 +22,12 @@ const BrandsRenderListTags: React.FC<{
     [isExpanded, brands],
   );
   const showToggle = brands.length > 5;
+
+
+    const selectedId =
+      selectedFilters
+        .find((f: SelectFilteredType) => f.id === BRAND_FILTER_TYPE_ID)
+        ?.values.map((v: SelectFilteredValueType) => v.id) ?? [];
 
   return (
     <Section title='Бренды'>
@@ -37,7 +44,7 @@ const BrandsRenderListTags: React.FC<{
                   value_name: name,
                 })
               }
-              style={{ cursor: 'pointer',display:'flex',gap:'5px' }}
+              style={{ cursor: 'pointer',display:'flex',gap:'5px',backgroundColor: selectedId.includes(id) ? '#fdde45' : '#f5f5f5' }}
             >
               <Text>{name}</Text>
                 <Text style={{ color: '#808185', opacity: '0.5' }}>

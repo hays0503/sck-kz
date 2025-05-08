@@ -33,7 +33,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
 
   const cityRu = CityEnToRu[city];
 
-  const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}&city=${cityRu}`;
+  const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}&limit=100&city=${cityRu}`;
 
   const fetchData = await (await fetch(url)).json();
 
@@ -77,6 +77,7 @@ export default async function HomePage({ params, searchParams }: PageProps) {
                 specifications: fetchData.specifications,
                 products: fetchData.products.items,
               }}
+              searchParamsData={url}
             />
           }
           footerContent={<FooterMobile />}

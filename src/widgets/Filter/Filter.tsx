@@ -13,7 +13,12 @@ import { toggleFilterValue } from './SubModule/ToggleFilterValue';
 import ToggleFilter from './SubModule/ToggleFilter';
 import { AnimatePresence, motion } from 'framer-motion';
 import RenderTagsList from './SubModule/RenderTagsList';
-import { buildUrl } from './SubModule/useGetNewFilterData';
+import {
+  buildParams,
+  buildUrl,
+  convertUrlToFilterData,
+} from './SubModule/useGetNewFilterData';
+import { usePathname, useRouter } from '@/i18n/routing';
 
 const LazySpecificationsRenderList = dynamic(
   () => import('./SubModule/SpecificationsRenderList'),
@@ -61,14 +66,18 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
-  fetchData,
-}) => {
+export const FilterRenderMobile: React.FC<{
+  fetchData: FacetResponse;
+  searchParamsData: string;
+}> = ({ fetchData, searchParamsData }) => {
   const cityEn = useGetCityParams();
   const [state, dispatch] = useReducer(reducer, {
-    selectedFilters: [],
+    selectedFilters: convertUrlToFilterData(searchParamsData, fetchData),
     filterHide: true,
   });
+
+  const route = useRouter();
+  const pathname = usePathname();
 
   const [data, setData] = useState<FacetResponse>(fetchData);
   const [isPending, startTransition] = useTransition();
@@ -80,6 +89,18 @@ export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
 
       startTransition(() => {
         const url = buildUrl(newSelected, cityEn);
+        console.log("before url", newSelected);
+        const params = buildParams(newSelected);
+        console.log("after url", params);
+        console.log(params);
+        route.push(
+          {
+            pathname: params,
+          },
+          {
+            scroll: false,
+          },
+        );
         fetch(url)
           .then((res) => res.json())
           .then((res) =>
@@ -92,13 +113,21 @@ export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
           );
       });
     },
-    [state.selectedFilters, cityEn],
+    [state.selectedFilters, cityEn, route],
   );
 
   const handleClear = useCallback(() => {
     dispatch({ type: 'clear_filters' });
     startTransition(() => {
       const url = buildUrl([], cityEn);
+      route.push(
+        {
+          pathname,
+        },
+        {
+          scroll: false,
+        },
+      );
       fetch(url)
         .then((res) => res.json())
         .then((res) =>
@@ -110,22 +139,12 @@ export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
           }),
         );
     });
-  }, [cityEn]);
+  }, [cityEn, pathname, route]);
 
   const handleToggle = useCallback(
     () => dispatch({ type: 'toggle_filter' }),
     [],
   );
-
-  // const memoToggleFilter = (
-  //   <ToggleFilter filterHide={state.filterHide} onToggle={handleToggle} />
-  // );
-  // useMemo(
-  //   () => (
-
-  //   ),
-  //   [state.filterHide, handleToggle],
-  // );
 
   const hasFilters = state.selectedFilters.length !== 0;
 
@@ -201,18 +220,21 @@ export const FilterRenderMobile: React.FC<{ fetchData: FacetResponse }> = ({
         <Flex vertical gap={12}>
           {data.category && (
             <LazyCategoriesRenderListTags
+              selectedFilters={state.selectedFilters}
               categories={data.category}
               onClickLabel={handleClick}
             />
           )}
           {data.brands && (
             <LazyBrandsRenderListTags
+              selectedFilters={state.selectedFilters}
               brands={data.brands}
               onClickLabel={handleClick}
             />
           )}
           {data.specifications && (
             <LazySpecificationsRenderList
+              selectedFilters={state.selectedFilters}
               specifications={data.specifications}
               onClickLabel={handleClick}
             />
