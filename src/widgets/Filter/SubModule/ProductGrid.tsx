@@ -7,7 +7,7 @@ import { rawProductsTypeV2 } from 'api-mapping/product/_type/rawProductTypeV2';
 import { Skeleton } from 'antd';
 
 interface Props {
-  products: rawProductsTypeV2[];
+  products: rawProductsTypeV2[]|undefined;
   cityEn: string;
   isPending: boolean;
 }
@@ -23,7 +23,7 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
     paddingBottom: '10px',
   } as CSSProperties;
 
-  if (isPending) {
+  if (isPending || !products || products.length === 0) {
     return (
       <Skeleton active>
         <div style={styleGrid} />

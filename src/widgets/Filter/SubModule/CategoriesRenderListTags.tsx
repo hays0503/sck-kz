@@ -37,7 +37,7 @@ const CategoriesRenderListTags: React.FC<{
   return (
     <Section title='Категории'>
       <Flex wrap gap={10}>
-        <AnimatePresence initial={false} mode="wait">
+        <AnimatePresence initial={false}>
           {renderData.map(({ id, name, count }) => (
             <AnimatedTag
               key={id}

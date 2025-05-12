@@ -7,12 +7,8 @@ import React, {
   useTransition,
   useState,
   useEffect,
+  useMemo,
 } from 'react';
-import type {
-  FacetResponse,
-  onClickLabelProps,
-  SelectFilteredType,
-} from './SubModule/FilterType';
 import dynamic from 'next/dynamic';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { toggleFilterValue } from './SubModule/ToggleFilterValue';
@@ -28,6 +24,11 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { useQueryState } from 'nuqs';
 import { SortingProducts } from '@/features/sorting-products';
 import { convertSortOrder } from '@/features/sorting-products/ui/SortingProducts';
+import type {
+  FacetResponse,
+  onClickLabelProps,
+  SelectFilteredType,
+} from './SubModule/FilterType';
 
 const LazySpecificationsRenderList = dynamic(
   () => import('./SubModule/SpecificationsRenderList'),
@@ -45,24 +46,6 @@ const LazyProductGrid = dynamic(() => import('./SubModule/ProductGrid'), {
   ssr: true,
   loading: () => <Skeleton active />,
 });
-
-// 👇 Универсальная функция загрузки данных
-const fetchFilterData = async (
-  filters: SelectFilteredType[],
-  cityEn: string,
-  sortOrder: string,
-): Promise<FacetResponse> => {
-  const url = `${buildUrl(filters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
-  const res = await fetch(url);
-  const data = await res.json();
-
-  return {
-    category: data.categorys,
-    brands: data.brands,
-    specifications: data.specifications,
-    products: data?.products.items,
-  };
-};
 
 type State = {
   selectedFilters: SelectFilteredType[];
@@ -98,68 +81,97 @@ export const FilterRenderMobile: React.FC<{
   searchParamsData: string;
 }> = ({ fetchData, searchParamsData }) => {
   const cityEn = useGetCityParams();
+  const [sortOrder] = useQueryState('order', { defaultValue: 'stocks__price' });
+  const route = useRouter();
+  const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+
   const [state, dispatch] = useReducer(reducer, {
     selectedFilters: convertUrlToFilterData(searchParamsData, fetchData),
     filterHide: true,
   });
-  const [sortOrder] = useQueryState('order', { defaultValue: 'stocks__price' });
-  const route = useRouter();
-  const pathname = usePathname();
 
-  const [data, setData] = useState<FacetResponse>(fetchData);
-  const [isPending, startTransition] = useTransition();
+  const [data, setData] = useState<FacetResponse>({});
+
+  const fetchDataByFilters = useCallback(
+    (filters: SelectFilteredType[], pathname?: string) => {
+      const url = `${buildUrl(filters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
+      startTransition(() => {
+        if (pathname) {
+          route.push({ pathname: pathname }, { scroll: false });
+        }
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) =>
+            setData({
+              category: data.categorys,
+              brands: data.brands,
+              specifications: data.specifications,
+              products: data?.products.items,
+            }),
+          );
+      });
+    },
+    [cityEn, route, sortOrder],
+  );
 
   useEffect(() => {
-    startTransition(() => {
-      fetchFilterData(state.selectedFilters, cityEn, sortOrder).then(setData);
-    });
-  }, [cityEn, sortOrder, state.selectedFilters]);
+    fetchDataByFilters(state.selectedFilters);
+  }, [fetchDataByFilters, state.selectedFilters]);
 
   const handleClick = useCallback(
     (payload: onClickLabelProps) => {
       const newSelected = toggleFilterValue(state.selectedFilters, payload);
       dispatch({ type: 'toggle_value', payload });
 
-      startTransition(() => {
-        const params = buildParams(newSelected);
-        route.push({ pathname: params }, { scroll: false });
-        fetchFilterData(newSelected, cityEn, sortOrder).then(setData);
-      });
+      const params = buildParams(newSelected);
+      // route.push({ pathname: params }, { scroll: false });
+      fetchDataByFilters(newSelected,params);
     },
-    [state.selectedFilters, cityEn, route, sortOrder],
+    [state.selectedFilters, fetchDataByFilters],
   );
 
   const handleClear = useCallback(() => {
     dispatch({ type: 'clear_filters' });
-
-    startTransition(() => {
-      route.push({ pathname }, { scroll: false });
-      fetchFilterData([], cityEn, sortOrder).then(setData);
-    });
-  }, [cityEn, pathname, route, sortOrder]);
+    // route.push({ pathname }, { scroll: false });
+    fetchDataByFilters([], pathname);
+  }, [fetchDataByFilters, pathname]);
 
   const handleToggle = useCallback(
     () => dispatch({ type: 'toggle_filter' }),
     [],
   );
 
-  // 👇 Повторяющийся блок вынесен
-  const TagsHeader = () => (
-    <RenderTagsList
-      selectedFilters={state.selectedFilters}
-      onClickLabel={handleClick}
-      onClear={handleClear}
-      headerContent={
-        <Flex align='center' justify='space-between' style={{ width: '100%' }}>
-          <SortingProducts url={pathname} />
-          <ToggleFilter
-            isCollapsed={state.selectedFilters.length > 0}
-            filterHide={state.filterHide}
-            onToggle={handleToggle}
-          />
-        </Flex>
-      }
-    />
+  const TagsHeader = useMemo(
+    () => (
+      <RenderTagsList
+        selectedFilters={state.selectedFilters}
+        onClickLabel={handleClick}
+        onClear={handleClear}
+        headerContent={
+          <Flex
+            align='center'
+            justify='space-between'
+            style={{ width: '100%' }}
+          >
+            <SortingProducts url={pathname} />
+            <ToggleFilter
+              isCollapsed={state.selectedFilters.length > 0}
+              filterHide={state.filterHide}
+              onToggle={handleToggle}
+            />
+          </Flex>
+        }
+      />
+    ),
+    [
+      state.selectedFilters,
+      state.filterHide,
+      handleClick,
+      handleClear,
+      handleToggle,
+      pathname,
+    ],
   );
 
   return (
@@ -176,23 +188,19 @@ export const FilterRenderMobile: React.FC<{
           background: '#f5f5f5',
         }}
       >
-        <AnimatePresence initial={false}>
+        {/* {/* <AnimatePresence initial={false} mode='wait'> */}
+        <motion.div
+          // key={isPending ? 'spinner' : 'tags'}
+          // initial={{ opacity: 0, y: 10 }}
+          // animate={{ opacity: 1, y: 0 }}
+          // exit={{ opacity: 0, y: 10 }}
+          // transition={{ duration: 0.2 }}
+          style={{ width: '100%' }}
+        >
           {isPending && <Spin size='large' spinning fullscreen />}
-
-          <motion.div
-            key='tags'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1 }}
-            style={{
-              width: '100%',
-              position: 'relative',
-              background: '#f5f5f5',
-            }}
-          >
-            <TagsHeader />
-          </motion.div>
-        </AnimatePresence>
+          {TagsHeader}
+        </motion.div>
+        {/* </AnimatePresence> */}
       </Flex>
 
       <Drawer
@@ -216,10 +224,8 @@ export const FilterRenderMobile: React.FC<{
           }}
         >
           <AnimatePresence initial={false}>
-            {isPending && <Spin size='large' spinning fullscreen />}
-
             <motion.div
-              key='tags'
+              key='tags-drawer'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.1 }}
@@ -229,7 +235,7 @@ export const FilterRenderMobile: React.FC<{
                 background: '#f5f5f5',
               }}
             >
-              <TagsHeader />
+              {TagsHeader}
             </motion.div>
           </AnimatePresence>
         </Flex>
@@ -277,15 +283,13 @@ export const FilterRenderMobile: React.FC<{
         </motion.div>
       </Drawer>
 
-      {data.products && (
-        <Flex style={{ width: '100%' }}>
-          <LazyProductGrid
-            products={data.products}
-            cityEn={cityEn}
-            isPending={isPending}
-          />
-        </Flex>
-      )}
+      <Flex style={{ width: '100%' }}>
+        <LazyProductGrid
+          products={data?.products}
+          cityEn={cityEn}
+          isPending={isPending}
+        />
+      </Flex>
     </Flex>
   );
 };

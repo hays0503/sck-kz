@@ -20,7 +20,7 @@ const SpecificationsRenderList = ({
 }) => (
   <Section title='Характеристики'>
     <Flex vertical gap={16}>
-      <AnimatePresence initial={false} mode="wait">
+      <AnimatePresence initial={false}>
         {specifications.map((spec) => (
           <motion.div
             key={spec.id}

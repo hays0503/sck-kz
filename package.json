@@ -15,6 +15,7 @@
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.2",
     "@sentry/nextjs": "^9.9.0",
+    "@tanstack/react-virtual": "^3.13.8",
     "antd": "^5.24.5",
     "babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
     "cross-env": "^7.0.3",
