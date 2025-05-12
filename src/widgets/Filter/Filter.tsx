@@ -151,7 +151,7 @@ export const FilterRenderMobile: React.FC<{
       onClear={handleClear}
       headerContent={
         <Flex align='center' justify='space-between' style={{ width: '100%' }}>
-          <SortingProducts url={pathname} style={{ width: 'auto' }} />
+          <SortingProducts url={pathname} />
           <ToggleFilter
             isCollapsed={state.selectedFilters.length > 0}
             filterHide={state.filterHide}
@@ -176,7 +176,7 @@ export const FilterRenderMobile: React.FC<{
           background: '#f5f5f5',
         }}
       >
-        <AnimatePresence initial={false} mode="wait">
+        <AnimatePresence initial={false}>
           {isPending && <Spin size='large' spinning fullscreen />}
 
           <motion.div
@@ -215,7 +215,7 @@ export const FilterRenderMobile: React.FC<{
             background: '#f5f5f5',
           }}
         >
-          <AnimatePresence initial={false} mode="wait">
+          <AnimatePresence initial={false}>
             {isPending && <Spin size='large' spinning fullscreen />}
 
             <motion.div

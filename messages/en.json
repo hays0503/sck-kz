@@ -29,7 +29,7 @@
     "v-korzinu": "Add to cart"
   },
   "SortingProducts": {
-    "po-vozrastaniyu-ceny": "Ascending",
+    "po-vozrastaniyu-ceny": "By increasing price",
     "po-ubyvaniyu-ceny": "Descending price",
     "sortirovka": "Sorting",
     "po-populyarnosti": "By popularity"
