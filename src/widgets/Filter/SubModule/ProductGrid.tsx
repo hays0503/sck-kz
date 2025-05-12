@@ -51,9 +51,9 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
               img: product.images?.flatMap((img) => img.image),
               rating: product.avg_rating,
               price: stock?.price,
-              oldPrice: stock?.price_before_discount,
-              reviews: product.reviews_count,
-              discount: product.discount?.amount ?? null,
+              oldPrice: product?.discount ? stock?.price_before_discount : null,
+              reviews: product?.reviews_count,
+              discount: product?.discount?.amount ?? null,
               brand: {
                 ru: product.brand?.name_brand,
                 en: product.additional_data.EN,

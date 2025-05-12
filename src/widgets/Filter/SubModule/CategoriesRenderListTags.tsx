@@ -50,10 +50,15 @@ const CategoriesRenderListTags: React.FC<{
                 })
               }
               style={{
+                border: 'none',
+                padding: '10px',
+                borderRadius: '12px',
                 cursor: 'pointer',
                 display: 'flex',
                 gap: '5px',
-                backgroundColor: selectedId.includes(id) ? '#fdde45' : 'unset',
+                backgroundColor: selectedId.includes(id)
+                  ? '#fdde45'
+                  : '#bebebe26',
               }}
             >
               <Text>{name}</Text>
@@ -67,8 +72,14 @@ const CategoriesRenderListTags: React.FC<{
           <motion.div layout>
             <Tag
               onClick={toggleExpanded}
-              color={isExpanded ? 'red' : '#9999'}
-              style={{ color: 'black', cursor: 'pointer' }}
+              color={isExpanded ? 'red' : '#bebebe26'}
+              style={{
+                color: 'black',
+                cursor: 'pointer',
+                border: 'none',
+                padding: '10px',
+                borderRadius: '12px',
+              }}
             >
               {isExpanded ? 'Скрыть' : '...'}
             </Tag>

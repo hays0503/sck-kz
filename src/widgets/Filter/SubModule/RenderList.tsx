@@ -10,7 +10,17 @@ const RenderList = <T extends { id: number; name: string }>({
 }) => (
   <AnimatePresence initial={false}>
     {renderData?.map(({ id, name }) => (
-      <AnimatedTag key={id}>{name}</AnimatedTag>
+      <AnimatedTag
+        style={{
+          border:'none',
+          padding:'10px',
+          borderRadius: '12px',
+          backgroundColor: '#bebebe26'
+        }}
+        key={id}
+      >
+        {name}
+      </AnimatedTag>
     ))}
   </AnimatePresence>
 );

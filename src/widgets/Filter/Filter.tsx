@@ -1,7 +1,13 @@
 'use client';
 
-import { Flex, Skeleton, Spin } from 'antd';
-import React, { useCallback, useReducer, useTransition, useState, useEffect } from 'react';
+import { Drawer, Flex, Skeleton, Spin } from 'antd';
+import React, {
+  useCallback,
+  useReducer,
+  useTransition,
+  useState,
+  useEffect,
+} from 'react';
 import type {
   FacetResponse,
   onClickLabelProps,
@@ -69,8 +75,6 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-
-
 export const FilterRenderMobile: React.FC<{
   fetchData: FacetResponse;
   searchParamsData: string;
@@ -87,7 +91,7 @@ export const FilterRenderMobile: React.FC<{
   const [data, setData] = useState<FacetResponse>(fetchData);
   const [isPending, startTransition] = useTransition();
 
-  useEffect(()=>{
+  useEffect(() => {
     startTransition(() => {
       const url = `${buildUrl(state.selectedFilters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
 
@@ -102,7 +106,7 @@ export const FilterRenderMobile: React.FC<{
           }),
         );
     });
-  },[cityEn, sortOrder, state.selectedFilters])
+  }, [cityEn, sortOrder, state.selectedFilters]);
 
   const handleClick = useCallback(
     (payload: onClickLabelProps) => {
@@ -165,15 +169,12 @@ export const FilterRenderMobile: React.FC<{
     [],
   );
 
-  const hasFilters = state.selectedFilters.length !== 0;
-
   return (
     <Flex
       vertical
       style={{ padding: 0, position: 'relative', overflow: 'clip' }}
     >
       <Flex
-        vertical
         style={{
           position: 'sticky',
           top: 0,
@@ -182,12 +183,72 @@ export const FilterRenderMobile: React.FC<{
           background: '#f5f5f5',
         }}
       >
-        <Flex style={{ padding: '16px 16px 16px 16px' }}>
-          <ToggleFilter filterHide={state.filterHide} onToggle={handleToggle} />
-        </Flex>
         <AnimatePresence mode='wait'>
           {isPending && <Spin size='large' spinning fullscreen />}
-          {hasFilters && (
+
+          <motion.div
+            key='tags'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            style={{
+              width: '100%',
+              position: 'relative',
+              background: '#f5f5f5',
+            }}
+          >
+            <RenderTagsList
+              selectedFilters={state.selectedFilters}
+              onClickLabel={handleClick}
+              onClear={handleClear}
+              headerContent={
+                <Flex
+                  align='center'
+                  justify='space-between'
+                  style={{ width: '100%' }}
+                >
+                  <SortingProducts url={pathname} style={{ width: 'auto' }} />
+                  <ToggleFilter
+                    isCollapsed={state.selectedFilters.length > 0}
+                    filterHide={state.filterHide}
+                    onToggle={handleToggle}
+                  />
+                </Flex>
+              }
+            />
+          </motion.div>
+        </AnimatePresence>
+      </Flex>
+
+      <Drawer
+        open={!state.filterHide}
+        onClose={() => dispatch({ type: 'toggle_filter' })}
+        placement='right'
+        width={'100dvw'}
+        closable={false}
+        styles={{
+          content: {
+            margin: 0,
+            padding: 0,
+          },
+          body: {
+            margin: 0,
+            padding: 0,
+          },
+        }}
+      >
+        <Flex
+          style={{
+            position: 'sticky',
+            top: 0,
+            width: '100dvw',
+            zIndex: 1000,
+            background: '#f5f5f5',
+          }}
+        >
+          <AnimatePresence mode='wait'>
+            {isPending && <Spin size='large' spinning fullscreen />}
+
             <motion.div
               key='tags'
               initial={{ opacity: 0 }}
@@ -203,67 +264,73 @@ export const FilterRenderMobile: React.FC<{
                 selectedFilters={state.selectedFilters}
                 onClickLabel={handleClick}
                 onClear={handleClear}
-                ToggleFilter={
-                  <ToggleFilter
-                    filterHide={state.filterHide}
-                    onToggle={handleToggle}
-                  />
+                headerContent={
+                  <Flex
+                    align='center'
+                    justify='space-between'
+                    style={{ width: '100%' }}
+                  >
+                    <SortingProducts url={pathname} style={{ width: 'auto' }} />
+                    <ToggleFilter
+                      isCollapsed={state.selectedFilters.length > 0}
+                      filterHide={state.filterHide}
+                      onToggle={handleToggle}
+                    />
+                  </Flex>
                 }
               />
             </motion.div>
-          )}
-        </AnimatePresence>
-      </Flex>
-
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: state.filterHide ? 0 : 1,
-          scale: state.filterHide ? 0.95 : 1,
-          pointerEvents: state.filterHide
-            ? 'none'
-            : isPending
-              ? 'none'
-              : 'auto',
-          height: state.filterHide ? 0 : 'auto',
-        }}
-        transition={{ duration: 0.25 }}
-        style={{
-          position: 'relative',
-          backgroundColor: 'inherit',
-          zIndex: 900,
-          padding: state.filterHide ? '0' : '10px',
-          opacity: isPending ? 0.5 : 1,
-        }}
-      >
-        <Flex vertical gap={12}>
-          {data.category && (
-            <LazyCategoriesRenderListTags
-              selectedFilters={state.selectedFilters}
-              categories={data.category}
-              onClickLabel={handleClick}
-            />
-          )}
-          {data.brands && (
-            <LazyBrandsRenderListTags
-              selectedFilters={state.selectedFilters}
-              brands={data.brands}
-              onClickLabel={handleClick}
-            />
-          )}
-          {data.specifications && (
-            <LazySpecificationsRenderList
-              selectedFilters={state.selectedFilters}
-              specifications={data.specifications}
-              onClickLabel={handleClick}
-            />
-          )}
+          </AnimatePresence>
         </Flex>
-      </motion.div>
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: state.filterHide ? 0 : 1,
+            scale: state.filterHide ? 0.95 : 1,
+            pointerEvents: state.filterHide
+              ? 'none'
+              : isPending
+                ? 'none'
+                : 'auto',
+            height: state.filterHide ? 0 : 'auto',
+          }}
+          transition={{ duration: 0.25 }}
+          style={{
+            position: 'relative',
+            backgroundColor: 'inherit',
+            zIndex: 900,
+            padding: state.filterHide ? '0' : '10px',
+            opacity: isPending ? 0.5 : 1,
+          }}
+        >
+          <Flex vertical gap={12}>
+            {data.category && (
+              <LazyCategoriesRenderListTags
+                selectedFilters={state.selectedFilters}
+                categories={data.category}
+                onClickLabel={handleClick}
+              />
+            )}
+            {data.brands && (
+              <LazyBrandsRenderListTags
+                selectedFilters={state.selectedFilters}
+                brands={data.brands}
+                onClickLabel={handleClick}
+              />
+            )}
+            {data.specifications && (
+              <LazySpecificationsRenderList
+                selectedFilters={state.selectedFilters}
+                specifications={data.specifications}
+                onClickLabel={handleClick}
+              />
+            )}
+          </Flex>
+        </motion.div>
+      </Drawer>
 
       {data.products && (
-        <Flex style={{width:'100%'}} vertical>
-          <SortingProducts url={pathname} />
+        <Flex style={{ width: '100%' }}>
           <LazyProductGrid
             products={data.products}
             cityEn={cityEn}

@@ -7,6 +7,7 @@ const { Text, Title } = Typography;
 
 interface SortingProductsProps {
   url: string;
+  style?: React.CSSProperties;
 }
 
 export const convertSortOrder = (order: string) => {
@@ -24,7 +25,7 @@ export const convertSortOrder = (order: string) => {
   }
 }
 
-const SortingProducts: React.FC<SortingProductsProps> = ({url }) => {
+const SortingProducts: React.FC<SortingProductsProps> = ({url, style }) => {
   const t = useTranslations("SortingProducts");
   const [sortOrder, setSortOrder] = useQueryState("order", { defaultValue: "stocks__price" });
 
@@ -92,6 +93,7 @@ const SortingProducts: React.FC<SortingProductsProps> = ({url }) => {
         padding: "10px",
         backgroundColor: "#f5f5f5",
         marginTop: "1px",
+        ...style
       }}
       gap={5}
     >

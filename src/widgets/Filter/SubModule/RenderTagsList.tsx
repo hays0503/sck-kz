@@ -17,8 +17,8 @@ const RenderTagsList: React.FC<{
   selectedFilters: SelectFilteredType[];
   onClickLabel: (props: onClickLabelProps) => void;
   onClear: () => void;
-  ToggleFilter?: React.ReactNode;
-}> = ({ selectedFilters, onClickLabel, onClear }) => {
+  headerContent?: React.ReactNode;
+}> = ({ selectedFilters, onClickLabel, onClear, headerContent }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,33 +30,19 @@ const RenderTagsList: React.FC<{
     }
   }, [selectedFilters]);
 
+  const isShowDropFilter = selectedFilters.length > 0;
+
   return (
     <Flex
       gap={10}
       vertical
       style={{
         background: '#f5f5f5',
-        padding: '16px',
+        padding: '5px',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
       }}
     >
-      {/* Кнопка сброса */}
-      <Flex vertical gap={10}>
-        {/* {ToggleFilter} */}
-        <Button
-          type='primary'
-          style={{
-            width: '100%',
-            backgroundColor: '#4954f0',
-            height: '40px',
-            padding: '8px 16px',
-            borderRadius: '12px',
-          }}
-          onClick={onClear}
-        >
-          <Text style={{ color: '#fff' }}>Сбросить фильтры</Text>
-        </Button>
-      </Flex>
+      <Flex gap={10}>{headerContent}</Flex>
 
       {/* Прокручиваемый список тегов */}
       <div
@@ -64,26 +50,55 @@ const RenderTagsList: React.FC<{
         style={{
           display: 'flex',
           overflowX: 'auto',
-          gap: 8,
-          paddingBottom: 4,
+          gap: 8
         }}
       >
         <AnimatePresence initial={false}>
+          {isShowDropFilter && (
+            <Button
+              type='primary'
+              style={{
+                width: '100%',
+                backgroundColor: '#E53935',
+                height: '40px',
+                padding: '8px 16px',
+                borderRadius: '12px',
+              }}
+              onClick={onClear}
+            >
+              <Text style={{ color: '#fff' }}>Сбросить фильтры</Text>
+            </Button>
+          )}
           {selectedFilters.map((filter) => (
             <motion.div
               key={filter.id}
               layout
-              style={{ display: 'flex', gap: 4, flexShrink: 0 }}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 4,
+                flexShrink: 0,
+              }}
               {...tagMotionProps}
             >
-              <Text strong>{`${filter.name}:`}</Text>
+              <Text
+                strong
+                style={{ fontSize: '16px' }}
+              >{`${filter.name}:`}</Text>
               {filter.values.map(({ id, value }) => {
                 const colors = getHexColorsFromRussian(value);
                 return (
                   <div key={id}>
                     <Tag
                       closable
-                      style={{ display: 'flex' }}
+                      style={{
+                        display: 'flex',
+                        border: 'none',
+                        backgroundColor: '#fdde45',
+                        padding: '10px',
+                        borderRadius: '12px',
+                      }}
                       onClose={(e) => {
                         e.preventDefault();
                         onClickLabel({
@@ -95,7 +110,15 @@ const RenderTagsList: React.FC<{
                       }}
                     >
                       {colors.length > 0 && <ColorBall colors={colors} />}
-                      <Text>{value}</Text>
+                      <Text
+                        style={{
+                          color: 'inherit',
+                          backgroundColor: 'inherit',
+                          fontSize: '16px',
+                        }}
+                      >
+                        {value}
+                      </Text>
                     </Tag>
                   </div>
                 );

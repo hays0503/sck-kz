@@ -1,7 +1,12 @@
 // Основной компонент ExpandedSpecification
 
 import { memo, useCallback, useMemo, useState } from 'react';
-import { onClickLabelProps, SelectFilteredType, SelectFilteredValueType, Specification } from './FilterType';
+import {
+  onClickLabelProps,
+  SelectFilteredType,
+  SelectFilteredValueType,
+  Specification,
+} from './FilterType';
 import { Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import ColorBall, { getHexColorsFromRussian } from './colors';
@@ -27,7 +32,6 @@ const ExpandedSpecification = ({
 
   const showTagExpanded = specification.values.length > 5;
 
-  
   const selectedId =
     selectedFilters
       .find((f: SelectFilteredType) => f.id === specification.id)
@@ -50,7 +54,15 @@ const ExpandedSpecification = ({
                   value_name: value,
                 })
               }
-              style={{ cursor: 'pointer',backgroundColor: selectedId.includes(id) ? '#fdde45' : '#f5f5f5' }} 
+              style={{
+                border: 'none',
+                padding: '10px',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                backgroundColor: selectedId.includes(id)
+                  ? '#fdde45'
+                  : '#bebebe26',
+              }}
             >
               <Flex gap={4}>
                 {colors.length > 0 && <ColorBall colors={colors} />}
@@ -68,8 +80,14 @@ const ExpandedSpecification = ({
         <motion.div layout>
           <Tag
             onClick={toggleExpanded}
-            color={isExpanded ? 'red' : '#9999'}
-            style={{ color: 'black' }}
+            color={isExpanded ? 'red' : '#bebebe26'}
+            style={{
+              color: 'black',
+              cursor: 'pointer',
+              border: 'none',
+              padding: '10px',
+              borderRadius: '12px',
+            }}
           >
             {isExpanded ? 'Скрыть' : '...'}
           </Tag>
