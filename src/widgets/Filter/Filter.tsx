@@ -46,6 +46,24 @@ const LazyProductGrid = dynamic(() => import('./SubModule/ProductGrid'), {
   loading: () => <Skeleton active />,
 });
 
+// 👇 Универсальная функция загрузки данных
+const fetchFilterData = async (
+  filters: SelectFilteredType[],
+  cityEn: string,
+  sortOrder: string,
+): Promise<FacetResponse> => {
+  const url = `${buildUrl(filters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  return {
+    category: data.categorys,
+    brands: data.brands,
+    specifications: data.specifications,
+    products: data?.products.items,
+  };
+};
+
 type State = {
   selectedFilters: SelectFilteredType[];
   filterHide: boolean;
@@ -93,18 +111,7 @@ export const FilterRenderMobile: React.FC<{
 
   useEffect(() => {
     startTransition(() => {
-      const url = `${buildUrl(state.selectedFilters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
-
-      fetch(url)
-        .then((res) => res.json())
-        .then((res) =>
-          setData({
-            category: res.categorys,
-            brands: res.brands,
-            specifications: res.specifications,
-            products: res?.products.items,
-          }),
-        );
+      fetchFilterData(state.selectedFilters, cityEn, sortOrder).then(setData);
     });
   }, [cityEn, sortOrder, state.selectedFilters]);
 
@@ -114,26 +121,9 @@ export const FilterRenderMobile: React.FC<{
       dispatch({ type: 'toggle_value', payload });
 
       startTransition(() => {
-        const url = buildUrl(newSelected, cityEn);
         const params = buildParams(newSelected);
-        route.push(
-          {
-            pathname: params,
-          },
-          {
-            scroll: false,
-          },
-        );
-        fetch(`${url}&ordering=${convertSortOrder(sortOrder)}`)
-          .then((res) => res.json())
-          .then((res) =>
-            setData({
-              category: res.categorys,
-              brands: res.brands,
-              specifications: res.specifications,
-              products: res?.products.items,
-            }),
-          );
+        route.push({ pathname: params }, { scroll: false });
+        fetchFilterData(newSelected, cityEn, sortOrder).then(setData);
       });
     },
     [state.selectedFilters, cityEn, route, sortOrder],
@@ -141,32 +131,35 @@ export const FilterRenderMobile: React.FC<{
 
   const handleClear = useCallback(() => {
     dispatch({ type: 'clear_filters' });
+
     startTransition(() => {
-      const url = buildUrl([], cityEn);
-      route.push(
-        {
-          pathname,
-        },
-        {
-          scroll: false,
-        },
-      );
-      fetch(`${url}&ordering=${convertSortOrder(sortOrder)}`)
-        .then((res) => res.json())
-        .then((res) =>
-          setData({
-            category: res.categorys,
-            brands: res.brands,
-            specifications: res.specifications,
-            products: res?.products.items,
-          }),
-        );
+      route.push({ pathname }, { scroll: false });
+      fetchFilterData([], cityEn, sortOrder).then(setData);
     });
   }, [cityEn, pathname, route, sortOrder]);
 
   const handleToggle = useCallback(
     () => dispatch({ type: 'toggle_filter' }),
     [],
+  );
+
+  // 👇 Повторяющийся блок вынесен
+  const TagsHeader = () => (
+    <RenderTagsList
+      selectedFilters={state.selectedFilters}
+      onClickLabel={handleClick}
+      onClear={handleClear}
+      headerContent={
+        <Flex align='center' justify='space-between' style={{ width: '100%' }}>
+          <SortingProducts url={pathname} style={{ width: 'auto' }} />
+          <ToggleFilter
+            isCollapsed={state.selectedFilters.length > 0}
+            filterHide={state.filterHide}
+            onToggle={handleToggle}
+          />
+        </Flex>
+      }
+    />
   );
 
   return (
@@ -183,7 +176,7 @@ export const FilterRenderMobile: React.FC<{
           background: '#f5f5f5',
         }}
       >
-        <AnimatePresence mode='wait'>
+        <AnimatePresence initial={false} mode="wait">
           {isPending && <Spin size='large' spinning fullscreen />}
 
           <motion.div
@@ -197,25 +190,7 @@ export const FilterRenderMobile: React.FC<{
               background: '#f5f5f5',
             }}
           >
-            <RenderTagsList
-              selectedFilters={state.selectedFilters}
-              onClickLabel={handleClick}
-              onClear={handleClear}
-              headerContent={
-                <Flex
-                  align='center'
-                  justify='space-between'
-                  style={{ width: '100%' }}
-                >
-                  <SortingProducts url={pathname} style={{ width: 'auto' }} />
-                  <ToggleFilter
-                    isCollapsed={state.selectedFilters.length > 0}
-                    filterHide={state.filterHide}
-                    onToggle={handleToggle}
-                  />
-                </Flex>
-              }
-            />
+            <TagsHeader />
           </motion.div>
         </AnimatePresence>
       </Flex>
@@ -227,14 +202,8 @@ export const FilterRenderMobile: React.FC<{
         width={'100dvw'}
         closable={false}
         styles={{
-          content: {
-            margin: 0,
-            padding: 0,
-          },
-          body: {
-            margin: 0,
-            padding: 0,
-          },
+          content: { margin: 0, padding: 0 },
+          body: { margin: 0, padding: 0 },
         }}
       >
         <Flex
@@ -246,7 +215,7 @@ export const FilterRenderMobile: React.FC<{
             background: '#f5f5f5',
           }}
         >
-          <AnimatePresence mode='wait'>
+          <AnimatePresence initial={false} mode="wait">
             {isPending && <Spin size='large' spinning fullscreen />}
 
             <motion.div
@@ -260,38 +229,17 @@ export const FilterRenderMobile: React.FC<{
                 background: '#f5f5f5',
               }}
             >
-              <RenderTagsList
-                selectedFilters={state.selectedFilters}
-                onClickLabel={handleClick}
-                onClear={handleClear}
-                headerContent={
-                  <Flex
-                    align='center'
-                    justify='space-between'
-                    style={{ width: '100%' }}
-                  >
-                    <SortingProducts url={pathname} style={{ width: 'auto' }} />
-                    <ToggleFilter
-                      isCollapsed={state.selectedFilters.length > 0}
-                      filterHide={state.filterHide}
-                      onToggle={handleToggle}
-                    />
-                  </Flex>
-                }
-              />
+              <TagsHeader />
             </motion.div>
           </AnimatePresence>
         </Flex>
+
         <motion.div
           initial={false}
           animate={{
             opacity: state.filterHide ? 0 : 1,
             scale: state.filterHide ? 0.95 : 1,
-            pointerEvents: state.filterHide
-              ? 'none'
-              : isPending
-                ? 'none'
-                : 'auto',
+            pointerEvents: state.filterHide || isPending ? 'none' : 'auto',
             height: state.filterHide ? 0 : 'auto',
           }}
           transition={{ duration: 0.25 }}

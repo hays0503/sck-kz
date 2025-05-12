@@ -1,9 +1,9 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo } from 'react';
 import { onClickLabelProps, SelectFilteredType } from './FilterType';
 import { Button, Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import ColorBall, { getHexColorsFromRussian } from './colors';
-
+import { CloseOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
 const tagMotionProps = {
@@ -19,17 +19,6 @@ const RenderTagsList: React.FC<{
   onClear: () => void;
   headerContent?: React.ReactNode;
 }> = ({ selectedFilters, onClickLabel, onClear, headerContent }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        left: scrollRef.current.scrollWidth,
-        behavior: 'smooth',
-      });
-    }
-  }, [selectedFilters]);
-
   const isShowDropFilter = selectedFilters.length > 0;
 
   return (
@@ -46,11 +35,10 @@ const RenderTagsList: React.FC<{
 
       {/* Прокручиваемый список тегов */}
       <div
-        ref={scrollRef}
         style={{
           display: 'flex',
           overflowX: 'auto',
-          gap: 8
+          gap: 8,
         }}
       >
         <AnimatePresence initial={false}>
@@ -59,14 +47,17 @@ const RenderTagsList: React.FC<{
               type='primary'
               style={{
                 width: '100%',
-                backgroundColor: '#E53935',
+                maxWidth:'50px',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                background: '#fdde45',
                 height: '40px',
                 padding: '8px 16px',
                 borderRadius: '12px',
               }}
               onClick={onClear}
             >
-              <Text style={{ color: '#fff' }}>Сбросить фильтры</Text>
+              <CloseOutlined style={{ color: '#E53935' }} />
             </Button>
           )}
           {selectedFilters.map((filter) => (

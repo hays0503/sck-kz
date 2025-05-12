@@ -5,13 +5,14 @@ import { motion } from 'framer-motion';
 const tagVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.95 },
+  exit: { opacity: 1, scale: 0.95 },
 };
 const AnimatedTag: React.FC<React.ComponentProps<typeof Tag>> = ({
   children,
   ...props
 }) => (
   <motion.div
+    key={props.key}
     variants={tagVariants}
     initial='hidden'
     animate='visible'

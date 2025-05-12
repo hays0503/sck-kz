@@ -36,7 +36,7 @@ const BrandsRenderListTags: React.FC<{
   return (
     <Section title='Бренды'>
       <Flex wrap gap={10}>
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} mode="wait">
           {renderData.map(({ id, name, count }) => (
             <AnimatedTag
               key={id}
