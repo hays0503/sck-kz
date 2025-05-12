@@ -53,9 +53,9 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
       value_specification,
       product,
     } of specifications) {
-      const name = name_specification.name_specification.trim();
-      const value = value_specification.value_specification.trim();
-      const id = value_specification.id;
+      const name = name_specification?.name_specification?.trim();
+      const value = value_specification?.value_specification?.trim();
+      const id = value_specification?.id;
 
       if (!name || !value) continue;
 
@@ -143,8 +143,8 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
   const collapseItems = useMemo(
     () =>
       grouped.flatMap(([name, { count, values }]) => {
-        const type_id = specifications.find(
-          (s) => s.name_specification.name_specification.trim() === name,
+        const type_id = specifications?.find(
+          (s) => s?.name_specification?.name_specification.trim() === name,
         )?.name_specification.id;
 
         if (!type_id) return [];
@@ -193,18 +193,26 @@ const FilterMobile: React.FC<{ specifications: Specification[] }> = ({
                                 id:{productIds.length},
                               </Text>
                               <Text style={{ color: '#999' }}>
-                               {productIds.length}{' '}{productIds.length === 1 ? 'товар,' : 'товаров,'}
+                                {productIds.length}{' '}
+                                {productIds.length === 1
+                                  ? 'товар,'
+                                  : 'товаров,'}
                               </Text>
                               <Flex gap={5} wrap>
-                                {productIds.map((id) => (
-                                  <Link
-                                    key={id}
-                                    href={`https://sck.kz/admin/app_products/products/${id}/change/`}
-                                    target='_blank'
-                                  >
-                                    {id}
-                                  </Link>
-                                ))}
+                                {productIds
+                                  .filter(
+                                    (id, index, arr) =>
+                                      id != null && arr.indexOf(id) === index,
+                                  ) // убираем null и дубликаты
+                                  .map((id) => (
+                                    <Link
+                                      key={String(id)}
+                                      href={`https://sck.kz/admin/app_products/products/${id}/change/`}
+                                      target='_blank'
+                                    >
+                                      {id}
+                                    </Link>
+                                  ))}
                               </Flex>
                             </Flex>
                           }

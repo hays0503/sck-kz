@@ -4,6 +4,7 @@ import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/typ
 
 const mapping = (rawData: rawTypeCategory):MappedCategoryWithoutChildrenType => {
     return {
+        id: rawData.id,
         slug: rawData.slug,
         name: {
             ru: rawData.name_category,

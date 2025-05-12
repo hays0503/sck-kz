@@ -1,6 +1,7 @@
 
 
 export interface MappedCategoryWithoutChildrenType {
+    id: number;
     slug: string;
     name:{
         readonly [key: string]: string
