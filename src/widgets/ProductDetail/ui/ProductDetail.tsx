@@ -15,7 +15,7 @@ import {
 } from './SubComponents';
 import useGetProductBySlugSWR from '@/entities/Product/model/getProductBySlugSWR';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
 import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
@@ -29,6 +29,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 interface IProductDetailProps {
   slug: string;
+  locale: string;
 }
 
 const SendMessage: React.FC<{ id: number }> = ({ id }) => {
@@ -110,9 +111,12 @@ const PortalData: React.FC<{
 PortalData.displayName = 'PortalData';
 
 const ProductDetail: React.FC<IProductDetailProps> = (props) => {
-  const { slug } = props;
+  const { slug, locale } = props;
+
+  console.log({ locale });
+
   const router = useRouter();
-  const locale = useLocale();
+
   const t = useTranslations('Status');
   const cityEn = useGetCityParams();
   const {
@@ -121,7 +125,9 @@ const ProductDetail: React.FC<IProductDetailProps> = (props) => {
     error,
   } = useGetProductBySlugSWR(slug, cityEn);
 
-  const refSliderContainer = useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>;
+  const refSliderContainer = useRef<HTMLDivElement>(
+    null,
+  ) as React.RefObject<HTMLElement>;
   const sliderSize = useResizeObserver({
     ref: refSliderContainer,
     box: 'content-box',

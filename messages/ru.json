@@ -323,7 +323,7 @@
     "svyazhites-s-nami": "Свяжитесь с нами!",
     "polzovatelskoe-soglashenie": "Пользовательское соглашение",
     "politika-konfidencialnosti": "Политика конфиденциальности",
-    "sck-essikei-zona-unikalnykh-cen": "SCK (ЭсСиКей) Зона Уникальных Цен",
+    "sck-essikei-zona-unikalnykh-cen": "SCK (ЭсСиКей) Центр продаж Казахстана",
     "yuridicheskaya-informaciya": "Юридическая информация"
   },
   "HeaderDesktop": {
@@ -404,5 +404,27 @@
   "actions": {
     "filter": "Фильтр",
     "apply": "Применить"
+  },
+  "akcii": "Акции",
+  "TabletCategory": {
+    "akcii": "Акции",
+    "tv-audio-video": "TV, Аудио, Видео",
+    "mebel": "Мебель",
+    "bytovaya-tekhnika": "Бытовая техника"
+  },
+  "tv-audio-video": "ТВ, Аудио, Видео",
+  "mebel": "Мебель",
+  "bytovaya-tekhnika": "Бытовая техника",
+  "vybran-yazyk": "Выбран язык",
+  "posmotret-vse-tovary-kategorii": "Посмотреть все товары категории",
+  "RowCategory": {
+    "posmotret-vse-tovary-kategorii": "Посмотреть все товары категории"
+  },
+  "kategorii": "Категории",
+  "BrandsRenderListTags": {
+    "brands": "Бренды"
+  },
+  "SpecificationsRenderList": {
+    "characteristics": "Характеристики"
   }
 }

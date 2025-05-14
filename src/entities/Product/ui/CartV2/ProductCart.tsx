@@ -70,10 +70,14 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         addToFavoriteSlot={addToFavoriteSlot}
         Swiper={
           <Link
+            key={Product.id}
+            lang={locale}
+            locale={locale}
             onClick={() => saveScroll()}
             scroll={false}
             href={`/city/${currentCity}/product/${props.Product.slug}`}
             prefetch={prefetch ?? true}
+            shallow
             style={{
               width: width ?? CartWidth,
               height: height ?? CartHeight,
@@ -95,6 +99,10 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         }
       />
       <Link
+        key={Product.id}
+        lang={locale}
+        locale={locale}
+        shallow
         onClick={() => saveScroll()}
         scroll={false}
         href={`/city/${currentCity}/product/${props.Product.slug}`}

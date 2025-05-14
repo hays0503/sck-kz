@@ -290,7 +290,7 @@
     "lichnyi-kabinet": "Жеке кабинет"
   },
   "FooterSCK": {
-    "sck-essikei-zona-unikalnykh-cen": "Бірегей бағалардың SCK (маңызды) аймағы",
+    "sck-essikei-zona-unikalnykh-cen": "ШҚК (Esskey) Қазақстан сату орталығы",
     "politika-konfidencialnosti": "Құпиялылық саясаты",
     "polzovatelskoe-soglashenie": "Пайдаланушы келісімі",
     "svyazhites-s-nami": "Бізбен хабарласыңы!",
@@ -404,5 +404,23 @@
   "actions": {
     "filter": "Сүзу",
     "apply": "Өтініш беру"
+  },
+  "akcii": "Акциялар",
+  "TabletCategory": {
+    "akcii": "Акциялар",
+    "tv-audio-video": "Теледидар, аудио, видео",
+    "mebel": "Жиһаз",
+    "bytovaya-tekhnika": "Тұрмыстық техника"
+  },
+  "vybran-yazyk": "Тіл таңдалды",
+  "RowCategory": {
+    "posmotret-vse-tovary-kategorii": "Барлық санаттағы тауарларды қарау"
+  },
+  "kategorii": "Санаттар",
+  "BrandsRenderListTags": {
+    "brands": "Брендтер"
+  },
+  "SpecificationsRenderList": {
+    "characteristics": "Сипаттамасы"
   }
 }

@@ -15,6 +15,7 @@ import { FilterRenderMobile } from '@/widgets/Filter/Filter';
 import CityEnToRu from '@/shared/constant/city';
 import { searchParamsCache } from './searchParams';
 import { convertSortOrder } from '@/features/sorting-products/ui/SortingProducts';
+import { setRequestLocale } from 'next-intl/server';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -26,7 +27,9 @@ export const dynamicParams = true;
 
 export default async function HomePage({ params, searchParams }: PageProps) {
   const { order } = await searchParamsCache.parse(searchParams);
-  const { city } = await params;
+  const { city, locale } = await params;
+
+  setRequestLocale(locale);
 
   const data = await searchParams;
   const searchParamsData: string = Object.entries(data)
@@ -36,7 +39,6 @@ export default async function HomePage({ params, searchParams }: PageProps) {
   const cityRu = CityEnToRu[city];
 
   const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}&limit=100&ordering=${convertSortOrder(order)}&city=${cityRu}`;
-
 
   const fetchData = await (await fetch(url)).json();
 

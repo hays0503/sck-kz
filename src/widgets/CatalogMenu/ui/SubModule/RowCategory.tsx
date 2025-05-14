@@ -3,13 +3,14 @@ import { Link } from "@/i18n/routing";
 import { useGetCityParams } from "@/shared/hooks/useGetCityParams";
 import { Divider, Flex, Typography } from "antd";
 import { MappedCategoryType } from "api-mapping/category/all/type";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 const { Title } = Typography;
 
 const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:boolean  }> = ({ item, root,v2flag  }) => {
+  const t = useTranslations('RowCategory');
   const selectCity = useGetCityParams();
   const localActive = useLocale();
   const RowStyle: React.CSSProperties = {
@@ -69,7 +70,7 @@ const RowCategory: React.FC<{ item: MappedCategoryType, root?: boolean,v2flag?:b
                   <div style={{ width: 24, height: 24 }}></div>
                 )}
                 <Title level={5} style={{ fontWeight: "600", margin: 0,color:root ? "#328fbf" : "black" }}>
-                  {root ? `Посмотреть все товары категории: ${name}` : name}
+                  {root ? `${t('posmotret-vse-tovary-kategorii')}: ${name}` : name}
                 </Title>
               </Flex>
 

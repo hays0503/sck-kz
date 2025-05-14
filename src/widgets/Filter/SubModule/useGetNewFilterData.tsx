@@ -1,21 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BrandElement, FacetResponse, SelectFilteredType } from './FilterType';
+import {
+  BrandElement,
+  FacetResponse,
+  SelectFilteredType,
+  Value,
+} from './FilterType';
 import CityEnToRu from '@/shared/constant/city';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { CATEGORY_FILTER_TYPE_ID } from './CategoriesRenderListTags';
 import { BRAND_FILTER_TYPE_ID } from './BrandsRenderListTags';
 
 // Сборка URL с использованием URLSearchParams
-export const buildUrl = (selectedFilters: SelectFilteredType[], cityEn: string): string => {
-  
+export const buildUrl = (
+  selectedFilters: SelectFilteredType[],
+  cityEn: string,
+): string => {
   const baseUrl = '/categories/facets/';
   const params = new URLSearchParams();
 
   const getIds = (name: string): string[] =>
-    selectedFilters.find(f => f.name === name)?.values.map(v => v.id.toString()) ?? [];
-  
+    selectedFilters
+      .find((f) => f.name === name)
+      ?.values.map((v) => v.id.toString()) ?? [];
 
   const categoryIds = getIds('Категории');
   const brandIds = getIds('Бренды');
@@ -24,9 +32,9 @@ export const buildUrl = (selectedFilters: SelectFilteredType[], cityEn: string):
   if (brandIds.length > 0) params.set('brand', brandIds.join(','));
 
   selectedFilters
-    .filter(f => f.name !== 'Категории' && f.name !== 'Бренды')
-    .forEach(f => {
-      const valueIds = f.values.map(v => v.id).join(',');
+    .filter((f) => f.name !== 'Категории' && f.name !== 'Бренды')
+    .forEach((f) => {
+      const valueIds = f.values.map((v) => v.id).join(',');
       if (valueIds) {
         params.set(`spec_${f.id}`, valueIds);
       }
@@ -39,8 +47,9 @@ export const buildParams = (selectedFilters: SelectFilteredType[]) => {
   const params = new URLSearchParams();
 
   const getIds = (name: string): string[] =>
-    selectedFilters.find(f => f.name === name)?.values.map(v => v.id.toString()) ?? [];
-  
+    selectedFilters
+      .find((f) => f.name === name)
+      ?.values.map((v) => v.id.toString()) ?? [];
 
   const categoryIds = getIds('Категории');
   const brandIds = getIds('Бренды');
@@ -49,40 +58,51 @@ export const buildParams = (selectedFilters: SelectFilteredType[]) => {
   if (brandIds.length > 0) params.set('brand', brandIds.join(','));
 
   selectedFilters
-    .filter(f => f.name !== 'Категории' && f.name !== 'Бренды')
-    .forEach(f => {
-      const valueIds = f.values.map(v => v.id).join(',');
+    .filter((f) => f.name !== 'Категории' && f.name !== 'Бренды')
+    .forEach((f) => {
+      const valueIds = f.values.map((v) => v.id).join(',');
       if (valueIds) {
         params.set(`spec_${f.id}`, valueIds);
       }
     });
 
-  return '?'+params.toString()+'&limit=100';
-} 
-
+  return '?' + params.toString() + '&limit=100';
+};
 
 export const convertUrlToFilterData = (
   url: string,
-  fetchData: FacetResponse & { categorys?: BrandElement[] }
+  fetchData: FacetResponse & { categorys?: BrandElement[] },
 ): SelectFilteredType[] => {
   const selectedFilters: SelectFilteredType[] = [];
-  const urlObj = new URL(url, 'https://example.com');
+  const urlObj = new URL(url, 'http://185.100.67.246:8888');
   const urlParams = urlObj.searchParams;
 
   // Категории (key: category)
-  const categoryIds = urlParams.getAll('category');
+  const categoryIds: string[] = urlParams.getAll('category');
+
   const categories = fetchData.category ?? fetchData.categorys;
+
   if (categories) {
     const values = categories
-      .filter(item => categoryIds.includes(String(item.id)))
-      .map(item => ({ id: item.id, value: item.name, count: item.count }));
+      .filter((item: BrandElement) => categoryIds.includes(String(item.id)))
+      .map((item: BrandElement) => ({
+        id: item.id,
+        value: item.name,
+        count: item.count,
+        additional_data: item.additional_data,
+      }));
 
     if (values.length) {
-      selectedFilters.push({
+      const pushData: SelectFilteredType = {
         id: CATEGORY_FILTER_TYPE_ID,
         name: 'Категории',
-        values,
-      });
+        values: values,
+        additional_data: {
+          KZ: 'Санат',
+          EN: 'Category',
+        },
+      };
+      selectedFilters.push(pushData);
     }
   }
 
@@ -90,14 +110,23 @@ export const convertUrlToFilterData = (
   const brandIds = urlParams.getAll('brand');
   if (fetchData.brands) {
     const values = fetchData.brands
-      .filter(item => brandIds.includes(String(item.id)))
-      .map(item => ({ id: item.id, value: item.name, count: item.count }));
+      .filter((item) => brandIds.includes(String(item.id)))
+      .map((item) => ({
+        id: item.id,
+        value: item.name,
+        count: item.count,
+        additional_data: item.additional_data,
+      }));
 
     if (values.length) {
       selectedFilters.push({
         id: BRAND_FILTER_TYPE_ID,
         name: 'Бренды',
         values,
+        additional_data: {
+          KZ: 'Бренд',
+          EN: 'Brand',
+        },
       });
     }
   }
@@ -120,22 +149,27 @@ export const convertUrlToFilterData = (
     }
 
     specMap.forEach((valIds, specId) => {
-      const spec = fetchData.specifications!.find(s => s.id === specId);
+      const spec = fetchData.specifications!.find((s) => s.id === specId);
       if (!spec) return;
       const values = spec.values
-        .filter(v => valIds.includes(v.id))
-        .map(v => ({ id: v.id, value: v.value, count: v.count }));
+        .filter((v) => valIds.includes(v.id))
+        .map((v: Value) => ({
+          id: v.id,
+          value: v.value,
+          count: v.count,
+          additional_data: v.additional_data,
+        }));
 
       if (values.length) {
         selectedFilters.push({
           id: spec.id,
           name: spec.name,
           values,
+          additional_data: spec.additional_data,
         });
       }
     });
   }
-
   return selectedFilters;
 };
 
@@ -159,7 +193,7 @@ const useGetNewFilterData = ({
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const url = buildUrl(selectedFilters,cityEn);
+        const url = buildUrl(selectedFilters, cityEn);
         const res = await fetch(url);
         if (!res.ok) throw new Error(`Ошибка HTTP: ${res.status}`);
         const data: FacetResponse = await res.json();

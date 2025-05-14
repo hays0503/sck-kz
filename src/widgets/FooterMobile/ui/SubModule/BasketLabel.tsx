@@ -1,32 +1,32 @@
-"use client";
-import { Flex, Typography } from "antd"
-import { useTranslations } from "next-intl";
-import { CSSProperties } from "react";
-import { BasketProductCounter } from "@/entities/Basket";
-import { Property } from "csstype";
+'use client';
+import { Flex, Typography } from 'antd';
+import { useTranslations } from 'next-intl';
+import { CSSProperties } from 'react';
+import { BasketProductCounter } from '@/entities/Basket';
+import { Property } from 'csstype';
 const { Text } = Typography;
 
-type TLength = (string & {}) | 0
+type TLength = (string & {}) | 0;
 interface BasketLabelProps {
-    styleActive: CSSProperties,
-    styleActiveBg: string,
-    styleActiveAccent: string,
-    text?: string
-    size?: Property.Width<TLength | undefined>
+  styleActive: CSSProperties;
+  styleActiveAccent: string;
+  text?: string;
+  size?: Property.Width<TLength | undefined>;
 }
 
 export const Label: React.FC<BasketLabelProps> = (props) => {
-    const { styleActive, styleActiveBg, styleActiveAccent, text, size } = props;
-    const t = useTranslations("Label");
+  const { styleActive, styleActiveAccent, text, size } = props;
+  const t = useTranslations('Label');
 
-    const imageContainerStyle: CSSProperties = {
-        width: "100%",
-        height: size,
-        contain: "strict"
-    }
-    return <Flex vertical={true} gap={5} id="basket-icon">
-        <Flex align="center" justify="center"  style={imageContainerStyle}>
-            <svg
+  const imageContainerStyle: CSSProperties = {
+    width: '100%',
+    height: size,
+    contain: 'strict',
+  };
+  return (
+    <Flex vertical={true} gap={5} id='basket-icon'>
+      <Flex align='center' justify='center' style={imageContainerStyle}>
+        {/* <svg
                 width={size}
                 height={size}
                 viewBox="0 0 24 24"
@@ -45,25 +45,55 @@ export const Label: React.FC<BasketLabelProps> = (props) => {
                     d="M16.9985 23C17.8289 23 18.4985 22.3284 18.4985 21.5C18.4985 20.6716 17.8289 20 16.9985 20C16.1701 20 15.4985 20.6716 15.4985 21.5C15.4985 22.3284 16.1701 23 16.9985 23Z"
                     fill={styleActiveAccent}
                 />
-            </svg>
-        </Flex>
-        <Text style={{
-        ...{ ...styleActive },
-        textAlign: "center",
-        lineHeight:"1em"
-        }}>
-            {t("korzina")} {text && <><br />{text}</>}
-        </Text>
+            </svg> */}
+        <svg
+          width={size}
+          height={size}
+          viewBox='0 0 21 20'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <g id='Project Icon'>
+            <path
+              // fill={styleActiveBg}
+              id='Vector'
+              d='M15.7941 16.3791H8.53905C8.15483 16.3791 7.96237 16.3791 7.80418 16.3108C7.66464 16.2505 7.54358 16.1534 7.45537 16.0296C7.35651 15.8908 7.31675 15.7052 7.23805 15.3379L5.1429 4.3859C5.06237 4.01006 5.02156 3.82235 4.92155 3.68197C4.83335 3.55816 4.71231 3.46071 4.57276 3.4004C4.41455 3.33203 4.22316 3.33203 3.83878 3.33203H3.25M5.75 5.83203H16.4777C17.0792 5.83203 17.3796 5.83203 17.5815 5.95733C17.7583 6.06708 17.8878 6.23921 17.9442 6.43953C18.0086 6.66822 17.9259 6.957 17.7592 7.53491L16.4777 12.082C16.378 12.4276 16.3282 12.6 16.227 12.7282C16.1378 12.8414 16.0201 12.93 15.8866 12.9844C15.7358 13.0458 15.5566 13.0458 15.1991 13.0458H7.06444'
+              stroke={styleActiveAccent}
+              strokeWidth='1.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </g>
+        </svg>
+      </Flex>
+      <Text
+        style={{
+          ...{ ...styleActive },
+          textAlign: 'center',
+          lineHeight: '1em',
+          minWidth: '50px',
+        }}
+      >
+        {t('korzina')}{' '}
+        {text && (
+          <>
+            <br />
+            {text}
+          </>
+        )}
+      </Text>
     </Flex>
-}
+  );
+};
 
 const BasketLabelBadger: React.FC<BasketLabelProps> = (props) => {
-
-    return <BasketProductCounter>
-        <Label {...props} />
+  return (
+    <BasketProductCounter>
+      <Label {...props} />
     </BasketProductCounter>
-}
+  );
+};
 
 export const BasketLabel: React.FC<BasketLabelProps> = (props) => {
-    return <BasketLabelBadger {...props} />
-}
+  return <BasketLabelBadger {...props} />;
+};

@@ -1,9 +1,16 @@
 import { memo } from 'react';
-import { onClickLabelProps, SelectFilteredType } from './FilterType';
+import {
+  onClickLabelProps,
+  SelectFilteredType,
+  SelectFilteredValueType,
+  Specification,
+  Value,
+} from './FilterType';
 import { Button, Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import ColorBall, { getHexColorsFromRussian } from './colors';
 import { CloseOutlined } from '@ant-design/icons';
+import { useLocale } from 'next-intl';
 const { Text } = Typography;
 
 const tagMotionProps = {
@@ -13,6 +20,28 @@ const tagMotionProps = {
   transition: { duration: 0.2 },
 };
 
+const selectedName = (data: Specification, locale: string) => {
+  switch (locale) {
+    case 'kk':
+      return data?.additional_data?.['KZ']??data?.name;
+    case 'en':
+      return data?.additional_data?.['EN']??data?.name;
+    default:
+      return data?.name;
+  }
+};
+
+const selectedValue = (data: Value, locale: string) => {
+  switch (locale) {
+    case 'kk':
+      return data?.additional_data?.['KZ']??data.value;
+    case 'en':
+      return data?.additional_data?.['EN']??data.value;
+    default:
+      return data.value;
+  }
+};
+
 const RenderTagsList: React.FC<{
   selectedFilters: SelectFilteredType[];
   onClickLabel: (props: onClickLabelProps) => void;
@@ -20,6 +49,7 @@ const RenderTagsList: React.FC<{
   headerContent?: React.ReactNode;
 }> = ({ selectedFilters, onClickLabel, onClear, headerContent }) => {
   const isShowDropFilter = selectedFilters.length > 0;
+  const locale = useLocale();
 
   return (
     <Flex
@@ -47,7 +77,7 @@ const RenderTagsList: React.FC<{
               type='primary'
               style={{
                 width: '100%',
-                maxWidth:'50px',
+                maxWidth: '50px',
                 borderWidth: '1px',
                 borderStyle: 'solid',
                 background: '#fdde45',
@@ -60,7 +90,7 @@ const RenderTagsList: React.FC<{
               <CloseOutlined style={{ color: '#E53935' }} />
             </Button>
           )}
-          {selectedFilters.map((filter) => (
+          {selectedFilters.map((filter: SelectFilteredType) => (
             <motion.div
               key={filter.id}
               layout
@@ -76,11 +106,11 @@ const RenderTagsList: React.FC<{
               <Text
                 strong
                 style={{ fontSize: '16px' }}
-              >{`${filter.name}:`}</Text>
-              {filter.values.map(({ id, value }) => {
-                const colors = getHexColorsFromRussian(value);
+              >{`${selectedName(filter, locale)}:`}</Text>
+              {filter.values.map((value: SelectFilteredValueType) => {
+                const colors = getHexColorsFromRussian(value.value);
                 return (
-                  <div key={id}>
+                  <div key={value.id}>
                     <Tag
                       closable
                       style={{
@@ -95,8 +125,10 @@ const RenderTagsList: React.FC<{
                         onClickLabel({
                           type_id: filter.id,
                           type_name: filter.name,
-                          value_id: id,
-                          value_name: value,
+                          value_id: value.id,
+                          value_name: value.value,
+                          additional_data_type: filter.additional_data,
+                          additional_data_value: value.additional_data,
                         });
                       }}
                     >
@@ -108,7 +140,7 @@ const RenderTagsList: React.FC<{
                           fontSize: '16px',
                         }}
                       >
-                        {value}
+                        {`${selectedValue(value, locale)}`}
                       </Text>
                     </Tag>
                   </div>

@@ -290,7 +290,7 @@
     "lichnyi-kabinet": "Personal office"
   },
   "FooterSCK": {
-    "sck-essikei-zona-unikalnykh-cen": "SCK (Essential) Zone of unique prices",
+    "sck-essikei-zona-unikalnykh-cen": "SCK (Essikey) Sales Center Kazakhstan  ",
     "politika-konfidencialnosti": "Privacy Policy",
     "polzovatelskoe-soglashenie": "User agreement",
     "svyazhites-s-nami": "Contact us!",
@@ -404,5 +404,23 @@
   "actions": {
     "filter": "Filter",
     "apply": "Apply"
+  },
+  "akcii": "Stock",
+  "TabletCategory": {
+    "akcii": "Stock",
+    "tv-audio-video": "TV, audio, video",
+    "mebel": "Furniture",
+    "bytovaya-tekhnika": "Household appliances"
+  },
+  "vybran-yazyk": "The language is chosen",
+  "RowCategory": {
+    "posmotret-vse-tovary-kategorii": "View all category goods"
+  },
+  "kategorii": "Categories",
+  "BrandsRenderListTags": {
+    "brands": "Brands"
+  },
+  "SpecificationsRenderList": {
+    "characteristics": "Characteristics"
   }
 }

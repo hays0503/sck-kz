@@ -8,6 +8,7 @@ import Section from './Section';
 import { AnimatePresence, motion } from 'framer-motion';
 import SpecificationsRenderItem from './SpecificationsRenderItem';
 import { memo } from 'react';
+import { useTranslations } from 'next-intl';
 
 const SpecificationsRenderList = ({
   selectedFilters,
@@ -17,11 +18,12 @@ const SpecificationsRenderList = ({
   selectedFilters: SelectFilteredType[];
   specifications: Specification[];
   onClickLabel: (props: onClickLabelProps) => void;
-}) => (
-  <Section title='Характеристики'>
-    <Flex vertical gap={16}>
+}) => {
+  const t = useTranslations('SpecificationsRenderList');
+  return <Section title={t('characteristics')}>
+    <Flex vertical gap={16} wrap>
       <AnimatePresence initial={false}>
-        {specifications.map((spec) => (
+        {specifications.map((spec: Specification) => (
           <motion.div
             key={spec.id}
             initial={{ opacity: 0, y: 10 }}
@@ -41,6 +43,6 @@ const SpecificationsRenderList = ({
       </AnimatePresence>
     </Flex>
   </Section>
-);
+};
 
 export default memo(SpecificationsRenderList);

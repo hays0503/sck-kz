@@ -17,7 +17,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import RenderTagsList from './SubModule/RenderTagsList';
 import {
   buildParams,
-  buildUrl,
   convertUrlToFilterData,
 } from './SubModule/useGetNewFilterData';
 import { usePathname, useRouter } from '@/i18n/routing';
@@ -29,6 +28,8 @@ import type {
   onClickLabelProps,
   SelectFilteredType,
 } from './SubModule/FilterType';
+import { useSearchParams } from 'next/navigation';
+import CityEnToRu from '@/shared/constant/city';
 
 const LazySpecificationsRenderList = dynamic(
   () => import('./SubModule/SpecificationsRenderList'),
@@ -84,6 +85,7 @@ export const FilterRenderMobile: React.FC<{
   const [sortOrder] = useQueryState('order', { defaultValue: 'stocks__price' });
   const route = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   const [state, dispatch] = useReducer(reducer, {
@@ -94,8 +96,10 @@ export const FilterRenderMobile: React.FC<{
   const [data, setData] = useState<FacetResponse>({});
 
   const fetchDataByFilters = useCallback(
-    (filters: SelectFilteredType[], pathname?: string) => {
-      const url = `${buildUrl(filters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
+    (filters: SelectFilteredType[], pathname?: string | undefined) => {
+      // const url = `${buildUrl(filters, cityEn)}&ordering=${convertSortOrder(sortOrder)}`;
+      const url = `/categories/facets/?${searchParams?.toString()}&ordering=${convertSortOrder(sortOrder)}&city=${CityEnToRu[cityEn]}`;
+
       startTransition(() => {
         if (pathname) {
           route.push({ pathname: pathname }, { scroll: false });
@@ -112,7 +116,7 @@ export const FilterRenderMobile: React.FC<{
           );
       });
     },
-    [cityEn, route, sortOrder],
+    [cityEn, route, searchParams, sortOrder],
   );
 
   useEffect(() => {
@@ -126,7 +130,7 @@ export const FilterRenderMobile: React.FC<{
 
       const params = buildParams(newSelected);
       // route.push({ pathname: params }, { scroll: false });
-      fetchDataByFilters(newSelected,params);
+      fetchDataByFilters(newSelected, params);
     },
     [state.selectedFilters, fetchDataByFilters],
   );

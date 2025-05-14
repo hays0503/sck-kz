@@ -39,7 +39,8 @@ export const MainLabel: React.FC<MainLabelProps> = ({ styleActive, text, size = 
       <Text style={{
         ...{ ...styleActive },
         textAlign: "center",
-        lineHeight: "1em"
+        lineHeight: "1em",
+        minWidth: '50px'
       }}>
         {t("glavnaya")} {text && <><br />{text}</>}
       </Text>

@@ -2,6 +2,7 @@ import beautifulCost from '@/shared/tools/beautifulCost';
 // import { Credit } from '@/widgets/Credit';
 import { Flex, Tag, Typography } from 'antd';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
+import { useTranslations } from 'next-intl';
 import { CSSProperties } from 'react';
 
 interface IProductDetailPriceProps {
@@ -22,6 +23,7 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
   const oldPrice = product?.oldPrice ?? null;
   const price = product?.price ?? 0;
   const deltaPrice = Math.abs(price - (oldPrice ?? 0));
+  const t = useTranslations();
 
   const DiscountComponent = () => (
     <>
@@ -134,7 +136,7 @@ const ProductDetailPrice: React.FC<IProductDetailPriceProps> = (props) => {
       <>
         {discount && (
           <Text style={{ ...textStyle, color: '#19B275' }}>
-            {`Экономия: ${beautifulCost(deltaPrice)}`}
+            {`${t('BasketDetail.ekonomiya')}: ${beautifulCost(deltaPrice)}`}
           </Text>
         )}
       </>

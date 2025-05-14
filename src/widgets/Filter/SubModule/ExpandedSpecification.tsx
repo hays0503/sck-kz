@@ -6,12 +6,26 @@ import {
   SelectFilteredType,
   SelectFilteredValueType,
   Specification,
+  Value,
 } from './FilterType';
 import { Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import ColorBall, { getHexColorsFromRussian } from './colors';
 import AnimatedTag from './AnimatedTag';
+import { useLocale } from 'next-intl';
 const { Text } = Typography;
+
+const selectedValue = (data: Value, locale: string) => {
+  switch (locale) {
+    case 'kk':
+      return data?.additional_data?.['KZ']??data.value;
+    case 'en':
+      return data?.additional_data?.['EN']??data.value;
+    default:
+      return data.value;
+  }
+};
+
 const ExpandedSpecification = ({
   selectedFilters,
   specification,
@@ -24,6 +38,7 @@ const ExpandedSpecification = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = useCallback(() => setIsExpanded((prev) => !prev), []);
 
+  const locale = useLocale();
   const renderData = useMemo(
     () =>
       isExpanded ? specification.values : specification.values.slice(0, 5),
@@ -40,36 +55,42 @@ const ExpandedSpecification = ({
   return (
     <Flex wrap gap={8}>
       <AnimatePresence initial={false}>
-        {renderData.map(({ id, value, count }) => {
-          const colors = getHexColorsFromRussian(value); // Извлекаем цвета из value
+        {renderData.map((data: Value) => {
+          const colors = getHexColorsFromRussian(data.value); // Извлекаем цвета из value
 
           return (
             <AnimatedTag
-              key={id}
-              onClick={() =>
-                onClickLabel({
+              key={data.id}
+              onClick={() => {
+                const propsData: onClickLabelProps = {
                   type_id: specification.id,
                   type_name: specification.name,
-                  value_id: id,
-                  value_name: value,
-                })
-              }
+                  value_id: data.id,
+                  value_name: data.value,
+                  additional_data_type: data.additional_data,
+                  additional_data_value: data.additional_data,
+                };
+                onClickLabel(propsData);
+              }}
               style={{
+                textWrap: 'wrap',
                 border: 'none',
                 padding: '10px',
                 borderRadius: '12px',
                 cursor: 'pointer',
-                backgroundColor: selectedId.includes(id)
+                backgroundColor: selectedId.includes(data.id)
                   ? '#fdde45'
                   : '#bebebe26',
               }}
             >
-              <Flex gap={4}>
+              <Flex gap={4} wrap>
                 {colors.length > 0 && <ColorBall colors={colors} />}
                 {/* Отображаем шарик, если есть цвета */}
-                <Text>{value}</Text>
-                <Text style={{ color: '#808185', opacity: '0.5' }}>
-                  ({count})
+                <Text>
+                  {selectedValue(data, locale)}
+                  <Text style={{ color: '#808185', opacity: '0.5' }}>
+                    ({data.count})
+                  </Text>
                 </Text>
               </Flex>
             </AnimatedTag>

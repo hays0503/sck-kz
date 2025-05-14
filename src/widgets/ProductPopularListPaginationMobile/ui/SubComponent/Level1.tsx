@@ -1,9 +1,8 @@
 import { ProductCart } from '@/entities/Product/ui/CartV2';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
-import { Flex, Spin } from 'antd';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
-import { CSSProperties, Suspense } from 'react';
+import { CSSProperties } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare const _RowAligns: readonly ['top', 'middle', 'bottom', 'stretch'];
@@ -31,20 +30,13 @@ interface Level1Props {
 
 // Первый уровень карты (карточки товаров)
 const Level1: React.FC<Level1Props> = ({ Products }) => {
-  const ButtonStyle: CSSProperties = {
-    width: '100%',
-    height: '40px',
-    background: '#2f369c',
-    padding: '8px 16px',
-    borderRadius: '4px',
-  };
 
   const gridStyle: CSSProperties = {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
     gridGap: '5px',
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
   };
 
   return (
@@ -55,17 +47,7 @@ const Level1: React.FC<Level1Props> = ({ Products }) => {
           height='64dvw'
           key={index}
           Product={item}
-          addToCartSlot={
-            <Suspense
-              fallback={
-                <Flex style={ButtonStyle} align='center' justify='center'>
-                  <Spin spinning />
-                </Flex>
-              }
-            >
-              <AddToBasketProduct prod_id={item.id} />
-            </Suspense>
-          }
+          addToCartSlot={<AddToBasketProduct prod_id={item.id} />}
           addToFavoriteSlot={<AddToFavoriteProduct prod_id={item.id} />}
         />
       ))}

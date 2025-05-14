@@ -7,7 +7,6 @@ import basicMetadata from "@/shared/metadata/basicMetadata";
 import {notFound} from 'next/navigation';
 import viewportMetadata from "@/shared/metadata/viewportMetadata";
 
-
 export const metadata: Metadata = basicMetadata();
 export const viewport: Viewport = viewportMetadata();
 
@@ -36,6 +35,7 @@ export default async function LocaleLayout(
   const {
     children
   } = props;
+
 
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -266,8 +266,6 @@ const ProductDetailAnotherProduct: React.FC<
   //   );
   // }
 
-  console.log('data', data);
-
   return (
     <ListWrapper>
       <Text id='start-list' style={styleText}>

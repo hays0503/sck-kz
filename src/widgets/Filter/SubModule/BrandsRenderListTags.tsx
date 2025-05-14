@@ -9,10 +9,22 @@ import Section from './Section';
 import { Flex, Tag, Typography } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimatedTag from './AnimatedTag';
+import { useLocale, useTranslations } from 'next-intl';
 
 export const BRAND_FILTER_TYPE_ID = -2;
 
 const { Text } = Typography;
+
+const selectedName = (data: BrandElement, locale: string) => {
+  switch (locale) {
+    case 'kk':
+      return data?.additional_data?.['KZ']??data?.name;
+    case 'en':
+      return data?.additional_data?.['EN']??data?.name;
+    default:
+      return data?.name;
+  }
+};
 
 // --- Кликалка для брендов ---
 const BrandsRenderListTags: React.FC<{
@@ -26,28 +38,35 @@ const BrandsRenderListTags: React.FC<{
     () => (isExpanded ? brands : brands.slice(0, 5)),
     [isExpanded, brands],
   );
+  const t = useTranslations('BrandsRenderListTags');
   const showToggle = brands.length > 5;
-
+  const locale = useLocale();
   const selectedId =
     selectedFilters
       .find((f: SelectFilteredType) => f.id === BRAND_FILTER_TYPE_ID)
       ?.values.map((v: SelectFilteredValueType) => v.id) ?? [];
 
   return (
-    <Section title='Бренды'>
+    <Section title={t('brands')}>
       <Flex wrap gap={10}>
         <AnimatePresence initial={false}>
-          {renderData.map(({ id, name, count }) => (
+          {renderData.map((_data) => (
             <AnimatedTag
-              key={id}
-              onClick={() =>
-                onClickLabel({
+              key={_data.id}
+              onClick={() => {
+                const data: onClickLabelProps = {
                   type_id: BRAND_FILTER_TYPE_ID,
                   type_name: 'Бренды',
-                  value_id: id,
-                  value_name: name,
-                })
-              }
+                  value_id: _data.id,
+                  value_name: _data.name,
+                  additional_data_type: {
+                    KZ: 'Бренды',
+                    EN: 'Brands',
+                  },
+                  additional_data_value: _data.additional_data,
+                };
+                onClickLabel(data);
+              }}
               style={{
                 border: 'none',
                 padding: '10px',
@@ -55,14 +74,14 @@ const BrandsRenderListTags: React.FC<{
                 cursor: 'pointer',
                 display: 'flex',
                 gap: '5px',
-                backgroundColor: selectedId.includes(id)
+                backgroundColor: selectedId.includes(_data.id)
                   ? '#fdde45'
                   : '#bebebe26',
               }}
             >
-              <Text>{name}</Text>
+              <Text>{selectedName(_data,locale)}</Text>
               <Text style={{ color: '#808185', opacity: '0.5' }}>
-                ({count})
+                ({_data.count})
               </Text>
             </AnimatedTag>
           ))}

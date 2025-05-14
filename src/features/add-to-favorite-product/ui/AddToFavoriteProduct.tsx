@@ -41,18 +41,14 @@ const Heart: React.FC<{ isFavorite: boolean }> = ({ isFavorite }) => {
 
 // Основной компонент
 const AddToFavoriteProduct: React.FC<{ prod_id: number }> = ({ prod_id }) => {
-  const { data, isLoading, error } = useGetProductsIdsByFavoriteSWR();
+  const { data } = useGetProductsIdsByFavoriteSWR();
   const [contextHolderAddMsg, add] = useAddToRemoteFavorite();
   const [contextHolderDelMsg, del] = useRemoveToRemoteFavorite();
   // const refButton = useRef<HTMLButtonElement>(null);
 
-  if (isLoading) {
-    return <div style={{ width: "32px", height: "32px" }} />;
-  }
-
-  if (error) {
-    return <Flex style={{ width: "32px", height: "32px" }} justify="center" align="center">!</Flex>;
-  }
+  // if (isLoading || error) {
+  //   return <div style={{ width: "32px", height: "32px" }} />;
+  // }
 
   const isFavorite = data?.data?.includes(prod_id)
   const action = isFavorite ? () => del(prod_id) : () => add(prod_id)

@@ -1,24 +1,21 @@
 'use server';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import '@/shared/styles/Reset.scss';
 import '@/shared/styles/globals.css';
 import { ConfigProvider } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
 import enUS from 'antd/locale/en_US';
 import kzKZ from 'antd/locale/kk_KZ';
-
 export async function ProvidersServer({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
   const messages = await getMessages();
 
   const locale = messages.locale;
-
-  const lang = await getLocale();
 
   const antdLocale = () => {
     switch (locale) {
@@ -32,6 +29,8 @@ export async function ProvidersServer({
         return ruRU;
     }
   };
+
+
 
   return (
     <AntdRegistry>
@@ -49,7 +48,10 @@ export async function ProvidersServer({
         }}
         locale={antdLocale()}
       >
-        <NextIntlClientProvider locale={lang} messages={messages}>
+        <NextIntlClientProvider         
+        // 
+        // locale={params.locale} 
+        messages={messages}>
           {children}
         </NextIntlClientProvider>
       </ConfigProvider>

@@ -17,9 +17,9 @@ import './FooterMobile.css';
 export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   const currentCity = useGetCityParams();
   const [current, setCurrent] = useState<string>(defaultKey ?? '1');
-  const uuid = useReadLocalStorage<
-    string | null | undefined
-  >('uuid_id', { initializeWithValue: false });
+  const uuid = useReadLocalStorage<string | null | undefined>('uuid_id', {
+    initializeWithValue: false,
+  });
   const accessToken = useReadLocalStorage<
     { user_id: string } | null | undefined
   >('accessToken', { initializeWithValue: false });
@@ -51,7 +51,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
       label: (
         <BasketLabel
           styleActive={returnStyleActive('3', current)}
-          styleActiveBg={returnStyleActiveBg('3', current)}
+          // styleActiveBg={returnStyleActiveBg('3', current)}
           styleActiveAccent={returnStyleActiveAccent('3', current)}
           size={sizeConstant}
         />

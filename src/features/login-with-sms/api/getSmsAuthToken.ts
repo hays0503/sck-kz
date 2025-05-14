@@ -12,7 +12,7 @@ export type GetSmsAuthTokenResponse = {
 type GetSmsAuthToken = (code: string, phone_number_id: string) => Promise<{data:GetSmsAuthTokenResponse,statusCode: number}>;
 
 const getSmsAuthToken: GetSmsAuthToken = async(code, phone_number_id) => {
-  const url = `/auth_api/v1/auth_phone/auth/phone`;
+  const url = `/auth_api/v2/auth_phone/auth/phone`;
   const response = await fetch(url, {
     method: "POST",
     headers: {

@@ -13,7 +13,7 @@ import { ProductDetail } from '@/widgets/ProductDetail';
 import { Flex } from 'antd';
 import getBrandsBySlugCategory from 'api-mapping/category/brands/api/getBrandsBySlugCategory';
 import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { unstable_cache } from 'next/cache';
 
 import React, { JSX } from 'react';
@@ -29,7 +29,9 @@ interface IProductPageProps {
 type ProductPageComponent = (props: IProductPageProps) => Promise<JSX.Element>;
 
 const ProductPage: ProductPageComponent = async (props) => {
-  const { slug, city } = await props.params;
+  const { slug, city,locale } = await props.params;
+
+  setRequestLocale(locale);
 
   const revalidateTime = { revalidate: 300 };
 
@@ -126,13 +128,13 @@ const ProductPage: ProductPageComponent = async (props) => {
   if (productSlug.statusCode !== STATUS_CODE.OK) {
     const contentText = t('tovar-udalen');
     return (
-      <ErrorPage fallback={{}} content={<h4>{contentText}</h4>} city={city} />
+      <ErrorPage fallback={{}} content={<h4>{contentText}</h4>} city={city}/>
     );
   }
 
   return (
     <Flex vertical style={{ width: '100%' }}>
-      <DefaultPage fallback={fallback} slug={slug} />
+      <DefaultPage fallback={fallback} slug={slug} locale={locale} />
     </Flex>
   );
 };
@@ -142,12 +144,13 @@ const Empty = () => <></>;
 const DefaultPage: React.FC<{
   fallback: object;
   slug: string;
-}> = ({ fallback, slug }) => (
+  locale: string
+}> = ({ fallback, slug, locale}) => (
   <ProvidersServer>
     <ProvidersClient fallback={fallback}>
       <LayoutMain
         headerContent={<Empty />}
-        content={<ProductDetail slug={slug} />}
+        content={<ProductDetail slug={slug} locale={locale} />}
         footerContent={
           <Flex vertical style={{ width: '100%' }}>
             <div id='footerContent' />
@@ -162,11 +165,11 @@ const DefaultPage: React.FC<{
 const ErrorPage: React.FC<{
   fallback: object;
   content: JSX.Element;
-  city: string;
+  city: string
 }> = async ({ fallback, city, content }) => {
   const t = await getTranslations('NotFound');
   return (
-    <ProvidersServer>
+    <ProvidersServer >
       <ProvidersClient fallback={fallback}>
         <LayoutMain
           headerContent={<HeaderText socialFunctionOff />}

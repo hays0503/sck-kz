@@ -46,7 +46,7 @@ const SelectCity = () => {
 
   const [selectCityLocal, setSelectCityLocal] = useLocalStorage<
     { locale: string; city: string } | null | undefined
-  >('params', undefined);
+  >('parameters', undefined);
 
   const locale = useLocale();
   const cityEn = useGetCityParams();

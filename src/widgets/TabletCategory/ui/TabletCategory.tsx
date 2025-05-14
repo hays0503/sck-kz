@@ -8,57 +8,11 @@ import 'swiper/css';
 import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Navigation } from 'swiper/modules';
+import { useTranslations } from 'next-intl';
 
 const { Text } = Typography;
 
-const categories = [
-  {
-    image: '/TestPic/fire.png',
-    w: 44,
-    h: 44,
-    p: '-6px 0 0 0',
-    th: 'unset',
-    text: 'Акции',
-    href: '/catalog/menu/main',
-  },
-  {
-    image: '/TestPic/comp.png',
-    w: 50,
-    h: 30,
-    p: '0 0 0 5px',
-    th: 24,
-    text: 'ТВ, Аудио, Видео',
-    href: '/catalog/menu/tv-audio-video',
-  },
-  {
-    image: '/TestPic/sofa.png',
-    w: 51,
-    h: 30,
-    p: 'unset', //'5px 0 0 0',
-    th: 24,
-    text: 'Мебель',
-    href: '/catalog/menu/mebel',
-  },
-  {
-    image: '/iconKZ/kz.png',
-    w: 50,
-    h: 50,
-    p: '0px 0px -5px 0px',
-    th: 14,
-    text: 'Made in KZ',
-    href: '/filter/?spec_143=983&limit=100',
-    padding: '0',
-  },
-  {
-    image: '/TestPic/frige.png',
-    w: 30,
-    h: 30,
-    p: 'unset', //'5px 0 0 0',
-    th: 24,
-    text: 'Бытовая техника',
-    href: '/catalog/menu/bytovaya-tehnika',
-  },
-];
+
 
 const palettes = [
   '#0163E1', // 0
@@ -91,6 +45,58 @@ type SlideProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
 };
 
 const Row = () => {
+
+  const t = useTranslations('TabletCategory');
+
+  const categories = [
+    {
+      image: '/TestPic/fire.png',
+      w: 44,
+      h: 44,
+      p: '-6px 0 0 0',
+      th: 'unset',
+      text: t('akcii'),
+      href: '/catalog/menu/main',
+    },
+    {
+      image: '/TestPic/comp.png',
+      w: 50,
+      h: 30,
+      p: '0 0 0 5px',
+      th: 24,
+      text: t('tv-audio-video'),
+      href: '/catalog/menu/tv-audio-video',
+    },
+    {
+      image: '/TestPic/sofa.png',
+      w: 51,
+      h: 30,
+      p: 'unset', //'5px 0 0 0',
+      th: 24,
+      text: t('mebel'),
+      href: '/catalog/menu/mebel',
+    },
+    {
+      image: '/iconKZ/kz.png',
+      w: 50,
+      h: 50,
+      p: '0px 0px -5px 0px',
+      th: 14,
+      text: 'Made in KZ',
+      href: '/filter/?spec_143=983&limit=100',
+      padding: '0',
+    },
+    {
+      image: '/TestPic/frige.png',
+      w: 30,
+      h: 30,
+      p: 'unset', //'5px 0 0 0',
+      th: 24,
+      text: t('bytovaya-tekhnika'),
+      href: '/catalog/menu/bytovaya-tehnika',
+    },
+  ];
+
   const cityEn = useGetCityParams();
 
   const Inner: React.FC<SlideProps> = (props) => {
