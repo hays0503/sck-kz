@@ -6,6 +6,9 @@ import { useLocale } from 'next-intl';
 
 const { Text } = Typography;
 
+// Мемоизированная функция для вычисления имени характеристики
+import { useMemo } from 'react';
+
 const selectedName = (data: Specification, locale: string) => {
   switch (locale) {
     case 'kk':
@@ -28,8 +31,10 @@ const SpecificationsRenderItem = ({
   onClickLabel: (props: onClickLabelProps) => void;
 }) => {
   const locale = useLocale();
+  // Мемоизация имени характеристики для предотвращения лишних вычислений
+  const specName = useMemo(() => selectedName(specification, locale), [specification, locale]);
   return <Flex vertical gap={4}>
-    <Text strong>{selectedName(specification, locale)}</Text>
+    <Text strong>{specName}</Text>
     <ExpandedSpecification
       selectedFilters={selectedFilters}
       specification={specification}

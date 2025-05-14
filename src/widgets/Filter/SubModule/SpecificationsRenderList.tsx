@@ -7,7 +7,7 @@ import {
 import Section from './Section';
 import { AnimatePresence, motion } from 'framer-motion';
 import SpecificationsRenderItem from './SpecificationsRenderItem';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
 const SpecificationsRenderList = ({
@@ -20,6 +20,9 @@ const SpecificationsRenderList = ({
   onClickLabel: (props: onClickLabelProps) => void;
 }) => {
   const t = useTranslations('SpecificationsRenderList');
+  // Мемоизация функции onClickLabel для предотвращения лишних рендеров
+  const memoOnClickLabel = useCallback(onClickLabel, [onClickLabel]);
+
   return <Section title={t('characteristics')}>
     <Flex vertical gap={16} wrap>
       <AnimatePresence initial={false}>
@@ -30,19 +33,18 @@ const SpecificationsRenderList = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
+            layout
           >
-            <motion.div layout>
-              <SpecificationsRenderItem
-                selectedFilters={selectedFilters}
-                specification={spec}
-                onClickLabel={onClickLabel}
-              />
-            </motion.div>
+            <SpecificationsRenderItem
+              selectedFilters={selectedFilters}
+              specification={spec}
+              onClickLabel={memoOnClickLabel}
+            />
           </motion.div>
         ))}
       </AnimatePresence>
     </Flex>
-  </Section>
+  </Section>;
 };
 
 export default memo(SpecificationsRenderList);

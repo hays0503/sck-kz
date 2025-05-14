@@ -40,9 +40,11 @@ const ExpandedSpecification = ({
   onClickLabel: (props: onClickLabelProps) => void;
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  // Мемоизированный обработчик переключения раскрытия
   const toggleExpanded = useCallback(() => setIsExpanded((prev) => !prev), []);
 
   const locale = useLocale();
+  // Мемоизированные данные для отображения
   const renderData = useMemo(
     () =>
       isExpanded ? specification.values : specification.values.slice(0, 5),
@@ -51,10 +53,39 @@ const ExpandedSpecification = ({
 
   const showTagExpanded = specification.values.length > 5;
 
-  const selectedId =
-    selectedFilters
+  // Мемоизированные id выбранных значений
+  const selectedId = useMemo(
+    () => selectedFilters
       .find((f: SelectFilteredType) => f.id === specification.id)
-      ?.values.map((v: SelectFilteredValueType) => v.id) ?? [];
+      ?.values.map((v: SelectFilteredValueType) => v.id) ?? [],
+    [selectedFilters, specification.id]
+  );
+
+  // Мемоизированная функция для генерации onClick
+  const handleTagClick = useCallback(
+    (data: Value) => () => {
+      const propsData: onClickLabelProps = {
+        type_id: specification.id,
+        type_name: specification.name,
+        value_id: data.id,
+        value_name: data.value,
+        additional_data_type: data.additional_data,
+        additional_data_value: data.additional_data,
+      };
+      onClickLabel(propsData);
+    },
+    [onClickLabel, specification.id, specification.name]
+  );
+
+  // Мемоизированные стили для AnimatedTag
+  const getTagStyle = useCallback((isSelected: boolean) => ({
+    whiteSpace: 'normal',
+    border: 'none',
+    padding: '10px',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    backgroundColor: isSelected ? '#fdde45' : '#bebebe26',
+  }), []);
 
   return (
     <Flex wrap gap={8}>
@@ -65,27 +96,9 @@ const ExpandedSpecification = ({
           return (
             <AnimatedTag
               key={data.id}
-              onClick={() => {
-                const propsData: onClickLabelProps = {
-                  type_id: specification.id,
-                  type_name: specification.name,
-                  value_id: data.id,
-                  value_name: data.value,
-                  additional_data_type: data.additional_data,
-                  additional_data_value: data.additional_data,
-                };
-                onClickLabel(propsData);
-              }}
-              style={{
-                textWrap: 'wrap',
-                border: 'none',
-                padding: '10px',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                backgroundColor: selectedId.includes(data.id)
-                  ? '#fdde45'
-                  : '#bebebe26',
-              }}
+              // Мемоизированный обработчик клика по тегу
+              onClick={handleTagClick(data)}
+              style={getTagStyle(selectedId.includes(data.id))}
             >
               <Flex gap={4} wrap>
                 {colors.length > 0 && <ColorBall colors={colors} />}
