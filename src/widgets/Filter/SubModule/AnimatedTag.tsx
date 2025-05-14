@@ -1,9 +1,9 @@
 import React, { forwardRef, ReactNode } from 'react';
-import { Tag, TagProps } from 'antd';
+import { TagProps } from 'antd';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
 // Приводим motion(Tag) к компоненту, ожидающему props для span
-const MotionTag = motion(Tag) as React.ComponentType<HTMLMotionProps<'span'> & TagProps>;
+// const MotionTag = motion(Tag) as React.ComponentType<HTMLMotionProps<'span'> & TagProps>;
 
 const tagVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -20,7 +20,7 @@ type AnimatedTagProps = TagProps & HTMLMotionProps<'span'> & {
 const AnimatedTag = forwardRef<HTMLSpanElement, AnimatedTagProps>((props, ref) => {
   const { children, ...rest } = props;
   return (
-    <MotionTag
+    <motion.span
       ref={ref}
       variants={tagVariants}
       initial="hidden"
@@ -31,7 +31,7 @@ const AnimatedTag = forwardRef<HTMLSpanElement, AnimatedTagProps>((props, ref) =
       {...rest}
     >
       {children}
-    </MotionTag>
+    </motion.span>
   );
 });
 

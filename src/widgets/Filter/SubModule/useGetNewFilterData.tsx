@@ -66,7 +66,7 @@ export const buildParams = (selectedFilters: SelectFilteredType[]) => {
       }
     });
 
-  return '?' + params.toString() + '&limit=100';
+  return '?'+params.toString() + '&limit=100';
 };
 
 export const convertUrlToFilterData = (

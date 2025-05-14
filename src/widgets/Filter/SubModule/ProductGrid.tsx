@@ -4,10 +4,10 @@ import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import CityEnToRu from '@/shared/constant/city';
 import { rawProductsTypeV2 } from 'api-mapping/product/_type/rawProductTypeV2';
-import { Skeleton } from 'antd';
+import { Flex, Skeleton } from 'antd';
 
 interface Props {
-  products: rawProductsTypeV2[]|undefined;
+  products: rawProductsTypeV2[] | undefined;
   cityEn: string;
   isPending: boolean;
 }
@@ -23,11 +23,37 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
     paddingBottom: '10px',
   } as CSSProperties;
 
-  if (isPending || !products || products.length === 0) {
+  if (isPending || !products || products?.length === 0) {
     return (
-      <Skeleton active>
-        <div style={styleGrid} />
-      </Skeleton>
+      <div style={styleGrid}>
+        <Flex vertical gap={10}>
+          <Skeleton.Node
+            active
+            style={{ width: '47.60dvw', height: '64.21dvw' }}
+          />
+          <Skeleton
+            active
+            style={{
+              width: '47.60dvw',
+              height: '32,105dvw',
+            }}
+          />
+        </Flex>
+
+        <Flex vertical gap={10}>
+          <Skeleton.Node
+            active
+            style={{ width: '47.60dvw', height: '64.21dvw' }}
+          />
+          <Skeleton
+            active
+            style={{
+              width: '47.60dvw',
+              height: '32,105dvw',
+            }}
+          />
+        </Flex>
+      </div>
     );
   }
 

@@ -50,13 +50,14 @@ const RenderTagsList: React.FC<{
 }> = ({ selectedFilters, onClickLabel, onClear, headerContent }) => {
   const isShowDropFilter = selectedFilters.length > 0;
   const locale = useLocale();
-
   return (
     <Flex
       gap={10}
       vertical
       style={{
+        width: '100%',
         background: '#f5f5f5',
+        // background: 'red',
         padding: '5px',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
       }}
@@ -90,7 +91,7 @@ const RenderTagsList: React.FC<{
               <CloseOutlined style={{ color: '#E53935' }} />
             </Button>
           )}
-          {selectedFilters.map((filter: SelectFilteredType) => (
+          {selectedFilters?.map((filter: SelectFilteredType) => (
             <motion.div
               key={filter.id}
               layout
