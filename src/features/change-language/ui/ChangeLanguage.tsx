@@ -6,7 +6,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/routing';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useLocalStorage } from 'usehooks-ts';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 
@@ -15,7 +15,8 @@ const ChangeLanguage = () => {
   const router = useRouter();
   const localActive = useLocale();
   const pathname = usePathname();
-  const params = useParams();
+  // const params = useParams();
+  const query = useSearchParams();
   const [messageApi, contextHolder] = message.useMessage();
   const t = useTranslations();
   const cityEn = useGetCityParams();
@@ -28,12 +29,8 @@ const ChangeLanguage = () => {
     messageApi.info(`${t('vybran-yazyk')} ${key}`);
     startTransition(() => {
       setSelectCityLocal({ city: cityEn, locale: key });
-      // const url = `/city/${city}/main`;
-
-      // @ts-expect-error -- TypeScript will validate that only known `params`
-      // are used in combination with a given `pathname`. Since the two will
-      // always match for the current route, we can skip runtime checks.
-      router.replace({ pathname, params }, { locale: key });
+      const url = `${pathname}?${query?.toString()}`;
+      router.replace({ pathname: url }, { locale: key });
     });
   };
 

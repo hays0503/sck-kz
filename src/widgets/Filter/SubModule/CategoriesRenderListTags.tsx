@@ -19,9 +19,9 @@ export const CATEGORY_FILTER_TYPE_ID = -1;
 const selectedName = (data: BrandElement, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']??data?.name;
+      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.name;
     case 'en':
-      return data?.additional_data?.['EN']??data?.name;
+      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.name;
     default:
       return data?.name;
   }
