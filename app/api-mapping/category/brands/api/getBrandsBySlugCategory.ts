@@ -4,8 +4,8 @@ export interface BrandDataRaw {
   id: number;
   name_brand: string | null | undefined;
   additional_data: {
-    EN: string | null | undefined;
-    KZ: string | null | undefined;
+    en: string | null | undefined;
+    kk: string | null | undefined;
   };
   logo: { image: string }[] | [] | null;
 }

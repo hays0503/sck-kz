@@ -18,13 +18,66 @@ import {
 } from 'antd';
 import { MappedBasketItemType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
 import { useLocale, useTranslations } from 'next-intl';
-import { CSSProperties, useLayoutEffect, useState } from 'react';
+import {
+  CSSProperties,
+  Dispatch,
+  memo,
+  useLayoutEffect,
+  useState,
+} from 'react';
 
 const { Text, Title } = Typography;
 
 interface IOrderHistoryProps {
   readonly isMobileDevice: boolean;
 }
+
+const GetOrders = async (
+  refreshToken: string,
+  setOrders: Dispatch<TOrder[]>,
+) => {
+  let tokenResponse = undefined;
+  try {
+    const fetchAccessToken = await fetch(`/auth_api/v2/token/refresh`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${refreshToken}`,
+      },
+      body: JSON.stringify({
+        token: refreshToken,
+      }),
+    });
+    if (fetchAccessToken.status !== 201) {
+      return JSON.stringify(await fetchAccessToken.text());
+    }
+
+    tokenResponse = await fetchAccessToken.json();
+  } catch (e) {
+    console.log('Не вышло запросить токен');
+    console.log(e);
+    return 'Не вышло запросить токен';
+  }
+
+  try {
+    const getHistory = await fetch('/basket_api/v2/order/by_access_t/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'access-token': `${tokenResponse?.access?.token}`,
+      },
+    });
+    if (getHistory.status !== 200) {
+      return JSON.stringify(await getHistory.text());
+    }
+    setOrders(await getHistory.json());
+  } catch (e) {
+    console.log('Не вышло запросить историю заказов');
+    console.log(e);
+    return 'Не вышло запросить историю заказов';
+  }
+};
 
 const OrderHistory: React.FC<IOrderHistoryProps> = ({ isMobileDevice }) => {
   const RefreshToken = useReadLocalStorage<{ token: string | undefined }>(
@@ -35,57 +88,14 @@ const OrderHistory: React.FC<IOrderHistoryProps> = ({ isMobileDevice }) => {
   );
   const [Orders, setOrders] = useState<TOrder[]>([] as TOrder[]);
 
-  const GetOrders = async (refreshToken: string) => {
-    let fetchAccessToken = undefined;
-    try {
-      fetchAccessToken = await await fetch(`/auth_api/v2/token/refresh`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${refreshToken}`,
-        },
-        body: JSON.stringify({
-          token: refreshToken,
-        }),
-      });
-      if (fetchAccessToken.status !== 201) {
-        return JSON.stringify(fetchAccessToken.text);
-      }
-      fetchAccessToken = await fetchAccessToken.json();
-    } catch (e) {
-      console.log('Не вышло запросить токен');
-      console.log(e);
-      return 'Не вышло запросить токен';
-    }
-
-    try {
-      const getHistory = await fetch('/basket_api/v2/order/by_access_t/', {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          'access-token': `${fetchAccessToken?.access?.token}`,
-        },
-      });
-      if (getHistory.status !== 200) {
-        return JSON.stringify(getHistory.text);
-      }
-      setOrders(await getHistory.json());
-    } catch (e) {
-      console.log('Не вышло запросить историю заказов');
-      console.log(e);
-      return 'Не вышло запросить историю заказов';
-    }
-  };
-
   useLayoutEffect(() => {
     if (RefreshToken && RefreshToken?.token) {
-      GetOrders(RefreshToken.token);
+      GetOrders(RefreshToken.token, setOrders);
     }
   }, [RefreshToken]);
 
   if (!RefreshToken) {
-    return <Spin size='large' />;
+    return <Spin size='large' fullscreen />;
   }
 
   return (
@@ -96,27 +106,17 @@ const OrderHistory: React.FC<IOrderHistoryProps> = ({ isMobileDevice }) => {
   );
 };
 
-const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
-  const { data: fetchBasket, error, isLoading } = useGetBasketProductsSWR(uuid);
-  const locale = useLocale();
-  const cityEn = useGetCityParams();
-  if (error) {
-    return <Text>Ошибка</Text>;
-  }
-
-  if (!fetchBasket || isLoading) {
-    return <Spin />;
-  }
-
-  const items = fetchBasket.items;
-
-  const allPrice = items.reduce((acc, item) => {
-    const price = item.prod.price;
-    return acc + (price ?? 0) * item.count;
-  }, 0);
-
-  const RenderListProduct = () =>
-    items.map((item: MappedBasketItemType, index) => {
+const RenderListProduct = memo(
+  ({
+    items,
+    locale,
+    cityEn,
+  }: {
+    items: MappedBasketItemType[];
+    locale: string;
+    cityEn: string;
+  }) => {
+    return items.map((item: MappedBasketItemType, index) => {
       return (
         <Flex key={`${item.prod.name[locale]}-${index}`} vertical>
           {index !== 0 && <Divider />}
@@ -139,12 +139,35 @@ const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
         </Flex>
       );
     });
+  },
+);
+RenderListProduct.displayName = 'RenderListProduct';
+
+const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
+  const { data: fetchBasket, error, isLoading } = useGetBasketProductsSWR(uuid);
+  const locale = useLocale();
+  const cityEn = useGetCityParams();
+  const t = useTranslations('WrapperBasketDesktop');
+  if (error) {
+    return <Text>t('error')</Text>;
+  }
+
+  if (!fetchBasket || isLoading) {
+    return <Spin fullscreen />;
+  }
+
+  const items = fetchBasket.items;
+
+  const allPrice = items.reduce((acc, item) => {
+    const price = item.prod.price;
+    return acc + (price ?? 0) * item.count;
+  }, 0);
 
   return (
     <Flex vertical gap={5}>
       <Divider />
-      <Title level={5}>Товары</Title>
-      <RenderListProduct />
+      <Title level={5}>{t('tovary')}</Title>
+      <RenderListProduct items={items} locale={locale} cityEn={cityEn} />
       <Divider />
       <Flex justify='space-between' align='center' style={{ width: '100%' }}>
         <Text
@@ -155,7 +178,7 @@ const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
             letterSpacing: '-0.084px',
           }}
         >
-          Сумма к оплате
+          {t('summa-k-oplate')}
         </Text>
         <Text
           style={{
@@ -312,10 +335,10 @@ const WrapperOrderHistoryDesktop: React.FC<{
           onClick={() => setSelectedOrder(null)}
           style={{ marginBottom: 16 }}
         >
-          Назад
+          {t('nazad')}
         </Button>
         <Flex vertical align='start' style={{ width: '100%' }}>
-          <Title level={2}>{`Заказ №${selectedOrder?.id}`}</Title>
+          <Title level={2}>{`${t('zakaz')} №${selectedOrder?.id}`}</Title>
           <Text
             disabled
             style={{
@@ -325,7 +348,7 @@ const WrapperOrderHistoryDesktop: React.FC<{
               letterSpacing: '-0.6px',
             }}
           >
-            {`Создан: ${new Date(selectedOrder?.created_at ?? '').toLocaleString()}`}
+            {`${t('sozdan')}: ${new Date(selectedOrder?.created_at ?? '').toLocaleString()}`}
           </Text>
         </Flex>
         <Flex style={{ width: '100%' }} gap={20} vertical={isMobileDevice}>
@@ -346,18 +369,18 @@ const WrapperOrderHistoryDesktop: React.FC<{
                 style={{ width: '100%', padding: '20px' }}
                 gap={10}
               >
-                <Title level={3}>Детали заказа</Title>
-                <Title level={5}>Доставка</Title>
+                <Title level={3}>{t('detali-zakaza')}</Title>
+                <Title level={5}>{t('dostavka')}</Title>
                 <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>Дата и время</Text>
+                  <Text disabled>{t('data-i-vremya')}</Text>
                   <Text>
                     {new Date(selectedOrder?.created_at ?? '').toLocaleString()}
                   </Text>
                 </Flex>
-                <Title level={5}>Покупатель</Title>
+                <Title level={5}>{t('pokupatel')}</Title>
                 {selectedOrder?.user_full_name ? (
                   <Flex justify='space-between' style={{ width: '100%' }}>
-                    <Text disabled>Имя</Text>
+                    <Text disabled>{t('imya')}</Text>
                     <Text>
                       {selectedOrder.user_full_name
                         ?.match(/\[([^\]]+)\]/g) // Найти строки в скобках
@@ -368,28 +391,28 @@ const WrapperOrderHistoryDesktop: React.FC<{
                   </Flex>
                 ) : null}
                 <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>Телефон</Text>
+                  <Text disabled>{t('telefon')}</Text>
                   <Text>{selectedOrder?.phone_number}</Text>
                 </Flex>
                 <Flex justify='space-between' style={{ width: '100%' }}>
                   <Text disabled>Email</Text>
                   <Text>{`${selectedOrder?.email}`}</Text>
                 </Flex>
-                <Title level={5}>Оплата</Title>
+                <Title level={5}>{t('oplata')}</Title>
                 <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>Способ оплаты</Text>
+                  <Text disabled>{t('sposob-oplaty')}</Text>
                   <Text>
                     {selectedOrder?.payment_type === 'ONLINE'
-                      ? 'Оплата онлайн'
-                      : 'Оплата при получении'}
+                      ? t('oplata-onlai-n')
+                      : t('oplata-pri-poluchenii')}
                   </Text>
                 </Flex>
                 <Flex justify='space-between' style={{ width: '100%' }}>
                   <Text disabled>Статус</Text>
                   <Text>
                     {selectedOrder?.payment_status === 'UNPAID'
-                      ? 'Не оплачен'
-                      : 'Оплачен'}
+                      ? t('ne-oplachen')
+                      : t('oplachen')}
                   </Text>
                 </Flex>
 
@@ -409,7 +432,7 @@ const WrapperOrderHistoryDesktop: React.FC<{
               padding: '20px',
             }}
           >
-            <Title level={4}>{`Статус заказа`}</Title>
+            <Title level={4}>{t('status-zakaza')}</Title>
             <Steps
               initial={0}
               direction='vertical'
@@ -423,13 +446,13 @@ const WrapperOrderHistoryDesktop: React.FC<{
               }
               items={[
                 {
-                  title: 'Новый заказ',
+                  title: t('novyi-zakaz'),
                 },
                 {
-                  title: 'В работе',
+                  title: t('v-rabote'),
                 },
                 {
-                  title: 'Завершен',
+                  title: t('zavershen'),
                 },
               ]}
             />

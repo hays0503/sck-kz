@@ -5,6 +5,6 @@ export interface iCity {
 }
 
 export interface AdditionalData {
-    readonly EN: string;
-    readonly KZ: string;
+    readonly en: string;
+    readonly kk: string;
 }

@@ -272,7 +272,24 @@
     "vypolnen": "Орындалды",
     "otmenen": "Болдырмады",
     "neizvestno": "Белгісіз",
-    "zakaz": "Бұйрық"
+    "zakaz": "Бұйрық",
+    "sozdan": "Құрылған",
+    "detali-zakaza": "Тапсырыс туралы мәліметтер",
+    "dostavka": "Жеткізілім",
+    "data-i-vremya": "Күні мен уақыты",
+    "pokupatel": "Сатып алушы",
+    "imya": "Есім",
+    "telefon": "Телефон",
+    "oplata": "Төлем",
+    "sposob-oplaty": "Төлем әдісі",
+    "oplata-onlai-n": "Онлайн төлем",
+    "oplata-pri-poluchenii": "Қабылданған кезде төлем",
+    "ne-oplachen": "Төленбейді",
+    "oplachen": "Ақылы",
+    "status-zakaza": "Тапсырыс күйі",
+    "zavershen": "Орындалды",
+    "novyi-zakaz": "Жаңа тапсырыс",
+    "nazad": "Көмектесу"
   },
   "CatalogMenu": {
     "zagruzka": "Тиеу",
@@ -422,5 +439,10 @@
   },
   "SpecificationsRenderList": {
     "characteristics": "Сипаттамасы"
+  },
+  "WrapperBasketDesktop": {
+    "error": "Қателік",
+    "summa-k-oplate": "Төлем сомасы",
+    "tovary": "Тауарлар"
   }
 }

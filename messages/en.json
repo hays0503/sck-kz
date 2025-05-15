@@ -272,7 +272,24 @@
     "vypolnen": "Executed",
     "otmenen": "Canceled",
     "neizvestno": "Not known",
-    "zakaz": "Order"
+    "zakaz": "Order",
+    "sozdan": "Created",
+    "detali-zakaza": "Details of the order",
+    "dostavka": "Delivery",
+    "data-i-vremya": "Date and time",
+    "pokupatel": "Buyer",
+    "imya": "Name",
+    "telefon": "Telephone",
+    "oplata": "Payment",
+    "sposob-oplaty": "Payment method",
+    "oplata-onlai-n": "Payment online",
+    "oplata-pri-poluchenii": "Payment upon receipt",
+    "ne-oplachen": "Not paid",
+    "oplachen": "Paid",
+    "status-zakaza": "Order status",
+    "zavershen": "Completed",
+    "novyi-zakaz": "New order",
+    "nazad": "Back"
   },
   "CatalogMenu": {
     "zagruzka": "Loading",
@@ -422,5 +439,10 @@
   },
   "SpecificationsRenderList": {
     "characteristics": "Characteristics"
+  },
+  "WrapperBasketDesktop": {
+    "error": "Error",
+    "summa-k-oplate": "The amount for payment",
+    "tovary": "Goods"
   }
 }

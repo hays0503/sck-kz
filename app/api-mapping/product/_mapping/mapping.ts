@@ -17,8 +17,8 @@ const mapping = (
     slug: product?.slug,
     name: {
       ru: product?.name_product,
-      en: getLocalizedName(product, 'EN'),
-      kk: getLocalizedName(product, 'KZ'),
+      en: getLocalizedName(product, 'en'),
+      kk: getLocalizedName(product, 'kk'),
     },
     img: product.images?.map((image: rawImage) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')) ?? [],
     rating: typeof product.avg_rating === 'number' ? product?.avg_rating : 0, // Приведение к number
@@ -33,8 +33,8 @@ const mapping = (
     tags: product?.tags,
     brand: {
       ru: product?.brand?.name_brand ?? null,
-      en: getLocalizedName(product?.brand, 'EN'),
-      kk: getLocalizedName(product?.brand, 'KZ'),
+      en: getLocalizedName(product?.brand, 'en'),
+      kk: getLocalizedName(product?.brand, 'kk'),
     }
   }));
 

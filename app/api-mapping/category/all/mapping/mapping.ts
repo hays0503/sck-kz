@@ -8,8 +8,8 @@ const mapping = (rawData: rawTypeCategory[]|[]):{results:MappedCategoryType[]} =
         slug: product.slug,
         name: {
             ru: product.name_category,
-            en: product.additional_data.EN,
-            kk: product.additional_data.KZ,
+            en: product.additional_data.en,
+            kk: product.additional_data.kk,
         },
         parent: product.parent,
         img: product.list_url_to_image,

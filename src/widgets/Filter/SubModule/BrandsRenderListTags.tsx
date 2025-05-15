@@ -18,9 +18,9 @@ const { Text } = Typography;
 const selectedName = (data: BrandElement, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.name;
+      return data?.additional_data?.['kk']!=''?data?.additional_data?.['kk']:data.name;
     case 'en':
-      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.name;
+      return data?.additional_data?.['en']!=''?data?.additional_data?.['en']:data.name;
     default:
       return data?.name;
   }
@@ -60,8 +60,8 @@ const BrandsRenderListTags: React.FC<{
                   value_id: _data.id,
                   value_name: _data.name,
                   additional_data_type: {
-                    KZ: 'Бренды',
-                    EN: 'Brands',
+                    kk: 'Бренды',
+                    en: 'Brands',
                   },
                   additional_data_value: _data.additional_data,
                 };

@@ -22,8 +22,8 @@ export interface Products {
 }
 
 export interface AdditionalData {
-    readonly EN: string;
-    readonly KZ: string;
+    readonly en: string;
+    readonly kk: string;
 }
 
 export interface TagProd {

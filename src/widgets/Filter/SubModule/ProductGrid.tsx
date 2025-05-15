@@ -71,8 +71,8 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
               slug: product.slug,
               name: {
                 ru: product.name_product,
-                en: product.additional_data.EN,
-                kk: product.additional_data.KZ,
+                en: product.additional_data.en,
+                kk: product.additional_data.kk,
               },
               img: product.images?.flatMap((img) => img.image),
               rating: product.avg_rating,
@@ -82,8 +82,8 @@ const ProductGrid = memo(({ isPending, products, cityEn }: Props) => {
               discount: product?.discount?.amount ?? null,
               brand: {
                 ru: product.brand?.name_brand,
-                en: product.additional_data.EN,
-                kk: product.additional_data.KZ,
+                en: product.additional_data.en,
+                kk: product.additional_data.kk,
               },
               tags: product.tags,
             }}

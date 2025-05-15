@@ -8,8 +8,8 @@ const mapping = (rawData: rawTypeCategory):MappedCategoryWithoutChildrenType => 
         slug: rawData.slug,
         name: {
             ru: rawData.name_category,
-            en: rawData.additional_data.EN,
-            kk: rawData.additional_data.KZ,
+            en: rawData.additional_data.en,
+            kk: rawData.additional_data.kk,
         },
         img: rawData.list_url_to_image,
         banner: rawData.list_url_to_baner

@@ -23,8 +23,8 @@ export type rawProductsTypeV2 = {
 
 
 export type rawAdditionalDataV2 = {
-    readonly EN: string;
-    readonly KZ: string;
+    readonly en: string;
+    readonly kk: string;
 }
 
 export type rawBrandV2 = {

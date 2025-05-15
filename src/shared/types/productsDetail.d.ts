@@ -26,8 +26,8 @@ export interface ProductsDetail {
 }
 
 export interface AdditionalData {
-    readonly EN: string;
-    readonly KZ: string;
+    readonly en: string;
+    readonly kk: string;
 }
 
 export interface Brand {

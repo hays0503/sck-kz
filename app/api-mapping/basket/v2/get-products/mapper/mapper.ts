@@ -45,8 +45,8 @@ const mapping = async (
           slug: product?.slug,
           name: {
             ru: product?.name_product,
-            en: product?.additional_data?.EN,
-            kk: product?.additional_data?.KZ,
+            en: product?.additional_data?.en,
+            kk: product?.additional_data?.kk,
           },
           img:product?.images?.map((image: rawImage) => image.image).reverse() ??[],
           rating:typeof product?.avg_rating === 'number' ? product?.avg_rating : 0, // Приведение к number
@@ -56,20 +56,20 @@ const mapping = async (
           discount: discount,
           brand: {
             ru: product?.brand?.name_brand ?? null,
-            en: getLocalizedName(product?.brand, 'EN'),
-            kk: getLocalizedName(product?.brand, 'KZ'),
+            en: getLocalizedName(product?.brand, 'en'),
+            kk: getLocalizedName(product?.brand, 'kk'),
           },
           tags: product?.tags ?? [],
           specifications: product?.specifications?.map((specification: rawSpecification) => ({
                 name: {
                   ru: specification?.name_specification?.name_specification,
-                  en: specification?.name_specification?.additional_data?.EN,
-                  kk: specification?.name_specification?.additional_data?.KZ,
+                  en: specification?.name_specification?.additional_data?.en,
+                  kk: specification?.name_specification?.additional_data?.kk,
                 },
                 value: {
                   ru: specification?.value_specification?.value_specification,
-                  en: specification?.value_specification?.additional_data?.EN,
-                  kk: specification?.value_specification?.additional_data?.KZ,
+                  en: specification?.value_specification?.additional_data?.en,
+                  kk: specification?.value_specification?.additional_data?.kk,
                 },
               })) ?? [],
         },

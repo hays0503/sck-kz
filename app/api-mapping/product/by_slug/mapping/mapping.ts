@@ -54,8 +54,8 @@ const mapping = async (
     tags: rawData?.tags,
     name: {
       ru: Placeholder(rawData?.name_product,'Перевод не установлен ru',"Название на русском"),
-      en: Placeholder(rawData?.additional_data?.EN,'Перевод не установлен en',"Название на английском"),
-      kk: Placeholder(rawData?.additional_data?.KZ,'Перевод не установлен kz',"Название на казахском"),
+      en: Placeholder(rawData?.additional_data?.en,'Перевод не установлен en',"Название на английском"),
+      kk: Placeholder(rawData?.additional_data?.kk,'Перевод не установлен kz',"Название на казахском"),
     },
     img: rawData?.images.map((image) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')),
     rating: rawData?.avg_rating,
@@ -67,13 +67,13 @@ const mapping = async (
     rawData?.specifications?.map((specification: rawSpecificationV2) => ({
       name: {
         ru: Placeholder(specification?.name_specification?.name_specification,'Перевод не установлен ru',`Название спецификации id:${specification?.name_specification?.id}`),
-        en: Placeholder(specification?.name_specification?.additional_data.EN,'Перевод не установлен en',`Название спецификации id:${specification?.name_specification?.id}`),
-        kk: Placeholder(specification?.name_specification?.additional_data.KZ ,'Перевод не установлен kz',`Название спецификации id:${specification?.name_specification?.id}`),
+        en: Placeholder(specification?.name_specification?.additional_data.en,'Перевод не установлен en',`Название спецификации id:${specification?.name_specification?.id}`),
+        kk: Placeholder(specification?.name_specification?.additional_data.kk ,'Перевод не установлен kz',`Название спецификации id:${specification?.name_specification?.id}`),
       },
       value: {
         ru: Placeholder(specification?.value_specification?.value_specification,'Перевод не установлен ru',`Значение спецификации id:${specification?.value_specification?.id}`),
-        en: Placeholder(specification?.value_specification?.additional_data?.EN,'Перевод не установлен en',`Значение спецификации id:${specification?.value_specification?.id}`),
-        kk: Placeholder(specification?.value_specification?.additional_data?.KZ,'Перевод не установлен kz', `Значение спецификации id:${specification?.value_specification?.id}`),
+        en: Placeholder(specification?.value_specification?.additional_data?.en,'Перевод не установлен en',`Значение спецификации id:${specification?.value_specification?.id}`),
+        kk: Placeholder(specification?.value_specification?.additional_data?.kk,'Перевод не установлен kz', `Значение спецификации id:${specification?.value_specification?.id}`),
       },
     })) ?? [];
 
@@ -97,8 +97,8 @@ const mapping = async (
     desc = {
       name: {
         ru: Placeholder(descFetch?.body_description,'Перевод не установлен ru',"Описание на русском"),
-        en: Placeholder(descFetch?.additional_data_to_desc?.EN,'Перевод не установлен en',"Описание на английском"),
-        kk: Placeholder(descFetch?.additional_data_to_desc?.KZ,'Перевод не установлен kz',"Описание на казахском"),
+        en: Placeholder(descFetch?.additional_data_to_desc?.en,'Перевод не установлен en',"Описание на английском"),
+        kk: Placeholder(descFetch?.additional_data_to_desc?.kk,'Перевод не установлен kz',"Описание на казахском"),
       },
     };
   }
@@ -165,8 +165,8 @@ const mapping = async (
     configuration: configurationProducts,
     brand:{
       ru: Placeholder(rawData?.brand?.name_brand,'Перевод не установлен ru',`Бренд id:${rawData?.brand?.id}`),
-      en: Placeholder(rawData?.brand?.additional_data?.EN,'Перевод не установлен en',`Бренд id:${rawData?.brand?.id}`),
-      kk: Placeholder(rawData?.brand?.additional_data?.KZ,'Перевод не установлен kz', `Бренд id:${rawData?.brand?.id}`),
+      en: Placeholder(rawData?.brand?.additional_data?.en,'Перевод не установлен en',`Бренд id:${rawData?.brand?.id}`),
+      kk: Placeholder(rawData?.brand?.additional_data?.kk,'Перевод не установлен kz', `Бренд id:${rawData?.brand?.id}`),
     }
   } as MappedProductDetailType;
 

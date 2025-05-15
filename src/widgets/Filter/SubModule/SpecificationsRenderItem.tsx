@@ -12,9 +12,9 @@ import { useMemo } from 'react';
 const selectedName = (data: Specification, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.name;
+      return data?.additional_data?.['kk']!=''?data?.additional_data?.['kk']:data.name;
     case 'en':
-      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.name;
+      return data?.additional_data?.['en']!=''?data?.additional_data?.['en']:data.name;
     default:
       return data?.name;
   }

@@ -290,7 +290,24 @@
     "vypolnen": "Выполненный",
     "otmenen": "Отменённый",
     "neizvestno": "Не известно",
-    "zakaz": "Заказ"
+    "zakaz": "Заказ",
+    "sozdan": "Создан",
+    "detali-zakaza": "Детали заказа",
+    "dostavka": "Доставка",
+    "data-i-vremya": "Дата и время",
+    "pokupatel": "Покупатель",
+    "imya": "Имя",
+    "telefon": "Телефон",
+    "oplata": "Оплата",
+    "sposob-oplaty": "Способ оплаты",
+    "oplata-onlai-n": "Оплата онлайн",
+    "oplata-pri-poluchenii": "Оплата при получении",
+    "ne-oplachen": "Не оплачен",
+    "oplachen": "Оплачен",
+    "status-zakaza": "Статус заказа",
+    "novyi-zakaz": "Новый заказ",
+    "zavershen": "Завершен",
+    "nazad": "Назад"
   },
   "zagruzka": "Загрузка",
   "oshibka": "Ошибка",
@@ -426,5 +443,31 @@
   },
   "SpecificationsRenderList": {
     "characteristics": "Характеристики"
-  }
+  },
+  "WrapperBasketDesktop": {
+    "error": "Ошибка",
+    "summa-k-oplate": "Сумма к оплате",
+    "tovary": "Товары"
+  },
+  "summa-k-oplate": "Сумма к оплате",
+  "tovary": "Товары",
+  "zakaz": "Заказ",
+  "sozdan": "Создан",
+  "detali-zakaza": "Детали заказа",
+  "dostavka": "Доставка",
+  "data-i-vremya": "Дата и время",
+  "pokupatel": "Покупатель",
+  "imya": "Имя",
+  "telefon": "Телефон",
+  "oplata": "Оплата",
+  "sposob-oplaty": "Способ оплаты",
+  "oplata-onlai-n": "Оплата онлайн",
+  "oplata-pri-poluchenii": "Оплата при получении",
+  "ne-oplachen": "Не оплачен",
+  "oplachen": "Оплачен",
+  "status-zakaza": "Статус заказа",
+  "novyi-zakaz": "Новый заказ",
+  "v-rabote": "В работе",
+  "zavershen": "Завершен",
+  "nazad": "Назад"
 }

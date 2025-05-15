@@ -8,6 +8,6 @@ export interface iDescription {
 }
 
 export interface AdditionalData {
-    EN: string;
-    KZ: string;
+    en: string;
+    kk: string;
 }

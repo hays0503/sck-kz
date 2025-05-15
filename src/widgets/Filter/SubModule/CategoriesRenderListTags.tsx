@@ -19,9 +19,9 @@ export const CATEGORY_FILTER_TYPE_ID = -1;
 const selectedName = (data: BrandElement, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.name;
+      return data?.additional_data?.['kk']!=''?data?.additional_data?.['kk']:data.name;
     case 'en':
-      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.name;
+      return data?.additional_data?.['en']!=''?data?.additional_data?.['en']:data.name;
     default:
       return data?.name;
   }
@@ -61,7 +61,7 @@ const CategoriesRenderListTags: React.FC<{
                     type_name: 'Категории',
                     value_id: renderForData.id,
                     value_name: renderForData.name,
-                    additional_data_type: { EN: 'Categories', KZ: 'Санаттар' },
+                    additional_data_type: { en: 'Categories', kk: 'Санаттар' },
                     additional_data_value: renderForData.additional_data,
                   };
                   onClickLabel(data);

@@ -14,8 +14,8 @@ export interface NameSpecification {
 }
 
 export interface AdditionalData {
-    EN: string;
-    KZ: string;
+    en: string;
+    kk: string;
 }
 
 export interface ValueSpecification {

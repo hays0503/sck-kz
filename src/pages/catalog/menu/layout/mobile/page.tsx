@@ -12,7 +12,9 @@ import { CatalogMenu } from "@/widgets/CatalogMenu/ui";
 import { FooterMobile } from "@/widgets/FooterMobile";
 import { LayoutMain } from "@/widgets/LayoutMain";
 import { Flex } from "antd";
+import { setRequestLocale } from "next-intl/server";
 import { unstable_cache } from "next/cache";
+import React from "react";
 
 interface CategoryMenuPageProps {
   readonly params: {
@@ -31,8 +33,8 @@ export async function generateStaticParams() {
 }
 
 async function CatalogMenuPage({ params }: CategoryMenuPageProps) {
-  const { slug, city } = await params;
-
+  const { slug, city, locale } = await params;
+  setRequestLocale(locale);
   // Ключи для кэширования
   const urlAllCategory = `/api-mapping/category/all/?city=${city}`;
   const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`;

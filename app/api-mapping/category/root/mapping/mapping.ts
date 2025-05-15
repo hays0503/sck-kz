@@ -7,8 +7,8 @@ const mapping = (rawData: rawTypeCategory[]|[]):{results:MappedCategoryWithoutCh
         slug: product.slug,
         name: {
             ru: product.name_category,
-            en: product.additional_data.EN,
-            kk: product.additional_data.KZ,
+            en: product.additional_data.en,
+            kk: product.additional_data.kk,
         },
         img: product.list_url_to_image,
         banner: product.list_url_to_baner

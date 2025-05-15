@@ -98,8 +98,8 @@ export const convertUrlToFilterData = (
         name: 'Категории',
         values: values,
         additional_data: {
-          KZ: 'Санат',
-          EN: 'Category',
+          kk: 'Санат',
+          en: 'Category',
         },
       };
       selectedFilters.push(pushData);
@@ -124,8 +124,8 @@ export const convertUrlToFilterData = (
         name: 'Бренды',
         values,
         additional_data: {
-          KZ: 'Бренд',
-          EN: 'Brand',
+          kk: 'Бренд',
+          en: 'Brand',
         },
       });
     }

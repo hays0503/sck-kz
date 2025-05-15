@@ -23,9 +23,9 @@ const tagMotionProps = {
 const selectedName = (data: Specification, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.name;
+      return data?.additional_data?.['kk']!=''?data?.additional_data?.['kk']:data.name;
     case 'en':
-      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.name;
+      return data?.additional_data?.['en']!=''?data?.additional_data?.['en']:data.name;
     default:
       return data?.name;
   }
@@ -34,9 +34,9 @@ const selectedName = (data: Specification, locale: string) => {
 const selectedValue = (data: Value, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ']!=''?data?.additional_data?.['KZ']:data.value;
+      return data?.additional_data?.['kk']!=''?data?.additional_data?.['kk']:data.value;
     case 'en':
-      return data?.additional_data?.['EN']!=''?data?.additional_data?.['EN']:data.value;
+      return data?.additional_data?.['en']!=''?data?.additional_data?.['en']:data.value;
     default:
       return data.value;
   }

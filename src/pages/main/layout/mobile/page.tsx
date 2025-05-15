@@ -19,6 +19,7 @@ import { CSSProperties } from 'react';
 import { unstable_cache } from 'next/cache';
 import { MobileFooterMenu } from '@/widgets/MobileFooterMenu';
 import getProductByCategory from '@/entities/Product/api/getProductByCategory';
+import { setRequestLocale } from 'next-intl/server';
 
 type PageProps = {
   params: { slug: string; locale: string; city: string };
@@ -30,8 +31,8 @@ export const dynamicParams = true;
 
 export default async function HomePage({ params, searchParams }: PageProps) {
   const { page } = await searchParamsCache.parse(searchParams);
-  const { city } = await params;
-
+  const { city, locale } = await params;
+  setRequestLocale(locale);
   // Ключи для кэша
   const urlPopulates = `/api-mapping/product/by_populates?page=${page}&order=none_sort&city=${city}`;
   const urlCity = `/api-mapping/city`;

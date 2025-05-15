@@ -8,8 +8,8 @@ interface BrandDataRaw {
   id: number;
   name_brand: string | null | undefined;
   additional_data: {
-    EN: string | null | undefined;
-    KZ: string | null | undefined;
+    en: string | null | undefined;
+    kk: string | null | undefined;
   };
   logo: { image: string }[];
 }
@@ -34,10 +34,10 @@ const BrandList: React.FC<BrandListProps> = ({
   const getName = useCallback(
     (data: BrandDataRaw, lang: string): string | null | undefined => {
       switch (lang) {
-        case 'EN':
-          return data.additional_data.EN;
-        case 'KZ':
-          return data.additional_data.KZ;
+        case 'en':
+          return data.additional_data.en;
+        case 'kk':
+          return data.additional_data.kk;
         default:
           return data.name_brand;
       }

@@ -9,16 +9,16 @@ type ProductSpecsType = {
   name_specification: {
     id: number;
     additional_data: {
-      EN: string;
-      KZ: string;
+      en: string;
+      kk: string;
     };
     name_specification: string;
   };
   value_specification: {
     id: number;
     additional_data: {
-      EN: string;
-      KZ: string;
+      en: string;
+      kk: string;
     };
     value_specification: string;
   };

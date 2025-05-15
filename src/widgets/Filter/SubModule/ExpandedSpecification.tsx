@@ -18,12 +18,12 @@ const { Text } = Typography;
 const selectedValue = (data: Value, locale: string) => {
   switch (locale) {
     case 'kk':
-      return data?.additional_data?.['KZ'] != ''
-        ? data?.additional_data?.['KZ']
+      return data?.additional_data?.['kk'] != ''
+        ? data?.additional_data?.['kk']
         : data.value;
     case 'en':
-      return data?.additional_data?.['EN'] != ''
-        ? data?.additional_data?.['EN']
+      return data?.additional_data?.['en'] != ''
+        ? data?.additional_data?.['en']
         : data.value;
     default:
       return data.value;

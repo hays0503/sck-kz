@@ -64,8 +64,8 @@ const Level1: React.FC<ILevel1Props> = (props) => {
     const text =
       locale === 'ru'
         ? tag.tag_text
-        : locale === 'kz'
-          ? tag.additional_data['kz']
+        : locale === 'kk'
+          ? tag.additional_data['kk']
           : tag.additional_data['en'];
 
     const styleTags: CSSProperties = {
