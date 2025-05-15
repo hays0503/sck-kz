@@ -174,7 +174,10 @@
     "potverdet": "Растау"
   },
   "Logout": {
-    "logout": "Шығыс"
+    "logout": "Шығыс",
+    "vy-deistvitelno-khotite-vyi-ti": "Шынымен шыққыңыз келе ме?",
+    "da": "Иә",
+    "net": "Жоқ"
   },
   "ProductPopularListPagination": {
     "populyarnye": "Белгілі",

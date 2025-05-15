@@ -7,6 +7,7 @@ import beautifulCost from '@/shared/tools/beautifulCost';
 import { TOrder } from '@/shared/types/orderHistory';
 import { useReadLocalStorage } from 'usehooks-ts';
 import {
+  Alert,
   Button,
   Card,
   Divider,
@@ -19,7 +20,6 @@ import {
 import { MappedBasketItemType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
 import { useLocale, useTranslations } from 'next-intl';
 import {
-  CSSProperties,
   Dispatch,
   memo,
   useLayoutEffect,
@@ -35,8 +35,8 @@ interface IOrderHistoryProps {
 const GetOrders = async (
   refreshToken: string,
   setOrders: Dispatch<TOrder[]>,
+  setError: Dispatch<string | null>
 ) => {
-  let tokenResponse = undefined;
   try {
     const fetchAccessToken = await fetch(`/auth_api/v2/token/refresh`, {
       method: 'POST',
@@ -45,79 +45,60 @@ const GetOrders = async (
         Accept: 'application/json',
         Authorization: `Bearer ${refreshToken}`,
       },
-      body: JSON.stringify({
-        token: refreshToken,
-      }),
+      body: JSON.stringify({ token: refreshToken }),
     });
+
     if (fetchAccessToken.status !== 201) {
-      return JSON.stringify(await fetchAccessToken.text());
+      const errText = await fetchAccessToken.text();
+      throw new Error(errText);
     }
 
-    tokenResponse = await fetchAccessToken.json();
-  } catch (e) {
-    console.log('Не вышло запросить токен');
-    console.log(e);
-    return 'Не вышло запросить токен';
-  }
+    const tokenResponse = await fetchAccessToken.json();
 
-  try {
     const getHistory = await fetch('/basket_api/v2/order/by_access_t/', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'access-token': `${tokenResponse?.access?.token}`,
+        'access-token': tokenResponse?.access?.token,
       },
     });
+
     if (getHistory.status !== 200) {
-      return JSON.stringify(await getHistory.text());
+      const errText = await getHistory.text();
+      throw new Error(errText);
     }
+
     setOrders(await getHistory.json());
-  } catch (e) {
-    console.log('Не вышло запросить историю заказов');
-    console.log(e);
-    return 'Не вышло запросить историю заказов';
+  } catch (err: unknown) {
+    console.error(err);
+    setError((err as Error).message);
   }
 };
 
 const OrderHistory: React.FC<IOrderHistoryProps> = ({ isMobileDevice }) => {
-  const RefreshToken = useReadLocalStorage<{ token: string | undefined }>(
-    'refreshToken',
-    {
-      initializeWithValue: false,
-    },
-  );
-  const [Orders, setOrders] = useState<TOrder[]>([] as TOrder[]);
+  const RefreshToken = useReadLocalStorage<{ token: string | undefined }>('refreshToken', {
+    initializeWithValue: false,
+  });
+
+  const [Orders, setOrders] = useState<TOrder[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useLayoutEffect(() => {
-    if (RefreshToken && RefreshToken?.token) {
-      GetOrders(RefreshToken.token, setOrders);
+    if (RefreshToken?.token) {
+      GetOrders(RefreshToken.token, setOrders, setError);
     }
   }, [RefreshToken]);
 
-  if (!RefreshToken) {
-    return <Spin size='large' fullscreen />;
-  }
+  if (!RefreshToken) return <Spin size="large" fullscreen />;
+  if (error) return <Alert type="error" message="Ошибка загрузки заказов" description={error} showIcon />;
 
-  return (
-    <WrapperOrderHistoryDesktop
-      Orders={Orders}
-      isMobileDevice={isMobileDevice}
-    />
-  );
+  return <WrapperOrderHistoryDesktop Orders={Orders} isMobileDevice={isMobileDevice} />;
 };
 
 const RenderListProduct = memo(
-  ({
-    items,
-    locale,
-    cityEn,
-  }: {
-    items: MappedBasketItemType[];
-    locale: string;
-    cityEn: string;
-  }) => {
-    return items.map((item: MappedBasketItemType, index) => {
-      return (
+  ({ items, locale, cityEn }: { items: MappedBasketItemType[]; locale: string; cityEn: string }) => (
+    <>
+      {items.map((item, index) => (
         <Flex key={`${item.prod.name[locale]}-${index}`} vertical>
           {index !== 0 && <Divider />}
           <Link href={`/city/${cityEn}/product/${item.prod.slug}`}>
@@ -125,21 +106,21 @@ const RenderListProduct = memo(
               <Image
                 preview={false}
                 src={item.prod.img[0]}
-                alt={`${item.prod.name[locale]}-${index}`}
+                alt={item.prod?.name?.[locale]??item?.prod?.name?.['ru']??''}
                 width={50}
                 height={50}
                 style={{ objectFit: 'scale-down' }}
               />
-              <Flex justify='space-between' vertical>
+              <Flex justify="space-between" vertical>
                 <Text>{item.prod.name[locale]}</Text>
                 <Text strong>{beautifulCost(item.prod.price)}</Text>
               </Flex>
             </Flex>
           </Link>
         </Flex>
-      );
-    });
-  },
+      ))}
+    </>
+  )
 );
 RenderListProduct.displayName = 'RenderListProduct';
 
@@ -148,20 +129,12 @@ const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
   const locale = useLocale();
   const cityEn = useGetCityParams();
   const t = useTranslations('WrapperBasketDesktop');
-  if (error) {
-    return <Text>t('error')</Text>;
-  }
 
-  if (!fetchBasket || isLoading) {
-    return <Spin fullscreen />;
-  }
+  if (error) return <Alert type="error" message={t('error')} showIcon />;
+  if (!fetchBasket || isLoading) return <Spin fullscreen />;
 
   const items = fetchBasket.items;
-
-  const allPrice = items.reduce((acc, item) => {
-    const price = item.prod.price;
-    return acc + (price ?? 0) * item.count;
-  }, 0);
+  const allPrice = items.reduce((acc, item) => acc + (item.prod.price ?? 0) * item.count, 0);
 
   return (
     <Flex vertical gap={5}>
@@ -169,27 +142,9 @@ const WrapperBasketDesktop: React.FC<{ uuid: string }> = ({ uuid }) => {
       <Title level={5}>{t('tovary')}</Title>
       <RenderListProduct items={items} locale={locale} cityEn={cityEn} />
       <Divider />
-      <Flex justify='space-between' align='center' style={{ width: '100%' }}>
-        <Text
-          style={{
-            fontSize: '20px',
-            fontWeight: '400',
-            lineHeight: '22px',
-            letterSpacing: '-0.084px',
-          }}
-        >
-          {t('summa-k-oplate')}
-        </Text>
-        <Text
-          style={{
-            fontSize: '14px',
-            fontWeight: '400',
-            lineHeight: '22px',
-            letterSpacing: '-0.084px',
-          }}
-        >
-          {beautifulCost(allPrice)}
-        </Text>
+      <Flex justify="space-between" align="center" style={{ width: '100%' }}>
+        <Text style={{ fontSize: '20px' }}>{t('summa-k-oplate')}</Text>
+        <Text style={{ fontSize: '14px' }}>{beautifulCost(allPrice)}</Text>
       </Flex>
     </Flex>
   );
@@ -204,39 +159,20 @@ const WrapperOrderHistoryDesktop: React.FC<{
   const [selectedOrder, setSelectedOrder] = useState<TOrder | null>(null);
 
   const RowInList: React.FC<{ order: TOrder }> = ({ order }) => {
-    const styleData: CSSProperties = {
-      color: '#808185',
-      fontSize: '14px',
-      fontWeight: '400',
-      lineHeight: '22px',
-      letterSpacing: '-0.084px',
+    const statusColors: Record<string, string> = {
+      NEW: 'green',
+      INWORK: 'blue',
+      COMPLITED: 'green',
+      CANCELED: 'red',
     };
 
-    let status = '';
-    let color = 'red';
+    const statusLabels: Record<string, string> = {
+      NEW: t('novyi'),
+      INWORK: t('v-rabote'),
+      COMPLITED: t('vypolnen'),
+      CANCELED: t('otmenen'),
+    };
 
-    switch (order.order_status) {
-      case 'NEW':
-        status = t('novyi');
-        color = 'green';
-        break;
-      case 'INWORK':
-        status = t('v-rabote');
-        color = 'blue';
-        break;
-      case 'COMPLITED':
-        status = t('vypolnen');
-        color = 'green';
-        break;
-      case 'CANCELED':
-        status = t('otmenen');
-        color = 'red';
-        break;
-      default:
-        status = t('neizvestno');
-        color = 'red';
-        break;
-    }
     const created_date = new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
@@ -244,23 +180,22 @@ const WrapperOrderHistoryDesktop: React.FC<{
 
     return (
       <Flex
+        vertical
         style={{
-          width: '100%',
-          backgroundColor: '#ffff',
-          padding: '10px',
+          padding: 10,
           borderBottom: '1px solid #f0f0f0',
           cursor: 'pointer',
+          backgroundColor: '#fff',
         }}
-        vertical={true}
         onClick={() => setSelectedOrder(order)}
       >
-        <Flex style={{ width: '100%' }} justify='space-between'>
+        <Flex justify="space-between">
           <Title level={5}>{`${t('zakaz')} №${order.id}`}</Title>
-          <Text style={styleData}>{created_date}</Text>
+          <Text type="secondary">{created_date}</Text>
         </Flex>
-        <Flex style={{ width: '100%' }} justify='space-between'>
-          <Text strong style={{ color: color }}>
-            {status}
+        <Flex justify="space-between">
+          <Text strong style={{ color: statusColors[order.order_status] || 'red' }}>
+            {statusLabels[order.order_status] || t('neizvestno')}
           </Text>
           <Text strong>{beautifulCost(order.total_amount)}</Text>
         </Flex>
@@ -268,192 +203,113 @@ const WrapperOrderHistoryDesktop: React.FC<{
     );
   };
 
-  const SortedOrders = Orders.sort(
-    (a, b) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-  );
+  const groupOrdersByMonth = (orders: TOrder[]) => {
+    return orders.reduce((acc, order) => {
+      const date = new Date(order.created_at);
+      const key = `${date.getFullYear()}-${date.getMonth()}`;
+      acc[key] = [...(acc[key] || []), order];
+      return acc;
+    }, {} as Record<string, TOrder[]>);
+  };
 
-  const SortedByMonth: {
-    [key: string]: TOrder[];
-  } = {};
-
-  SortedOrders.forEach((item: TOrder) => {
-    const date = new Date(item.created_at);
-    const monthKey = `${date.getFullYear()}-${date.getMonth()}`; // Уникальный ключ: "год-месяц"
-    if (monthKey in SortedByMonth) {
-      SortedByMonth[monthKey].push(item);
-    } else {
-      SortedByMonth[monthKey] = [item];
-    }
-  });
-
-  // Сортируем месяца в порядке от новых к старым
-  const SortedByMonthArray = Object.keys(SortedByMonth)
-    .sort((a, b) => {
-      const [yearA, monthA] = a.split('-').map(Number);
-      const [yearB, monthB] = b.split('-').map(Number);
-      return yearB - yearA || monthB - monthA;
-    })
-    .reduce(
-      (acc, key) => {
-        const [year, month] = key.split('-').map(Number);
-        const monthName = new Intl.DateTimeFormat(locale, {
-          month: 'long',
-        }).format(new Date(year, month));
-        acc[monthName] = SortedByMonth[key];
-        return acc;
-      },
-      {} as { [key: string]: TOrder[] },
-    );
+  const sortedMonthGroups = Object.entries(groupOrdersByMonth(
+    Orders.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+  )).sort(([a], [b]) => b.localeCompare(a));
 
   const RenderListOrder = () => (
-    <Flex vertical style={{ width: '100%' }}>
-      {Object.entries(SortedByMonthArray).map(([month, orders]) => (
-        <Flex
-          key={month}
-          vertical
-          style={{ backgroundColor: '#fff', padding: '10px' }}
-        >
-          <Title level={4}>
-            {String(month).charAt(0).toUpperCase() + String(month).slice(1)}
-          </Title>
-          {orders.map((order) => (
-            <Flex key={order.id} vertical style={{ padding: '10px' }}>
-              <Divider />
-              <RowInList order={order} />
-            </Flex>
-          ))}
-        </Flex>
-      ))}
+    <Flex vertical>
+      {sortedMonthGroups.map(([key, orders]) => {
+        const [year, month] = key.split('-').map(Number);
+        const monthName = new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(year, month));
+        return (
+          <Flex key={key} vertical style={{ padding: '10px', backgroundColor: '#fff' }}>
+            <Title level={4}>{monthName.charAt(0).toUpperCase() + monthName.slice(1)}</Title>
+            {orders.map((order) => (
+              <RowInList key={order.id} order={order} />
+            ))}
+          </Flex>
+        );
+      })}
     </Flex>
   );
 
   const RenderOrderDetail = () => (
-    <Card style={{ width: '100%' }}>
-      <Flex vertical gap={5} style={{ width: '100%' }}>
-        <Button
-          onClick={() => setSelectedOrder(null)}
-          style={{ marginBottom: 16 }}
-        >
-          {t('nazad')}
-        </Button>
-        <Flex vertical align='start' style={{ width: '100%' }}>
-          <Title level={2}>{`${t('zakaz')} №${selectedOrder?.id}`}</Title>
-          <Text
-            disabled
-            style={{
-              fontSize: '18px',
-              fontWeight: '500',
-              lineHeight: '22px',
-              letterSpacing: '-0.6px',
-            }}
-          >
-            {`${t('sozdan')}: ${new Date(selectedOrder?.created_at ?? '').toLocaleString()}`}
-          </Text>
-        </Flex>
-        <Flex style={{ width: '100%' }} gap={20} vertical={isMobileDevice}>
-          <Flex
-            vertical
-            style={{ width: `${isMobileDevice ? '100%' : '60%'}` }}
-            gap={20}
-          >
-            <Flex
-              style={{
-                width: '100%',
-                borderRadius: '10px',
-                border: '1px solid #f0f0f0',
-              }}
-            >
-              <Flex
-                vertical
-                style={{ width: '100%', padding: '20px' }}
-                gap={10}
-              >
-                <Title level={3}>{t('detali-zakaza')}</Title>
-                <Title level={5}>{t('dostavka')}</Title>
-                <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>{t('data-i-vremya')}</Text>
-                  <Text>
-                    {new Date(selectedOrder?.created_at ?? '').toLocaleString()}
-                  </Text>
-                </Flex>
-                <Title level={5}>{t('pokupatel')}</Title>
-                {selectedOrder?.user_full_name ? (
-                  <Flex justify='space-between' style={{ width: '100%' }}>
-                    <Text disabled>{t('imya')}</Text>
-                    <Text>
-                      {selectedOrder.user_full_name
-                        ?.match(/\[([^\]]+)\]/g) // Найти строки в скобках
-                        ?.map((s) => s.slice(1, -1)) // Удалить скобки
-                        ?.filter((s) => s.toLowerCase() !== 'undefined') // Удалить "undefined"
-                        ?.join(' ') || '—'}
-                    </Text>
-                  </Flex>
-                ) : null}
-                <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>{t('telefon')}</Text>
-                  <Text>{selectedOrder?.phone_number}</Text>
-                </Flex>
-                <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>Email</Text>
-                  <Text>{`${selectedOrder?.email}`}</Text>
-                </Flex>
-                <Title level={5}>{t('oplata')}</Title>
-                <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>{t('sposob-oplaty')}</Text>
-                  <Text>
-                    {selectedOrder?.payment_type === 'ONLINE'
-                      ? t('oplata-onlai-n')
-                      : t('oplata-pri-poluchenii')}
-                  </Text>
-                </Flex>
-                <Flex justify='space-between' style={{ width: '100%' }}>
-                  <Text disabled>Статус</Text>
-                  <Text>
-                    {selectedOrder?.payment_status === 'UNPAID'
-                      ? t('ne-oplachen')
-                      : t('oplachen')}
-                  </Text>
-                </Flex>
-
-                {selectedOrder?.uuid_id && (
-                  <WrapperBasketDesktop uuid={selectedOrder?.uuid_id} />
-                )}
-              </Flex>
+    <Card>
+      <Flex vertical gap={10}>
+        <Button onClick={() => setSelectedOrder(null)}>{t('nazad')}</Button>
+        <Title level={2}>{`${t('zakaz')} №${selectedOrder?.id}`}</Title>
+        <Text type="secondary">{`${t('sozdan')}: ${new Date(selectedOrder?.created_at ?? '').toLocaleString()}`}</Text>
+        <Flex vertical={isMobileDevice} gap={20}>
+          <Flex vertical style={{ width: isMobileDevice ? '100%' : '60%' }} gap={20}>
+            <Title level={3}>{t('detali-zakaza')}</Title>
+            <Title level={5}>{t('dostavka')}</Title>
+            <Flex justify="space-between">
+              <Text type="secondary">{t('data-i-vremya')}</Text>
+              <Text>{new Date(selectedOrder?.created_at ?? '').toLocaleString()}</Text>
             </Flex>
+            {selectedOrder?.user_full_name && (
+              <Flex justify="space-between">
+                <Text type="secondary">{t('imya')}</Text>
+                <Text>
+                  {selectedOrder.user_full_name
+                    ?.match(/\[([^\]]+)\]/g)
+                    ?.map((s) => s.slice(1, -1))
+                    ?.filter((s) => s.toLowerCase() !== 'undefined')
+                    ?.join(' ') || '—'}
+                </Text>
+              </Flex>
+            )}
+            <Flex justify="space-between">
+              <Text type="secondary">{t('telefon')}</Text>
+              <Text>{selectedOrder?.phone_number}</Text>
+            </Flex>
+            <Flex justify="space-between">
+              <Text type="secondary">Email</Text>
+              <Text>{selectedOrder?.email}</Text>
+            </Flex>
+            <Title level={5}>{t('oplata')}</Title>
+            <Flex justify="space-between">
+              <Text type="secondary">{t('sposob-oplaty')}</Text>
+              <Text>
+                {selectedOrder?.payment_type === 'ONLINE'
+                  ? t('oplata-onlai-n')
+                  : t('oplata-pri-poluchenii')}
+              </Text>
+            </Flex>
+            <Flex justify="space-between">
+              <Text type="secondary">Статус</Text>
+              <Text>
+                {selectedOrder?.payment_status === 'UNPAID'
+                  ? t('ne-oplachen')
+                  : t('oplachen')}
+              </Text>
+            </Flex>
+            {selectedOrder?.uuid_id && <WrapperBasketDesktop uuid={selectedOrder.uuid_id} />}
           </Flex>
           <Flex
             vertical
             style={{
-              width: `${isMobileDevice ? '100%' : '40%'}`,
-              height: 'min-content',
-              borderRadius: '10px',
+              width: isMobileDevice ? '100%' : '40%',
               border: '1px solid #f0f0f0',
-              padding: '20px',
+              borderRadius: 10,
+              padding: 20,
             }}
           >
             <Title level={4}>{t('status-zakaza')}</Title>
             <Steps
-              initial={0}
-              direction='vertical'
-              size='small'
+              direction="vertical"
+              size="small"
               current={
                 selectedOrder?.order_status === 'NEW'
                   ? 0
                   : selectedOrder?.order_status === 'INWORK'
-                    ? 1
-                    : 2
+                  ? 1
+                  : 2
               }
               items={[
-                {
-                  title: t('novyi-zakaz'),
-                },
-                {
-                  title: t('v-rabote'),
-                },
-                {
-                  title: t('zavershen'),
-                },
+                { title: t('novyi-zakaz') },
+                { title: t('v-rabote') },
+                { title: t('zavershen') },
               ]}
             />
           </Flex>
@@ -462,9 +318,7 @@ const WrapperOrderHistoryDesktop: React.FC<{
     </Card>
   );
 
-  if (selectedOrder) return <RenderOrderDetail />;
-
-  return <RenderListOrder />;
+  return selectedOrder ? <RenderOrderDetail /> : <RenderListOrder />;
 };
 
 export default OrderHistory;

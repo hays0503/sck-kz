@@ -174,7 +174,10 @@
     "potverdet": "Confirm"
   },
   "Logout": {
-    "logout": "Exit"
+    "logout": "Exit",
+    "vy-deistvitelno-khotite-vyi-ti": "Do you really want to go out?",
+    "da": "Yes",
+    "net": "No"
   },
   "ProductPopularListPagination": {
     "populyarnye": "Popular",

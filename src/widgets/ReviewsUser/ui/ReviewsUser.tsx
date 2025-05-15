@@ -6,7 +6,7 @@ import Review from '@/entities/Reviews/ui/Review';
 import { Link } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Reviews } from '@/shared/types/reviews';
-import { Divider, Flex, Typography } from 'antd';
+import { Divider, Flex, Spin, Typography } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { CSSProperties, useMemo } from 'react';
@@ -29,16 +29,21 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
   const locale = useLocale();
 
   if (isLoading) {
-    return <Flex>Загрузка</Flex>;
+    return <Spin fullscreen>{t('loading')}</Spin>;
   }
 
   if (error) {
-    return <Flex>Ошибка {JSON.stringify({ error })}</Flex>;
+    return (
+      <Flex>
+        {t('error')} {JSON.stringify({ error })}
+      </Flex>
+    );
   }
 
   const ReviewToProduct: React.FC<{
     review: Reviews;
   }> = ({ review }) => {
+    const t = useTranslations();
     const {
       data: productData,
       isLoading: isLoadingProducts,
@@ -63,11 +68,15 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
     );
 
     if (isLoadingProducts) {
-      return <Flex>Загрузка</Flex>;
+      return <Spin fullscreen>{t('loading')}</Spin>;
     }
 
     if (errorProducts) {
-      return <Flex>Ошибка {JSON.stringify({ errorProducts })}</Flex>;
+      return (
+        <Flex>
+          {t('error')} {JSON.stringify({ errorProducts })}
+        </Flex>
+      );
     }
 
     const product = productData?.results?.[0];
@@ -125,7 +134,11 @@ const ReviewsUser: React.FC<IReviewsUserProps> = ({ user_id }) => {
 
   if (ReviewsData?.data?.length == 0) {
     return (
-      <Flex style={{ width: '100%', padding: '10px' }} justify='center' align='center'>
+      <Flex
+        style={{ width: '100%', padding: '10px' }}
+        justify='center'
+        align='center'
+      >
         <Text
           style={{
             fontWeight: ' 500',

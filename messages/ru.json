@@ -183,7 +183,10 @@
     "potverdet": "Подтвердить"
   },
   "Logout": {
-    "logout": "Выход"
+    "logout": "Выход",
+    "vy-deistvitelno-khotite-vyi-ti": "Вы действительно хотите выйти?",
+    "da": "Да",
+    "net": "Нет"
   },
   "ProductPopularListPagination": {
     "populyarnye": "Популярное",
@@ -469,5 +472,6 @@
   "novyi-zakaz": "Новый заказ",
   "v-rabote": "В работе",
   "zavershen": "Завершен",
-  "nazad": "Назад"
+  "nazad": "Назад",
+  "vy-deistvitelno-khotite-vyi-ti": "Вы действительно хотите выйти?"
 }
