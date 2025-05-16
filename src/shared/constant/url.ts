@@ -26,6 +26,7 @@ const UrlApiV1 = {
 const UrlApiV2 = {
   ...UrlApiV1,
   getProducts: `/api/v2/products/`, 
+  getProductsByDiscounted: `/api/v2/products/discounted/`,  
   getPopulates: `/api/v2/populates/`,
 
   getBasket: `/basket_api/v2/basket/`,
@@ -53,6 +54,7 @@ const UrlApiWithDomainV1 = {
 const UrlApiWithDomainV2 = {
   ...UrlApiWithDomainV1,
   getProducts: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v2/products_v2/`,
+  getProductsByDiscounted: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v2/products_v2/discounted/`,
   getPopulates: `${process.env.API_URL}:${process.env.API_PORT_V1}/api/v2/products_v2/popular_set/`,
 
   getBasket: `${process.env.API_URL}:${process.env.API_BASKET_PORT_V2}/basket_api/v1/bascket/`, // Опечатка

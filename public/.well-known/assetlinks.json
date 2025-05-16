@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "kz.sck1kz.twa",
+        "sha256_cert_fingerprints": ["5C:CB:E4:A4:AB:49:7A:DB:18:7A:11:14:B5:C3:55:23:37:8F:9C:1E:4E:49:B2:FE:1C:3F:46:CF:89:99:81:73"]
+      }
+    }]

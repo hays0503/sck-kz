@@ -1,24 +1,20 @@
 import { MappedProductType } from 'api-mapping/product/_type';
 import { MappedPopularProductType } from '../by_populates/type';
 import { rawImage, rawResult } from '../by_populates/type/rawTypePopulates';
-
-export const getLocalizedName = (product: rawResult|{ additional_data: Record<string, string>}, lang: string): string | null =>
-  product?.additional_data?.[lang] != ''
-    ? product?.additional_data?.[lang]
-    : null;
+import { rawProd } from '../by_discounted/type/rawDiscounted';
 
 const mapping = (
   len: number,
-  rawData: rawResult[],
+  rawData: rawResult[] | rawProd[],
   city: string,
 ): { results: MappedPopularProductType[]; len: number } => {
-  const Populates: MappedProductType[] = rawData?.map((product: rawResult) => ({
+  const product: MappedProductType[] = rawData?.map((product: rawResult | rawProd) => ({
     id: product?.id,
     slug: product?.slug,
     name: {
       ru: product?.name_product,
-      en: getLocalizedName(product, 'en'),
-      kk: getLocalizedName(product, 'kk'),
+      en: product?.additional_data?.en,
+      kk: product?.additional_data?.kk,
     },
     img: product.images?.map((image: rawImage) => image.image.replace('http://185.100.67.246:8888', 'https://sck.kz')) ?? [],
     rating: typeof product.avg_rating === 'number' ? product?.avg_rating : 0, // Приведение к number
@@ -33,14 +29,14 @@ const mapping = (
     tags: product?.tags,
     brand: {
       ru: product?.brand?.name_brand ?? null,
-      en: getLocalizedName(product?.brand, 'en'),
-      kk: getLocalizedName(product?.brand, 'kk'),
+      en: product?.brand?.additional_data?.en,
+      kk: product?.brand?.additional_data?.kk,
     }
   }));
 
   return {
     len: len,
-    results: Populates,
+    results: product,
   };
 };
 

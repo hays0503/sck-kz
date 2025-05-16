@@ -60,7 +60,7 @@ export default async function rewritesUrl() {
     {
       source: `/categories/facets/`,
       destination: `http://185.100.67.246:8888/categories/facets/`,
-    }
+    },
   ]
 
   // Доступ к картинкам

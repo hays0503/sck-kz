@@ -56,7 +56,7 @@ const Row = () => {
       p: '-6px 0 0 0',
       th: 'unset',
       text: t('akcii'),
-      href: '/catalog/menu/main',
+      href: '/discounted',
     },
     {
       image: '/TestPic/comp.png',
