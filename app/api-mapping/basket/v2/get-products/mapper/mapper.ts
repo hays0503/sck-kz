@@ -10,7 +10,6 @@ import {
   rawSpecification,
 } from 'api-mapping/product/by_populates/type/rawTypePopulates';
 import CityEnToRu from '@/shared/constant/city';
-import { getLocalizedName } from 'api-mapping/product/_mapping/mapping';
 
 const mapping = async (
   data: rawBasketType,
@@ -56,8 +55,8 @@ const mapping = async (
           discount: discount,
           brand: {
             ru: product?.brand?.name_brand ?? null,
-            en: getLocalizedName(product?.brand, 'en'),
-            kk: getLocalizedName(product?.brand, 'kk'),
+            en: product.brand?.additional_data?.en ?? null,
+            kk: product.brand?.additional_data?.kk ?? null,
           },
           tags: product?.tags ?? [],
           specifications: product?.specifications?.map((specification: rawSpecification) => ({
