@@ -19,8 +19,18 @@ import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import './SearchProduct.css';
 import { SearchProductOption } from './SubModule/SearchProductOption';
 import SearchAnotherProduct from './SubModule/SearchAnotherProduct';
+import { rawProductsTypeV2 } from 'api-mapping/product/_type/rawProductTypeV2';
+import { rawSpecification } from 'api-mapping/product/by_discounted/type/rawDiscounted';
 
 const { Text } = Typography;
+
+interface GlobalSearchResponseType {
+    products: rawProductsTypeV2[]; 
+    "categories": {id:number,name_category:string,slug:string}[],
+    "brands": {id:number,name_brand:string}[],
+    "specifications": rawSpecification[],
+    "tags":{id:number,tag_text:string} 
+}
 
 export default function SearchProduct() {
   const [text, setText] = useDebounceValue('', 500);
@@ -41,7 +51,7 @@ export default function SearchProduct() {
     abortRef.current = controller;
 
     try {
-      const indexRes = await fetch(`/api/v2/search/${value.toLowerCase()}`, {
+      const GlobalSearchResponse = await fetch(`/api/v2/globalsearch/${value.toLowerCase()}`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -49,15 +59,15 @@ export default function SearchProduct() {
         signal: controller.signal,
       });
 
-      const { results: indexResults } = await indexRes.json();
+      const results = await GlobalSearchResponse.json() as GlobalSearchResponseType;
 
-      if (indexResults.length == 0) {
+      if (results.products.length == 0) {
         setIsLoading(false);
         setProducts([]);
         return;
       }
 
-      const productIds = indexResults.map((p: { id: number }) => p.id);
+      const productIds = results.products.map((p: { id: number }) => p.id);
 
       if (productIds.length == 0) {
         setIsLoading(false);
@@ -157,23 +167,6 @@ export default function SearchProduct() {
             </Text>
             <SearchAnotherProduct slug={'mebel'} />
           </Flex>
-          {/* <Button
-            style={{
-              width: '100%',
-              padding: 10,
-              borderRadius: '0px 0px 12px 12px',
-              height: '50px',
-              color: 'black',
-              backgroundColor: 'yellow',
-            }}
-            type='primary'
-            onClick={() => {
-              setIsLoading(false);
-              setText('');
-            }}
-          >
-            {t('zakryt')}
-          </Button> */}
         </Flex>
       );
   };

@@ -1,5 +1,9 @@
-import { UrlApiV1, UrlApiV2, UrlApiWithDomainV1, UrlApiWithDomainV2 } from "@/shared/constant/url";
-
+import {
+  UrlApiV1,
+  UrlApiV2,
+  UrlApiWithDomainV1,
+  UrlApiWithDomainV2,
+} from '@/shared/constant/url';
 
 export default async function rewritesUrl() {
   // Перечень всех роутов из api первой версии (Django)
@@ -58,10 +62,14 @@ export default async function rewritesUrl() {
       destination: `${UrlApiWithDomainV2.getProducts}/?search=:search`,
     },
     {
+      source: `/api/v2/globalsearch/:search`,
+      destination: `${UrlApiWithDomainV2.getProducts}/?search=:search`,
+    },
+    {
       source: `/categories/facets/`,
       destination: `http://185.100.67.246:8888/categories/facets/`,
     },
-  ]
+  ];
 
   // Доступ к картинкам
   const mediaUrl = [
@@ -96,7 +104,7 @@ export default async function rewritesUrl() {
       source: `${UrlApiV2.getOrder}:patch*`,
       destination: `${UrlApiWithDomainV2.getOrder}:patch*/`,
     },
-  ]
+  ];
 
   const AuthApiV1Url = [
     {
@@ -119,10 +127,10 @@ export default async function rewritesUrl() {
     ...BasketApiV1Url,
     ...BasketApiV2Url,
     ...AuthApiV1Url,
-    ...AuthApiV2Url
+    ...AuthApiV2Url,
   ];
 
-  console.log("ShopApiV2Url", ShopApiV2Url);
+  console.log('ShopApiV2Url', ShopApiV2Url);
 
   return allUrl;
 }

@@ -4,7 +4,8 @@ import { InputOrderData, Animation } from './SubModule';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { createOrder } from '../model';
-import { useLocalStorage } from 'usehooks-ts';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useRouter } from '@/i18n/routing';
 
 const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
   const t = useTranslations('CreateOrder');
@@ -13,6 +14,8 @@ const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [, , removeUUID] = useLocalStorage('uuid_id', '');
+  const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
+  const router = useRouter();
   useEffect(() => {
     if (
       OrderData.payment_type &&
@@ -37,9 +40,15 @@ const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
           setTimeout(() => {
             removeUUID();
             // debugger
+            const okUrlString = 'https://www.google.kz/?hl=ru';
             const urlPayString = detail as string;
-            const url = new URL(urlPayString);
-            window.location.replace(url);
+            if (urlPayString === okUrlString) {
+              const orderHistory = `/order-history/${accessToken?.token}`;
+              router.push(orderHistory);
+            } else {
+              const url = new URL(urlPayString);
+              window.location.replace(url);
+            }
           }, 1000);
         } else {
           setLoading(false);

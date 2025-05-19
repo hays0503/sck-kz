@@ -151,7 +151,7 @@ const MobileFooterMenu = () => {
             <Link href={`/city/${cityEn}/user-agreement`}>
               <Text className="footer-link">{t('polzovatelskoe-soglashenie')}</Text>
             </Link>
-            <Link href={`/city/${cityEn}/privacy-policy`}>
+            <Link href={`/city/${cityEn}/about/privacy-policy`}>
               <Text className="footer-link">{t('politika-konfidencialnosti')}</Text>
             </Link>
           </div>

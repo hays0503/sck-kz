@@ -74,7 +74,7 @@ const FooterSCK = () => {
               </Link>
             </p>
             <p>
-              <Link href={`/city/${cityEn}/privacy-policy`}>
+              <Link href={`/city/${cityEn}/about/privacy-policy`}>
                 <Text>{t("politika-konfidencialnosti")}</Text>
               </Link>
             </p>
