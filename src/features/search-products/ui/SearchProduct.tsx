@@ -23,10 +23,15 @@ import CityEnToRu from '@/shared/constant/city';
 const { Text } = Typography;
 
 interface GlobalSearchResponseType {
-  products: rawProductsTypeV2[];
-  categories: { id: number; name_category: string; slug: string }[];
-  brands: { id: number; name_brand: string }[];
-  tags: { id: number; tag_text: string }[];
+  count: number;
+  next: string;
+  previous: string;
+  results: {
+    products: rawProductsTypeV2[];
+    categories: { id: number; name_category: string; slug: string }[];
+    brands: { id: number; name_brand: string }[];
+    tags: { id: number; tag_text: string }[];
+  };
 }
 
 const SearchResults: FC<{
@@ -163,7 +168,7 @@ function SearchProduct() {
             signal: controller.signal,
           },
         );
-        const data = (await resp.json()) as GlobalSearchResponseType;
+        const { results: data } = (await resp.json()) as GlobalSearchResponseType;
 
         setBrandText(data.brands?.map((b) => b.name_brand) || []);
         setCategoryText(data.categories?.map((c) => c.name_category) || []);
