@@ -447,5 +447,9 @@
     "error": "Error",
     "summa-k-oplate": "The amount for payment",
     "tovary": "Goods"
-  }
+  },
+  "poisk": "Search",
+  "cancel": "Cancel",
+  "ochistit-istoriyu": "Clean history",
+  "istoriya-poiska": "Search history"
 }

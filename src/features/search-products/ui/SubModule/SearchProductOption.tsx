@@ -42,14 +42,15 @@ export const SearchProductOption = memo(({ product, locale }: Props) => {
           backgroundColor: '#f5f5f5',
           // backdropFilter: `blur(10px)`,
           filter: 'drop-shadow(10px 0px 80px  #878787)',
+          position: 'relative',
           borderRadius: 12,
+          overflow: 'hidden',
         }}
       >
         <Image
           src={product.img[0]}
           alt={product?.name?.[locale] ?? product.img[0]}
-          width={100}
-          height={100}
+          fill
           loading='lazy'
           style={{ objectFit: 'contain' }}
         />

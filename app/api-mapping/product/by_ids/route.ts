@@ -43,6 +43,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   if (orderBy !== 'none_sort') {
     url = `${url}&ordering=${orderBy}`;
+    
   }
 
   const response = await fetch(url, {

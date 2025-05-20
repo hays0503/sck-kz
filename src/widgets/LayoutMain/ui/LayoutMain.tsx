@@ -72,6 +72,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({ headerContent, content, footer
         {headerContent}
       </Header>
       <Content style={contentStyle} className="scrollable" ref={refContent}>
+        <div id='contentOverlay' style={{height:contentHeight}}/>
         {content}
       </Content>
       <Footer style={footerStyle} ref={refFooter}>

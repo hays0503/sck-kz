@@ -62,8 +62,8 @@ export default async function rewritesUrl() {
       destination: `${UrlApiWithDomainV2.getProducts}/?search=:search`,
     },
     {
-      source: `/api/v2/globalsearch/:search`,
-      destination: `${UrlApiWithDomainV2.getProducts}/?search=:search`,
+      source: `/api/v2/globalsearch/`,
+      destination: `http://185.100.67.246:8888/api/v2/globalsearch/`,
     },
     {
       source: `/categories/facets/`,

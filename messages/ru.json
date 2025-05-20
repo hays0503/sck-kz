@@ -473,5 +473,9 @@
   "v-rabote": "В работе",
   "zavershen": "Завершен",
   "nazad": "Назад",
-  "vy-deistvitelno-khotite-vyi-ti": "Вы действительно хотите выйти?"
+  "vy-deistvitelno-khotite-vyi-ti": "Вы действительно хотите выйти?",
+  "poisk": "Поиск",
+  "cancel": "Отменить",
+  "ochistit-istoriyu": "Очистить историю",
+  "istoriya-poiska": "История поиска"
 }

@@ -131,6 +131,7 @@ const RenderList: React.FC<{
 const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
   slug,
 }): React.ReactNode => {
+  console.count('SearchAnotherProduct');
   const t = useTranslations('ProductDetailAnotherProduct');
   const cityEn = useGetCityParams();
 
@@ -159,7 +160,7 @@ const SearchAnotherProduct: React.FC<IProductDetailAnotherProductProps> = ({
     results: MappedPopularProductType[];
   }>(getPage, defaultFetcher, {
     persistSize: false,
-    initialSize: 10,
+    initialSize: 3,
     parallel: true,
     revalidateFirstPage: false,
   });
