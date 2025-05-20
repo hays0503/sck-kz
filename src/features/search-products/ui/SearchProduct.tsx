@@ -17,7 +17,7 @@ import SearchProductOption from './SubModule/SearchProductOption';
 import SearchAnotherProduct from './SubModule/SearchAnotherProduct';
 import { motion } from 'framer-motion';
 import { useLocalStorage } from 'usehooks-ts';
-import { MdOutlineYoutubeSearchedFor } from 'react-icons/md';
+import { MdOutlineSearch, MdOutlineYoutubeSearchedFor } from 'react-icons/md';
 import CityEnToRu from '@/shared/constant/city';
 
 const { Text } = Typography;
@@ -90,14 +90,19 @@ const PredictionList: FC<{
       <Tag
         bordered={false}
         style={{
-          padding: '0px 10px',
+          padding: '5px 20px',
           cursor: 'pointer',
           borderRadius: '20px',
           backgroundColor: '#dfdfdf',
+          fontSize: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
         }}
         key={prediction}
         onClick={() => setText(prediction)}
       >
+        <MdOutlineSearch />
         {prediction}
       </Tag>
     ))}
@@ -106,9 +111,10 @@ const PredictionList: FC<{
 
 const PredictionMenu: FC<{
   predictionsLists: string[][];
+  inputText: string;
   setText: (text: string) => void;
-}> = ({ predictionsLists, setText }) => {
-  const flat = predictionsLists.flat();
+}> = ({ predictionsLists, setText, inputText }) => {
+  const flat = predictionsLists.flat().filter((item) => item !== inputText);
   if (flat.length === 0) return null;
   return (
     <Flex
@@ -168,7 +174,8 @@ function SearchProduct() {
             signal: controller.signal,
           },
         );
-        const { results: data } = (await resp.json()) as GlobalSearchResponseType;
+        const { results: data } =
+          (await resp.json()) as GlobalSearchResponseType;
 
         setBrandText(data.brands?.map((b) => b.name_brand) || []);
         setCategoryText(data.categories?.map((c) => c.name_category) || []);
@@ -325,6 +332,7 @@ function SearchProduct() {
         >
           <PredictionMenu
             predictionsLists={[brandText, tagText, categoryText]}
+            inputText={inputText}
             setText={handleChange}
           />
 
