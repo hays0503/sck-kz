@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { createOrder } from '../model';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import { useRouter } from '@/i18n/routing';
+import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 
 const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
   const t = useTranslations('CreateOrder');
@@ -16,6 +17,7 @@ const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
   const [, , removeUUID] = useLocalStorage('uuid_id', '');
   const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
   const router = useRouter();
+  const cityEn = useGetCityParams();
   useEffect(() => {
     if (
       OrderData.payment_type &&
@@ -43,7 +45,7 @@ const CreateOrder: React.FC<{ basket_id: string }> = ({ basket_id }) => {
             const okUrlString = 'https://www.google.kz/?hl=ru';
             const urlPayString = detail as string;
             if (urlPayString === okUrlString) {
-              const orderHistory = `/order-history/${accessToken?.token}`;
+              const orderHistory = `/city/${cityEn}/order-history/${accessToken?.token}`;
               router.push(orderHistory);
             } else {
               const url = new URL(urlPayString);
