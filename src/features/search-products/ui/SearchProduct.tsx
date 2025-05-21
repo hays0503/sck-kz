@@ -262,7 +262,7 @@ const SearchProduct: FC = () => {
                 height: 'inherit',
                 width: '100%',
                 zIndex: 999,
-                backgroundColor: '#fff',
+                backgroundColor: '#f4f4f4',
               }}
             >
               <PredictionMenu
