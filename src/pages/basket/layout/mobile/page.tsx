@@ -9,7 +9,6 @@ import { FooterMobile } from '@/widgets/FooterMobile';
 import { LayoutMain } from '@/widgets/LayoutMain';
 import { MappedCityType } from 'api-mapping/city';
 import { setRequestLocale } from 'next-intl/server';
-
 interface BasketPageProps {
   readonly params: {
     locale: string;

@@ -2,7 +2,7 @@
 import { useRouter } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
 import { Flex, Tabs, TabsProps } from 'antd';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, memo, useMemo, useState } from 'react';
 import {
   BasketLabel,
   CatalogLabel,
@@ -12,9 +12,11 @@ import {
   returnStyleActiveAccent,
   returnStyleActiveBg,
 } from './SubModule';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 import './FooterMobile.css';
-export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
+function FooterMobile({ defaultKey }: { defaultKey?: string }) {
+  console.count('render FooterMobile');
   const currentCity = useGetCityParams();
   const [current, setCurrent] = useState<string>(defaultKey ?? '1');
   const uuid = useReadLocalStorage<string | null | undefined>('uuid_id', {
@@ -25,7 +27,7 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
   >('accessToken', { initializeWithValue: false });
   const router = useRouter();
   const sizeConstant = '32px';
-  const items: TabsProps['items'] = [
+  const items: TabsProps['items'] = useMemo(() => [
     {
       label: (
         <MainLabel
@@ -73,9 +75,9 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
         alignItems: 'flex-start !important',
       },
     },
-  ];
+  ], [current]);
 
-  const TabsProperties: TabsProps = {
+  const TabsProperties: TabsProps = useMemo(()=>({
     className: 'footerMobile',
     defaultActiveKey: current,
     style: {
@@ -89,38 +91,44 @@ export default function FooterMobile({ defaultKey }: { defaultKey?: string }) {
     centered: true,
     tabPosition: 'bottom',
     items: items,
-  };
+  }), [current, items]);
 
   return (
-    <Flex
-      style={{
-        width: '100%',
-        height: '100%',
-        paddingBottom: '5px',
-        background: 'linear-gradient(0deg,#ffc600,rgb(255, 255, 255))',
-        borderTop: '1px solid #41414145',
-      }}
-      justify='center'
-      align='center'
-    >
-      <Tabs
-        {...TabsProperties}
-        onTabClick={(key: string) => {
-          // Если выбран профиль
-          if (key === '1') {
-            router.push(`/city/${currentCity}/main`);
-          }
-          if (key === '2') {
-            router.push(`/city/${currentCity}/catalog/menu/main`);
-          }
-          if (key === '3') {
-            router.push(`/city/${currentCity}/basket/${uuid}`);
-          }
-          if (key === '4') {
-            router.push(`/city/${currentCity}/profile/${accessToken?.user_id}`);
-          }
+    <ViewTransition update='none' name='footerMobile'>
+      <Flex
+        style={{
+          width: '100%',
+          height: '100%',
+          paddingBottom: '5px',
+          background: 'linear-gradient(0deg,#ffc600,rgb(255, 255, 255))',
+          borderTop: '1px solid #41414145',
         }}
-      />
-    </Flex>
+        justify='center'
+        align='center'
+      >
+        <Tabs
+          {...TabsProperties}
+          onTabClick={(key: string) => {
+            // Если выбран профиль
+            if (key === '1') {
+              router.push(`/city/${currentCity}/main`);
+            }
+            if (key === '2') {
+              router.push(`/city/${currentCity}/catalog/menu/main`);
+            }
+            if (key === '3') {
+              router.push(`/city/${currentCity}/basket/${uuid}`);
+            }
+            if (key === '4') {
+              router.push(
+                `/city/${currentCity}/profile/${accessToken?.user_id}`,
+              );
+            }
+          }}
+        />
+      </Flex>
+    </ViewTransition>
   );
 }
+
+export default memo(FooterMobile);

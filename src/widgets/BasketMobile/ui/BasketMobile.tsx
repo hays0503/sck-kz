@@ -1,6 +1,6 @@
 'use client';
 import { Flex, Typography } from 'antd';
-import React from 'react';
+import React, { CSSProperties, startTransition, useEffect } from 'react';
 
 import { BasketDetail, BasketInfo, ProductsInBasket } from './SubModule';
 import { useTranslations } from 'next-intl';
@@ -11,6 +11,9 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { usePathname } from 'next/navigation';
 import useGetBasketProductsSWR from '@/entities/Basket/model/getBasketProductsSWR';
 
+
+
+
 interface IBasketMobileProps {
   readonly basket_id: string;
 }
@@ -19,10 +22,17 @@ const { Text } = Typography;
 
 const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
   const t = useTranslations('BasketMobile');
-  const { data: fetchBasket, error } = useGetBasketProductsSWR(basket_id);
+  const ContentHeight = useReadLocalStorage('ContentHeight');
+  const { data, error } = useGetBasketProductsSWR(basket_id);
   const accessToken = useReadLocalStorage<{ token: string }>('accessToken');
   const pathname = usePathname();
   const city = useGetCityParams();
+  const [fetchBasket, setFetchBasket] = React.useState(data);
+  useEffect(() => {
+    startTransition(() => {
+      setFetchBasket(data);
+    });
+  }, [data]);
   const Empty = () => {
     return (
       <Flex justify='center' align='center' vertical={true}>
@@ -96,21 +106,23 @@ const BasketMobile: React.FC<IBasketMobileProps> = ({ basket_id }) => {
 
   return (
     <Flex
-      justify='center'
-      align='center'
+      vertical
+      align='stretch'
       gap={10}
-      style={{ width: '100%', paddingTop: '10px' }}
+      style={
+        {
+          padding: '10px 10px',
+          width: '100%',
+          height: ContentHeight,
+          overflowY: 'scroll',
+        } as CSSProperties
+      }
     >
-      <Flex
-        vertical={true}
-        style={{ width: '100%', padding: '0 5px' }}
-        gap={10}
-      >
-        <ProductsInBasket Products={fetchBasket} />
-        <BasketInfo />
-        <ToOrder accessToken={accessToken?.token} />
-        <BasketDetail Products={fetchBasket} />
-      </Flex>
+      <ProductsInBasket Products={fetchBasket} />
+
+      <BasketInfo />
+      <ToOrder accessToken={accessToken?.token} />
+      <BasketDetail Products={fetchBasket} />
     </Flex>
   );
 };

@@ -40,7 +40,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 
   if (productIds.length === 0 || loading || isLoading || isValidating) {
     return (
-      <Wrapper>
+      <Wrapper key='Wrapper'>
         {productIds.length === 0 ? (
           <Spin />
         ) : (
@@ -52,7 +52,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
 
   if (error) {
     return (
-      <Wrapper>
+      <Wrapper key='Wrapper'>
         <Text type='danger'>{`${t('oshibka')}: ${String(error)}`}</Text>
       </Wrapper>
     );
@@ -63,7 +63,7 @@ const LastViewedList: React.FC<ILastViewedListProps> = ({ uuid, user_id }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper key='Wrapper'>
       <Flex
         gap={25}
         style={{ overflowY: 'scroll', paddingBottom: 25 }}

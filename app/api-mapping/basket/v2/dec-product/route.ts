@@ -47,23 +47,23 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       uuid
     );
 
-    if (deserializationToRawBasketData.basket_items.length <= 0) {
-      const url = `${UrlApiWithDomainV2.getBasket}${uuid}`;
-      const response = await fetch(url, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        console.error("decProduct error", "response", response);
-        return NextResponse.json(
-          {
-            message: `Ошибка в запросе удаления корзины response.ok false ${response}`,
-          },
-          { status: 500 }
-        );
-      }
-      revalidateTag(`basket/${uuid}`);
-      return NextResponse.json(null, { status: 200 });
-    } else {
+    // if (deserializationToRawBasketData.basket_items.length <= 0) {
+    //   const url = `${UrlApiWithDomainV2.getBasket}${uuid}`;
+    //   const response = await fetch(url, {
+    //     method: "POST",
+    //   });
+    //   if (!response.ok) {
+    //     console.error("decProduct error", "response", await response.text());
+    //     return NextResponse.json(
+    //       {
+    //         message: `Ошибка в запросе удаления корзины response.ok false [Ответ сервера "${await response.text()}"]`,
+    //       },
+    //       { status: 500 }
+    //     );
+    //   }
+    //   revalidateTag(`basket/${uuid}`);
+    //   return NextResponse.json(null, { status: 200 });
+    // } else {
       try {
         const requestBody = JSON.stringify(deserializationToRawBasketData);
         const url = `${UrlApiWithDomainV2.getBasket}update_or_create/`;
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           { status: 500 }
         );
       }
-    }
+    // }
   } catch {
     return NextResponse.json(
       {

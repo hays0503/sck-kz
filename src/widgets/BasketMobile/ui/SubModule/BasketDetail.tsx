@@ -3,7 +3,7 @@ import beautifulCost from "@/shared/tools/beautifulCost";
 import { Divider, Flex, Typography } from "antd";
 import { MappedBasketType } from "api-mapping/basket/v2/get-products/type/MappedBasketType";
 import { useTranslations } from "next-intl";
-
+import { unstable_ViewTransition as ViewTransition } from 'react';
 const { Text, Title } = Typography;
 
 interface IBasketDetailProps {
@@ -65,6 +65,7 @@ const BasketDetail: React.FC<IBasketDetailProps> = ({ Products }) => {
       gap={10}
       style={{ width: "100%", backgroundColor: "#fff", padding: "5px" }}
     >
+      <ViewTransition default={'slow-fade'}>
       <Flex>
         <Title level={5}>{t("detali-zakaza")}</Title>
       </Flex>
@@ -98,6 +99,7 @@ const BasketDetail: React.FC<IBasketDetailProps> = ({ Products }) => {
         </Text>
         <Text>{allDiscountString}</Text>
       </Flex>
+      </ViewTransition>
     </Flex>
   );
 };

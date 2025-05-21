@@ -3,7 +3,7 @@ import { MappedCountType } from 'api-mapping/basket/v2/count/type/MappedCountTyp
 import useSWR, { SWRResponse } from 'swr';
 
 const useGetBasketCountSWR = (
-  uuid: string | null,
+  uuid: string | null | undefined,
 ): SWRResponse<{ results: MappedCountType }> => {
   const shouldFetch = Boolean(uuid); // Проверяем, нужен ли запрос
   const url = shouldFetch ? `/api-mapping/basket/v2/count/?uuid=${uuid}` : null;

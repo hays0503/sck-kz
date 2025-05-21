@@ -7,7 +7,7 @@ import React, {
   useTransition,
   useState,
   useEffect,
-  useMemo,
+  useMemo
 } from 'react';
 import dynamic from 'next/dynamic';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';

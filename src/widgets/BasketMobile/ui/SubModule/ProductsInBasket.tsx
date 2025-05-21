@@ -7,7 +7,7 @@ import RowInBasket from './RowInBasket';
 import { CheckboxChangeEvent } from 'antd/lib';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import { MappedBasketType } from 'api-mapping/basket/v2/get-products/type/MappedBasketType';
-
+import { unstable_ViewTransition as ViewTransition } from 'react';
 const { Text } = Typography;
 
 interface IProductsInBasketProps {
@@ -85,45 +85,51 @@ const ProductsInBasket: React.FC<IProductsInBasketProps> = ({ Products }) => {
           const isChecked = checkedList.includes(item.prod.id);
 
           return (
-            <div
+            <ViewTransition
               key={item.prod.id}
-              style={{
-                position: 'relative',
-                width: '100%',
-                border: '1px solid #f0f0f0',
-                borderRadius: '8px',
-                padding: '8px',
-                backgroundColor: 'transparent',
-              }}
+              exit={'slide-out'}
             >
-              {/* Чекбокс в углу */}
-              {Products.items.length > 1 && (
-                <Checkbox
-                  checked={isChecked}
-                  onChange={(e) =>
-                    handleSingleCheck(e.target.checked, item.prod.id)
-                  }
-                  style={{
-                    position: 'absolute',
-                    top: '8px',
-                    left: '8px',
-                    zIndex: 1,
-                    borderRadius: '4px',
-                    padding: '2px',
-                  }}
-                />
-              )}
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  border: '1px solid #f0f0f0',
+                  borderRadius: '8px',
+                  padding: '8px',
+                  backgroundColor: 'transparent',
+                }}
+              >
+                {/* Чекбокс в углу */}
+                {Products.items.length > 1 && (
+                  <Checkbox
+                    checked={isChecked}
+                    onChange={(e) =>
+                      handleSingleCheck(e.target.checked, item.prod.id)
+                    }
+                    style={{
+                      position: 'absolute',
+                      top: '8px',
+                      left: '8px',
+                      zIndex: 1,
+                      borderRadius: '4px',
+                      padding: '2px',
+                    }}
+                  />
+                )}
 
-              {/* Контент товара */}
-              <RowInBasket
-                BasketItem={item}
-                IncBasketSlot={<IncButton prod_id={item.prod.id} />}
-                DecBasketSlot={
-                  <DecButton prod_id={item.prod.id} count={item.count} />
-                }
-                AddToFavoriteSlot={<AddToFavoriteProduct prod_id={item.prod.id} />}
-              />
-            </div>
+                {/* Контент товара */}
+                <RowInBasket
+                  BasketItem={item}
+                  IncBasketSlot={<IncButton prod_id={item.prod.id} />}
+                  DecBasketSlot={
+                    <DecButton prod_id={item.prod.id} count={item.count} />
+                  }
+                  AddToFavoriteSlot={
+                    <AddToFavoriteProduct prod_id={item.prod.id} />
+                  }
+                />
+              </div>
+            </ViewTransition>
           );
         })}
       </Flex>

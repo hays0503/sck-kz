@@ -30,7 +30,7 @@ const BasketProductCounter: React.FC<BasketProductCounterProps> = ({
   }
 
   return (
-    <Badge count={countProductInBasket?.results.count ?? 0} size='small'>
+    <Badge count={countProductInBasket?.results?.count ?? 0} size='small'>
       {children}
     </Badge>
   );

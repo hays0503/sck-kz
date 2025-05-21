@@ -1,9 +1,17 @@
 'use client';
 
-import { FC, useState, useCallback, useRef, useTransition, memo } from 'react';
+import {
+  FC,
+  useState,
+  useCallback,
+  useRef,
+  useTransition,
+  memo,
+  useEffect,
+} from 'react';
 import { useRouter } from '@/i18n/routing';
 import { useGetCityParams } from '@/shared/hooks/useGetCityParams';
-import { Button, Flex, Input, Skeleton, Tag, Typography, Spin } from 'antd';
+import { Button, Flex, Input, Typography, Spin } from 'antd';
 import {
   CloseSquareFilled,
   RightOutlined,
@@ -12,13 +20,15 @@ import {
 import { useLocale, useTranslations } from 'next-intl';
 import { MappedPopularProductType } from 'api-mapping/product/by_populates';
 import { rawProductsTypeV2 } from 'api-mapping/product/_type/rawProductTypeV2';
+import { AnimatePresence, motion } from 'framer-motion';
 import ClientPortal from '@/shared/ui/ClientPortal/ClientPortal';
-import SearchProductOption from './SubModule/SearchProductOption';
-import SearchAnotherProduct from './SubModule/SearchAnotherProduct';
-import { motion } from 'framer-motion';
+
 import { useLocalStorage } from 'usehooks-ts';
-import { MdOutlineSearch, MdOutlineYoutubeSearchedFor } from 'react-icons/md';
+import { MdOutlineYoutubeSearchedFor } from 'react-icons/md';
 import CityEnToRu from '@/shared/constant/city';
+import { PredictionMenu } from './SubModule';
+import SearchResults from './SubModule/SearchResults';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 
 const { Text } = Typography;
 
@@ -34,100 +44,7 @@ interface GlobalSearchResponseType {
   };
 }
 
-const SearchResults: FC<{
-  inputText: string;
-  products: MappedPopularProductType[];
-  isLoading: boolean;
-  locale: string;
-  t: ReturnType<typeof useTranslations>;
-  onSelect: (slug: string) => void;
-}> = ({ inputText, products, isLoading, locale, t, onSelect }) => {
-  if (isLoading) {
-    return (
-      <Flex vertical style={{ width: '100%', padding: '10px 0' }}>
-        {[...Array(5)].map((_, idx) => (
-          <div key={idx} style={{ padding: '8px 12px' }}>
-            <Skeleton avatar paragraph={{ rows: 1 }} active />
-          </div>
-        ))}
-      </Flex>
-    );
-  }
-
-  if (products.length === 0 && inputText.trim().length > 0 && !isLoading) {
-    return (
-      <Flex
-        vertical
-        style={{ width: '100%', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
-      >
-        <Text style={{ padding: 10 }}>
-          {t('nichego-ne-nai-deno')} {`"${inputText}".`}
-          <br />
-          {t('vozmozhno-vam-ponravitsya')}:
-        </Text>
-        <SearchAnotherProduct slug={'mebel'} key='MebelAnotherProduct' />
-      </Flex>
-    );
-  }
-
-  return (
-    <Flex vertical justify='center' style={{ width: '100%' }}>
-      {products.map((product) => (
-        <div key={product.id} onClick={() => onSelect(product.slug)}>
-          <SearchProductOption product={product} locale={locale} />
-        </div>
-      ))}
-    </Flex>
-  );
-};
-
-const PredictionList: FC<{
-  predictions: string[];
-  setText: (text: string) => void;
-}> = ({ predictions, setText }) => (
-  <>
-    {predictions.map((prediction) => (
-      <Tag
-        bordered={false}
-        style={{
-          padding: '5px 20px',
-          cursor: 'pointer',
-          borderRadius: '20px',
-          backgroundColor: '#dfdfdf',
-          fontSize: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '5px',
-        }}
-        key={prediction}
-        onClick={() => setText(prediction)}
-      >
-        <MdOutlineSearch />
-        {prediction}
-      </Tag>
-    ))}
-  </>
-);
-
-const PredictionMenu: FC<{
-  predictionsLists: string[][];
-  inputText: string;
-  setText: (text: string) => void;
-}> = ({ predictionsLists, setText, inputText }) => {
-  const flat = predictionsLists.flat().filter((item) => item !== inputText);
-  if (flat.length === 0) return null;
-  return (
-    <Flex
-      wrap
-      gap={5}
-      style={{ width: '100%', padding: '10px', backgroundColor: '#f4f4f4' }}
-    >
-      <PredictionList predictions={flat} setText={setText} />
-    </Flex>
-  );
-};
-
-function SearchProduct() {
+const SearchProduct: FC = () => {
   const [inputText, setInputText] = useState('');
   const [products, setProducts] = useState<MappedPopularProductType[]>([]);
   const [brandText, setBrandText] = useState<string[]>([]);
@@ -135,6 +52,8 @@ function SearchProduct() {
   const [tagText, setTagText] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const [searchHistory, setSearchHistory] = useLocalStorage<string[]>(
     'search_history',
     [],
@@ -236,7 +155,6 @@ function SearchProduct() {
   const handleSearch = () => {
     const trimmed = inputText.trim();
     if (trimmed) {
-      // обновляем историю
       setSearchHistory((prev) => {
         const updated = [trimmed, ...prev.filter((item) => item !== trimmed)];
         return updated.slice(0, 10);
@@ -256,149 +174,172 @@ function SearchProduct() {
     [router, cityEn],
   );
 
-  const showPortal =
-    isFocused || products.length > 0 || inputText.trim() !== '';
+  useEffect(() => {
+    const showPortal =
+      isFocused || products.length > 0 || inputText.trim() !== '';
+
+    if (showPortal) {
+      startTransition(() => {
+        setIsOpen(true);
+      })
+    }else {
+      startTransition(() => {
+        setIsOpen(false);
+      })
+    }
+  }, [isFocused, products, inputText]);
 
   return (
     <>
-      <Flex
-        align='center'
-        style={{
-          borderRadius: 4,
-          height: 44,
-          border: '1px solid rgb(142, 142, 142)',
-          width: '100%',
-        }}
-      >
-        <Input
-          value={inputText}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-          allowClear={{
-            clearIcon: <CloseSquareFilled style={{ fontSize: 16 }} />,
-          }}
-          onChange={(e) => handleChange(e.target.value)}
-          onPressEnter={handleSearch}
-          placeholder={t('poisk')}
-          autoComplete='off'
-          enterKeyHint='search'
+      <ViewTransition name='SearchProduct' default={'slow-fade'}>
+        <Flex
+          align='center'
           style={{
-            height: '100%',
-            backgroundColor: 'transparent',
-            border: 'none',
-            padding: '0 8px',
-          }}
-        />
-        <Button
-          type='text'
-          onClick={handleSearch}
-          style={{
-            borderRadius: '0 4px 4px 0',
-            width: 50,
-            height: '100%',
-            backgroundColor: '#4954f0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {isPending ? (
-            <Spin size='small' />
-          ) : (
-            <SearchOutlined style={{ color: '#fff', fontSize: 22 }} />
-          )}
-        </Button>
-      </Flex>
-
-      {showPortal && inputText.trim() !== '' && (
-        <Button type='text' onClick={handleClear}>
-          {t('cancel')}
-        </Button>
-      )}
-
-      <ClientPortal
-        selector='contentOverlay'
-        show
-        display={showPortal ? 'block' : 'none'}
-      >
-        <div
-          style={{
-            overflowY: 'auto',
-            position: 'absolute',
-            height: 'inherit',
+            borderRadius: 4,
+            height: 44,
+            border: '1px solid rgb(142, 142, 142)',
             width: '100%',
-            zIndex: 999,
           }}
         >
-          <PredictionMenu
-            predictionsLists={[brandText, tagText, categoryText]}
-            inputText={inputText}
-            setText={handleChange}
+          <Input
+            value={inputText}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+            allowClear={{
+              clearIcon: <CloseSquareFilled style={{ fontSize: 16 }} />,
+            }}
+            onChange={(e) => handleChange(e.target.value)}
+            onPressEnter={handleSearch}
+            placeholder={t('poisk')}
+            autoComplete='off'
+            enterKeyHint='search'
+            style={{
+              height: '100%',
+              backgroundColor: 'transparent',
+              border: 'none',
+              padding: '0 8px',
+            }}
           />
-
-          {/* История поиска */}
-          {inputText.trim() === '' && searchHistory.length > 0 && (
-            <Flex
-              wrap
-              vertical
-              gap={5}
-              style={{ padding: '10px', backgroundColor: '#f4f4f4' }}
-            >
-              <Text strong style={{ width: '100%' }}>
-                {t('istoriya-poiska')}
-              </Text>
-              {searchHistory.map((item) => (
-                <Flex
-                  key={item}
-                  gap={10}
-                  style={{ width: '100%' }}
-                  onClick={() => {
-                    setInputText(item);
-                    performSearch(item);
-                  }}
-                >
-                  <MdOutlineYoutubeSearchedFor style={{ fontSize: 28 }} />
-                  <Flex
-                    gap={10}
-                    style={{
-                      width: '100%',
-                      borderBottom: '1px solid rgba(128, 128, 128, 0.53)',
-                    }}
-                    justify='space-between'
-                    align='center'
-                  >
-                    <Text style={{ cursor: 'pointer', borderRadius: '20px' }}>
-                      {item}
-                    </Text>
-                    <RightOutlined style={{ fontSize: 22 }} />
-                  </Flex>
-                </Flex>
-              ))}
-              <Button type='link' danger onClick={() => setSearchHistory([])}>
-                {t('ochistit-istoriyu')}
-              </Button>
-            </Flex>
-          )}
-
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.2 }}
+          <Button
+            type='text'
+            onClick={handleSearch}
+            style={{
+              borderRadius: '0 4px 4px 0',
+              width: 50,
+              height: '100%',
+              backgroundColor: '#4954f0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
-            <SearchResults
-              inputText={inputText}
-              products={products}
-              isLoading={isLoading}
-              locale={locale}
-              t={t}
-              onSelect={onSelect}
-            />
-          </motion.div>
-        </div>
-      </ClientPortal>
+            {isPending ? (
+              <Spin size='small' />
+            ) : (
+              <SearchOutlined style={{ color: '#fff', fontSize: 22 }} />
+            )}
+          </Button>
+        </Flex>
+
+        {isOpen && (
+          <Button type='text' onClick={handleClear}>
+            {t('cancel')}
+          </Button>
+        )}
+
+        <ClientPortal selector='contentOverlay' show={isOpen}>
+          <AnimatePresence>
+            <motion.div
+              key='search-portal'
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.25 }}
+              layout
+              style={{
+                overflowY: 'auto',
+                position: 'fixed',
+                height: 'inherit',
+                width: '100%',
+                zIndex: 999,
+              }}
+            >
+              <PredictionMenu
+                predictionsLists={[brandText, tagText, categoryText]}
+                inputText={inputText}
+                setText={handleChange}
+              />
+
+              {inputText.trim() === '' && searchHistory.length > 0 && (
+                <Flex
+                  wrap
+                  vertical
+                  gap={5}
+                  style={{ padding: '10px', backgroundColor: '#f4f4f4' }}
+                >
+                  <Text strong style={{ width: '100%' }}>
+                    {t('istoriya-poiska')}
+                  </Text>
+                  {searchHistory.map((item) => (
+                    <Flex
+                      key={item}
+                      gap={10}
+                      style={{ width: '100%' }}
+                      onClick={() => {
+                        setInputText(item);
+                        performSearch(item);
+                      }}
+                    >
+                      <MdOutlineYoutubeSearchedFor style={{ fontSize: 28 }} />
+                      <Flex
+                        gap={10}
+                        style={{
+                          width: '100%',
+                          borderBottom: '1px solid rgba(128, 128, 128, 0.53)',
+                        }}
+                        justify='space-between'
+                        align='center'
+                      >
+                        <Text
+                          style={{ cursor: 'pointer', borderRadius: '20px' }}
+                        >
+                          {item}
+                        </Text>
+                        <RightOutlined style={{ fontSize: 22 }} />
+                      </Flex>
+                    </Flex>
+                  ))}
+                  <Button
+                    type='link'
+                    danger
+                    onClick={() => setSearchHistory([])}
+                  >
+                    {t('ochistit-istoriyu')}
+                  </Button>
+                </Flex>
+              )}
+
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <SearchResults
+                  inputText={inputText}
+                  products={products}
+                  isLoading={isLoading}
+                  locale={locale}
+                  t={t}
+                  onSelect={onSelect}
+                />
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </ClientPortal>
+      </ViewTransition>
     </>
   );
-}
+};
 
 export default memo(SearchProduct);
