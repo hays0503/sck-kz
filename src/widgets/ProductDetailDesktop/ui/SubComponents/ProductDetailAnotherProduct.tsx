@@ -17,6 +17,7 @@ import { motion, useInView } from 'framer-motion';
 import { AddToBasketProduct } from '@/features/operation-in-basket-product';
 import AddToFavoriteProduct from '@/features/add-to-favorite-product/ui/AddToFavoriteProduct';
 import BrandList from './BrandList';
+
 const { Text } = Typography;
 
 interface IProductDetailAnotherProductProps {
@@ -27,7 +28,7 @@ const gridStyle = {
   willChange: 'opacity, transform',
   width: 'calc( 100% - 10px )',
   display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridTemplateColumns: 'repeat(8, 1fr)',
   gridGap: '10px',
 } as CSSProperties;
 
@@ -60,8 +61,6 @@ const AnimatedProductCard: React.FC<{ product: MappedPopularProductType }> = ({
         Product={product}
         addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
         addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-        width='47.60dvw'
-        height='64.21dvw'
       />
     </motion.div>
   );

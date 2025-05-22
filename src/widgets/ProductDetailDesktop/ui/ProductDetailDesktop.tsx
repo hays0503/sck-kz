@@ -17,6 +17,7 @@ import { MappedProductDetailType } from 'api-mapping/product/_type/productDetail
 import ProductDetailRelatedProduct from './SubComponents/ProductDetailRelatedProduct';
 import { useEffect } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
+import ProductDetailAnotherProduct from './SubComponents/ProductDetailAnotherProduct';
 
 interface IProductDetailProps {
   slug: string;
@@ -130,6 +131,11 @@ const ProductDetailDesktop: React.FC<IProductDetailProps> = (props) => {
             />
           </ProductDetailItem>
         )}
+
+        <ProductDetailItem>
+          <ProductDetailAnotherProduct slug={product.categorySlug} />
+        </ProductDetailItem>
+
       </Flex>
     </>
   );
