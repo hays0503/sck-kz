@@ -11,7 +11,7 @@ export const viewport: Viewport = viewportMetadata();
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string; city: string; locale: string };
+  params: Promise<{ slug: string; city: string; locale: string }>;
 }): Promise<Metadata> {
   const { slug, city, locale } = await params;
 
