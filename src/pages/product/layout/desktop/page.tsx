@@ -1,26 +1,26 @@
-"use server"
+'use server';
 
-import { getCategoryRoot } from "@/entities/Category";
-import getCity from "@/entities/City/api/getCity";
-import { ProvidersServer } from "@/shared/providers/providersServer";
-import { ProvidersClient } from "@/shared/providers/providersClient";
-import { LayoutMainDesktop } from "@/widgets/LayoutMainDesktop";
-import { SelectCity } from "@/features/select-city";
-import { ChangeLanguage } from "@/features/change-language";
-import { SearchProduct } from "@/features/search-products";
-import { HeaderDesktop } from "@/widgets/HeaderDesktop";
-import { CatalogDesktop } from "@/widgets/CatalogDesktop";
-import { UserCabinet } from "@/widgets/UserCabinet";
-import { BasketButton } from "@/widgets/BasketButton";
-import { Flex } from "antd";
-import { JSX } from "react";
-import { FooterSCK } from "@/widgets/FooterSCK";
-import { getTranslations } from "next-intl/server";
-import getProductBySlug from "@/entities/Product/api/getProductBySlug";
-import { STATUS_CODE } from "@/shared/constant/statusCode";
-import Link from "next/link";
-import { ProductDetailDesktop } from "@/widgets/ProductDetailDesktop";
-import { unstable_cache } from "next/cache";
+import { getCategoryRoot } from '@/entities/Category';
+import getCity from '@/entities/City/api/getCity';
+import { ProvidersServer } from '@/shared/providers/providersServer';
+import { ProvidersClient } from '@/shared/providers/providersClient';
+import { LayoutMainDesktop } from '@/widgets/LayoutMainDesktop';
+import { SelectCity } from '@/features/select-city';
+import { ChangeLanguage } from '@/features/change-language';
+import { SearchProduct } from '@/features/search-products';
+import { HeaderDesktop } from '@/widgets/HeaderDesktop';
+import { CatalogDesktop } from '@/widgets/CatalogDesktop';
+import { UserCabinet } from '@/widgets/UserCabinet';
+import { BasketButton } from '@/widgets/BasketButton';
+import { Flex } from 'antd';
+import { JSX } from 'react';
+import { FooterSCK } from '@/widgets/FooterSCK';
+import { getTranslations } from 'next-intl/server';
+import getProductBySlug from '@/entities/Product/api/getProductBySlug';
+import { STATUS_CODE } from '@/shared/constant/statusCode';
+import Link from 'next/link';
+import { ProductDetailDesktop } from '@/widgets/ProductDetailDesktop';
+import { unstable_cache } from 'next/cache';
 
 interface IProductPageProps {
   params: {
@@ -32,15 +32,23 @@ interface IProductPageProps {
 
 const revalidateTime = { revalidate: 300 };
 
-const ProductPage = async ({ params }: IProductPageProps): Promise<JSX.Element> => {
-  const { slug, city } = params;
-  const t = await getTranslations("NotFound");
+
+
+const ProductPage = async ({
+  params,
+}: IProductPageProps): Promise<JSX.Element> => {
+  const { slug, city } = await params;
+  const t = await getTranslations('NotFound');
 
   // Кэшированные запросы
   const [productData, cities, categoryRoot] = await Promise.all([
-    unstable_cache(() => getProductBySlug({ slug, city }), [slug, city], revalidateTime)(),
-    unstable_cache(() => getCity(), ["city-list"], revalidateTime)(),
-    unstable_cache(() => getCategoryRoot(city), [city], revalidateTime)()
+    unstable_cache(
+      () => getProductBySlug({ slug, city }),
+      [slug, city],
+      revalidateTime,
+    )(),
+    unstable_cache(() => getCity(), ['city-list'], revalidateTime)(),
+    unstable_cache(() => getCategoryRoot(city), [city], revalidateTime)(),
   ]);
 
   // Проверка на удалённый или несуществующий товар
@@ -51,7 +59,9 @@ const ProductPage = async ({ params }: IProductPageProps): Promise<JSX.Element> 
         city={city}
         content={
           <h4>
-            {t("tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov")}
+            {t(
+              'tovar-udalen-ili-polnostyu-rasprodan-v-etom-gorode-no-v-nashem-magazine-vas-zhdet-tysyacha-drugikh-tovarov',
+            )}
           </h4>
         }
       />
@@ -66,7 +76,7 @@ const ProductPage = async ({ params }: IProductPageProps): Promise<JSX.Element> 
   const fallback = {
     [urlProduct]: productData.data,
     [urlCity]: cities,
-    [urlCategoryRoot]: categoryRoot
+    [urlCategoryRoot]: categoryRoot,
   };
 
   return <DefaultPage fallback={fallback} slug={slug} />;
@@ -104,8 +114,12 @@ interface IErrorPageProps {
   city: string;
 }
 
-const ErrorPage: React.FC<IErrorPageProps> = async ({ fallback, city, content }) => {
-  const t = await getTranslations("NotFound");
+const ErrorPage: React.FC<IErrorPageProps> = async ({
+  fallback,
+  city,
+  content,
+}) => {
+  const t = await getTranslations('NotFound');
 
   return (
     <ProvidersServer>
@@ -122,9 +136,17 @@ const ErrorPage: React.FC<IErrorPageProps> = async ({ fallback, city, content })
             />
           }
           content={
-            <Flex align="center" justify="center" style={{ width: "100%" }} gap={10} vertical>
+            <Flex
+              align='center'
+              justify='center'
+              style={{ width: '100%' }}
+              gap={10}
+              vertical
+            >
               {content}
-              <Link href={`/city/${city}/main`}>{t("vernutsya-na-glavnuyu")}</Link>
+              <Link href={`/city/${city}/main`}>
+                {t('vernutsya-na-glavnuyu')}
+              </Link>
             </Flex>
           }
           footerContent={<FooterSCK />}

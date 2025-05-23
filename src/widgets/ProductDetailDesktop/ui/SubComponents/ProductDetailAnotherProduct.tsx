@@ -28,7 +28,7 @@ const gridStyle = {
   willChange: 'opacity, transform',
   width: 'calc( 100% - 10px )',
   display: 'grid',
-  gridTemplateColumns: 'repeat(8, 1fr)',
+  gridTemplateColumns: 'repeat(6, 1fr)',
   gridGap: '10px',
 } as CSSProperties;
 

@@ -1,6 +1,6 @@
+// import { ProvidersServer } from '@/shared/providers/providersServer';
 import basicMetadata from '@/shared/metadata/basicMetadata';
 import viewportMetadata from '@/shared/metadata/viewportMetadata';
-// import { ProvidersServer } from '@/shared/providers/providersServer';
 import { getDataCity, MappedCityType } from 'api-mapping/city';
 import { Metadata, Viewport } from 'next';
 import { setRequestLocale } from 'next-intl/server';

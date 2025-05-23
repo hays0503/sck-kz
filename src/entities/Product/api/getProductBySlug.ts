@@ -6,7 +6,7 @@ interface getProductByCategoryProps {
     city: string;
 }
 
-type responseTypeProductBySlug = {
+export type responseTypeProductBySlug = {
     url: string;
     data: MappedProductDetailType | object;
     statusCode: number;

@@ -1,3 +1,4 @@
+
 import basicMetadata from "@/shared/metadata/basicMetadata";
 import viewportMetadata from "@/shared/metadata/viewportMetadata";
 import { Metadata, Viewport } from "next";

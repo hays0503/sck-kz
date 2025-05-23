@@ -1,88 +1,98 @@
-"use server"
-
-import getProductPopulates from "@/entities/Product/api/getProductPopulates";
-import { SearchParams } from "nuqs";
-import { searchParamsCache } from "./searchParams";
-import { getProductResult } from "@/entities/Product/api/getProductByCategory";
-import { MappedCategoryWithoutChildrenType } from "api-mapping/category/root/type";
-import { getCategoryRoot } from "@/entities/Category";
-import getCity from "@/entities/City/api/getCity";
-import { MappedCityType } from "api-mapping/city";
-import { ProvidersServer } from "@/shared/providers/providersServer";
-import { ProvidersClient } from "@/shared/providers/providersClient";
-import { LayoutMainDesktop } from "@/widgets/LayoutMainDesktop";
-import { SelectCity } from "@/features/select-city";
-import { ChangeLanguage } from "@/features/change-language";
-import { SearchProduct } from "@/features/search-products";
-import { HeaderDesktop } from "@/widgets/HeaderDesktop";
-import { CatalogDesktop } from "@/widgets/CatalogDesktop";
-import { UserCabinet } from "@/widgets/UserCabinet";
-import { BasketButton } from "@/widgets/BasketButton";
-import { Flex } from "antd";
-import { BannerMobileSlider } from "@/widgets/BannerMobileSlider";
-import { ProductPopularListPagination } from "@/widgets/ProductPopularListPagination";
-import { CSSProperties } from "react";
-import { FooterSCK } from "@/widgets/FooterSCK";
+import { SearchParams } from 'nuqs';
+import { ProvidersServer } from '@/shared/providers/providersServer';
+import { ProvidersClient } from '@/shared/providers/providersClient';
+import { SelectCity } from '@/features/select-city';
+import { ChangeLanguage } from '@/features/change-language';
+import getCity from '@/entities/City/api/getCity';
+import { SearchProduct } from '@/features/search-products';
+import { getCategoryRoot } from '@/entities/Category';
+import { unstable_cache } from 'next/cache';
+import CityEnToRu from '@/shared/constant/city';
+import { searchParamsCache } from './searchParams';
+import { convertSortOrder } from '@/features/sorting-products/ui/SortingProducts';
+import { setRequestLocale } from 'next-intl/server';
+import { LayoutMainDesktop } from '@/widgets/LayoutMainDesktop';
+import { HeaderDesktop } from '@/widgets/HeaderDesktop';
+import { CatalogDesktop } from '@/widgets/CatalogDesktop';
+import { UserCabinet } from '@/widgets/UserCabinet';
+import { BasketButton } from '@/widgets/BasketButton';
+import { FooterSCK } from '@/widgets/FooterSCK';
+import { FilterRenderDesktop } from '@/widgets/FilterDesktop';
 
 type PageProps = {
-    params: Promise<{
-        slug: string;
-        locale: string;
-        city: string;
-    }>;
-    searchParams: Promise<SearchParams>;
+  params: { slug: string; locale: string; city: string };
+  searchParams: SearchParams;
 };
 
+export const revalidate = 600;
+export const dynamicParams = true;
 
-export default async function HomePage(props: PageProps) {
+export default async function FilterPage({ params, searchParams }: PageProps) {
+  const { order } = await searchParamsCache.parse(searchParams);
+  const { city, locale } = await params;
 
-    const { params, searchParams } = await props;
-    const { page } = searchParamsCache.parse(await searchParams);
+  setRequestLocale(locale);
 
-    const products: getProductResult = await getProductPopulates({
-        city: (await params).city,
-        orderBy: "none_sort",
-        page
-    })
+  const data = await searchParams;
+  const searchParamsData: string = Object.entries(data)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
 
+  const cityRu = CityEnToRu[city];
 
-    const cities: MappedCityType[] = await getCity();
+  const url = `http://185.100.67.246:8888/categories/facets/?${searchParamsData}&limit=100&ordering=${convertSortOrder(order)}&city=${cityRu}`;
 
-    const categoryRoot: { results: MappedCategoryWithoutChildrenType[] } | undefined = await getCategoryRoot((await params).city);
+  const fetchData = await (await fetch(url)).json();
 
-    const urlPopulates = `/api-mapping/product/by_populates?page=${page}&order=none_sort&city=${(await params).city}`
-    const urlCity = `/api-mapping/city`
-    const urlCategoryRoot = `/api-mapping/category/root/?city=${(await params).city}`
-    const fallback = {
-        [urlPopulates]: products,
-        [urlCity]: cities,
-        [urlCategoryRoot]: categoryRoot
-    };
+  // Ключи для кэша
+  const urlCity = `/api-mapping/city`;
+  const urlCategoryRoot = `/api-mapping/category/root/?city=${city}`;
 
-    return (
-        <ProvidersServer>
-            <ProvidersClient fallback={fallback}>
-                <LayoutMainDesktop
-                    headerContent={
-                        <HeaderDesktop
-                            SelectCity={SelectCity}
-                            ChangeLanguage={ChangeLanguage}
-                            SearchProduct={SearchProduct}
-                            CatalogDesktop={CatalogDesktop}
-                            UserCabinet={UserCabinet}
-                            BasketButton={BasketButton}
-                        />}
-                    content={<Flex vertical={true} gap={5} style={{
-                        "--sck-columns-on-page": 6
-                    } as CSSProperties}>
-                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
-                        <BannerMobileSlider category={categoryRoot?.results || []} />
-                        <div style={{ width: "100%", height: "3px", backgroundColor: '#eeeff1' }} />
-                        <ProductPopularListPagination/>
-                    </Flex>}
-                    footerContent={<FooterSCK/>}
-                />
-            </ProvidersClient>
-        </ProvidersServer>
-    );
+  const revalidateTime = { revalidate: 300 };
+
+  // Запросы с кэшированием
+  const [citiesData, categoryRootData] = await Promise.all([
+    unstable_cache(() => getCity(), [urlCity], revalidateTime)(),
+    unstable_cache(
+      () => getCategoryRoot(city),
+      [urlCategoryRoot],
+      revalidateTime,
+    )(),
+  ]);
+
+  const fallback = {
+    [urlCity]: citiesData,
+    [urlCategoryRoot]: categoryRootData,
+  };
+
+  return (
+    <ProvidersServer>
+      <ProvidersClient fallback={fallback}>
+        <LayoutMainDesktop
+          headerContent={
+            <HeaderDesktop
+              SelectCity={SelectCity}
+              ChangeLanguage={ChangeLanguage}
+              SearchProduct={SearchProduct}
+              CatalogDesktop={CatalogDesktop}
+              UserCabinet={UserCabinet}
+              BasketButton={BasketButton}
+            />
+          }
+          content={
+            <FilterRenderDesktop  
+              fetchData={{
+                category: fetchData.categorys,
+                brands: fetchData.brands,
+                specifications: fetchData.specifications,
+                products: fetchData.products.items,
+              }}
+              searchParamsData={url}
+            />
+          }
+          footerContent={<FooterSCK />}
+        />
+      </ProvidersClient>
+    </ProvidersServer>
+  );
 }

@@ -1,5 +1,4 @@
 import { SearchParams } from 'nuqs';
-// import { searchParamsCache } from './searchParams';
 import { ProvidersServer } from '@/shared/providers/providersServer';
 import { ProvidersClient } from '@/shared/providers/providersClient';
 import { LayoutMain } from '@/widgets/LayoutMain';
@@ -25,7 +24,7 @@ type PageProps = {
 export const revalidate = 600;
 export const dynamicParams = true;
 
-export default async function HomePage({ params, searchParams }: PageProps) {
+export default async function FilterPage({ params, searchParams }: PageProps) {
   const { order } = await searchParamsCache.parse(searchParams);
   const { city, locale } = await params;
 

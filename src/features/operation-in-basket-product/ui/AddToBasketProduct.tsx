@@ -6,7 +6,7 @@ import IncButton from './IncButton';
 import DecButton from './DecButton';
 import React, {
   CSSProperties,
-  useEffect,
+  useMemo,
   useTransition,
 } from 'react';
 import useGetBasketProductsSWR from '@/entities/Basket/model/getBasketProductsSWR';
@@ -18,46 +18,43 @@ const AddToBasketProduct: React.FC<{ prod_id: number; justify?: string }> = ({
   prod_id,
   justify,
 }) => {
-
   const { data } = useGetBasketProductsSWR();
   const [isPending, startTransition] = useTransition();
   const [_addAction, msg] = useBasketAdd({ prod_id });
-  const [Count, setCount] = React.useState(0);
+
+  const currentItemCount = useMemo(() => {
+    return data?.items.find((i: MappedBasketItemType) => i.prod.id === prod_id)?.count ?? 0;
+  }, [data, prod_id]);
+
   const addAction = async () => {
     if ('vibrate' in navigator) {
       navigator.vibrate([50, 30, 80, 30, 50]);
     }
-    startTransition(async () => await _addAction());
+    startTransition(() => _addAction());
   };
 
-  useEffect(() => {
-    const Item: MappedBasketItemType | undefined = data?.items.find(
-      (ItemInBasked: MappedBasketItemType) => ItemInBasked.prod.id === prod_id,
-    );
-    const _Count = Item?.count;
-    startTransition(() => setCount(_Count ?? 0));
-  }, [data, prod_id]);
-
   return (
-    <Flex style={{ width: '100%' }}>
+    <Flex style={{ width: '100%' }} key="AddToBasketProduct">
       <ViewTransition>
-        {Boolean(!Count) && (
-          <NoClickedButton addAction={addAction} isPending={isPending} />
-        )}
-        {Boolean(Count) && (
-          <ClickedButton
-            Count={Count}
+        {!currentItemCount ? (
+          <NoClickedButtonMemo key={'_NoClickedButton'} addAction={addAction} isPending={isPending} />
+        ) : (
+          <ClickedButtonMemo
+            key={'_ClickedButton'}
+            Count={currentItemCount}
             prod_id={prod_id}
             justify={justify}
             isPending={isPending}
           />
         )}
+        {msg}
       </ViewTransition>
-      {msg}
     </Flex>
   );
 };
-export default AddToBasketProduct;
+
+
+export default React.memo(AddToBasketProduct);
 
 const ClickedButton: React.FC<{
   Count: number;
@@ -77,6 +74,7 @@ const ClickedButton: React.FC<{
       justify={justify ? justify : 'space-between'}
       align='center'
       style={ButtonStyle}
+      key={'ClickedButton'}
     >
       <DecButton
         prod_id={prod_id}
@@ -94,13 +92,15 @@ const ClickedButton: React.FC<{
   );
 };
 
+const ClickedButtonMemo = React.memo(ClickedButton);
+
 const NoClickedButton: React.FC<{
   addAction: () => void;
   isPending?: boolean;
 }> = ({ addAction, isPending }) => {
   const t = useTranslations('AddToBasketProduct');
   return (
-    <Flex style={{ width: '100%' }}>
+    <Flex style={{ width: '100%' }} key={'NoClickedButton'}>
       <Button
         onClick={() => addAction()}
         shape='default'
@@ -157,3 +157,5 @@ const NoClickedButton: React.FC<{
     </Flex>
   );
 };
+
+const NoClickedButtonMemo = React.memo(NoClickedButton);
