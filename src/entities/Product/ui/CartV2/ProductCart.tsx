@@ -89,6 +89,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
             }}
           >
             <ProductCartSwiper
+              id={Product.id}
               name={ProductName}
               images={Product.img}
               width={width ?? CartWidth}
@@ -119,6 +120,7 @@ const ProductCart: React.FC<IProductCartProps> = memo((props) => {
         />
       </Link>
       <Level3 addToCartSlot={addToCartSlot} />
+
     </Flex>
   );
 });

@@ -20,6 +20,7 @@
     "babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
     "cross-env": "^7.0.3",
     "framer-motion": "^12.6.2",
+    "hls.js": "^1.6.2",
     "leaflet": "^1.9.4",
     "next": "^15.2.4",
     "next-intl": "^4.0.2",
