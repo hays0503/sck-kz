@@ -167,11 +167,58 @@
     "etazh": "Floor",
     "kommentarii-dlya-kurera": "Comment for the courier",
     "kommentarii": "Comments",
-    "potverdet": "Confirm"
+    "potverdet": "Confirm",
+    "validation": {
+      "street": {
+        "required": "Enter the street",
+        "min": "The name of the street is too short",
+        "max": "The name of the street is too long"
+      },
+      "house": {
+        "required": "Enter the house number",
+        "invalid": "Inappropriate format of the house of the house"
+      },
+      "apartment": {
+        "required": "Enter an apartment or office number",
+        "invalid": "The wrong format of the apartment"
+      },
+      "train": {
+        "invalid": "The wrong entrance format"
+      },
+      "floor": {
+        "invalid": "The wrong floor format"
+      },
+      "comment": {
+        "max": "The comment should not exceed 300 characters"
+      }
+    }
   },
   "Recipient": {
     "zapolnite-pole": "Fill the fields completely",
-    "potverdet": "Confirm"
+    "potverdet": "Confirm",
+    "validation": {
+      "lastName": {
+        "required": "Enter your last name",
+        "min": "The surname is too short",
+        "max": "The surname is too long"
+      },
+      "firstName": {
+        "required": "Enter the name",
+        "min": "The name is too short",
+        "max": "The name is too long"
+      },
+      "middleName": {
+        "max": "The middle name is too long"
+      },
+      "phone": {
+        "required": "Enter the phone number",
+        "invalid": "The wrong phone format"
+      },
+      "email": {
+        "required": "Enter email",
+        "invalid": "The wrong format email"
+      }
+    }
   },
   "Logout": {
     "logout": "Exit",

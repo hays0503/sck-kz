@@ -181,11 +181,11 @@ const SearchProduct: FC = () => {
     if (showPortal) {
       startTransition(() => {
         setIsOpen(true);
-      })
-    }else {
+      });
+    } else {
       startTransition(() => {
         setIsOpen(false);
-      })
+      });
     }
   }, [isFocused, products, inputText]);
 
@@ -199,6 +199,9 @@ const SearchProduct: FC = () => {
             height: 44,
             border: '1px solid rgb(142, 142, 142)',
             width: '100%',
+            position: 'relative',
+            zIndex: 999,
+            backgroundColor: '#f5f5f5',
           }}
         >
           <Input
@@ -242,7 +245,18 @@ const SearchProduct: FC = () => {
         </Flex>
 
         {isOpen && (
-          <Button type='text' onClick={handleClear}>
+          <Button
+            type='text'
+            onClick={handleClear}
+            style={{
+              height: 42,
+              position: 'relative',
+              backgroundColor: '#f5f5f5',
+              zIndex: 999,
+              marginLeft: 10,
+              marginRight: 10,
+            }}
+          >
             {t('cancel')}
           </Button>
         )}
@@ -258,7 +272,7 @@ const SearchProduct: FC = () => {
               layout
               style={{
                 overflowY: 'auto',
-                position: 'fixed',
+                position: 'relative',
                 height: 'inherit',
                 width: '100%',
                 zIndex: 999,
@@ -337,6 +351,17 @@ const SearchProduct: FC = () => {
               </motion.div>
             </motion.div>
           </AnimatePresence>
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 998,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+            }}
+          />
         </ClientPortal>
       </ViewTransition>
     </>

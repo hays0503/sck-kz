@@ -1,72 +1,136 @@
-import { IOrderCreate } from "@/shared/types/order"
-import { Button, Flex, Form, Input, message } from "antd"
-import { useTranslations } from "next-intl"
-import { Dispatch, SetStateAction } from "react"
-
+import { IOrderCreate } from '@/shared/types/order';
+import { Button, Flex, Form, Input, message } from 'antd';
+import { useTranslations } from 'next-intl';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 
 interface IRecipientProps {
-    setStep: Dispatch<React.SetStateAction<number>>
-    orderManager: [IOrderCreate, Dispatch<SetStateAction<IOrderCreate>>]
+  setStep: Dispatch<React.SetStateAction<number>>;
+  orderManager: [IOrderCreate, Dispatch<SetStateAction<IOrderCreate>>];
 }
 
-const Recipient: React.FC<IRecipientProps> = ({setStep,orderManager}) => {
-    const t = useTranslations("Recipient"); 
-    const [messageApi, contextHolder] = message.useMessage();
-    const [formUserInfo] = Form.useForm();
+const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
+  const t = useTranslations('Recipient');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [formUserInfo] = Form.useForm();
 
-    const Submit = () => {
-        formUserInfo.validateFields().then(() => {
-            const userInfo = formUserInfo.getFieldsValue()
-            const [order, setOrder] = orderManager;
-    
-            const user = `Фамилия=[${userInfo.lastName}] Имя=[${userInfo.firstName}] Отчество=[${userInfo.middleName}]`
-            setOrder({ ...order, user_full_name: user, phone_number: userInfo.phone, email: userInfo.email });
-            console.log(order);
-            setStep(4);
-        }).catch(() => { 
-            messageApi.open({
-            type: 'error',
-            content: t('zapolnite-pole'),
-        });});
+  const Submit = () => {
+    formUserInfo
+      .validateFields()
+      .then(() => {
+        const userInfo = formUserInfo.getFieldsValue();
+        const [order, setOrder] = orderManager;
 
-    }
+        const user = `Фамилия=[${userInfo.lastName}] Имя=[${userInfo.firstName}] Отчество=[${userInfo.middleName}]`;
+        setOrder({
+          ...order,
+          user_full_name: user,
+          phone_number: userInfo.phone,
+          email: userInfo.email,
+        });
+        console.log(order);
+        setStep(4);
+      })
+      .catch(() => {
+        messageApi.open({
+          type: 'error',
+          content: t('zapolnite-pole'),
+        });
+      });
+  };
 
+  const RulesSet = useMemo(
+    () => ({
+      lastName: [
+        { required: true, message: t('validation.lastName.required') },
+        { min: 2, message: t('validation.lastName.min') },
+        { max: 50, message: t('validation.lastName.max') },
+      ],
+      firstName: [
+        { required: true, message: t('validation.firstName.required') },
+        { min: 2, message: t('validation.firstName.min') },
+        { max: 50, message: t('validation.firstName.max') },
+      ],
+      middleName: [{ max: 50, message: t('validation.middleName.max') }],
+      phone: [
+        { required: true, message: t('validation.phone.required') },
+        {
+          pattern:
+            /^(\+7|8)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/,
+          message: t('validation.phone.invalid'),
+        },
+      ],
+      email: [
+        { required: true, message: t('validation.email.required') },
+        { type: 'email' as const, message: t('validation.email.invalid') },
+      ],
+    }),
+    [t],
+  );
 
-    return <Flex vertical>
-        {contextHolder}
-        <Flex gap={5} vertical>
-            <Form
-                form={formUserInfo}
-                layout="vertical"
-                style={{ width: "100%", display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '10px' }}>
-                <Form.Item label="Фамилия" name="lastName"  rules={[{ required: true }]} required={true}>
-                    <Input placeholder="Гео" />
-                </Form.Item>
-                <Form.Item label="Имя"  name="firstName" rules={[{ required: true }]} required={true}>
-                    <Input placeholder="Георгии" />
-                </Form.Item>
-                <Form.Item label="Отчество" name="surname">
-                    <Input placeholder="Георгиевич" />
-                </Form.Item>
-                <Form.Item label="Номер телефона" name="phone" rules={[{ required: true }]} required={true}>
-                    <Input placeholder="8 776 34191 15" />
-                </Form.Item>
-                <Form.Item label="E-mail" name="email" rules={[
-                    { required: true },
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    }
-                    
-                ]} required={true}>
-                    <Input placeholder={"main@mail.kz"} />
-                </Form.Item>
-            </Form>
-            <Button type="primary" onClick={Submit}>
-                {t('potverdet')}
-            </Button>
-        </Flex>
+  return (
+    <Flex vertical>
+      {contextHolder}
+      <Flex gap={5} vertical>
+        <Form
+          form={formUserInfo}
+          layout='vertical'
+          style={{
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2,1fr)',
+            gap: '10px',
+          }}
+        >
+          <Form.Item
+            label='Фамилия'
+            name='lastName'
+            rules={RulesSet.lastName}
+            required
+          >
+            <Input placeholder='Гео' />
+          </Form.Item>
+
+          <Form.Item
+            label='Имя'
+            name='firstName'
+            rules={RulesSet.firstName}
+            required
+          >
+            <Input placeholder='Георгии' />
+          </Form.Item>
+
+          <Form.Item
+            label='Отчество'
+            name='middleName'
+            rules={RulesSet.middleName}
+          >
+            <Input placeholder='Георгиевич' />
+          </Form.Item>
+
+          <Form.Item
+            label='Номер телефона'
+            name='phone'
+            rules={RulesSet.phone}
+            required
+          >
+            <Input placeholder='8 776 341 91 15' />
+          </Form.Item>
+
+          <Form.Item
+            label='E-mail'
+            name='email'
+            rules={RulesSet.email}
+            required
+          >
+            <Input placeholder='main@mail.kz' />
+          </Form.Item>
+        </Form>
+        <Button type='primary' onClick={Submit}>
+          {t('potverdet')}
+        </Button>
+      </Flex>
     </Flex>
-}
+  );
+};
 
-export default Recipient
+export default Recipient;

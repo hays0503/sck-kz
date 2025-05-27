@@ -27,7 +27,7 @@ interface IProductDetailAnotherProductProps {
 const gridStyle = {
   width: '100%',
   display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridTemplateColumns: 'repeat(var(--sck-columns-on-page), 1fr)',
   gridGap: '10px',
 } as CSSProperties;
 
@@ -38,8 +38,8 @@ const Page: React.FC<{
     <div style={{ ...gridStyle }}>
       {Products?.map((product: MappedPopularProductType) => (
         <ProductCart
-          width='47.60dvw'
-          height='64.21dvw'
+          // width='47.60dvw'
+          // height='64.21dvw'
           oneImage={true}
           key={product.id}
           Product={product}
@@ -83,8 +83,8 @@ const PageObserved: React.FC<{
           Product={product}
           addToCartSlot={<AddToBasketProduct prod_id={product.id} />}
           addToFavoriteSlot={<AddToFavoriteProduct prod_id={product.id} />}
-          width='47.60dvw'
-          height='64.21dvw'
+          // width='47.60dvw'
+          // height='64.21dvw'
         />
       ))}
     </div>
