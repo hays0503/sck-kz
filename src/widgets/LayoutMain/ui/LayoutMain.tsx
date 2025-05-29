@@ -1,4 +1,5 @@
 'use client';
+import { SocialButtonFloat } from '@/features/social-buttons';
 import { Layout } from 'antd';
 import React, { CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
@@ -48,7 +49,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({
     width: '100dvw',
     touchAction: 'none',
     scrollBehavior: 'smooth',
-    overscrollBehavior: 'none',
+    overscrollBehavior: 'none'
   };
 
   const headerStyle: CSSProperties = {
@@ -63,8 +64,8 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({
     backgroundColor: '#f5f5f5',
     height: contentHeight,
     overflowY: 'auto',
-    overflowX: 'hidden',
-  };
+    overflowX: 'hidden'
+  } as CSSProperties;
 
   const footerStyle: CSSProperties = {
     width: '100%',
@@ -89,6 +90,7 @@ const LayoutMain: React.FC<ILayoutMainProps> = ({
             opacity: 0,
           }}
         />
+        <SocialButtonFloat />
         {content}
       </Content>
       <Footer style={footerStyle} ref={refFooter}>

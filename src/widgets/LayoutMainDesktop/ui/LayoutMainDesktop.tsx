@@ -1,4 +1,5 @@
 'use client';
+import { SocialButtonFloat } from '@/features/social-buttons';
 import { Layout } from 'antd';
 import React, { CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 
@@ -86,6 +87,7 @@ const LayoutMainDesktop: React.FC<ILayoutMainProps> = ({
           }}
         />
         {content}
+        <SocialButtonFloat />
         <Footer style={footerStyle}>{footerContent}</Footer>
       </Content>
     </Layout>
