@@ -67,7 +67,7 @@ const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
         { required: true, message: t('validation.phone.required') },
         {
           pattern:
-            /^(71[0-8]|72[1-9]|73622|70\d|747|75\d|76[0-4]|771|77[5-8])\d{7}$/,
+            /^(8|71[0-8]|72[1-9]|73622|70\d|747|75\d|76[0-4]|771|77[5-8])\d{7}$/,
           message: t('validation.phone.invalid'),
         },
       ],
