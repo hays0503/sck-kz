@@ -200,15 +200,18 @@
       "lastName": {
         "required": "Тегіңізді енгізіңіз",
         "min": "Тегі тым қысқа",
-        "max": "Тегі тым ұзақ"
+        "max": "Тегі тым ұзақ",
+        "pattern": "Тамақ құрамында Кирилица немесе латындар болуы керек"
       },
       "firstName": {
         "required": "Атын енгізіңіз",
         "min": "Атау тым қысқа",
-        "max": "Атауы тым ұзақ"
+        "max": "Атауы тым ұзақ",
+        "pattern": "Атауда кирилица немесе латындар болуы керек"
       },
       "middleName": {
-        "max": "Ортаңғы атау өте ұзақ"
+        "max": "Ортаңғы атау өте ұзақ",
+        "pattern": "Әкесінің аты кирилица немесе латын"
       },
       "phone": {
         "required": "Телефон нөмірін енгізіңіз",
@@ -498,5 +501,11 @@
   "poisk": "Іздеу",
   "cancel": "Күшін жою",
   "ochistit-istoriyu": "Таза тарих",
-  "istoriya-poiska": "Іздеу тарихы"
+  "istoriya-poiska": "Іздеу тарихы",
+  "oplata-nalichnymi-pri-poluchenii-zakaza": "Тапсырысты алған кезде қолма-қол ақша төлеу",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek": "Тапсырыс алу кезінде үйге жеткізген кезде, курстың қолында қолма-қол ақшаны төлеуге болады. Төлем тек ұлттық валютада жүзеге асырылады. Төлемді растау кезінде біз сізге тауарды тексеруді ұсынамыз.",
+  "oplata": "Төлем",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek-0": "Тапсырыс алу кезінде үйге жеткізген кезде, курстың қолында қолма-қол ақшаны төлеуге болады. Төлем тек ұлттық валютада жүзеге асырылады. Төлемді растау кезінде біз сізге тауарды тексеруді ұсынамыз.",
+  "oplata-kartoi-onlayn": "Онлайн төлем",
+  "oplata-kartoi-onlain-vozmozhna-pri-oformlenii-zakaza-na-saite-dlya-etogo-neobkhodimo-zapolnit-formu-zakaza-i-vybrat-oplatu-kartoi-onlain": "Интернет арқылы карточкамен төлем сайтқа тапсырыс берген кезде мүмкін. Ол үшін тапсырыс формасын толтырыңыз және онлайн карточкамен төлемді таңдаңыз."
 }

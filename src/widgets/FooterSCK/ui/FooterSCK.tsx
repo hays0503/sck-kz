@@ -43,7 +43,7 @@ const FooterSCK = () => {
             <Title level={5}>{t("pomosh")}</Title>
             <ul>
               <li>
-                <Link href={`/city/${cityEn}/about-pays`}>
+                <Link href={`/city/${cityEn}/about/payment/`}>
                 <Text>{t("oplata")}</Text>
                 </Link>
               </li>

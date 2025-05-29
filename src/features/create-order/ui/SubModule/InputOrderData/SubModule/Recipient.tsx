@@ -38,24 +38,36 @@ const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
       });
   };
 
+  const PatternName = useMemo(() => (/^[a-zA-Zа-яА-ЯёЁ-]+$/), []);
+
   const RulesSet = useMemo(
     () => ({
       lastName: [
         { required: true, message: t('validation.lastName.required') },
         { min: 2, message: t('validation.lastName.min') },
         { max: 50, message: t('validation.lastName.max') },
+        {
+          pattern: PatternName, message: t('validation.lastName.pattern'),
+        },
       ],
       firstName: [
         { required: true, message: t('validation.firstName.required') },
         { min: 2, message: t('validation.firstName.min') },
         { max: 50, message: t('validation.firstName.max') },
+        {
+          pattern: PatternName, message: t('validation.firstName.pattern'),
+        },
       ],
-      middleName: [{ max: 50, message: t('validation.middleName.max') }],
+      middleName: [{ max: 50, message: t('validation.middleName.max') },
+        {
+          pattern: PatternName, message: t('validation.middleName.pattern'),
+        },
+      ],
       phone: [
         { required: true, message: t('validation.phone.required') },
         {
           pattern:
-            /^(\+7|8)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/,
+            /^(71[0-8]|72[1-9]|73622|70\d|747|75\d|76[0-4]|771|77[5-8])\d{7}$/,
           message: t('validation.phone.invalid'),
         },
       ],
@@ -64,7 +76,7 @@ const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
         { type: 'email' as const, message: t('validation.email.invalid') },
       ],
     }),
-    [t],
+    [PatternName, t],
   );
 
   return (

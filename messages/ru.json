@@ -209,15 +209,18 @@
       "lastName": {
         "required": "Введите фамилию",
         "min": "Фамилия слишком короткая",
-        "max": "Фамилия слишком длинная"
+        "max": "Фамилия слишком длинная",
+        "pattern": "Фамилия должно содержать Кирилицу или Латинцу"
       },
       "firstName": {
         "required": "Введите имя",
         "min": "Имя слишком короткое",
-        "max": "Имя слишком длинное"
+        "max": "Имя слишком длинное",
+        "pattern": "Имя должно содержать Кирилицу или Латинцу"
       },
       "middleName": {
-        "max": "Отчество слишком длинное"
+        "max": "Отчество слишком длинное",
+        "pattern": "Отчество должно содержать Кирилицу или Латинцу"
       },
       "phone": {
         "required": "Введите номер телефона",
@@ -524,5 +527,11 @@
   "poisk": "Поиск",
   "cancel": "Отменить",
   "ochistit-istoriyu": "Очистить историю",
-  "istoriya-poiska": "История поиска"
+  "istoriya-poiska": "История поиска",
+  "oplata-nalichnymi-pri-poluchenii-zakaza": "Оплата наличными при получении заказа",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek": "Оплата наличными возможна лично в руки курьеру при доставке на дом в момент получения заказа. Оплата производится исключительно в национальной валюте. В подтверждение оплаты мы выдаем Вам товарный чек.",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek-0": "Оплата наличными возможна лично в руки курьеру при доставке на дом в момент получения заказа. Оплата производится исключительно в национальной валюте. В подтверждение оплаты мы выдаем Вам товарный чек.",
+  "oplata-kartoi-onlain": "Оплата картой онлайн",
+  "oplata-kartoi-onlayn": "Оплата онлайн",
+  "oplata-kartoi-onlain-vozmozhna-pri-oformlenii-zakaza-na-saite-dlya-etogo-neobkhodimo-zapolnit-formu-zakaza-i-vybrat-oplatu-kartoi-onlain": "Оплата картой онлайн возможна при оформлении заказа на сайте. Для этого необходимо заполнить форму заказа и выбрать оплату картой онлайн."
 }

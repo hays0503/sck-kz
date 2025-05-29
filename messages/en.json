@@ -200,15 +200,18 @@
       "lastName": {
         "required": "Enter your last name",
         "min": "The surname is too short",
-        "max": "The surname is too long"
+        "max": "The surname is too long",
+        "pattern": "The surname should contain Kirilitsa or Latin"
       },
       "firstName": {
         "required": "Enter the name",
         "min": "The name is too short",
-        "max": "The name is too long"
+        "max": "The name is too long",
+        "pattern": "The name must contain Kirilitsa or Latin"
       },
       "middleName": {
-        "max": "The middle name is too long"
+        "max": "The middle name is too long",
+        "pattern": "Patronymic should contain Kirilitsa or Latin"
       },
       "phone": {
         "required": "Enter the phone number",
@@ -498,5 +501,11 @@
   "poisk": "Search",
   "cancel": "Cancel",
   "ochistit-istoriyu": "Clean history",
-  "istoriya-poiska": "Search history"
+  "istoriya-poiska": "Search history",
+  "oplata-nalichnymi-pri-poluchenii-zakaza": "Cash payment upon receipt of the order",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek": "Cash payment is possible personally in the hands of the courier when delivering to the house at the time of receiving the order. \nPayment is made exclusively in national currency. \nIn confirmation of payment, we give you a commodity check.",
+  "oplata-nalichnymi-vozmozhna-lichno-v-ruki-kureru-pri-dostavke-na-dom-v-moment-polucheniya-zakaza-oplata-proizvoditsya-isklyuchitelno-v-nacionalnoi-valyute-v-podtverzhdenie-oplaty-my-vydaem-vam-tovarnyi-chek-0": "Cash payment is possible personally in the hands of the courier when delivering to the house at the time of receiving the order. \nPayment is made exclusively in national currency. \nIn confirmation of payment, we give you a commodity check.",
+  "oplata": "Payment",
+  "oplata-kartoi-onlayn": "Payment online",
+  "oplata-kartoi-onlain-vozmozhna-pri-oformlenii-zakaza-na-saite-dlya-etogo-neobkhodimo-zapolnit-formu-zakaza-i-vybrat-oplatu-kartoi-onlain": "Payment by card online is possible when placing an order on the site. \nTo do this, fill out the order form and choose payment by card online."
 }

@@ -93,7 +93,7 @@ const MobileFooterMenu = () => {
           exit="exit"
           className="footer-menu-links"
         >
-          <Link href={`/city/${cityEn}/about-pays`}>
+          <Link href={`/city/${cityEn}/about/payment/`}>
             <Text className="footer-link">{t('oplata')}</Text>
           </Link>
         </motion.div>
