@@ -201,17 +201,20 @@
         "required": "Enter your last name",
         "min": "The surname is too short",
         "max": "The surname is too long",
-        "pattern": "The surname should contain Kirilitsa or Latin"
+        "pattern": "The surname should contain Kirilitsa or Latin",
+        "warning": "Perhaps a typo in the surname is allowed"
       },
       "firstName": {
         "required": "Enter the name",
         "min": "The name is too short",
         "max": "The name is too long",
-        "pattern": "The name must contain Kirilitsa or Latin"
+        "pattern": "The name must contain Kirilitsa or Latin",
+        "warning": "Perhaps a typo in the name"
       },
       "middleName": {
         "max": "The middle name is too long",
-        "pattern": "Patronymic should contain Kirilitsa or Latin"
+        "pattern": "Patronymic should contain Kirilitsa or Latin",
+        "warning": "Perhaps a typo in patronymic"
       },
       "phone": {
         "required": "Enter the phone number",

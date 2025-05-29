@@ -38,45 +38,82 @@ const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
       });
   };
 
-  const PatternName = useMemo(() => (/^[a-zA-Zа-яА-ЯёЁ-]+$/), []);
+  const PatternName = useMemo(() => /^[a-zA-Zа-яА-ЯёЁ-]+$/, []);
+  const PatronymicPattern = useMemo(
+    () => /^[А-ЯЁ][а-яё]{2,}(вич|вна|ич|кызы|улы|гулы)?$/,
+    [],
+  );
+  const SurnamePattern = useMemo(() => /^[А-ЯЁ][а-яё]+(-[А-ЯЁ][а-яё]+)?$/, []);
+  const namePattern = useMemo(() => /^[А-ЯЁ][а-яё]+$/, []);
 
   const RulesSet = useMemo(
     () => ({
       lastName: [
-        { required: true, message: t('validation.lastName.required') },
+        {
+          required: true,
+          whitespace: true,
+          message: t('validation.lastName.required'),
+        },
         { min: 2, message: t('validation.lastName.min') },
         { max: 50, message: t('validation.lastName.max') },
         {
-          pattern: PatternName, message: t('validation.lastName.pattern'),
+          pattern: PatternName,
+          message: t('validation.lastName.pattern'),
+        },
+        {
+          pattern: SurnamePattern,
+          warningOnly: true,
+          message: t('validation.lastName.warning'),
         },
       ],
       firstName: [
-        { required: true, message: t('validation.firstName.required') },
+        {
+          required: true,
+          whitespace: true,
+          message: t('validation.firstName.required'),
+        },
         { min: 2, message: t('validation.firstName.min') },
         { max: 50, message: t('validation.firstName.max') },
         {
-          pattern: PatternName, message: t('validation.firstName.pattern'),
+          pattern: PatternName,
+          message: t('validation.firstName.pattern'),
+        },
+        {
+          pattern: namePattern,
+          warningOnly: true,
+          message: t('validation.firstName.warning'),
         },
       ],
-      middleName: [{ max: 50, message: t('validation.middleName.max') },
+      middleName: [
+        { max: 50, message: t('validation.middleName.max') },
         {
-          pattern: PatternName, message: t('validation.middleName.pattern'),
+          pattern: PatternName,
+          message: t('validation.middleName.pattern'),
+        },
+        {
+          pattern: PatronymicPattern,
+          warningOnly: true,
+          message: t('validation.middleName.warning'),
         },
       ],
       phone: [
-        { required: true, message: t('validation.phone.required') },
+        {
+          required: true,
+          whitespace: true,
+          message: t('validation.phone.required'),
+        },
         {
           pattern:
-            /^(8|71[0-8]|72[1-9]|73622|70\d|747|75\d|76[0-4]|771|77[5-8])\d{7}$/,
+            /^8(?:(70\d|747|75\d|76[0-4]|771|77[5-8])|(71[0-8]|72[1-9]|73622|729\d{2}))\d{7}$/,
           message: t('validation.phone.invalid'),
         },
       ],
       email: [
-        { required: true, message: t('validation.email.required') },
+        { required: true, whitespace: true, message: t('validation.email.required') },
         { type: 'email' as const, message: t('validation.email.invalid') },
       ],
     }),
-    [PatternName, t],
+    [PatronymicPattern, PatternName, SurnamePattern, namePattern, t],
   );
 
   return (
