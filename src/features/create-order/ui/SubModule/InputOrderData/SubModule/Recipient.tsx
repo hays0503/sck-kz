@@ -20,7 +20,7 @@ const Recipient: React.FC<IRecipientProps> = ({ setStep, orderManager }) => {
         const userInfo = formUserInfo.getFieldsValue();
         const [order, setOrder] = orderManager;
 
-        const user = `Фамилия=[${userInfo.lastName}] Имя=[${userInfo.firstName}] Отчество=[${userInfo.middleName}]`;
+        const user = `Фамилия ${userInfo.lastName} Имя ${userInfo.firstName} Отчество ${userInfo.middleName}`;
         setOrder({
           ...order,
           user_full_name: user,
