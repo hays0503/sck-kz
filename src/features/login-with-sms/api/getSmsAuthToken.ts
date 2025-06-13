@@ -12,30 +12,33 @@ export type GetSmsAuthTokenResponse = {
 type GetSmsAuthToken = (code: string, phone_number_id: string) => Promise<{data:GetSmsAuthTokenResponse,statusCode: number}>;
 
 const getSmsAuthToken: GetSmsAuthToken = async(code, phone_number_id) => {
-  const url = `/auth_api/v2/auth_phone/auth/phone`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      code: code,
-      phone_number_id: phone_number_id,
-    }),
-  });
 
-  if (response.ok) {
-    return {
-      statusCode: response.status,
-      data: await response.json(),
-    }
-  }else{
-    return {
-      statusCode: response.status,
-      data: await response.json(),
-    }
-  }
+  console.log(code,phone_number_id);
+  return new Promise({});
+  // const url = `/auth_api/v2/auth_phone/auth/phone`;
+  // const response = await fetch(url, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     code: code,
+  //     phone_number_id: phone_number_id,
+  //   }),
+  // });
+
+  // if (response.ok) {
+  //   return {
+  //     statusCode: response.status,
+  //     data: await response.json(),
+  //   }
+  // }else{
+  //   return {
+  //     statusCode: response.status,
+  //     data: await response.json(),
+  //   }
+  // }
 };
 
 export default getSmsAuthToken;

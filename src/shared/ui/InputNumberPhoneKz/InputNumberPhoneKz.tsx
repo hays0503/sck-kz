@@ -122,6 +122,7 @@ export default function InputNumberPhoneKz({ numberString, setNumberString }: { 
   }
 
   return <Input
+    disabled={true}
     autoFocus={true}
     type="tel"
     addonBefore="+7"

@@ -1,5 +1,5 @@
 'use client';
-import { Button, Flex, Input, message, Typography } from 'antd';
+import { Button, Flex, Input, message, Typography, Watermark } from 'antd';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useSendSms } from '../model';
 import { getSmsAuthToken } from '../api';
@@ -136,20 +136,32 @@ export default function LoginWithSms({
             width: '100%',
           }}
         >
-          <InputNumberPhoneKz
-            numberString={numberString}
-            setNumberString={setNumberString}
-          />
-          <Button
-            style={{
-              backgroundColor: '#4954F0',
-              color: '#fff',
-              height: '55px',
+          <Watermark
+            gap={[10, 10]}
+            rotate={-10}
+            content={'В разработке'}
+            style={{ width: '100%' }}
+            font={{
+              color:"red"
             }}
-            onClick={SendSmsTo}
           >
-            {t('poluchit-sms-kod')}
-          </Button>
+            <InputNumberPhoneKz
+              numberString={numberString}
+              setNumberString={setNumberString}
+            />
+            <Button
+              disabled
+              style={{
+                backgroundColor: '#4954F0',
+                color: '#fff',
+                height: '55px',
+                width:"100%"
+              }}
+              onClick={SendSmsTo}
+            >
+              {t('poluchit-sms-kod')}
+            </Button>
+          </Watermark>
         </Flex>
       ) : (
         <Flex

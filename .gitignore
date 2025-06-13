@@ -63,3 +63,7 @@ logs
 # Additional large directories that might be present
 public/images/large
 git-diagram.svg
+*.md
+*.csv
+*.txt
+.json
