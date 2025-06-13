@@ -9,12 +9,26 @@ export type GetSmsAuthTokenResponse = {
   };
 };
 
-type GetSmsAuthToken = (code: string, phone_number_id: string) => Promise<{data:GetSmsAuthTokenResponse,statusCode: number}>;
+type GetSmsAuthToken = (
+  code: string,
+  phone_number_id: string,
+) => Promise<{ data: GetSmsAuthTokenResponse; statusCode: number }>;
 
-const getSmsAuthToken: GetSmsAuthToken = async(code, phone_number_id) => {
+const getSmsAuthToken: GetSmsAuthToken = async (code, phone_number_id) => {
+  console.log(code, phone_number_id);
+  const data = {
+    access: {
+      token: '',
+      user_id: '',
+    },
+    refresh: {
+      token: '',
+      user_id: '',
+    },
+  };
+  const statusCode = 200;
 
-  console.log(code,phone_number_id);
-  return new Promise({});
+  return Promise.resolve({ data, statusCode });
   // const url = `/auth_api/v2/auth_phone/auth/phone`;
   // const response = await fetch(url, {
   //   method: "POST",
